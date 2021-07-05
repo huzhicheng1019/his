@@ -11,6 +11,6 @@ public class test {
 
     @RequestMapping("test")
     public String demo1(Integer empId){
-        return "测试";
+        return "测试123";
     }
 }
