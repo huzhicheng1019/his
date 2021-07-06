@@ -1,27 +1,34 @@
+/**
+ * 权限
+ */
 package cn.gson.his.model.pojos.lxj;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "PERM", schema = "HIS", catalog = "")
+@Table(name = "PERM", schema = "HIS")
 public class PermEntity {
-    private int permId;
-    private String permName;
-    private String permComp;
-    private String permUrl;
-    private String permImg;
-    private Integer permParent;
-    private Integer permState;
-    private Integer permLevel;
+    private Integer permId;//id
+    private String permName;//权限名
+    private String permComp;//组件名
+    private String permUrl;//组件路径
+    private String permImg;//组件图标
+    private Integer permState;//是否可用:0:是1:否
+    private Integer permLevel;//权限等级
+    private PermEntity permByPermParent;//上级权限
+    private List<RoleInfoEntity> roleinfos;//角色
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "PERM_ID")
-    public int getPermId() {
+    public Integer getPermId() {
         return permId;
     }
 
-    public void setPermId(int permId) {
+    public void setPermId(Integer permId) {
         this.permId = permId;
     }
 
@@ -66,16 +73,6 @@ public class PermEntity {
     }
 
     @Basic
-    @Column(name = "PERM_PARENT")
-    public Integer getPermParent() {
-        return permParent;
-    }
-
-    public void setPermParent(Integer permParent) {
-        this.permParent = permParent;
-    }
-
-    @Basic
     @Column(name = "PERM_STATE")
     public Integer getPermState() {
         return permState;
@@ -95,23 +92,42 @@ public class PermEntity {
         this.permLevel = permLevel;
     }
 
+    @ManyToMany
+    @JoinTable(name = "ROLE_PERM",
+            joinColumns = {
+                    @JoinColumn(name = "PERM_ID"),
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "ROLE_ID"),
+            }
+    )
+    public List<RoleInfoEntity> getRoleinfos() {
+        return roleinfos;
+    }
+
+    public void setRoleinfos(List<RoleInfoEntity> roleinfos) {
+        this.roleinfos = roleinfos;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PermEntity that = (PermEntity) o;
-        return permId == that.permId &&
-                Objects.equals(permName, that.permName) &&
-                Objects.equals(permComp, that.permComp) &&
-                Objects.equals(permUrl, that.permUrl) &&
-                Objects.equals(permImg, that.permImg) &&
-                Objects.equals(permParent, that.permParent) &&
-                Objects.equals(permState, that.permState) &&
-                Objects.equals(permLevel, that.permLevel);
+        PermEntity perm = (PermEntity) o;
+        return Objects.equals(permId, perm.permId) && Objects.equals(permName, perm.permName) && Objects.equals(permComp, perm.permComp) && Objects.equals(permUrl, perm.permUrl) && Objects.equals(permImg, perm.permImg) && Objects.equals(permState, perm.permState) && Objects.equals(permLevel, perm.permLevel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(permId, permName, permComp, permUrl, permImg, permParent, permState, permLevel);
+        return Objects.hash(permId, permName, permComp, permUrl, permImg, permState, permLevel);
     }
-}
+
+    @ManyToOne
+    @JoinColumn(name = "PERM_PARENT", referencedColumnName = "PERM_ID")
+    public PermEntity getPermByPermParent() {
+        return permByPermParent;
+    }
+
+    public void setPermByPermParent(PermEntity permByPermParent) {
+        this.permByPermParent = permByPermParent;
+    }}

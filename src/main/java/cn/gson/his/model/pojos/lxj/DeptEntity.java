@@ -5,19 +5,19 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "DEPT", schema = "HIS", catalog = "")
+@Table(name = "DEPT", schema = "HIS")
 public class DeptEntity {
-    private int deptId;
+    private Integer deptId;
     private String deptName;
     private Timestamp deptCreate;
 
     @Id
     @Column(name = "DEPT_ID")
-    public int getDeptId() {
+    public Integer getDeptId() {
         return deptId;
     }
 
-    public void setDeptId(int deptId) {
+    public void setDeptId(Integer deptId) {
         this.deptId = deptId;
     }
 

@@ -1,3 +1,6 @@
+/**
+ * 排班
+ */
 package cn.gson.his.model.pojos.lxj;
 
 import javax.persistence.*;
@@ -5,33 +8,25 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "SCHEDU", schema = "HIS", catalog = "")
+@Table(name = "SCHEDU", schema = "HIS")
 public class ScheduEntity {
-    private int scheId;
-    private Integer empId;
-    private Timestamp startTime;
-    private Timestamp stopTime;
-    private Timestamp startDate;
-    private Timestamp stopDate;
+    private Integer scheId;//id
+    private Timestamp startTime;//开始时间
+    private Timestamp stopTime;//结束时间
+    private Timestamp startDate;//开始日期
+    private Timestamp stopDate;//结束日期
+    private EmployeeEntity employeeByEmpId;//员工
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "SCHE_ID")
-    public int getScheId() {
+    public Integer getScheId() {
         return scheId;
     }
 
-    public void setScheId(int scheId) {
+    public void setScheId(Integer scheId) {
         this.scheId = scheId;
-    }
-
-    @Basic
-    @Column(name = "EMP_ID")
-    public Integer getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(Integer empId) {
-        this.empId = empId;
     }
 
     @Basic
@@ -78,17 +73,44 @@ public class ScheduEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ScheduEntity that = (ScheduEntity) o;
-        return scheId == that.scheId &&
-                Objects.equals(empId, that.empId) &&
-                Objects.equals(startTime, that.startTime) &&
-                Objects.equals(stopTime, that.stopTime) &&
-                Objects.equals(startDate, that.startDate) &&
-                Objects.equals(stopDate, that.stopDate);
+        ScheduEntity schedu = (ScheduEntity) o;
+        return Objects.equals(scheId, schedu.scheId) && Objects.equals(startTime, schedu.startTime) && Objects.equals(stopTime, schedu.stopTime) && Objects.equals(startDate, schedu.startDate) && Objects.equals(stopDate, schedu.stopDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scheId, empId, startTime, stopTime, startDate, stopDate);
+        return Objects.hash(scheId, startTime, stopTime, startDate, stopDate);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "EMP_ID", referencedColumnName = "EMP_ID")
+    public EmployeeEntity getEmployeeByEmpId() {
+        return employeeByEmpId;
+    }
+
+    public void setEmployeeByEmpId(EmployeeEntity employeeByEmpId) {
+        this.employeeByEmpId = employeeByEmpId;
+    }
+
+    public ScheduEntity(Timestamp startTime, Timestamp stopTime, Timestamp startDate, Timestamp stopDate, EmployeeEntity employeeByEmpId) {
+        this.startTime = startTime;
+        this.stopTime = stopTime;
+        this.startDate = startDate;
+        this.stopDate = stopDate;
+        this.employeeByEmpId = employeeByEmpId;
+    }
+
+    public ScheduEntity() {
+    }
+
+    @Override
+    public String toString() {
+        return "Schedu{" +
+                "scheId=" + scheId +
+                ", startTime=" + startTime +
+                ", stopTime=" + stopTime +
+                ", startDate=" + startDate +
+                ", stopDate=" + stopDate +
+                '}';
     }
 }

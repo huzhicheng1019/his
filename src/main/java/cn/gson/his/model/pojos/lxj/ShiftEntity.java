@@ -1,3 +1,6 @@
+/**
+ * 班次
+ */
 package cn.gson.his.model.pojos.lxj;
 
 import javax.persistence.*;
@@ -5,21 +8,24 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "SHIFT", schema = "HIS", catalog = "")
+@Table(name = "SHIFT", schema = "HIS")
 public class ShiftEntity {
-    private int shiId;
-    private String shiName;
-    private Timestamp startTime;
-    private Timestamp stopTime;
-    private Integer shiType;
+    private Integer shiId;//id
+    private String shiName;//班次名
+    private Timestamp startTime;//开始时间
+    private Timestamp stopTime;//结束时间
+    private ShiftTypeEntity shiftType;//类别
+
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "SHI_ID")
-    public int getShiId() {
+    public Integer getShiId() {
         return shiId;
     }
 
-    public void setShiId(int shiId) {
+    public void setShiId(Integer shiId) {
         this.shiId = shiId;
     }
 
@@ -53,30 +59,46 @@ public class ShiftEntity {
         this.stopTime = stopTime;
     }
 
-    @Basic
-    @Column(name = "SHI_TYPE")
-    public Integer getShiType() {
-        return shiType;
+    @ManyToOne
+    @JoinColumn(name = "SHI_TYPE", referencedColumnName = "TYPE_ID")
+    public ShiftTypeEntity getShiftType() {
+        return shiftType;
     }
 
-    public void setShiType(Integer shiType) {
-        this.shiType = shiType;
+    public void setShiftType(ShiftTypeEntity shiftType) {
+        this.shiftType = shiftType;
+    }
+
+    public ShiftEntity(String shiName, Timestamp startTime, Timestamp stopTime, ShiftTypeEntity shiftType) {
+        this.shiName = shiName;
+        this.startTime = startTime;
+        this.stopTime = stopTime;
+        this.shiftType = shiftType;
+    }
+
+    public ShiftEntity() {
+    }
+
+    @Override
+    public String toString() {
+        return "Shift{" +
+                "shiId=" + shiId +
+                ", shiName='" + shiName + '\'' +
+                ", startTime=" + startTime +
+                ", stopTime=" + stopTime +
+                '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ShiftEntity that = (ShiftEntity) o;
-        return shiId == that.shiId &&
-                Objects.equals(shiName, that.shiName) &&
-                Objects.equals(startTime, that.startTime) &&
-                Objects.equals(stopTime, that.stopTime) &&
-                Objects.equals(shiType, that.shiType);
+        ShiftEntity shift = (ShiftEntity) o;
+        return Objects.equals(shiId, shift.shiId) && Objects.equals(shiName, shift.shiName) && Objects.equals(startTime, shift.startTime) && Objects.equals(stopTime, shift.stopTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(shiId, shiName, startTime, stopTime, shiType);
+        return Objects.hash(shiId, shiName, startTime, stopTime);
     }
 }

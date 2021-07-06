@@ -1,30 +1,38 @@
+/**
+ * 员工
+ */
 package cn.gson.his.model.pojos.lxj;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "EMPLOYEE", schema = "HIS", catalog = "")
+@Table(name = "EMPLOYEE", schema = "HIS")
 public class EmployeeEntity {
-    private int empId;
-    private String empName;
-    private String empPhone;
-    private String empCard;
-    private Timestamp empInduction;
-    private Timestamp empDeparture;
-    private Integer empState;
-    private Integer empDept;
-    private Integer empDepar;
-    private Integer empTit;
+    private Integer empId;//id
+    private String empName;//员工名
+    private String empPhone;//电话
+    private String empCard;//身份证
+    private Timestamp empInduction;//入职日期
+    private Timestamp empDeparture;//离职日期
+    private Integer empState;//状态
+    private DeptEntity deptByEmpDept;//部门
+    private DepartmentEntity departmentByEmpDepar;//科室
+    private TitleEntity titles;//职称
+    private List<UserInfoEntity> useres;//用户
+    private List<ScheduEntity> schedus;//排班
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "EMP_ID")
-    public int getEmpId() {
+    public Integer getEmpId() {
         return empId;
     }
 
-    public void setEmpId(int empId) {
+    public void setEmpId(Integer empId) {
         this.empId = empId;
     }
 
@@ -88,55 +96,94 @@ public class EmployeeEntity {
         this.empState = empState;
     }
 
-    @Basic
-    @Column(name = "EMP_DEPT")
-    public Integer getEmpDept() {
-        return empDept;
+    @OneToMany(mappedBy = "employeeByUserEmp")
+    public List<UserInfoEntity> getUseres() {
+        return useres;
     }
 
-    public void setEmpDept(Integer empDept) {
-        this.empDept = empDept;
+    public void setUseres(List<UserInfoEntity> useres) {
+        this.useres = useres;
     }
 
-    @Basic
-    @Column(name = "EMP_DEPAR")
-    public Integer getEmpDepar() {
-        return empDepar;
+    @OneToMany(mappedBy = "employeeByEmpId")
+    public List<ScheduEntity> getSchedus() {
+        return schedus;
     }
 
-    public void setEmpDepar(Integer empDepar) {
-        this.empDepar = empDepar;
-    }
-
-    @Basic
-    @Column(name = "EMP_TIT")
-    public Integer getEmpTit() {
-        return empTit;
-    }
-
-    public void setEmpTit(Integer empTit) {
-        this.empTit = empTit;
+    public void setSchedus(List<ScheduEntity> schedus) {
+        this.schedus = schedus;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EmployeeEntity that = (EmployeeEntity) o;
-        return empId == that.empId &&
-                Objects.equals(empName, that.empName) &&
-                Objects.equals(empPhone, that.empPhone) &&
-                Objects.equals(empCard, that.empCard) &&
-                Objects.equals(empInduction, that.empInduction) &&
-                Objects.equals(empDeparture, that.empDeparture) &&
-                Objects.equals(empState, that.empState) &&
-                Objects.equals(empDept, that.empDept) &&
-                Objects.equals(empDepar, that.empDepar) &&
-                Objects.equals(empTit, that.empTit);
+        EmployeeEntity employee = (EmployeeEntity) o;
+        return Objects.equals(empId, employee.empId) && Objects.equals(empName, employee.empName) && Objects.equals(empPhone, employee.empPhone) && Objects.equals(empCard, employee.empCard) && Objects.equals(empInduction, employee.empInduction) && Objects.equals(empDeparture, employee.empDeparture) && Objects.equals(empState, employee.empState);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(empId, empName, empPhone, empCard, empInduction, empDeparture, empState, empDept, empDepar, empTit);
+        return Objects.hash(empId, empName, empPhone, empCard, empInduction, empDeparture, empState);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "EMP_DEPT", referencedColumnName = "DEPT_ID")
+    public DeptEntity getDeptByEmpDept() {
+        return deptByEmpDept;
+    }
+
+    public void setDeptByEmpDept(DeptEntity deptByEmpDept) {
+        this.deptByEmpDept = deptByEmpDept;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "EMP_DEPAR", referencedColumnName = "DEPA_ID")
+    public DepartmentEntity getDepartmentByEmpDepar() {
+        return departmentByEmpDepar;
+    }
+
+    public void setDepartmentByEmpDepar(DepartmentEntity departmentByEmpDepar) {
+        this.departmentByEmpDepar = departmentByEmpDepar;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "EMP_TIT", referencedColumnName = "TIT_ID")
+    public TitleEntity getTitles() {
+        return titles;
+    }
+
+    public void setTitles(TitleEntity titles) {
+        this.titles = titles;
+    }
+
+    public EmployeeEntity(String empName, String empPhone, String empCard, Timestamp empInduction, Timestamp empDeparture, Integer empState, DeptEntity deptByEmpDept, DepartmentEntity departmentByEmpDepar, TitleEntity titles, List<UserInfoEntity> useres, List<ScheduEntity> schedus) {
+        this.empName = empName;
+        this.empPhone = empPhone;
+        this.empCard = empCard;
+        this.empInduction = empInduction;
+        this.empDeparture = empDeparture;
+        this.empState = empState;
+        this.deptByEmpDept = deptByEmpDept;
+        this.departmentByEmpDepar = departmentByEmpDepar;
+        this.titles = titles;
+        this.useres = useres;
+        this.schedus = schedus;
+    }
+
+    public EmployeeEntity() {
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "empId=" + empId +
+                ", empName='" + empName + '\'' +
+                ", empPhone='" + empPhone + '\'' +
+                ", empCard='" + empCard + '\'' +
+                ", empInduction=" + empInduction +
+                ", empDeparture=" + empDeparture +
+                ", empState=" + empState +
+                '}';
     }
 }
