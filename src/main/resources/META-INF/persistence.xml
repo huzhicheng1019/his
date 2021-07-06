@@ -3,11 +3,19 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
-    <persistence-unit name="default">
+  <persistence-unit name="default">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <properties>
-            <property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
-            <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>
-        </properties>
-    </persistence-unit>
+    <properties>
+      <property name="hibernate.archive.autodetection" value="class"/>
+      <!--是否显示执行的sql语句-->
+      <property name="hibernate.show_sql" value="true"/>
+      <!--是否格式化sql语句-->
+      <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.connection.url" value="jdbc:oracle:thin:@127.0.0.1:1521:XE"/>
+      <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>
+      <!--      <property name="hibernate.connection.url" value="jdbc:oracle:thin:@127.0.0.1:1521:XE"/>-->
+      <!--      <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>-->
+    </properties>
+  </persistence-unit>
 </persistence>
