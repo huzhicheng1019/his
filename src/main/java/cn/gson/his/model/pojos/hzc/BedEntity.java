@@ -3,13 +3,16 @@ package cn.gson.his.model.pojos.hzc;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * 床位表
+ */
 @Entity
 @Table(name = "BED", schema = "HIS", catalog = "")
 public class BedEntity {
-    private int bedId;
-    private Integer depaId;
-    private Integer bedIs;
-    private Long bedCost;
+    private int bedId; //床位编号
+    private Integer depaId; //所属科室编号
+    private Integer bedIs; //床位状态
+    private Long bedCost; //床位费用
 
     @Id
     @Column(name = "BED_ID")

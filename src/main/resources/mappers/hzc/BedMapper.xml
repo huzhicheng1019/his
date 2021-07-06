@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.hzc.BedMapper">
+    <resultMap id="BedMap" type="cn.gson.his.model.pojos.hzc.BedEntity">
+        <id property="bedId" column="bed_id"></id>
+        <result property="depaId" column="depa_id"></result>
+        <result property="bedIs" column="bed_id"></result>
+        <result property="bedCost" column="bed_cost"></result>
+    </resultMap>
+
+    <!--查询所有床位-->
+    <select id="selectBed" resultMap="BedMap">
+        select * from bed order by bed_id
+    </select>
+
+
+
+</mapper>
