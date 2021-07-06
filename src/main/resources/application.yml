@@ -14,7 +14,7 @@ spring:
 
 mybatis:
   type-aliases-package: cn.gson.boot02106.model.pojos
-  mapper-locations: classpath:mappers/*.xml
+  mapper-locations: classpath:mappers/*/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     call-setters-on-nulls: true
