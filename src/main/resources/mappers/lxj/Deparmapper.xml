@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.gson.his.model.mappers.lxj.DeparMapper">
-    <resultMap id="Depar" type="cn.gson.his.model.pojos.lxj.DepartmentEntity">
+    <resultMap id="Depar" type="cn.gson.his.model.pojos.lxj.Department">
         <id property="depaId" column="DEPA_ID"></id>
         <result property="depaName" column="DEPA_NAME"></result>
         <result property="depaCreate" column="DEPA_CREATE"></result>
