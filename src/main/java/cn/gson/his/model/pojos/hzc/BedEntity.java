@@ -14,7 +14,7 @@ public class BedEntity {
     private Long bedCost; //床位费用
 
     //科室对象
-    private Department departmentEntity;
+    private Department department;
 
 
 }
