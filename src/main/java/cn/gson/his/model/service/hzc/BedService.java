@@ -19,7 +19,7 @@ public class BedService {
 
     //查询所有床位 带分页
     public Map<String,Object> selectBed(int page,int size){
-        Page<Object> p = PageHelper.startPage(page, size);
+        Page<Object> p = PageHelper.startPage(page,size);
         List<Map<String,Object>> list = bedMapper.selectBed();
         Map<String,Object> map = new HashMap<>();
         map.put("rows",list);

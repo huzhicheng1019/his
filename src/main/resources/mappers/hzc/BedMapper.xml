@@ -5,13 +5,19 @@
     <resultMap id="BedMap" type="cn.gson.his.model.pojos.hzc.BedEntity">
         <id property="bedId" column="bed_id"></id>
         <result property="depaId" column="depa_id"></result>
-        <result property="bedIs" column="bed_id"></result>
+        <result property="bedIs" column="bed_is"></result>
         <result property="bedCost" column="bed_cost"></result>
+
+        <association property="departmentEntity" javaType="cn.gson.his.model.pojos.lxj.DepartmentEntity">
+            <id property="depaId" column="depa_id"></id>
+            <result property="depaName" column="depa_name"></result>
+        </association>
+
     </resultMap>
 
     <!--查询所有床位-->
     <select id="selectBed" resultMap="BedMap">
-        select * from bed order by bed_id
+        select * from bed b inner join department d on b.depa_id = d.depa_id  order by bed_id
     </select>
 
 
