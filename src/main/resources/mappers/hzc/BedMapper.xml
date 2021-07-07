@@ -17,7 +17,7 @@
 
     <!--查询所有床位-->
     <select id="selectBed" resultMap="BedMap">
-        select * from bed b inner join department d on b.depa_id = d.depa_id  order by bed_id
+        select * from bed b inner join department d on b.depa_id = d.depa_id  order by b.bed_id
     </select>
 
 

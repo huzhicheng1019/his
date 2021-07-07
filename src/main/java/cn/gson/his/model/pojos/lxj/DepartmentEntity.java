@@ -17,6 +17,7 @@ public class DepartmentEntity {
     private DeptEntity dept;//部门
     private List<EmployeeEntity> emp;//员工
 
+
     @Id
     @GeneratedValue(generator = "SEQ")
     @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
