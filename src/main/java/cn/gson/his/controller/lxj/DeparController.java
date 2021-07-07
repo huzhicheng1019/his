@@ -20,9 +20,9 @@ public class DeparController {
         return service.allDepar(pageNo,size);
     }
 
-    /*@RequestMapping("/allDepar")
+    @RequestMapping("/allDeparmy")
     public List<Department> allDept(){
-        return service.allDepar();
-    }*/
+        return service.allDeparmy();
+    }
 
 }

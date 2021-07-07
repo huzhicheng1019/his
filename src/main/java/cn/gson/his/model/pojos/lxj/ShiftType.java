@@ -1,23 +1,29 @@
+/**
+ * 班次类别
+ */
 package cn.gson.his.model.pojos.lxj;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "SHIFT_TYPE", schema = "HIS", catalog = "")
+@Table(name = "SHIFT_TYPE", schema = "HIS")
 public class ShiftType {
-    private Integer typeId;
-    private String typeName;
-    private String typeLength;
-
+    private Long typeId;//id
+    private String typeName;//类别名
+    private String typeLength;//时长
+    private List<Shift> shifts;//班次
 
     @Id
+    @GeneratedValue(generator = "LIU")
+    @SequenceGenerator(name = "LIU",sequenceName = "liu",initialValue = 1,allocationSize = 1)
     @Column(name = "TYPE_ID")
-    public Integer getTypeId() {
+    public Long getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Integer typeId) {
+    public void setTypeId(Long typeId) {
         this.typeId = typeId;
     }
 
@@ -39,6 +45,33 @@ public class ShiftType {
 
     public void setTypeLength(String typeLength) {
         this.typeLength = typeLength;
+    }
+
+    @OneToMany(mappedBy = "shiftType")
+    public List<Shift> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(List<Shift> shifts) {
+        this.shifts = shifts;
+    }
+
+    public ShiftType(String typeName, String typeLength, List<Shift> shifts) {
+        this.typeName = typeName;
+        this.typeLength = typeLength;
+        this.shifts = shifts;
+    }
+
+    public ShiftType() {
+    }
+
+    @Override
+    public String toString() {
+        return "ShiftType{" +
+                "typeId=" + typeId +
+                ", typeName='" + typeName + '\'' +
+                ", typeLength='" + typeLength + '\'' +
+                '}';
     }
 
     @Override
