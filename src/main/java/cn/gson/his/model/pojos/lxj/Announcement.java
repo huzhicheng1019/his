@@ -5,19 +5,18 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ANNOUNCEMENT", schema = "HIS", catalog = "")
-public class AnnouncementEntity {
-    private int annId;
+public class Announcement {
+    private Integer annId;
     private String annText;
     private Timestamp annDate;
 
     @Id
     @Column(name = "ANN_ID")
-    public int getAnnId() {
+    public Integer getAnnId() {
         return annId;
     }
 
-    public void setAnnId(int annId) {
+    public void setAnnId(Integer annId) {
         this.annId = annId;
     }
 
@@ -45,10 +44,8 @@ public class AnnouncementEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AnnouncementEntity that = (AnnouncementEntity) o;
-        return annId == that.annId &&
-                Objects.equals(annText, that.annText) &&
-                Objects.equals(annDate, that.annDate);
+        Announcement that = (Announcement) o;
+        return Objects.equals(annId, that.annId) && Objects.equals(annText, that.annText) && Objects.equals(annDate, that.annDate);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package cn.gson.his.controller.lxj;
 
-import cn.gson.his.model.pojos.lxj.DepartmentEntity;
+import cn.gson.his.model.pojos.lxj.Department;
 import cn.gson.his.model.service.lxj.DeparService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,14 +15,14 @@ public class DeparController {
     @Autowired
     DeparService service;
 
-    /*@RequestMapping("/allDepar")
+    @RequestMapping("/allDepar")
     public Map<String, Object> allDept(Integer pageNo, Integer size){
         return service.allDepar(pageNo,size);
-    }*/
-
-    @RequestMapping("/allDepar")
-    public List<DepartmentEntity> allDept(){
-        return service.allDepar();
     }
+
+    /*@RequestMapping("/allDepar")
+    public List<Department> allDept(){
+        return service.allDepar();
+    }*/
 
 }

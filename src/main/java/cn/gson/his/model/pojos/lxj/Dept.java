@@ -5,11 +5,11 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "DEPT", schema = "HIS")
-public class DeptEntity {
+public class Dept {
     private Integer deptId;
     private String deptName;
     private Timestamp deptCreate;
+
 
     @Id
     @Column(name = "DEPT_ID")
@@ -45,10 +45,8 @@ public class DeptEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DeptEntity that = (DeptEntity) o;
-        return deptId == that.deptId &&
-                Objects.equals(deptName, that.deptName) &&
-                Objects.equals(deptCreate, that.deptCreate);
+        Dept dept = (Dept) o;
+        return Objects.equals(deptId, dept.deptId) && Objects.equals(deptName, dept.deptName) && Objects.equals(deptCreate, dept.deptCreate);
     }
 
     @Override

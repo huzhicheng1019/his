@@ -8,7 +8,7 @@
         <result property="bedIs" column="bed_is"></result>
         <result property="bedCost" column="bed_cost"></result>
 
-        <association property="departmentEntity" javaType="cn.gson.his.model.pojos.lxj.DepartmentEntity">
+        <association property="department" javaType="cn.gson.his.model.pojos.lxj.Department">
             <id property="depaId" column="depa_id"></id>
             <result property="depaName" column="depa_name"></result>
         </association>

@@ -1,10 +1,7 @@
 package cn.gson.his.model.pojos.hzc;
 
-import cn.gson.his.model.pojos.lxj.DepartmentEntity;
+import cn.gson.his.model.pojos.lxj.Department;
 import lombok.Data;
-
-import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * 床位表
@@ -17,7 +14,7 @@ public class BedEntity {
     private Long bedCost; //床位费用
 
     //科室对象
-    private DepartmentEntity departmentEntity;
+    private Department departmentEntity;
 
 
 }
