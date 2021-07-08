@@ -9,6 +9,21 @@ public class PatientdataEntity {
     private int patientNo;
     private String patientName;
     private String patientSex;
+
+    @Override
+    public String toString() {
+        return "PatientdataEntity{" +
+                "patientNo=" + patientNo +
+                ", patientName='" + patientName + '\'' +
+                ", patientSex='" + patientSex + '\'' +
+                ", patientAge=" + patientAge +
+                ", patientPhone='" + patientPhone + '\'' +
+                ", patientInsu='" + patientInsu + '\'' +
+                ", patientIdentity='" + patientIdentity + '\'' +
+                ", patientPirth='" + patientPirth + '\'' +
+                '}';
+    }
+
     private Integer patientAge;
     private String patientPhone;
     private String patientInsu;

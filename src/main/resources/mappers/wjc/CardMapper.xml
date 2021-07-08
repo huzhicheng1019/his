@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.wjc.CardMapper">
+<!--    就诊卡映射对象-->
+    <resultMap id="card" type="cn.gson.his.model.pojos.wjc.CardEntity">
+        <id column="CARD_ID" property="cardId"/>
+        <result column="CARD_NO" property="cardNo"/>
+        <result column="CARD_PSWD" property="cardPswd"/>
+        <result column="CARD_PRICE" property="cardPrice"/>
+        <result column="CARD_PREPAY" property="cardPrepay"/>
+        <result column="PATIENT_NAME" property="patientName"/>
+        <result column="CARD_STATE" property="cardState"/>
+<!-- 就诊卡里面的患者资料关系 -->
+        <association property="pati" javaType="cn.gson.his.model.pojos.wjc.PatientdataEntity">
+            <id column="PATIENT_NO" property="patientNo" ></id>
+            <result column="PATIENT_NAME" property="patientName"/>
+            <result column="PATIENT_SEX" property="patientSex"/>
+            <result column="PATIENT_AGE" property="patientAge"/>
+            <result column="PATIENT_PHONE" property="patientPhone"/>
+            <result column="PATIENT_INSU" property="patientInsu"/>
+            <result column="PATIENT_IDENTITY" property="patientIdentity"/>
+            <result column="PATIENT_PIRTH" property="patientPirth"/>
+        </association>
+    </resultMap>
+<!--新增就诊卡-->
+    <insert id="addCard">
+        insert into CARD values(seq.nextval,#{cardNo},#{cardPswd},#{cardPrice},#{cardPrepay},#{patientName},#{patientNo},#{cardState});
+    </insert>
+<!--修改就诊卡-->
+    <update id="upCard">
+        update from CARD
+        <set>
+            <if test="cardPswd !=''">
+                CARD_PSWD = #{cardPswd}
+            </if>
+            <if test="cardState !=''">
+                CARD_STATE = #{cardState}
+            </if>
+            <if test="cardPrice !=''">
+                CARD_PRICE = #{cardPrice}
+            </if>
+        </set>
+        where CARD_ID = #{cardId}
+    </update>
+<!--查询就诊卡-->
+    <select id="allCard" resultMap="card">
+            select * from CARD c inner join PATIENTDATA p on  c.PATIENT_NO = p.PATIENT_NO
+            <where>
+                <if test="cardNo !=''">
+                    or CARD_NO like '%${cardNo}%'
+                </if>
+                <if test="patientName != ''">
+                    or PATIENT_NAME like '%${patientName}%'
+                </if>
+                <if test="cardState != null">
+                    or CARD_STATE = #{cardState}
+                </if>
+            </where>
+            order by CARD_ID desc
+    </select>
+</mapper>

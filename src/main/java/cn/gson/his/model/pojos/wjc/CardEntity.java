@@ -13,7 +13,34 @@ public class CardEntity {
     private Long cardPrepay;
     private String patientName;
     private Integer patientNo;
+
+    @Override
+    public String toString() {
+        return "CardEntity{" +
+                "cardId=" + cardId +
+                ", cardNo='" + cardNo + '\'' +
+                ", cardPswd='" + cardPswd + '\'' +
+                ", cardPrice=" + cardPrice +
+                ", cardPrepay=" + cardPrepay +
+                ", patientName='" + patientName + '\'' +
+                ", patientNo=" + patientNo +
+                ", cardState=" + cardState +
+                '}';
+    }
+
     private Integer cardState;
+    //一个就诊卡只有一个患者
+    private PatientdataEntity pati;
+    //一对一关系
+    @OneToOne
+    @JoinColumn(name = "PATIENT_NO", nullable = false)
+    public PatientdataEntity getPati() {
+        return pati;
+    }
+
+    public void setPati(PatientdataEntity pati) {
+        this.pati = pati;
+    }
 
     @Id
     @Column(name = "CARD_ID")
