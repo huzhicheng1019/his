@@ -4,16 +4,49 @@
 <mapper namespace="cn.gson.his.model.mappers.wjc.TheHospitalMapper">
             <resultMap id="theHosp" type="cn.gson.his.model.pojos.wjc.TheHospitalEntity">
                 <id property="hospitalNo" column="hospital_no"></id>
+                <result property="patientNo" column="patient_no"></result>
                 <result property="hospitalDate" column="hospital_date"></result>
                 <result property="hosptalHospital" column="hosptal_hospital"></result>
+                <result property="depaId" column="depa_id"></result>
                 <result property="hospitalState" column="hospital_state"></result>
 
                 <association property="department" javaType="cn.gson.his.model.pojos.lxj.Department">
                     <id property="depaId" column="depa_id"></id>
                     <result property="depaName" column="depa_name"></result>
                 </association>
-                <association property="" javaType="">
-
+                <association property="patientdataEntity" javaType="cn.gson.his.model.pojos.wjc.PatientdataEntity">
+                    <id property="patientNo" column="patient_no"></id>
+                    <result property="patientName" column="patient_name"></result>
+                    <result property="patientSex" column="patient_sex"></result>
+                    <result property="patientAge" column="patient_age"></result>
+                    <result property="patientPhone" column="patient_phone"></result>
+                    <result property="patientInsu" column="patient_insu"></result>
+                    <result property="patientIdentity" column="patient_identity"></result>
+                    <result property="patientPirth" column="patient_pirth"></result>
                 </association>
             </resultMap>
+
+    <!--查询所有住院申请表-->
+    <select id="selHospital" resultMap="theHosp">
+        select * from the_hospital t left join department d on t.depa_id = d.depa_id
+        left join patientdata p on t.patient_no = p.patient_no
+
+
+
+    </select>
+    <!--新增病人资料表-->
+    <insert id="insertPatient">
+        <!--将增删改的值,回传-->
+        <selectKey order="BEFORE" keyProperty="patientNo" resultType="java.lang.String"  >
+            select seq.nextval from dual
+        </selectKey>
+        insert into patientData values (#{patientNo},#{patientName},#{patientSex},#{patientAge},#{patientPhone},#{patientInsu},#{patientIdentity},#{patientPirth})
+    </insert>
+
+    <!--新增住院申请表-->
+    <insert id="insertHospital">
+        insert into the_hospital values (seq.nextval,#{patientNo},#{hospitalDate},#{hosptalHospital},#{depaId},#{hospitalState})
+    </insert>
+
+
 </mapper>

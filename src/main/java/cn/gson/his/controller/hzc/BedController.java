@@ -22,7 +22,6 @@ public class BedController {
     //查询所有床位 带分页
     @RequestMapping("/selBed")
     public Map<String,Object> demo( Integer pageNo, Integer pageSize, String content,String screen){
-        System.out.println(content + "-----"+ screen);
         return bedService.selectBed(pageNo,pageSize,content,screen);
     }
 
