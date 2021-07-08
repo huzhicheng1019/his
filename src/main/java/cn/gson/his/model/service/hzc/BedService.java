@@ -1,6 +1,7 @@
 package cn.gson.his.model.service.hzc;
 
 import cn.gson.his.model.mappers.hzc.BedMapper;
+import cn.gson.his.model.pojos.hzc.BedEntity;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,21 @@ public class BedService {
     BedMapper bedMapper;
 
     //查询所有床位 带分页
-    public Map<String,Object> selectBed(int page,int size){
+    public Map<String,Object> selectBed(int page,int size,String content,String screen){
         Page<Object> p = PageHelper.startPage(page,size);
-        List<Map<String,Object>> list = bedMapper.selectBed();
+        List<Map<String,Object>> list = bedMapper.selectBed(content,screen);
         Map<String,Object> map = new HashMap<>();
         map.put("rows",list);
         map.put("total",p.getTotal());
         return map;
+    }
+    //新增床位
+    public int insertBed(BedEntity bedEntity){
+        return bedMapper.insertBed(bedEntity);
+    }
+    //修改床位
+    public int updateBed(BedEntity bedEntity){
+        return bedMapper.updateBed(bedEntity);
     }
 
 

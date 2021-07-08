@@ -1,9 +1,12 @@
 package cn.gson.his.controller.hzc;
 
 
+import cn.gson.his.model.pojos.hzc.BedEntity;
 import cn.gson.his.model.service.hzc.BedService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +21,31 @@ public class BedController {
 
     //查询所有床位 带分页
     @RequestMapping("/selBed")
-    public Map<String,Object> demo(Integer pageNo, Integer pageSize){
-        return bedService.selectBed(pageNo,pageSize);
+    public Map<String,Object> demo( Integer pageNo, Integer pageSize, String content,String screen){
+        System.out.println(content + "-----"+ screen);
+        return bedService.selectBed(pageNo,pageSize,content,screen);
     }
+
+    //新增床位
+    @RequestMapping("/insertBed")
+    public int demo1(String beds){
+        BedEntity bedEntity = JSONObject.parseObject(beds, BedEntity.class);
+        int i = bedService.insertBed(bedEntity);
+        if(i>0){
+            return 1;
+        }
+        return 0;
+    }
+    //修改床位
+    @RequestMapping("/updateBed")
+    public int demo2(String beds){
+        BedEntity bedEntity = JSONObject.parseObject(beds, BedEntity.class);
+        int i = bedService.updateBed(bedEntity);
+        if(i>0){
+            return 1;
+        }
+        return 0;
+    }
+
+
 }

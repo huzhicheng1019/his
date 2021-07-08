@@ -17,9 +17,28 @@
 
     <!--查询所有床位-->
     <select id="selectBed" resultMap="BedMap">
-        select * from bed b inner join department d on b.depa_id = d.depa_id  order by b.bed_id
+        select * from bed b left join department d on b.depa_id = d.depa_id
+        <where>
+            <if test="screen != null  and screen != 3   " >
+                and b.bed_is = #{screen}
+            </if>
+            <if test="content != '' ">
+                and (b.bed_id like '%${content}%' or d.depa_name like '%${content}%' or b.bed_cost  like '%${content}%')
+            </if>
+        </where>
+
+        order by b.bed_id desc
     </select>
 
+    <!--新增床位-->
+    <insert id="insertBed">
+        insert into bed values(seq.nextval,#{depaId},0,#{bedCost})
+    </insert>
+
+    <!--修改床位-->
+    <update id="updateBed">
+        update bed set depa_id=#{depaId},bed_is=#{bedIs},bed_cost=#{bedCost} where bed_id=#{bedId}
+    </update>
 
 
 </mapper>
