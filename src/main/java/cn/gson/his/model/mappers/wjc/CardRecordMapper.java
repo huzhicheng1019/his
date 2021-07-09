@@ -1,6 +1,6 @@
 package cn.gson.his.model.mappers.wjc;
 
-import cn.gson.his.model.pojos.wjc.CardEntity;
+import cn.gson.his.model.pojos.wjc.CardrecordEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -13,13 +13,14 @@ import java.util.List;
  * 患者资料mapper层
  */
 @Mapper
-public interface CardMapper {
 
-    //查询就诊卡
-    public List<CardEntity> allCard(CardEntity card);
-    //新增就诊卡
-    public void addCard(CardEntity card);
-    //修改就诊卡
-    public int upCard(CardEntity card);
+public interface CardRecordMapper {
+
+    //查询就诊卡充值记录
+    public List<CardrecordEntity> allCardRecord(CardrecordEntity  cardrecord);
+
+    //新增就诊卡充充值记录
+    public int addCardecord(CardrecordEntity cardrecord);
+
 
 }
