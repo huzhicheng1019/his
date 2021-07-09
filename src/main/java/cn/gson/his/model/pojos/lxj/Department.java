@@ -10,21 +10,21 @@ import java.util.Objects;
 
 @Entity
 public class Department {
-    private Long depaId;//id
+    private Integer depaId;//id
     private String depaName;//科室名
     private Timestamp depaCreate;//创建时间
     private Dept dept;//部门
     private List<Employee> emp;//员工
 
     @Id
-    @GeneratedValue(generator = "LIU")
-    @SequenceGenerator(name = "LIU",sequenceName = "liu",initialValue = 1,allocationSize = 1)
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "DEPA_ID")
-    public Long getDepaId() {
+    public Integer getDepaId() {
         return depaId;
     }
 
-    public void setDepaId(Long depaId) {
+    public void setDepaId(Integer depaId) {
         this.depaId = depaId;
     }
 
@@ -77,14 +77,6 @@ public class Department {
     public Department() {
     }
 
-    @Override
-    public String toString() {
-        return "Department{" +
-                "depaId=" + depaId +
-                ", depaName='" + depaName + '\'' +
-                ", depaCreate=" + depaCreate +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -20,6 +20,12 @@ public class DeparService {
     @Autowired
     DeparDao dao;
 
+    /**
+     * 分页查询所有
+     * @param pageNo
+     * @param size
+     * @return
+     */
     public Map<String,Object> allDepar(Integer pageNo, Integer size){
         Map<String,Object> map = new HashMap<>();
 
@@ -29,6 +35,11 @@ public class DeparService {
         //System.out.println(page.getSize());
         map.put("total",page.getTotalElements());
         return map;
+    }
+
+    public Department addDepar(Department department){
+        Department department1=dao.save(department);
+        return department1;
     }
 
     @Autowired

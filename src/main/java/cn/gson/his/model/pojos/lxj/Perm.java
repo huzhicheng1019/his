@@ -20,8 +20,8 @@ public class Perm {
     private List<RoleInfo> roleinfos;//角色
 
     @Id
-    @GeneratedValue(generator = "LIU")
-    @SequenceGenerator(name = "LIU",sequenceName = "liu",initialValue = 1,allocationSize = 1)
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "PERM_ID")
     public Long getPermId() {
         return permId;

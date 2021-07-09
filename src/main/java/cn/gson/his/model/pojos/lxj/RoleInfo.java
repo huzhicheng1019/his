@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "ROLE_INFO", schema = "HIS", catalog = "")
 public class RoleInfo {
-    private Long roleId;//id
+    private Integer roleId;//id
     private String roleName;//角色名
     private Timestamp roleCreate;//创建时间
     private RoleInfo roleinfoByRoleParent;//父级角色
@@ -17,14 +17,14 @@ public class RoleInfo {
     private List<UserInfo> useres;//用户
 
     @Id
-    @GeneratedValue(generator = "LIU")
-    @SequenceGenerator(name = "LIU",sequenceName = "liu",initialValue = 1,allocationSize = 1)
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "ROLE_ID")
-    public Long getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 

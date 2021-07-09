@@ -24,8 +24,8 @@ public class Employee {
     private List<Schedu> schedus;//排班
 
     @Id
-    @GeneratedValue(generator = "LIU")
-    @SequenceGenerator(name = "LIU",sequenceName = "liu",initialValue = 1,allocationSize = 1)
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "EMP_ID")
     public Long getEmpId() {
         return empId;

@@ -17,8 +17,8 @@ public class Shift {
 
 
     @Id
-    @GeneratedValue(generator = "LIU")
-    @SequenceGenerator(name = "LIU",sequenceName = "liu",initialValue = 1,allocationSize = 1)
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "SHI_ID")
     public Long getShiId() {
         return shiId;

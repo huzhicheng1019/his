@@ -11,6 +11,8 @@ public class Announcement {
     private Timestamp annDate;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "ANN_ID")
     public Integer getAnnId() {
         return annId;

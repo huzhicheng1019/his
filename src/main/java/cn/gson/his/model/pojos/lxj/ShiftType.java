@@ -16,8 +16,8 @@ public class ShiftType {
     private List<Shift> shifts;//班次
 
     @Id
-    @GeneratedValue(generator = "LIU")
-    @SequenceGenerator(name = "LIU",sequenceName = "liu",initialValue = 1,allocationSize = 1)
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "TYPE_ID")
     public Long getTypeId() {
         return typeId;

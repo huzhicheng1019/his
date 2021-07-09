@@ -9,16 +9,13 @@
       <class>cn.gson.his.model.pojos.lxj.Department</class>
     <class>cn.gson.his.model.pojos.lxj.Dept</class>
     <class>cn.gson.his.model.pojos.lxj.Employee</class>
-    <class>cn.gson.his.model.pojos.lxj.EmpRole</class>
     <class>cn.gson.his.model.pojos.lxj.Perm</class>
-    <class>cn.gson.his.model.pojos.lxj.RoleDept</class>
-    <class>cn.gson.his.model.pojos.lxj.RoleInfo</class>
-    <class>cn.gson.his.model.pojos.lxj.RolePerm</class>
     <class>cn.gson.his.model.pojos.lxj.Schedu</class>
     <class>cn.gson.his.model.pojos.lxj.Shift</class>
     <class>cn.gson.his.model.pojos.lxj.ShiftType</class>
     <class>cn.gson.his.model.pojos.lxj.Title</class>
     <class>cn.gson.his.model.pojos.lxj.UserInfo</class>
+    <class>cn.gson.his.model.pojos.lxj.RoleInfo</class>
 
     <properties>
       <property name="hibernate.archive.autodetection" value="class"/>

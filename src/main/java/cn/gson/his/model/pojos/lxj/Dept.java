@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 public class Dept {
-    private Long deptId;//id
+    private Integer deptId;//id
     private String deptName;//部门名
     private Timestamp deptCreate;//创建时间
     private List<Department> depar;//科室
@@ -19,14 +19,14 @@ public class Dept {
     private List<Title> titles;//职称
 
     @Id
-    @GeneratedValue(generator = "LIU")
-    @SequenceGenerator(name = "LIU",sequenceName = "liu",initialValue = 1,allocationSize = 1)
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "DEPT_ID")
-    public Long getDeptId() {
+    public Integer getDeptId() {
         return deptId;
     }
 
-    public void setDeptId(Long deptId) {
+    public void setDeptId(Integer deptId) {
         this.deptId = deptId;
     }
 
@@ -50,6 +50,7 @@ public class Dept {
         this.deptCreate = deptCreate;
     }
 
+    @Transient
     @OneToMany(mappedBy = "dept")
     public List<Department> getDepar() {
         return depar;
@@ -59,6 +60,7 @@ public class Dept {
         this.depar = depar;
     }
 
+    @Transient
     @ManyToMany
     @JoinTable(name = "ROLE_DEPT",
             joinColumns = {
@@ -103,15 +105,6 @@ public class Dept {
     }
 
     public Dept() {
-    }
-
-    @Override
-    public String toString() {
-        return "Dept{" +
-                "deptId=" + deptId +
-                ", deptName='" + deptName + '\'' +
-                ", deptCreate=" + deptCreate +
-                '}';
     }
 
     @Override

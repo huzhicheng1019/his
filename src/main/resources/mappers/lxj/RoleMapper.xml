@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.lxj.RoleMapper">
+    <resultMap id="selectROle" type="cn.gson.his.model.pojos.lxj.RoleInfo">
+        <id property="roleId" column="roleid"/>
+        <result property="roleName" column="rolename"/>
+        <result property="roleCreate" column="ROLE_CREATE"/>
+        <association property="roleinfoByRoleParent" javaType="cn.gson.his.model.pojos.lxj.RoleInfo">
+            <id property="roleId" column="rolesid"/>
+            <result property="roleName" column="rolesname"/>
+        </association>
+    </resultMap>
+    <select id="allRole" resultMap="selectROle">
+        select r.role_id roleid,r.role_name rolename,r.role_create,f.role_id rolesid,f.role_name rolesname from role_info r left join role_info f on r.role_parent=f.role_id
+    </select>
+</mapper>

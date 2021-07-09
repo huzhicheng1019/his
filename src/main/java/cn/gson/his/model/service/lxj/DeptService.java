@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Transactional(rollbackFor = Exception.class)
@@ -18,6 +19,12 @@ public class DeptService {
     @Autowired
     DeptDao dao;
 
+    /**
+     * 分页查询所有
+     * @param pageNo
+     * @param size
+     * @return
+     */
     public Map<String,Object> allDept(Integer pageNo, Integer size){
         Map<String,Object> map = new HashMap<>();
 
@@ -29,8 +36,21 @@ public class DeptService {
         return map;
     }
 
+    /**
+     * 新增部门
+     * @param dept
+     * @return
+     */
     public Dept addDept(Dept dept) {
-        Dept de = dao.save(dept);
-        return de;
+       Dept dept1=dao.save(dept);
+       return dept1;
+    }
+
+    /**
+     * 查询所有
+     * @return
+     */
+    public List<Dept> allDept(){
+        return dao.findAllBy();
     }
 }

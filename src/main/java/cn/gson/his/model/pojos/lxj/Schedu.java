@@ -17,8 +17,8 @@ public class Schedu {
     private Employee employeeByEmpId;//员工
 
     @Id
-    @GeneratedValue(generator = "LIU")
-    @SequenceGenerator(name = "LIU",sequenceName = "liu",initialValue = 1,allocationSize = 1)
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "SCHE_ID")
     public Long getScheId() {
         return scheId;
