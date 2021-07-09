@@ -1,8 +1,9 @@
 package cn.gson.his.model.service.llw;
 
-import cn.gson.his.model.dao.llw.YpDao;
-import cn.gson.his.model.mappers.llw.YpMapper;
-import cn.gson.his.model.pojos.llw.DrugEntity;
+import cn.gson.his.model.dao.llw.GysDao;
+import cn.gson.his.model.mappers.llw.GysMapper;
+import cn.gson.his.model.pojos.llw.GysEntity;
+import cn.gson.his.model.pojos.llw.LbEntity;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,34 +11,32 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
 @Transactional
-public class YpService {
+public class GysService {
     @Autowired
-    YpMapper ypMapper;
+    GysMapper gysMapper;
 
     @Autowired
-    YpDao ypDao;
+    GysDao gysDao;
 
-    public Map<String,Object> ypselect(int pageNo, int size){
+    public Map<String,Object> lbcx(int pageNo, int size){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("rows",ypMapper.selectyp());
-        map.put("gys",ypMapper.selectgys());
-        map.put("lb",ypMapper.selectlb());
+        map.put("gys",gysMapper.selectgys());
         map.put("total",page.getTotal());
         return map;
     }
 
-    public void saveYp(DrugEntity drugEntity){
-        ypDao.save(drugEntity);
+    public void saveYplb(GysEntity gysEntity){
+        gysDao.save(gysEntity);
     }
 
     public void del(Integer id){
-        ypDao.deleteById(id);
+        gysDao.deleteById(id);
     }
+
 }

@@ -1,35 +1,35 @@
 package cn.gson.his.controller.llw;
 
 import cn.gson.his.model.pojos.llw.DrugEntity;
-import cn.gson.his.model.service.llw.YpService;
+import cn.gson.his.model.pojos.llw.LbEntity;
+import cn.gson.his.model.service.llw.YplbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.Map;
 
 @CrossOrigin
 @RequestMapping("/llw")
 @RestController
-public class Ypgl {
+public class YplbController {
     @Autowired
-    YpService ypService;
+    YplbService yplbService;
 
-    @RequestMapping("ypgl")
-    public Map<String,Object> getYp(Integer pageNo, Integer size){
+    @RequestMapping("yplb")
+    public Map<String,Object> getYplb(Integer pageNo, Integer size){
         System.out.println(pageNo+"'"+size);
-        Map<String, Object> stringObjectMap = ypService.ypselect(pageNo,size);
+        Map<String, Object> stringObjectMap = yplbService.lbcx(pageNo,size);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }
 
-    @RequestMapping("add-yp")
-    public String ypxz(@RequestBody DrugEntity form){
+    @RequestMapping("add-yplb")
+    public String yplbxz(@RequestBody LbEntity lb){
         try {
-            ypService.saveYp(form);
+            yplbService.saveYplb(lb);
             return "ok";
         } catch (Exception e) {
             e.printStackTrace();
@@ -37,11 +37,11 @@ public class Ypgl {
         }
     }
 
-    @RequestMapping("del-yp")
-    public String delyp(Integer id){
+    @RequestMapping("del-yplb")
+    public String delyplb(Integer id){
         System.out.println(id);
         try {
-            ypService.del(id);
+            yplbService.del(id);
             return "ok";
         } catch (Exception e) {
             e.printStackTrace();

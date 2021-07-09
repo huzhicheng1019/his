@@ -11,6 +11,8 @@ public class LbEntity {
     private String lbFl;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "LB_ID")
     public int getLbId() {
         return lbId;

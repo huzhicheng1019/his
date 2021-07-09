@@ -13,6 +13,8 @@ public class GysEntity {
     private String gysDz;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "GYS_ID")
     public int getGysId() {
         return gysId;

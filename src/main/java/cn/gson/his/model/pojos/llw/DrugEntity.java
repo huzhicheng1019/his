@@ -9,8 +9,8 @@ public class DrugEntity {
     private int drugId;
     private String drugName;
     private String drugGe;
-    private Integer gysId;
-    private Integer lbId;
+    private GysEntity gys;
+    private LbEntity lb;
     private String drugSm;
     private String bzq;
     private Long drugPfprice;
@@ -20,6 +20,8 @@ public class DrugEntity {
     private Integer zdkcs;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "DRUG_ID")
     public int getDrugId() {
         return drugId;
@@ -49,25 +51,6 @@ public class DrugEntity {
         this.drugGe = drugGe;
     }
 
-    @Basic
-    @Column(name = "GYS_ID")
-    public Integer getGysId() {
-        return gysId;
-    }
-
-    public void setGysId(Integer gysId) {
-        this.gysId = gysId;
-    }
-
-    @Basic
-    @Column(name = "LB_ID")
-    public Integer getLbId() {
-        return lbId;
-    }
-
-    public void setLbId(Integer lbId) {
-        this.lbId = lbId;
-    }
 
     @Basic
     @Column(name = "DRUG_SM")
@@ -147,8 +130,8 @@ public class DrugEntity {
         return drugId == that.drugId &&
                 Objects.equals(drugName, that.drugName) &&
                 Objects.equals(drugGe, that.drugGe) &&
-                Objects.equals(gysId, that.gysId) &&
-                Objects.equals(lbId, that.lbId) &&
+                Objects.equals(gys, that.gys) &&
+                Objects.equals(lb, that.lb) &&
                 Objects.equals(drugSm, that.drugSm) &&
                 Objects.equals(bzq, that.bzq) &&
                 Objects.equals(drugPfprice, that.drugPfprice) &&
@@ -160,6 +143,27 @@ public class DrugEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(drugId, drugName, drugGe, gysId, lbId, drugSm, bzq, drugPfprice, drugPrice, dw, yf, zdkcs);
+        return Objects.hash(drugId, drugName, drugGe, gys, lb, drugSm, bzq, drugPfprice, drugPrice, dw, yf, zdkcs);
     }
+
+    @ManyToOne
+    @JoinColumn(name = "GYS_ID", referencedColumnName = "GYS_ID")
+    public GysEntity getGys() {
+        return gys;
+    }
+
+    public void setGys(GysEntity gys) {
+        this.gys = gys;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "LB_ID", referencedColumnName = "LB_ID")
+    public LbEntity getLb() {
+        return lb;
+    }
+
+    public void setLb(LbEntity lb) {
+        this.lb = lb;
+    }
+
 }

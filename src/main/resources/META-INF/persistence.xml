@@ -17,6 +17,11 @@
     <class>cn.gson.his.model.pojos.lxj.UserInfo</class>
     <class>cn.gson.his.model.pojos.lxj.RoleInfo</class>
 
+    <!-- llw-->
+    <class>cn.gson.his.model.pojos.llw.DrugEntity</class>
+    <class>cn.gson.his.model.pojos.llw.GysEntity</class>
+    <class>cn.gson.his.model.pojos.llw.LbEntity</class>
+
     <properties>
       <property name="hibernate.archive.autodetection" value="class"/>
       <!--是否显示执行的sql语句-->
