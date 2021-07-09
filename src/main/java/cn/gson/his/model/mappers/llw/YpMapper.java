@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface YpMapper {
-    public List<DrugEntity> selectyp();
+    public List<DrugEntity> selectyp(DrugEntity drugEntity);
 
     public List<GysEntity> selectgys();
 

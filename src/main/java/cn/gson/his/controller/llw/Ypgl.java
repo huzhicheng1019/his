@@ -1,7 +1,9 @@
 package cn.gson.his.controller.llw;
 
 import cn.gson.his.model.pojos.llw.DrugEntity;
+import cn.gson.his.model.pojos.wjc.PatientdataEntity;
 import cn.gson.his.model.service.llw.YpService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,9 +21,10 @@ public class Ypgl {
     YpService ypService;
 
     @RequestMapping("ypgl")
-    public Map<String,Object> getYp(Integer pageNo, Integer size){
-        System.out.println(pageNo+"'"+size);
-        Map<String, Object> stringObjectMap = ypService.ypselect(pageNo,size);
+    public Map<String,Object> getYp(Integer pageNo, Integer size,String form){
+        System.out.println(form);
+        DrugEntity drugEntity= JSONObject.parseObject(form,DrugEntity.class);
+        Map<String, Object> stringObjectMap = ypService.ypselect(pageNo,size,drugEntity);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }

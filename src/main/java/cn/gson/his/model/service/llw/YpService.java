@@ -22,11 +22,11 @@ public class YpService {
     @Autowired
     YpDao ypDao;
 
-    public Map<String,Object> ypselect(int pageNo, int size){
+    public Map<String,Object> ypselect(int pageNo, int size,DrugEntity drugEntity){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("rows",ypMapper.selectyp());
+        map.put("rows",ypMapper.selectyp(drugEntity));
         map.put("gys",ypMapper.selectgys());
         map.put("lb",ypMapper.selectlb());
         map.put("total",page.getTotal());
