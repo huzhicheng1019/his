@@ -29,31 +29,31 @@
     </insert>
 <!--修改就诊卡-->
     <update id="upCard">
-        update from CARD
+        update CARD
         <set>
             <if test="cardPswd !=''">
-                CARD_PSWD = #{cardPswd}
+                CARD_PSWD = #{cardPswd},
             </if>
-            <if test="cardState !=''">
-                CARD_STATE = #{cardState}
+            <if test="cardState != 0">
+                CARD_STATE = #{cardState},
             </if>
             <if test="cardPrice !=''">
-                CARD_PRICE = #{cardPrice}
+                CARD_PRICE =  CARD_PRICE + #{cardPrice}
             </if>
         </set>
-        where CARD_ID = #{cardId}
+        where CARD_NO = #{cardNo} and CARD_PSWD =#{cardPswd}
     </update>
 <!--查询就诊卡-->
     <select id="allCard" resultMap="card">
             select * from CARD c inner join PATIENTDATA p on  c.PATIENT_NO = p.PATIENT_NO
             <where>
                 <if test="cardNo !=''">
-                    or CARD_NO like '%${cardNo}%'
+                     CARD_NO like '%${cardNo}%'
                 </if>
                 <if test="patientName != ''">
                     or PATIENT_NAME like '%${patientName}%'
                 </if>
-                <if test="cardState != null">
+                <if test="cardState != 0">
                     or CARD_STATE = #{cardState}
                 </if>
             </where>

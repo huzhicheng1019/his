@@ -9,11 +9,24 @@ import java.util.Objects;
 public class CardrecordEntity {
     private int recordNo;
     private Integer cardId;
-    private Long recordPrice;
+    private Integer recordPrice;
     private Timestamp recordDate;
     private String recordName;
     private String recordWay;
     private Integer collectPrice;
+
+    private CardEntity card;
+
+    //就诊卡  一个就诊卡有多个就诊卡记录
+    @ManyToOne
+    @JoinColumn(name = "CARD_ID", nullable = false)
+    public CardEntity getCard() {
+        return card;
+    }
+
+    public void setCard(CardEntity card) {
+        this.card = card;
+    }
 
     @Id
     @Column(name = "RECORD_NO")
@@ -37,11 +50,11 @@ public class CardrecordEntity {
 
     @Basic
     @Column(name = "RECORD_PRICE")
-    public Long getRecordPrice() {
+    public Integer getRecordPrice() {
         return recordPrice;
     }
 
-    public void setRecordPrice(Long recordPrice) {
+    public void setRecordPrice(Integer recordPrice) {
         this.recordPrice = recordPrice;
     }
 
