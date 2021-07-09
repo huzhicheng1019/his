@@ -21,23 +21,23 @@ public class TheHospitalService {
     TheHospitalMapper theHospitalMapper;
 
     //查询所有住院申请表
-    public Map<String,Object> selHospital(int page, int size){
+    public Map<String,Object> selHospital(int page, int size,String content){
         Page<Object> p = PageHelper.startPage(page,size);
-        List<Map<String,Object>> list = theHospitalMapper.selHospital();
+        List<Map<String,Object>> list = theHospitalMapper.selHospital(content);
         Map<String,Object> map = new HashMap<>();
         map.put("rows",list);
         map.put("total",p.getTotal());
         return map;
     }
 
-    //新增病人资料表
-    public int insertPatient(PatientdataEntity patientdataEntity){
-        return theHospitalMapper.insertPatient(patientdataEntity);
+    //新增病人资料表,新增住院申请表
+    public void insertPatient(PatientdataEntity patientdataEntity,TheHospitalEntity theHospitalEntity){
+         theHospitalMapper.insertPatient(patientdataEntity);
+
+         theHospitalEntity.setPatientNo(patientdataEntity.getPatientNo());
+
+        theHospitalMapper.insertHospital(theHospitalEntity);
     }
 
-    //新增住院申请表
-    public int insertHospital(TheHospitalEntity theHospitalEntity){
-        return theHospitalMapper.insertHospital(theHospitalEntity);
-    }
 
 }

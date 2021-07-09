@@ -4,8 +4,10 @@ package cn.gson.his.controller.wjc;
 import cn.gson.his.model.pojos.wjc.PatientdataEntity;
 import cn.gson.his.model.pojos.wjc.TheHospitalEntity;
 import cn.gson.his.model.service.wjc.TheHospitalService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,18 +22,22 @@ public class TheHospitalController {
 
     //查询所有住院申请表
     @RequestMapping("/selHospital")
-    public Map<String,Object> demo(Integer pageNo, Integer pageSize){
-        return theHospitalService.selHospital(pageNo,pageSize);
+    public Map<String,Object> demo(Integer pageNo, Integer pageSize,String content){
+        return theHospitalService.selHospital(pageNo,pageSize,content);
     }
 
-    //新增病人资料表 新增住院申请表
+    //新增病人资料表,新增住院申请表
     @RequestMapping("/insert")
-    public int demo1(PatientdataEntity patientdataEntity, TheHospitalEntity theHospitalEntity){
+    public void demo1( String patient, Integer depaId){
+        try {
+            PatientdataEntity patientdataEntity1 = JSONObject.parseObject(patient, PatientdataEntity.class);
 
-
-         theHospitalService.insertPatient(patientdataEntity);
-
-        return theHospitalService.insertHospital(theHospitalEntity);
+            TheHospitalEntity theHospitalEntity = new TheHospitalEntity();
+            theHospitalEntity.setDepaId(depaId);
+            theHospitalService.insertPatient(patientdataEntity1,theHospitalEntity);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
