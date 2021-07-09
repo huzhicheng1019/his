@@ -11,7 +11,7 @@ import java.util.Map;
 public interface TheHospitalMapper {
 
     //查询所有住院申请表
-    public List<Map<String,Object>> selHospital();
+    public List<Map<String,Object>> selHospital(String content);
 
     //新增病人资料表
     public int insertPatient(PatientdataEntity patientdataEntity);

@@ -30,22 +30,29 @@
     <select id="selHospital" resultMap="theHosp">
         select * from the_hospital t left join department d on t.depa_id = d.depa_id
         left join patientdata p on t.patient_no = p.patient_no
-
+        <where>
+            <if test="content != '' ">
+                and (t.hospital_no like '%${content}%' or p.patient_name like '%${content}%' or p.patient_sex  like '%${content}%'
+                or p.patient_age like '%${content}%' or p.patient_phone  like '%${content}%'
+                or p.patient_identity like '%${content}%' or p.patient_pirth  like '%${content}%'
+                )
+            </if>
+        </where>
 
 
     </select>
     <!--新增病人资料表-->
     <insert id="insertPatient">
         <!--将增删改的值,回传-->
-        <selectKey order="BEFORE" keyProperty="patientNo" resultType="java.lang.String"  >
+        <selectKey order="BEFORE" keyProperty="patientNo" resultType="_int"  >
             select seq.nextval from dual
         </selectKey>
-        insert into patientData values (#{patientNo},#{patientName},#{patientSex},#{patientAge},#{patientPhone},#{patientInsu},#{patientIdentity},#{patientPirth})
+        insert into patientData values (#{patientNo},#{patientName},#{patientSex},#{patientAge},#{patientPhone},0,#{patientIdentity},#{patientPirth})
     </insert>
 
     <!--新增住院申请表-->
     <insert id="insertHospital">
-        insert into the_hospital values (seq.nextval,#{patientNo},#{hospitalDate},#{hosptalHospital},#{depaId},#{hospitalState})
+        insert into the_hospital values (seq.nextval,#{patientNo},current_timestamp ,null,#{depaId},0)
     </insert>
 
 
