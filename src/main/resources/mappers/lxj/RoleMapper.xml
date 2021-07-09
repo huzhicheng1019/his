@@ -14,4 +14,15 @@
     <select id="allRole" resultMap="selectROle">
         select r.role_id roleid,r.role_name rolename,r.role_create,f.role_id rolesid,f.role_name rolesname from role_info r left join role_info f on r.role_parent=f.role_id
     </select>
+
+    <resultMap id="RoleDept" type="cn.gson.his.model.pojos.lxj.Dept">
+        <id property="deptId" column="DEPT_ID"/>
+        <result property="deptName" column="DEPT_NAME"/>
+        <collection property="roleDepts" ofType="cn.gson.his.model.pojos.lxj.RoleInfo">
+            <id property="roleId" column="ROLE_ID"/>
+        </collection>
+    </resultMap>
+    <select id="allRoleDept" resultMap="RoleDept">
+        select * from dept d left join role_dept r on d.dept_id=r.dept_id LEFT JOIN ROLE_INFO e on r.role_id=e.role_id where r.role_id=#{id}
+    </select>
 </mapper>
