@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 public class Schedu {
-    private Long scheId;//id
+    private Integer scheId;//id
     private Timestamp startTime;//开始时间
     private Timestamp stopTime;//结束时间
     private Timestamp startDate;//开始日期
@@ -20,11 +20,11 @@ public class Schedu {
     @GeneratedValue(generator = "SEQ")
     @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "SCHE_ID")
-    public Long getScheId() {
+    public Integer getScheId() {
         return scheId;
     }
 
-    public void setScheId(Long scheId) {
+    public void setScheId(Integer scheId) {
         this.scheId = scheId;
     }
 

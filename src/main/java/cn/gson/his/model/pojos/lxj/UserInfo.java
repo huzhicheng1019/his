@@ -7,7 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "USER_INFO", schema = "HIS", catalog = "")
 public class UserInfo {
-    private Long userId;//id
+    private Integer userId;//id
     private String userAccount;//账号
     private String userPass;//密码
     private Employee employeeByUserEmp;//员工
@@ -17,11 +17,11 @@ public class UserInfo {
     @GeneratedValue(generator = "SEQ")
     @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "USER_ID")
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
