@@ -13,4 +13,6 @@ public interface RoleMapper {
     public List<Map<String,Object>> allRole();
 
     public List<Dept> allRoleDept(Integer id);
+
+    public List<RoleInfo> allRoleMy();
 }

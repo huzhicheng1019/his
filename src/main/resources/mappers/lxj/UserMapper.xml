@@ -40,13 +40,7 @@
             LEFT JOIN DEPARTMENT a on e.EMP_DEPAR=a.DEPA_ID
             LEFT JOIN TITLE t on e.EMP_TIT=t.TIT_ID
             LEFT JOIN SCHEDU s on s.EMP_ID=e.EMP_ID
-        <where>
-            <if test="userAccount != null and userAccount!=''">
-                u.USER_ACCOUNT=#{userAccount}
-            </if>
-            <if test="userPass != null and userPass!=''">
-                u.USER_PASS=#{userPass}
-            </if>
-        </where>
+            where  u.USER_ACCOUNT=#{userAccount}
+            and u.USER_PASS=#{userPass}
     </select>
 </mapper>
