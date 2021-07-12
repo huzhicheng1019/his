@@ -25,4 +25,12 @@
     <select id="allRoleDept" resultMap="RoleDept">
         select * from dept d left join role_dept r on d.dept_id=r.dept_id LEFT JOIN ROLE_INFO e on r.role_id=e.role_id where r.role_id=#{id}
     </select>
+
+    <resultMap id="selectRoleMy" type="cn.gson.his.model.pojos.lxj.RoleInfo">
+        <id property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+    </resultMap>
+    <select id="allRoleMy" resultMap="selectRoleMy">
+        select * from role_info
+    </select>
 </mapper>

@@ -2,7 +2,11 @@ GET http://localhost:80/api/item?id=99
 Accept: application/json
 
 ###
-GET http://localhost:8008/lxj/allRoleDept?id=2
+GET http://localhost:80/api/item?id=99
+Accept: application/json
+
+###
+GET http://localhost:8008/lxj/allRoleMy
 Accept: application/json
 
 ###

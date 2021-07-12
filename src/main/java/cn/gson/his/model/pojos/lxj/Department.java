@@ -58,6 +58,7 @@ public class Department {
         this.dept = dept;
     }
 
+    @Transient
     @OneToMany(mappedBy = "departmentByEmpDepar")
     public List<Employee> getEmp() {
         return emp;

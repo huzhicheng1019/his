@@ -38,4 +38,8 @@ public class RoleService {
     public List<Dept> allRoleDept(Integer id){
         return mapper.allRoleDept(id);
     }
+
+    public List<RoleInfo> allRoleMy(){
+        return mapper.allRoleMy();
+    }
 }
