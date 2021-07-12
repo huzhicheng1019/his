@@ -78,6 +78,7 @@ public class Dept {
         this.roleDepts = roleDepts;
     }
 
+    @Transient
     @OneToMany(mappedBy = "deptByEmpDept")
     public List<Employee> getEmp() {
         return emp;
@@ -86,6 +87,7 @@ public class Dept {
     public void setEmp(List<Employee> emp) {
         this.emp = emp;
     }
+    @Transient
     @OneToMany(mappedBy = "deptByTitDept")
     public List<Title> getTitles() {
         return titles;

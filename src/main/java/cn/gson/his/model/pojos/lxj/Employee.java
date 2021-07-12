@@ -10,13 +10,13 @@ import java.util.Objects;
 
 @Entity
 public class Employee {
-    private Long empId;//id
+    private Integer empId;//id
     private String empName;//员工名
     private String empPhone;//电话
     private String empCard;//身份证
     private Timestamp empInduction;//入职日期
     private Timestamp empDeparture;//离职日期
-    private Long empState;//状态
+    private Integer empState;//状态
     private Dept deptByEmpDept;//部门
     private Department departmentByEmpDepar;//科室
     private Title titles;//职称
@@ -27,11 +27,11 @@ public class Employee {
     @GeneratedValue(generator = "SEQ")
     @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "EMP_ID")
-    public Long getEmpId() {
+    public Integer getEmpId() {
         return empId;
     }
 
-    public void setEmpId(Long empId) {
+    public void setEmpId(Integer empId) {
         this.empId = empId;
     }
 
@@ -87,11 +87,11 @@ public class Employee {
 
     @Basic
     @Column(name = "EMP_STATE")
-    public Long getEmpState() {
+    public Integer getEmpState() {
         return empState;
     }
 
-    public void setEmpState(Long empState) {
+    public void setEmpState(Integer empState) {
         this.empState = empState;
     }
 
@@ -156,7 +156,7 @@ public class Employee {
         this.titles = titles;
     }
 
-    public Employee(String empName, String empPhone, String empCard, Timestamp empInduction, Timestamp empDeparture, Long empState, Dept deptByEmpDept, Department departmentByEmpDepar, Title titles, List<UserInfo> useres, List<Schedu> schedus) {
+    public Employee(String empName, String empPhone, String empCard, Timestamp empInduction, Timestamp empDeparture, Integer empState, Dept deptByEmpDept, Department departmentByEmpDepar, Title titles, List<UserInfo> useres, List<Schedu> schedus) {
         this.empName = empName;
         this.empPhone = empPhone;
         this.empCard = empCard;

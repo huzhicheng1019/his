@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 public class Title {
-    private Long titId;//id
+    private Integer titId;//id
     private String titName;//职称
     private Dept deptByTitDept;//部门
     private List<Employee> emp;//员工
@@ -18,11 +18,11 @@ public class Title {
     @GeneratedValue(generator = "SEQ")
     @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "TIT_ID")
-    public Long getTitId() {
+    public Integer getTitId() {
         return titId;
     }
 
-    public void setTitId(Long titId) {
+    public void setTitId(Integer titId) {
         this.titId = titId;
     }
 
@@ -48,6 +48,7 @@ public class Title {
     public int hashCode() {
         return Objects.hash(titId, titName);
     }
+
 
     @ManyToOne
     @JoinColumn(name = "TIT_DEPT", referencedColumnName = "DEPT_ID")
