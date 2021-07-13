@@ -40,5 +40,16 @@ public class TheHospitalController {
         }
     }
 
+    //修改申请表状态
+    @RequestMapping("/updateState")
+    public void demo2(String hospitalNo){
+        try{
+            theHospitalService.updateState(hospitalNo);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
 
 }

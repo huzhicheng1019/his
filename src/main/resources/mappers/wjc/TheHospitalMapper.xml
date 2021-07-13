@@ -37,6 +37,7 @@
                 or p.patient_identity like '%${content}%' or p.patient_pirth  like '%${content}%'
                 )
             </if>
+            and t.hospital_state = 0
         </where>
 
 
@@ -50,10 +51,15 @@
         insert into patientData values (#{patientNo},#{patientName},#{patientSex},#{patientAge},#{patientPhone},0,#{patientIdentity},#{patientPirth})
     </insert>
 
-    <!--新增住院申请表-->
+    <!--新增住院申请表 （直接住院）-->
     <insert id="insertHospital">
-        insert into the_hospital values (seq.nextval,#{patientNo},current_timestamp ,null,#{depaId},0)
+        insert into the_hospital values (seq.nextval,#{patientNo},current_timestamp ,'无',#{depaId},0)
     </insert>
+
+    <!--修改申请表状态-->
+    <update id="updateState">
+        update the_hospital set hospital_state = 1 where hospital_no = #{hospitalNo}
+    </update>
 
 
 </mapper>

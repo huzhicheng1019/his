@@ -17,6 +17,8 @@ public class HospitalRegisterEntity {
     private String doctorName;
     private Integer regIs;
 
+
+
     @Id
     @Column(name = "REG_ID")
     public int getRegId() {

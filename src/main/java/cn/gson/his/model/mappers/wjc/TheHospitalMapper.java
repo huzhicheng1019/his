@@ -3,6 +3,7 @@ package cn.gson.his.model.mappers.wjc;
 import cn.gson.his.model.pojos.wjc.PatientdataEntity;
 import cn.gson.his.model.pojos.wjc.TheHospitalEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -19,4 +20,6 @@ public interface TheHospitalMapper {
     //新增住院申请表
     public int insertHospital(TheHospitalEntity theHospitalEntity);
 
+    //修改申请表状态
+    public int updateState(String hospitalNo);
 }
