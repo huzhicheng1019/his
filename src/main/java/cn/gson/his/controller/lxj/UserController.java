@@ -17,6 +17,12 @@ public class UserController {
     @Autowired
     UserService service;
 
+    /**
+     * 登录
+     * @param user
+     * @param session
+     * @return
+     */
     @PostMapping("login")
     public Object login(@RequestBody UserInfo user, HttpSession session){
         UserInfo info = service.Login(user);

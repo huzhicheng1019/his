@@ -24,4 +24,12 @@ public interface DeptDao extends CrudRepository<Dept,Integer> {
      * @return
      */
     public List<Dept> findAllBy();
+
+    /**
+     * 多对多查询某角色下所有的部门
+     * @param id
+     * @return
+     */
+    @Query(nativeQuery = true,value = "select * from dept d left join role_dept r on d.dept_id=r.dept_id where r.role_id=?1")
+    public List<Dept> allRoleIdDept(Integer id);
 }

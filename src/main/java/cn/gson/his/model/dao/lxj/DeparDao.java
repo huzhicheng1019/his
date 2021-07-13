@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface DeparDao extends CrudRepository<Department,Integer> {
 
     /**
-     * 查询所有
+     * 分页查询所有科室
      */
     @Query(value="select d from Department d left join d.dept",
             countQuery = "select count(d) from Department d")

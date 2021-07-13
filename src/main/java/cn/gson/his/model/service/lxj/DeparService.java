@@ -37,14 +37,27 @@ public class DeparService {
         return map;
     }
 
-    public Department addDepar(Department department){
-        Department department1=dao.save(department);
-        return department1;
+    /**
+     * 新增、修改科室
+     * @param department
+     * @return
+     */
+    public int addDepar(Department department){
+       Department department1=dao.save(department);
+       if(department1==null){
+           new RuntimeException("更新数据失败");
+           return 0;
+       }
+       return 1;
     }
 
     @Autowired
     DeparMapper deparMapper;
 
+    /**
+     * 查询所有
+     * @return
+     */
     public List<Department> allDeparmy(){
         return deparMapper.allDepar();
     }

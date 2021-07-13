@@ -21,8 +21,9 @@
     <class>cn.gson.his.model.pojos.llw.DrugEntity</class>
     <class>cn.gson.his.model.pojos.llw.GysEntity</class>
     <class>cn.gson.his.model.pojos.llw.LbEntity</class>
+      <class>cn.gson.his.model.pojos.lxj.RoleDept</class>
 
-    <properties>
+      <properties>
       <property name="hibernate.archive.autodetection" value="class"/>
       <!--是否显示执行的sql语句-->
       <property name="hibernate.show_sql" value="true"/>
