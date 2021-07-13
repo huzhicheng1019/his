@@ -41,9 +41,12 @@ public class DeptService {
      * @param dept
      * @return
      */
-    public Dept addDept(Dept dept) {
+    public int addDept(Dept dept) {
        Dept dept1=dao.save(dept);
-       return dept1;
+       if(dept1==null){
+           return 0;
+       }
+       return 1;
     }
 
     /**
@@ -52,5 +55,14 @@ public class DeptService {
      */
     public List<Dept> allDept(){
         return dao.findAllBy();
+    }
+
+    /**
+     * 多对多查询某角色下所有的部门
+     * @param id
+     * @return
+     */
+    public List<Dept> allRoleIdDept(Integer id) {
+        return dao.allRoleIdDept(id);
     }
 }

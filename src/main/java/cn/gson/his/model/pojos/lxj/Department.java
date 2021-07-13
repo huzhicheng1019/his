@@ -78,6 +78,14 @@ public class Department {
     public Department() {
     }
 
+    @Override
+    public String toString() {
+        return "Department{" +
+                "depaId=" + depaId +
+                ", depaName='" + depaName + '\'' +
+                ", depaCreate=" + depaCreate +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {

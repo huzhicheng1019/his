@@ -13,6 +13,11 @@ public class UserService {
     @Autowired
     UserMapper mapper;
 
+    /**
+     * 登录
+     * @param user
+     * @return
+     */
     public UserInfo Login(UserInfo user){
         return mapper.Login(user);
     }
