@@ -58,7 +58,8 @@ public class UserInfo {
         return Objects.hash(userId, userAccount, userPass);
     }
 
-    @ManyToOne
+    @Transient
+    @OneToOne
     @JoinColumn(name = "USER_EMP", referencedColumnName = "EMP_ID")
     public Employee getEmployeeByUserEmp() {
         return employeeByUserEmp;

@@ -50,6 +50,11 @@
         insert into role_info values(#{roleid},#{name},#{create},#{id})
     </insert>
 
+    <!--新增角色-->
+    <insert id="addRolenoParent">
+        insert into role_info(role_id,role_name,role_create) values(#{roleId},#{roleName},#{roleCreate})
+    </insert>
+
     <!--批量新增部门、角色中间表-->
     <insert id="addRoleDept" parameterType="java.util.List">
         INSERT all INTO role_dept(role_id,dept_id)
@@ -83,4 +88,27 @@
     <delete id="delRoleDept">
         delete from role_dept where role_id=#{roleId}
     </delete>
+
+    <!--根据角色id查询角色、权限中间表的权限id-->
+    <select id="allRoleIdPermId" resultType="_int">
+        select p.PERM_ID from PERM p inner join ROLE_PERM r on p.PERM_ID=r.PERM_ID where r.ROLE_ID=#{roleId} and p.PERM_PARENT is not null
+    </select>
+
+    <resultMap id="Perm" type="cn.gson.his.model.pojos.lxj.Perm">
+        <id column="PERM_ID" property="permId"/>
+        <result column="PERM_NAME" property="permName"/>
+        <result column="PERM_COMP" property="permComp"/>
+        <result column="PERM_URL" property="permUrl"/>
+        <result column="PERM_IMG" property="permImg"/>
+        <result column="PERM_STATE" property="permState"/>
+        <result column="PERM_LEVEL" property="permLevel"/>
+        <result column="PERM_MATA" property="permMata"/>
+    </resultMap>
+    <select id="allPerm" resultMap="Perm">
+        select f.* from PERM f where f.PERM_PARENT is null
+    </select>
+
+    <select id="childrenFuns" resultMap="Perm">
+        select f.* from PERM f where f.PERM_PARENT = #{parentId}
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package cn.gson.his.model.mappers.lxj;
 
 import cn.gson.his.model.pojos.lxj.Dept;
+import cn.gson.his.model.pojos.lxj.Perm;
 import cn.gson.his.model.pojos.lxj.RoleDeptPK;
 import cn.gson.his.model.pojos.lxj.RoleInfo;
 import com.alibaba.fastjson.JSONArray;
@@ -64,4 +65,17 @@ public interface RoleMapper {
      * @return
      */
     public int delRoleDept(@Param("roleId") Integer roleId);
+
+    /**
+     * 根据角色id查询角色、权限中间表的权限id
+     * @param roleId
+     * @return
+     */
+    public List<Integer> allRoleIdPermId(Integer roleId);
+
+    public List<Perm> allPerm();
+
+    public List<Perm> childrenFuns(Integer parentId);
+
+    public int addRolenoParent(RoleInfo roleInfo);
 }

@@ -40,6 +40,7 @@ public class DeptController {
         if(dept.getDeptCreate()==null){
             dept.setDeptCreate(new Timestamp(new Date().getTime()));
         }
+
         //返回结果信息
         ElMessage elm=new ElMessage();
         if(dept.getDeptId()==null || dept.getDeptId().equals("")){

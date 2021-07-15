@@ -1,7 +1,10 @@
 package cn.gson.his.model.service.lxj;
 
+import cn.gson.his.model.dao.lxj.PermDao;
+import cn.gson.his.model.dao.lxj.RoleDao;
 import cn.gson.his.model.mappers.lxj.RoleMapper;
 import cn.gson.his.model.pojos.lxj.Dept;
+import cn.gson.his.model.pojos.lxj.Perm;
 import cn.gson.his.model.pojos.lxj.RoleDeptPK;
 import cn.gson.his.model.pojos.lxj.RoleInfo;
 import com.alibaba.fastjson.JSONArray;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +26,12 @@ public class RoleService {
 
     @Autowired
     RoleMapper mapper;
+
+    @Autowired
+    RoleDao roleDao;
+
+    @Autowired
+    PermDao permDao;
 
     /**
      * 分页查询所有
@@ -66,22 +76,25 @@ public class RoleService {
     /**
      * 新增、修改角色
      * @param roleInfo
-     * @param id
      * @param list
      * @param is
      * @return
      */
-    public int addRole(RoleInfo roleInfo,Integer id, List<RoleDeptPK> list,boolean is){
+    public int addRole(RoleInfo roleInfo, List<RoleDeptPK> list,boolean is){
         int p=-1;//判断新增、修改是否成功
         if(is){
-            p=mapper.updateRole(roleInfo.getRoleId(),roleInfo.getRoleName(),id);//修改
+            p=mapper.updateRole(roleInfo.getRoleId(),roleInfo.getRoleName(),roleInfo.getRoleinfoByRoleParent().getRoleId());//修改
             /*int t=mapper.delRoleDept(roleInfo.getRoleId());
             if(t<0){
                 new RuntimeException("修改数据失败");
             }*/
         }else{
             //新增角色
-            p=mapper.addRole(roleInfo.getRoleId(),roleInfo.getRoleName(),roleInfo.getRoleCreate(),id);
+            if(roleInfo.getRoleinfoByRoleParent().getRoleId()==null){
+                p=mapper.addRolenoParent(roleInfo);
+            }else {
+                p = mapper.addRole(roleInfo.getRoleId(), roleInfo.getRoleName(), roleInfo.getRoleCreate(), roleInfo.getRoleinfoByRoleParent().getRoleId());
+            }
         }
         //批量新增角色和部门中间表，可以不新增
         int k=0;
@@ -105,4 +118,50 @@ public class RoleService {
     public int delRole(JSONArray choose){
         return mapper.delRole(choose);
     }
+
+    /**
+     * 根据角色id查询角色、权限中间表的权限id
+     * @param roleId
+     * @return
+     */
+    public List<Integer> allRoleIdPermId(Integer roleId){
+        return mapper.allRoleIdPermId(roleId);
+    }
+
+    /**
+     * 新增角色、权限中间表
+     * @param roleId
+     * @param funs
+     */
+    public void addRolePerm(Integer roleId,List<Integer> funs){
+        RoleInfo role = roleDao.findById(roleId).get();
+        List<Perm> allById =
+                (List<Perm>)permDao.findAllById(funs);
+
+        List<Perm> functions = role.getPerms();
+        if(functions == null){
+            functions = new ArrayList<>();
+        }
+        functions.clear();//把原来的全部清空
+        functions.addAll(allById);
+        role.setPerms(functions);//触发中间表新增
+    }
+
+
+    //查一级的功能：权限管理
+    public List<Perm> allFuns(){
+        List<Perm> firstFuns = mapper.allPerm();
+        for (Perm firstFun : firstFuns) {
+            firstFun.setPermByPermParent(childrenFuns(firstFun.getPermId()));
+        }
+        return firstFuns;
+    }
+
+    public List<Perm> childrenFuns(Integer parentId){
+        List<Perm> childrenFuns = mapper.childrenFuns(parentId);
+        for (Perm cFun : childrenFuns) {
+            cFun.setPermByPermParent(childrenFuns(cFun.getPermId()));
+        }
+        return childrenFuns;
+    };
 }

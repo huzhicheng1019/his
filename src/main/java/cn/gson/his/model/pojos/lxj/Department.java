@@ -14,7 +14,6 @@ public class Department {
     private String depaName;//科室名
     private Timestamp depaCreate;//创建时间
     private Dept dept;//部门
-    private List<Employee> emp;//员工
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -58,21 +57,10 @@ public class Department {
         this.dept = dept;
     }
 
-    @Transient
-    @OneToMany(mappedBy = "departmentByEmpDepar")
-    public List<Employee> getEmp() {
-        return emp;
-    }
-
-    public void setEmp(List<Employee> emp) {
-        this.emp = emp;
-    }
-
-    public Department(String depaName, Timestamp depaCreate, Dept dept, List<Employee> emp) {
+    public Department(String depaName, Timestamp depaCreate, Dept dept) {
         this.depaName = depaName;
         this.depaCreate = depaCreate;
         this.dept = dept;
-        this.emp = emp;
     }
 
     public Department() {
