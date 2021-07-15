@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Power.RoleMapper">
+    <!--映射角色自连接-->
+    <resultMap id="selectROle" type="cn.gson.his.model.pojos.Power.RoleInfo">
+        <id property="roleId" column="roleid"/>
+        <result property="roleName" column="rolename"/>
+        <result property="roleCreate" column="ROLE_CREATE"/>
+        <association property="roleinfoByRoleParent" javaType="cn.gson.his.model.pojos.Power.RoleInfo">
+            <id property="roleId" column="rolesid"/>
+            <result property="roleName" column="rolesname"/>
+        </association>
+    </resultMap>
+    <!--查询所有角色自连接-->
+    <select id="allRole" resultMap="selectROle">
+        select r.role_id roleid,r.role_name rolename,r.role_create,f.role_id rolesid,f.role_name rolesname from role_info r left join role_info f on r.role_parent=f.role_id
+    </select>
+
+    <!--部门、角色多对多映射-->
+    <resultMap id="RoleDept" type="cn.gson.his.model.pojos.Power.Dept">
+        <id property="deptId" column="DEPT_ID"/>
+        <result property="deptName" column="DEPT_NAME"/>
+        <collection property="roleDepts" ofType="cn.gson.his.model.pojos.Power.RoleInfo">
+            <id property="roleId" column="ROLE_ID"/>
+        </collection>
+    </resultMap>
+    <!--角色、部门多对多查询-->
+    <select id="allRoleDept" resultMap="RoleDept">
+        select * from dept d left join role_dept r on d.dept_id=r.dept_id LEFT JOIN ROLE_INFO e on r.role_id=e.role_id where r.role_id=#{id}
+    </select>
+
+    <!--角色映射-->
+    <resultMap id="selectRoleMy" type="cn.gson.his.model.pojos.Power.RoleInfo">
+        <id property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+    </resultMap>
+    <!--查询所有角色-->
+    <select id="allRoleMy" resultMap="selectRoleMy">
+        select * from role_info
+    </select>
+
+    <!--查询序列-->
+    <select id="allSeq" resultType="java.lang.Integer">
+        select seq.nextval from dual
+    </select>
+
+    <!--新增角色-->
+    <insert id="addRole">
+        insert into role_info values(#{roleid},#{name},#{create},#{id})
+    </insert>
+
+    <!--批量新增部门、角色中间表-->
+    <insert id="addRoleDept" parameterType="java.util.List">
+        INSERT all INTO role_dept(role_id,dept_id)
+        <foreach collection="list" item="RoleDeptPK" index="i" separator=" ">
+            <if test="i != list.size()-1">
+                INTO role_dept(role_id,dept_id) VALUES(#{RoleDeptPK.roleId},#{RoleDeptPK.deptId})
+            </if>
+            <if test="i == list.size()-1">
+                select #{RoleDeptPK.roleId},#{RoleDeptPK.deptId} from dual
+            </if>
+        </foreach>
+    </insert>
+
+    <!--批量删除角色-->
+    <delete id="delRole" parameterType="com.alibaba.fastjson.JSONArray">
+        delete from ROLE_INFO
+        <where>
+            ROLE_ID in
+            <foreach collection="choose" item="p" open="(" index="i" separator="," close=")">
+                #{p}
+            </foreach>
+        </where>
+    </delete>
+
+    <!--修改角色-->
+    <update id="updateRole">
+        update role_info set role_name=#{roleName},role_parent=#{id} where role_id=#{roleId}
+    </update>
+
+    <!--根据角色id删除部门、角色中间表-->
+    <delete id="delRoleDept">
+        delete from role_dept where role_id=#{roleId}
+    </delete>
+</mapper>
