@@ -1,16 +1,12 @@
 package cn.gson.his.controller.Power;
 
-import cn.gson.his.model.pojos.Power.Dept;
-import cn.gson.his.model.pojos.Power.ElMessage;
-import cn.gson.his.model.pojos.Power.RoleDeptPK;
-import cn.gson.his.model.pojos.Power.RoleInfo;
+import cn.gson.his.model.pojos.Power.*;
 import cn.gson.his.model.service.Power.RoleService;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -85,7 +81,7 @@ public class RoleController {
             list.add(new RoleDeptPK(id,roleInfo.getDepts().get(i).getDeptId()));
         }
         //新增角色表、批量新增角色和部门中间表
-        int p=service.addRole(roleInfo,roleInfo.getRoleinfoByRoleParent().getRoleId(),list,is);
+        int p=service.addRole(roleInfo,list,is);
         //返回结果信息
         if(p>0){
             elm.setType("success");
@@ -109,5 +105,34 @@ public class RoleController {
             elm.setMessage("更新数据失败！");
         }
         return elm;
+    }
+
+    /**
+     *根据角色id查询角色、权限中间表的权限id
+     * @param roleId
+     * @return
+     */
+    @RequestMapping("/allRoleIdPermId")
+    public List<Integer> allRoleIdPermId(Integer roleId){
+        return service.allRoleIdPermId(roleId);
+    }
+
+    /**
+     * 新增角色、权限中间表
+     * @param grant
+     */
+    @PostMapping("/addRolePerm")
+    public ElMessage addRolePerm(@RequestParam("grant") String grant){
+        JSONObject o = JSONObject.parseObject(grant);
+        Integer roleId = Integer.parseInt(o.get("roleId").toString());
+        List<Integer> funs = JSONArray.parseArray(o.get("funs").toString(),Integer.TYPE);
+        service.addRolePerm(roleId,funs);
+        ElMessage elm=new ElMessage("成功授权！","success");
+        return elm;
+    }
+
+    @RequestMapping("/Perm-list")
+    public List<Perm> allFuns(){
+        return service.allFuns();
     }
 }

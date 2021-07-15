@@ -37,4 +37,41 @@
 
         </select>
 
+    <resultMap id="EmpAll" type="cn.gson.his.model.pojos.Power.Employee">
+        <id property="empId" column="emp_id"></id>
+        <result property="empName" column="emp_name"></result>
+        <result property="empPhone" column="emp_phone"></result>
+        <result property="empCard" column="emp_card"></result>
+        <result property="empInduction" column="emp_induction"></result>
+        <result property="empDeparture" column="emp_departure"></result>
+        <result property="empState" column="emp_state"></result>
+
+        <!--用户-->
+        <association property="useres" javaType="cn.gson.his.model.pojos.Power.UserInfo">
+            <id property="userId" column="USER_ID"/>
+            <result property="userAccount" column="USER_ACCOUNT"/>
+            <result property="userPass" column="USER_PASS"/>
+        </association>
+        <!--部门-->
+        <association property="deptByEmpDept" javaType="cn.gson.his.model.pojos.Power.Dept">
+            <id property="deptId" column="dept_id"></id>
+            <result property="deptName" column="dept_name"></result>
+        </association>
+        <!--科室-->
+        <association property="departmentByEmpDepar" javaType="cn.gson.his.model.pojos.Power.Department">
+            <id property="depaId" column="depa_id"></id>
+            <result property="depaName" column="depa_name"></result>
+        </association>
+        <!--职称-->
+        <association property="titles" javaType="cn.gson.his.model.pojos.Power.Title">
+            <id property="titId" column="tit_id"></id>
+            <result property="titName" column="tit_name"></result>
+        </association>
+    </resultMap>
+
+    <select id="allEmp" resultMap="EmpAll">
+        select * from employee e left join user_info u on e.emp_user=u.user_emp left join title t on e.EMP_TIT=t.tit_id left join DEPARTMENT a on e.EMP_DEPAR=a.depa_id LEFT JOIN DEPT d on e.EMP_DEPT=d.dept_id
+
+    </select>
+
 </mapper>

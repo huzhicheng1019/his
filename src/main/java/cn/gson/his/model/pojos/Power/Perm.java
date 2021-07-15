@@ -9,25 +9,36 @@ import java.util.Objects;
 
 @Entity
 public class Perm {
-    private Long permId;//id
+    private Integer permId;//id
     private String permName;//权限名
     private String permComp;//组件名
     private String permUrl;//组件路径
     private String permImg;//组件图标
-    private Long permState;//是否可用:0:是1:否
-    private Long permLevel;//权限等级
-    private Perm permByPermParent;//上级权限
+    private Integer permState;//是否可用:0:是1:否
+    private Integer permLevel;//权限等级
+    private String permMata;//注释
+    private List<Perm> permByPermParent;//上级权限
     private List<RoleInfo> roleinfos;//角色
+
+    @Basic
+    @Column(name = "PERM_MATA")
+    public String getPermMata() {
+        return permMata;
+    }
+
+    public void setPermMata(String permMata) {
+        this.permMata = permMata;
+    }
 
     @Id
     @GeneratedValue(generator = "SEQ")
     @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "PERM_ID")
-    public Long getPermId() {
+    public Integer getPermId() {
         return permId;
     }
 
-    public void setPermId(Long permId) {
+    public void setPermId(Integer permId) {
         this.permId = permId;
     }
 
@@ -73,21 +84,21 @@ public class Perm {
 
     @Basic
     @Column(name = "PERM_STATE")
-    public Long getPermState() {
+    public Integer getPermState() {
         return permState;
     }
 
-    public void setPermState(Long permState) {
+    public void setPermState(Integer permState) {
         this.permState = permState;
     }
 
     @Basic
     @Column(name = "PERM_LEVEL")
-    public Long getPermLevel() {
+    public Integer getPermLevel() {
         return permLevel;
     }
 
-    public void setPermLevel(Long permLevel) {
+    public void setPermLevel(Integer permLevel) {
         this.permLevel = permLevel;
     }
 
@@ -121,13 +132,12 @@ public class Perm {
         return Objects.hash(permId, permName, permComp, permUrl, permImg, permState, permLevel);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "PERM_PARENT", referencedColumnName = "PERM_ID")
-    public Perm getPermByPermParent() {
+    @OneToMany
+    public List<Perm> getPermByPermParent() {
         return permByPermParent;
     }
 
-    public void setPermByPermParent(Perm permByPermParent) {
+    public void setPermByPermParent(List<Perm> permByPermParent) {
         this.permByPermParent = permByPermParent;
     }
 }

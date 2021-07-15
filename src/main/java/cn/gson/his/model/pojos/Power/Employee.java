@@ -20,7 +20,7 @@ public class Employee {
     private Dept deptByEmpDept;//部门
     private Department departmentByEmpDepar;//科室
     private Title titles;//职称
-    private List<UserInfo> useres;//用户
+    private UserInfo useres;//用户
     private List<Schedu> schedus;//排班
 
     @Id
@@ -95,12 +95,13 @@ public class Employee {
         this.empState = empState;
     }
 
-    @OneToMany(mappedBy = "employeeByUserEmp")
-    public List<UserInfo> getUseres() {
+    @OneToOne
+    @JoinColumn(name = "EMP_USER", referencedColumnName = "USER_ID")
+    public UserInfo getUseres() {
         return useres;
     }
 
-    public void setUseres(List<UserInfo> useres) {
+    public void setUseres(UserInfo useres) {
         this.useres = useres;
     }
 
@@ -156,7 +157,7 @@ public class Employee {
         this.titles = titles;
     }
 
-    public Employee(String empName, String empPhone, String empCard, Timestamp empInduction, Timestamp empDeparture, Integer empState, Dept deptByEmpDept, Department departmentByEmpDepar, Title titles, List<UserInfo> useres, List<Schedu> schedus) {
+    public Employee(String empName, String empPhone, String empCard, Timestamp empInduction, Timestamp empDeparture, Integer empState, Dept deptByEmpDept, Department departmentByEmpDepar, Title titles, UserInfo useres, List<Schedu> schedus) {
         this.empName = empName;
         this.empPhone = empPhone;
         this.empCard = empCard;

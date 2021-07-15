@@ -12,7 +12,7 @@ public class Title {
     private Integer titId;//id
     private String titName;//职称
     private Dept deptByTitDept;//部门
-    private List<Employee> emp;//员工
+
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -49,7 +49,6 @@ public class Title {
         return Objects.hash(titId, titName);
     }
 
-
     @ManyToOne
     @JoinColumn(name = "TIT_DEPT", referencedColumnName = "DEPT_ID")
     public Dept getDeptByTitDept() {
@@ -59,12 +58,5 @@ public class Title {
     public void setDeptByTitDept(Dept deptByTitDept) {
         this.deptByTitDept = deptByTitDept;
     }
-    @OneToMany(mappedBy = "titles")
-    public List<Employee> getEmp() {
-        return emp;
-    }
 
-    public void setEmp(List<Employee> emp) {
-        this.emp = emp;
-    }
 }

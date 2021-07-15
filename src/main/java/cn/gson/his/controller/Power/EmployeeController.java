@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/lxj")
 @RestController
@@ -19,6 +20,18 @@ public class EmployeeController {
     @RequestMapping("selDoctor")
     public List<Employee> demo(Integer depaId){
         return  empService.selDoctor(depaId);
+    }
+
+    /**
+     * 分页查询所有
+     * @param pageNo
+     * @param size
+     * @return
+     */
+    @RequestMapping("/allEmp")
+    public Map<String,Object> allEmp(Integer pageNo, Integer size){
+        System.out.println("员工："+empService.allEmp(pageNo, size).get("rows"));
+        return empService.allEmp(pageNo,size);
     }
 
 

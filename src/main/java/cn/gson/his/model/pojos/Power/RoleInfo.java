@@ -133,6 +133,7 @@ public class RoleInfo {
         return Objects.hash(roleId, roleName, roleCreate);
     }
 
+    @Transient
     @ManyToOne
     @JoinColumn(name = "ROLE_PARENT", referencedColumnName = "ROLE_ID")
     public RoleInfo getRoleinfoByRoleParent() {
