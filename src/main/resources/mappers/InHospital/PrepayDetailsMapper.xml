@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.InHospital.PrepayDetailsMapper">
+    <resultMap id="PreDetMap" type="cn.gson.his.model.pojos.InHospital.PrepayDetailsEntity">
+        <id property="presId" column="pres_id"></id>
+        <result property="presDate" column="pres_date"></result>
+        <result property="presPrice" column="pres_price"></result>
+        <result property="itemId" column="item_id"></result>
+        <result property="presType" column="pres_type"></result>
+        <result property="preId" column="pre_id"></result>
+    </resultMap>
+
+    <!--根据缴费表编号查缴费详情表-->
+    <select id="selPreDet" resultMap="PreDetMap">
+        select * from prepay_details where pre_id = #{preId}
+    </select>
+
+    <!--新增缴费详情表-->
+    <insert id="insertPreDet">
+        insert into prepay_details values (seq.nextval,current_timestamp ,#{presPrice},#{itemId},#{presType},#{preId})
+    </insert>
+
+</mapper>
