@@ -34,26 +34,32 @@ public class CardService {
         //调用mapper里面的增删改查
             cm.addCard(card);
     }
-    //修改就诊卡
+    //修改就诊卡的金额,新增就诊卡充值记录
     @Transactional
-    public String UpCard(CardEntity card,CardrecordEntity cardrecord){
+    public int UpCard(CardEntity card,CardrecordEntity cardrecord){
         //try {
             //修改就诊卡的值
             int i = cm.upCard(card);
-            if (i > 0){
+            System.out.println(i);
+            if (i != 0){
                 //查询就诊卡的id给就诊卡记录用
                 List<CardEntity> cardEntities = cm.allCard(card);
                 cardrecord.setCardId(cardEntities.get(0).getCardId());
                 //新增就诊卡记录
                 System.out.println("jzk"+cardrecord);
                 crm.addCardecord(cardrecord);
-                return "OK";
+                return 1 ;
             }else {
-                return "NO";
+                return 2 ;
             }
 //        }catch (Exception e){
 //            System.out.println(e.fillInStackTrace());
 //            return "NO";
 //        }
+    }
+    @Transactional
+    public String upState(CardEntity card){
+        cm.upCard(card);
+        return "OK";
     }
 }

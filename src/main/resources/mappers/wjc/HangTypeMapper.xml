@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--挂号类型-->
+<mapper namespace="cn.gson.his.model.mappers.wjc.HangTypeMapper">
+        <resultMap id="Hangtype" type="cn.gson.his.model.pojos.wjc.HangtypeEntity">
+            <id column="HANGTYPE_NO" property="hangtypeNo"></id>
+            <result column="HANGTYPE_NAME" property="hangtypeName"/>
+            <result column="NEW_PRICE" property="newPrice"/>
+            <result column="OLD_PRICE" property="oldPrice"/>
+        </resultMap>
+        <select id="allHangType" resultMap="Hangtype">
+            select * from HangType
+        </select>
+</mapper>

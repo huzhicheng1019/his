@@ -11,9 +11,9 @@
         <result column="CARD_PREPAY" property="cardPrepay"/>
         <result column="PATIENT_NAME" property="patientName"/>
         <result column="CARD_STATE" property="cardState"/>
-<!-- 就诊卡里面的患者资料关系 -->
+        <!-- 就诊卡里面的患者资料关系 -->
         <association property="pati" javaType="cn.gson.his.model.pojos.wjc.PatientdataEntity">
-            <id column="PATIENT_NO" property="patientNo" ></id>
+            <id column="PATIENT_NO" property="patientNo"></id>
             <result column="PATIENT_NAME" property="patientName"/>
             <result column="PATIENT_SEX" property="patientSex"/>
             <result column="PATIENT_AGE" property="patientAge"/>
@@ -37,24 +37,42 @@
             <if test="cardState != 0">
                 CARD_STATE = #{cardState},
             </if>
-            <if test="cardPrice !=''">
+            <if test="cardPrice != 0">
                 CARD_PRICE =  CARD_PRICE + #{cardPrice}
             </if>
         </set>
-        where CARD_NO = #{cardNo} and CARD_PSWD =#{cardPswd}
+        <where>
+            <if test="cardNo != ''">
+                CARD_NO = #{cardNo}
+            </if>
+            <if test="cardPswd !=0">
+                and CARD_PSWD =#{cardPswd}
+            </if>
+        </where>
     </update>
 <!--查询就诊卡-->
     <select id="allCard" resultMap="card">
             select * from CARD c inner join PATIENTDATA p on  c.PATIENT_NO = p.PATIENT_NO
             <where>
-                <if test="cardNo !=''">
-                     CARD_NO like '%${cardNo}%'
+                <if test="cardNo !=null">
+                    <if test="cardNo !=''">
+                        c.CARD_NO like '%${cardNo}%'
+                    </if>
                 </if>
-                <if test="patientName != ''">
-                    or PATIENT_NAME like '%${patientName}%'
+                <if test="patientName !=null">
+                    <if test="patientName != ''">
+                        or c.PATIENT_NAME like '%${patientName}%'
+                    </if>
                 </if>
-                <if test="cardState != 0">
-                    or CARD_STATE = #{cardState}
+                <if test="cardState !=null">
+                    <if test="cardState != 0">
+                        or c.CARD_STATE = #{cardState}
+                    </if>
+                </if>
+                <if test="pati !=null ">
+                    <if test="pati.patientNo != ''">
+                        p.PATIENT_NO = #{pati.patientNo}
+                    </if>
                 </if>
             </where>
             order by CARD_ID desc

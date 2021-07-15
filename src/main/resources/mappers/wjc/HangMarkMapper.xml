@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.wjc.HangMarkMapper">
+    <resultMap id="hangMark" type="cn.gson.his.model.pojos.wjc.HangmarkEntity">
+<!--        挂号信息-->
+        <id column="HANG_NO" property="hangNo"/>
+        <result column="HANG_DATE" property="hangDate"/>
+        <result column="HANG_CHARGE" property="hangCharge"/>
+        <result column="TIMEQUANTUM" property="timequantum"/>
+        <result column="HANG_STATE" property="hangState"/>
+        <result column="DIAGNOSE_STATE" property="diagnoseState"/>
+<!--        科室信息-->
+        <association property="department" javaType="cn.gson.his.model.pojos.lxj.Department">
+            <id property="depaId" column="DEPA_ID"></id>
+            <result property="depaName" column="DEPA_NAME"></result>
+            <result property="depaCreate" column="DEPA_CREATE"></result>
+        </association>
+<!--        主治医生-->
+        <association property="doctorName" javaType="cn.gson.his.model.pojos.lxj.Employee">
+            <id property="empId" column="EMP_ID"></id>
+            <result property="empName" column="EMP_NAME"></result>
+        </association>
+<!--        登入人-->
+        <association property="registrantName" javaType="cn.gson.his.model.pojos.lxj.Employee">
+            <id property="empId" column="EMP_ID"></id>
+            <result property="empName" column="EMP_NAME"></result>
+        </association>
+<!--        患者信息-->
+        <association property="patie" javaType="cn.gson.his.model.pojos.wjc.PatientdataEntity">
+            <id column="PATIENT_NO" property="patientNo" ></id>
+            <result column="PATIENT_NAME" property="patientName"/>
+            <result column="PATIENT_SEX" property="patientSex"/>
+            <result column="PATIENT_AGE" property="patientAge"/>
+            <result column="PATIENT_PHONE" property="patientPhone"/>
+            <result column="PATIENT_INSU" property="patientInsu"/>
+            <result column="PATIENT_IDENTITY" property="patientIdentity"/>
+            <result column="PATIENT_PIRTH" property="patientPirth"/>
+        </association>
+<!--        挂号类型-->
+        <association property="hangType" javaType="cn.gson.his.model.pojos.wjc.HangtypeEntity">
+                <id column="HANGTYPE_NO" property="hangtypeNo"/>
+                <result column="HANGTYPE_NAME" property="hangtypeName"/>
+                <result column="NEW_PRICE" property="newPrice"/>
+                <result column="OLD_PRICE" property="oldPrice"/>
+        </association>
+    </resultMap>
+<!--    新增挂号信息-->
+    <insert id="addHang">
+        insert into  HANGMARK values (seq.nextval,#{department.depaId},#{doctorName.empId},#{registrantName.empId},#{hangDate},#{patie.patientNo},#{hangCharge},#{hangType.hangtypeNo},#{timequantum},#{hangState},#{diagnoseState})
+    </insert>
+<!--    修改挂号信息-->
+    <update id="upHang">
+        update HANGMARK
+        <set>
+--             修改主治医生
+            <if test="doctorName.empId != ''">
+                EMP_ID = #{doctorName.empId},
+            </if>
+--就诊科室
+            <if test="department.depaId !=''">
+                HANG_ROOM = #{department.depaId},
+            </if>
+--             登记人员
+            <if test="registrantName.empName!=''">
+                DOCTOR_NAME = #{registrantName.empName},
+            </if>
+--         根据挂号类型
+            <if test="hangType.HANGTYPE_NO != ''">
+                HANGTYPE_NO =#{hangType.hangtypeNo},
+            </if>
+            <if test="hangState !=''">
+                HANG_STATE =#{hangState},
+            </if>
+--             诊断状态
+            <if test="diagnoseState !='' ">
+                DIAGNOSE_STATE = #{diagnoseState},
+            </if>
+        </set>
+            where HANG_NO = #{hangNo}
+    </update>
+<!--查询挂号信息-->
+    <select id="seleHangMark" resultMap="hangMark">
+        select * from HANGMARK h inner join DEPARTMENT d on  h.HANG_ROOM = d.DEPA_ID
+                                 inner join EMPLOYEE e on h.DOCTOR_NAME = e.EMP_ID
+                                 inner join EMPLOYEE e1 on h.REGISTRANT_NAME = e1.EMP_ID
+                                 inner join  PATIENTDATA P on h.PATIENT_NO = P.PATIENT_NO
+                                 inner join  HANGTYPE H2 on h.HANGTYPE_NO = H2.HANGTYPE_NO
+        <where>
+--         根据科室查询
+            1=1
+            <if test="department != null">
+                <if test="department.depaName != ''">
+                    D.DEPA_NAME = #{department.depaName}
+                </if>
+            </if>
+            <if test="doctorName != null">
+                --         根据主治医生
+                <if test="doctorName.empName != ''">
+                    or E.EMP_NAME = #{doctorName.doctorName}
+                </if>
+            </if>
+            <if test="patie !=null">
+                --          根据患者资料
+                <if test="patie.patientName != ''">
+                    or p.PATIENT_NAME = #{patie.patientName}
+                </if>
+                <if test="patie.patientIdentity != ''">
+                    or p.PATIENT_IDENTITY = #{patie.patientIdentity}
+                </if>
+            </if>
+            <if test="hangType !=null">
+                --         根据挂号类型
+                <if test="hangType.hangtypeName != ''">
+                    or  H2.HANGTYPE_NAME =#{hangtypeName}
+                </if>
+            </if>
+            <if test=" hangState != null ">
+                or  h.HANG_STATE =#{hangState}
+            </if>
+            <if test=" diagnoseState != null ">
+                or  h.DIAGNOSE_STATE = #{diagnoseState}
+            </if>
+            <if test=" hangDate != null ">
+                and  to_char(h.HANG_DATE,'yyyy-mm-dd') = to_char(#{hangDate},'yyyy-mm-dd')
+            </if>
+        </where>
+        order by H.HANG_NO desc
+    </select>
+
+
+
+</mapper>

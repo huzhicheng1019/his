@@ -1,24 +1,78 @@
 package cn.gson.his.model.pojos.wjc;
 
+import cn.gson.his.model.pojos.lxj.Department;
+import cn.gson.his.model.pojos.lxj.Employee;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 @Table(name = "HANGMARK", schema = "HIS", catalog = "")
-public class HangmarkEntity {
+public class HangmarkEntity<HangType> {
     private int hangNo;
-    private Integer hangRoom;
-    private Integer doctorName;
-    private Integer registrantName;
+    //挂号的科室
+    private Department department;
+    //挂号的医生
+    private Employee doctorName;
+    private Employee registrantName;;//登记人
     private Timestamp hangDate;
-    private Integer patientNo;
+    //患者信息外建
+    private PatientdataEntity patie;
     private Long hangCharge;
-    private Integer hangtypeNo;
+    //挂号类型
+    private HangtypeEntity hangType;
     private String timequantum;
     private Integer hangState;
     private Integer diagnoseState;
 
+    @ManyToOne
+    @JoinColumn(name = "Registrant_name",nullable = false)
+    public Employee getRegistrantName() {
+        return registrantName;
+    }
+
+    public void setRegistrantName(Employee registrantName) {
+        this.registrantName = registrantName;
+    }
+
+    //科室
+    @ManyToOne
+    @JoinColumn(name = "HANG_ROOM",nullable = false)
+    public Department getDepartment() {
+        return department;
+    }
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+    //主治医师
+    @ManyToOne
+    @JoinColumn(name = "DOCTOR_NAME",nullable = false)
+    public Employee getDoctorName() {
+        return doctorName;
+    }
+    public void setDoctorName(Employee doctorName) {
+        this.doctorName = doctorName;
+    }
+    //患者资料
+    @ManyToOne
+    @JoinColumn(name = "PATIENT_NO",nullable = false)
+    public PatientdataEntity getPatie() {
+        return patie;
+    }
+    public void setPatie(PatientdataEntity patie) {
+        this.patie = patie;
+    }
+    //挂号类型
+    @ManyToOne
+    @JoinColumn(name = "HANGTYPE_NO",nullable = false)
+    public HangtypeEntity getHangType() {
+        return hangType;
+    }
+
+    public void setHangType(HangtypeEntity hangType) {
+        this.hangType = hangType;
+    }
     @Id
     @Column(name = "HANG_NO")
     public int getHangNo() {
@@ -27,36 +81,6 @@ public class HangmarkEntity {
 
     public void setHangNo(int hangNo) {
         this.hangNo = hangNo;
-    }
-
-    @Basic
-    @Column(name = "HANG_ROOM")
-    public Integer getHangRoom() {
-        return hangRoom;
-    }
-
-    public void setHangRoom(Integer hangRoom) {
-        this.hangRoom = hangRoom;
-    }
-
-    @Basic
-    @Column(name = "DOCTOR_NAME")
-    public Integer getDoctorName() {
-        return doctorName;
-    }
-
-    public void setDoctorName(Integer doctorName) {
-        this.doctorName = doctorName;
-    }
-
-    @Basic
-    @Column(name = "REGISTRANT_NAME")
-    public Integer getRegistrantName() {
-        return registrantName;
-    }
-
-    public void setRegistrantName(Integer registrantName) {
-        this.registrantName = registrantName;
     }
 
     @Basic
@@ -69,15 +93,6 @@ public class HangmarkEntity {
         this.hangDate = hangDate;
     }
 
-    @Basic
-    @Column(name = "PATIENT_NO")
-    public Integer getPatientNo() {
-        return patientNo;
-    }
-
-    public void setPatientNo(Integer patientNo) {
-        this.patientNo = patientNo;
-    }
 
     @Basic
     @Column(name = "HANG_CHARGE")
@@ -87,16 +102,6 @@ public class HangmarkEntity {
 
     public void setHangCharge(Long hangCharge) {
         this.hangCharge = hangCharge;
-    }
-
-    @Basic
-    @Column(name = "HANGTYPE_NO")
-    public Integer getHangtypeNo() {
-        return hangtypeNo;
-    }
-
-    public void setHangtypeNo(Integer hangtypeNo) {
-        this.hangtypeNo = hangtypeNo;
     }
 
     @Basic
@@ -135,13 +140,10 @@ public class HangmarkEntity {
         if (o == null || getClass() != o.getClass()) return false;
         HangmarkEntity that = (HangmarkEntity) o;
         return hangNo == that.hangNo &&
-                Objects.equals(hangRoom, that.hangRoom) &&
                 Objects.equals(doctorName, that.doctorName) &&
                 Objects.equals(registrantName, that.registrantName) &&
                 Objects.equals(hangDate, that.hangDate) &&
-                Objects.equals(patientNo, that.patientNo) &&
                 Objects.equals(hangCharge, that.hangCharge) &&
-                Objects.equals(hangtypeNo, that.hangtypeNo) &&
                 Objects.equals(timequantum, that.timequantum) &&
                 Objects.equals(hangState, that.hangState) &&
                 Objects.equals(diagnoseState, that.diagnoseState);
@@ -149,6 +151,6 @@ public class HangmarkEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(hangNo, hangRoom, doctorName, registrantName, hangDate, patientNo, hangCharge, hangtypeNo, timequantum, hangState, diagnoseState);
+        return Objects.hash(hangNo, registrantName, hangDate, hangCharge, timequantum, hangState, diagnoseState);
     }
 }
