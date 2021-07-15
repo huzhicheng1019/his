@@ -1,9 +1,9 @@
-package cn.gson.his.controller.llw;
+package cn.gson.his.controller.Drug;
 
-import cn.gson.his.model.pojos.llw.*;
-import cn.gson.his.model.service.llw.CangkService;
-import cn.gson.his.model.service.llw.ConService;
-import cn.gson.his.model.service.llw.YpService;
+import cn.gson.his.model.pojos.Drug.*;
+import cn.gson.his.model.service.Drug.CangkService;
+import cn.gson.his.model.service.Drug.ConService;
+import cn.gson.his.model.service.Drug.YpService;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

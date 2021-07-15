@@ -1,11 +1,11 @@
-package cn.gson.his.model.service.llw;
+package cn.gson.his.model.service.Drug;
 
-import cn.gson.his.model.dao.llw.CangkDao;
-import cn.gson.his.model.dao.llw.CankxqDao;
-import cn.gson.his.model.mappers.llw.CangkMapper;
-import cn.gson.his.model.mappers.llw.ConMapper;
-import cn.gson.his.model.mappers.llw.YpMapper;
-import cn.gson.his.model.pojos.llw.*;
+import cn.gson.his.model.dao.Drug.CangkDao;
+import cn.gson.his.model.dao.Drug.CankxqDao;
+import cn.gson.his.model.mappers.Drug.CangkMapper;
+import cn.gson.his.model.mappers.Drug.ConMapper;
+import cn.gson.his.model.mappers.Drug.YpMapper;
+import cn.gson.his.model.pojos.Drug.*;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.annotations.Param;

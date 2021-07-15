@@ -12,7 +12,7 @@
         </where>
     </select>
 
-    <select id="ypcx" resultType="cn.gson.his.model.pojos.llw.DrugEntity">
+    <select id="ypcx" resultType="cn.gson.his.model.pojos.Drug.DrugEntity">
         select * from drug where lb_id=#{id}
     </select>
 </mapper>

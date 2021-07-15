@@ -43,7 +43,7 @@
         select * from lb
     </select>
 
-    <select id="selectck" resultType="cn.gson.his.model.pojos.llw.LibraryxqEntity">
+    <select id="selectck" resultType="cn.gson.his.model.pojos.Drug.LibraryxqEntity">
         select * from LIBRARYXQ where PRODUCT_FL=0 and PRODUCT_ID=#{id}
     </select>
 

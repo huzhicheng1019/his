@@ -1,8 +1,8 @@
-package cn.gson.his.controller.llw;
+package cn.gson.his.controller.Drug;
 
-import cn.gson.his.model.pojos.llw.ConEntity;
-import cn.gson.his.model.pojos.llw.LibraryxqEntity;
-import cn.gson.his.model.service.llw.ConService;
+import cn.gson.his.model.pojos.Drug.ConEntity;
+import cn.gson.his.model.pojos.Drug.LibraryxqEntity;
+import cn.gson.his.model.service.Drug.ConService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

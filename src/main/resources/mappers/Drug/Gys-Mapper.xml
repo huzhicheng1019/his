@@ -11,11 +11,11 @@
         </where>
     </select>
 
-    <select id="ypcx" resultType="cn.gson.his.model.pojos.llw.DrugEntity">
+    <select id="ypcx" resultType="cn.gson.his.model.pojos.Drug.DrugEntity">
         select * from drug where gys_id=#{id}
     </select>
     
-    <select id="concx" resultType="cn.gson.his.model.pojos.llw.ConEntity">
+    <select id="concx" resultType="cn.gson.his.model.pojos.Drug.ConEntity">
         select * from con where gys_id=#{id}
     </select>
     

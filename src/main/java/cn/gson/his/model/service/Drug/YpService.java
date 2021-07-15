@@ -1,9 +1,9 @@
-package cn.gson.his.model.service.llw;
+package cn.gson.his.model.service.Drug;
 
-import cn.gson.his.model.dao.llw.YpDao;
-import cn.gson.his.model.mappers.llw.YpMapper;
-import cn.gson.his.model.pojos.llw.DrugEntity;
-import cn.gson.his.model.pojos.llw.LibraryxqEntity;
+import cn.gson.his.model.dao.Drug.YpDao;
+import cn.gson.his.model.mappers.Drug.YpMapper;
+import cn.gson.his.model.pojos.Drug.DrugEntity;
+import cn.gson.his.model.pojos.Drug.LibraryxqEntity;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;

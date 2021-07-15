@@ -1,6 +1,6 @@
-package cn.gson.his.model.mappers.llw;
+package cn.gson.his.model.mappers.Drug;
 
-import cn.gson.his.model.pojos.llw.*;
+import cn.gson.his.model.pojos.Drug.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

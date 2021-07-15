@@ -2,6 +2,7 @@ package cn.gson.his.model.service.Drug;
 
 import cn.gson.his.model.dao.Drug.YplbDao;
 import cn.gson.his.model.mappers.Drug.YplbMapper;
+import cn.gson.his.model.pojos.Drug.DrugEntity;
 import cn.gson.his.model.pojos.Drug.LbEntity;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
