@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.InHospital.PrepayMapper">
+        <resultMap id="PreMap" type="cn.gson.his.model.pojos.InHospital.PrepayEntity">
+            <id property="preId" column="pre_id"></id>
+            <result property="regMark" column="reg_mark"></result>
+            <result property="preBalance" column="pre_balance"></result>
+            <result property="preArrearage" column="pre_arrearage"></result>
+            <!--住院登记表-->
+            <association property="hospitalRegisterEntity" javaType="cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity" >
+                <id property="regId" column="reg_id"></id>
+                <result property="regMark" column="reg_mark"></result>
+                <result property="regDate" column="reg_date"></result>
+                <result property="patientNo" column="patient_no"></result>
+                <result property="regName" column="reg_name"></result>
+                <result property="depaId" column="depa_id"></result>
+                <result property="doctorId" column="doctor_id"></result>
+                <result property="doctorName" column="doctor_name"></result>
+                <result property="regIs" column="reg_is"></result>
+            </association>
+            <!--病人信息表-->
+            <association property="patientdata" javaType="cn.gson.his.model.pojos.Outpatient.PatientdataEntity">
+                <id property="patientNo" column="patient_no"></id>
+                <result property="patientName" column="patient_name"></result>
+                <result property="patientSex" column="patient_sex"></result>
+                <result property="patientAge" column="patient_age"></result>
+                <result property="patientPhone" column="patient_phone"></result>
+                <result property="patientInsu" column="patient_insu"></result>
+                <result property="patientIdentity" column="patient_identity"></result>
+                <result property="patientPirth" column="patient_pirth"></result>
+            </association>
+            <!--押金详情表-->
+            <collection property="prepayDetails" ofType="cn.gson.his.model.pojos.InHospital.PrepayDetailsEntity">
+                <id property="presId" column="pres_id"></id>
+                <result property="presDate" column="pres_date"></result>
+                <result property="presPrice" column="pres_price"></result>
+                <result property="itemId" column="item_id"></result>
+                <result property="presType" column="pres_type"></result>
+                <result property="preId" column="pre_id"></result>
+            </collection>
+
+
+        </resultMap>
+
+
+
+    <!--新增押金缴费表-->
+    <insert id="insertPre">
+        <!--将增删改的值,回传-->
+        <selectKey order="BEFORE" keyProperty="preId" resultType="_int"  >
+            select seq.nextval from dual
+        </selectKey>
+        insert into prepay values (#{preId},#{regMark},#{preBalance},500)
+    </insert>
+    <!--新增押金缴费详表-->
+    <insert id="insertPres">
+        insert into prepay_details values (seq.nextval,current_timestamp ,#{presPrice},#{itemId},#{presType},#{preId})
+    </insert>
+
+    <!--查询押金表-->
+    <select id="selPre" resultMap="PreMap">
+        select * from prepay p
+--         left join prepay_details ps on p.pre_id = ps.pre_id
+        left join hospital_register h on p.reg_mark = h.reg_mark
+        left join patientdata pa on h.patient_no = pa.patient_no
+
+        <where>
+            <if test="content != ''">
+                and (p.reg_mark like '%${content}%' or pa.patient_name like '%${content}%'
+                 or pa.patient_phone like '%${content}%' or pa.patient_identity like '%${content}%'
+                 or p.pre_balance like '%${content}%')
+            </if>
+        </where>
+
+    </select>
+
+    <!--修改押金表余额-->
+    <update id="updatePre">
+        update prepay set pre_balance = (pre_balance+#{preBalance}) where pre_id =  #{preId}
+    </update>
+</mapper>
