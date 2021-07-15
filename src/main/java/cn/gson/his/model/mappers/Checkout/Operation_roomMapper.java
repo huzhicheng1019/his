@@ -1,6 +1,6 @@
-package cn.gson.his.model.mappers.lrn;
+package cn.gson.his.model.mappers.Checkout;
 
-import cn.gson.his.model.pojos.lrn.OperationRoomEntity;
+import cn.gson.his.model.pojos.Checkout.OperationRoomEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
