@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.gson.his.model.mappers.wjc.BackMapper">
-    <resultMap id="back" type="cn.gson.his.model.pojos.wjc.BackEntity">
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.BackMapper">
+    <resultMap id="back" type="cn.gson.his.model.pojos.Outpatient.BackEntity">
         <id column="BACKNO" property="backno"></id>
         <result column="HANG_ID" property="hangId"/>
         <result column="BACK_DATE" property="backDate"/>
         <result column="BACK_WHY" property="backWhy"/>
         <result column="BACK_PRICE" property="backPrice"/>
-        <association property="hang" javaType="cn.gson.his.model.pojos.wjc.CardEntity">
+        <association property="hang" javaType="cn.gson.his.model.pojos.Outpatient.CardEntity">
             <id column="CARD_ID" property="cardId"/>
             <result column="CARD_NO" property="cardNo"/>
             <result column="CARD_PSWD" property="cardPswd"/>

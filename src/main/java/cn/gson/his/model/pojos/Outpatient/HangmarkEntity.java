@@ -1,7 +1,8 @@
 package cn.gson.his.model.pojos.Outpatient;
 
-import cn.gson.his.model.pojos.lxj.Department;
-import cn.gson.his.model.pojos.lxj.Employee;
+
+import cn.gson.his.model.pojos.Power.Department;
+import cn.gson.his.model.pojos.Power.Employee;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

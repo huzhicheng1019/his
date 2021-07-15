@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.gson.his.model.mappers.wjc.HangMarkMapper">
-    <resultMap id="hangMark" type="cn.gson.his.model.pojos.wjc.HangmarkEntity">
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.HangMarkMapper">
+    <resultMap id="hangMark" type="cn.gson.his.model.pojos.Outpatient.HangmarkEntity">
 <!--        挂号信息-->
         <id column="HANG_NO" property="hangNo"/>
         <result column="HANG_DATE" property="hangDate"/>
@@ -11,23 +11,23 @@
         <result column="HANG_STATE" property="hangState"/>
         <result column="DIAGNOSE_STATE" property="diagnoseState"/>
 <!--        科室信息-->
-        <association property="department" javaType="cn.gson.his.model.pojos.lxj.Department">
+        <association property="department" javaType="cn.gson.his.model.pojos.Power.Department">
             <id property="depaId" column="DEPA_ID"></id>
             <result property="depaName" column="DEPA_NAME"></result>
             <result property="depaCreate" column="DEPA_CREATE"></result>
         </association>
 <!--        主治医生-->
-        <association property="doctorName" javaType="cn.gson.his.model.pojos.lxj.Employee">
+        <association property="doctorName" javaType="cn.gson.his.model.pojos.Power.Employee">
             <id property="empId" column="EMP_ID"></id>
             <result property="empName" column="EMP_NAME"></result>
         </association>
 <!--        登入人-->
-        <association property="registrantName" javaType="cn.gson.his.model.pojos.lxj.Employee">
+        <association property="registrantName" javaType="cn.gson.his.model.pojos.Power.Employee">
             <id property="empId" column="EMP_ID"></id>
             <result property="empName" column="EMP_NAME"></result>
         </association>
 <!--        患者信息-->
-        <association property="patie" javaType="cn.gson.his.model.pojos.wjc.PatientdataEntity">
+        <association property="patie" javaType="cn.gson.his.model.pojos.Outpatient.PatientdataEntity">
             <id column="PATIENT_NO" property="patientNo" ></id>
             <result column="PATIENT_NAME" property="patientName"/>
             <result column="PATIENT_SEX" property="patientSex"/>
@@ -38,7 +38,7 @@
             <result column="PATIENT_PIRTH" property="patientPirth"/>
         </association>
 <!--        挂号类型-->
-        <association property="hangType" javaType="cn.gson.his.model.pojos.wjc.HangtypeEntity">
+        <association property="hangType" javaType="cn.gson.his.model.pojos.Outpatient.HangtypeEntity">
                 <id column="HANGTYPE_NO" property="hangtypeNo"/>
                 <result column="HANGTYPE_NAME" property="hangtypeName"/>
                 <result column="NEW_PRICE" property="newPrice"/>

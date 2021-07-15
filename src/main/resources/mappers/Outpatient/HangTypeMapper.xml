@@ -4,8 +4,8 @@
 
 
 <!--挂号类型-->
-<mapper namespace="cn.gson.his.model.mappers.wjc.HangTypeMapper">
-        <resultMap id="Hangtype" type="cn.gson.his.model.pojos.wjc.HangtypeEntity">
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.HangTypeMapper">
+        <resultMap id="Hangtype" type="cn.gson.his.model.pojos.Outpatient.HangtypeEntity">
             <id column="HANGTYPE_NO" property="hangtypeNo"></id>
             <result column="HANGTYPE_NAME" property="hangtypeName"/>
             <result column="NEW_PRICE" property="newPrice"/>

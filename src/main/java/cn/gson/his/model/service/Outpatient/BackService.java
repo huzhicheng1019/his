@@ -1,7 +1,7 @@
-package cn.gson.his.model.service.wjc;
+package cn.gson.his.model.service.Outpatient;
 
-import cn.gson.his.model.mappers.wjc.BackMapper;
-import cn.gson.his.model.pojos.wjc.BackEntity;
+import cn.gson.his.model.mappers.Outpatient.BackMapper;
+import cn.gson.his.model.pojos.Outpatient.BackEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

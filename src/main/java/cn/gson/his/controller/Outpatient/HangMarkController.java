@@ -1,15 +1,16 @@
-package cn.gson.his.controller.wjc;
+package cn.gson.his.controller.Outpatient;
 
-import cn.gson.his.model.pojos.lxj.Department;
-import cn.gson.his.model.pojos.wjc.CardEntity;
-import cn.gson.his.model.pojos.wjc.HangmarkEntity;
-import cn.gson.his.model.pojos.wjc.HangtypeEntity;
-import cn.gson.his.model.pojos.wjc.PatientdataEntity;
-import cn.gson.his.model.service.lxj.DeparService;
-import cn.gson.his.model.service.wjc.CardService;
-import cn.gson.his.model.service.wjc.HangMarkService;
-import cn.gson.his.model.service.wjc.HangTypeService;
-import cn.gson.his.model.service.wjc.PatientService;
+import cn.gson.his.model.pojos.Outpatient.CardEntity;
+import cn.gson.his.model.pojos.Outpatient.HangmarkEntity;
+import cn.gson.his.model.pojos.Outpatient.HangtypeEntity;
+import cn.gson.his.model.pojos.Outpatient.PatientdataEntity;
+import cn.gson.his.model.pojos.Power.Department;
+import cn.gson.his.model.service.Outpatient.CardService;
+import cn.gson.his.model.service.Outpatient.HangMarkService;
+import cn.gson.his.model.service.Outpatient.HangTypeService;
+import cn.gson.his.model.service.Power.DeparService;
+
+
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

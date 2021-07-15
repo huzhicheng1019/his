@@ -1,10 +1,8 @@
-package cn.gson.his.controller.wjc;
+package cn.gson.his.controller.Outpatient;
 
-import cn.gson.his.model.pojos.wjc.BackEntity;
-import cn.gson.his.model.pojos.wjc.CardEntity;
-import cn.gson.his.model.pojos.wjc.CardrecordEntity;
-import cn.gson.his.model.service.wjc.BackService;
-import cn.gson.his.model.service.wjc.CardService;
+
+import cn.gson.his.model.pojos.Outpatient.BackEntity;
+import cn.gson.his.model.service.Outpatient.BackService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

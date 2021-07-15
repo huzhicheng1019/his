@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.gson.his.model.mappers.wjc.CardMapper">
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.CardMapper">
 <!--    就诊卡映射对象-->
-    <resultMap id="card" type="cn.gson.his.model.pojos.wjc.CardEntity">
+    <resultMap id="card" type="cn.gson.his.model.pojos.Outpatient.CardEntity">
         <id column="CARD_ID" property="cardId"/>
         <result column="CARD_NO" property="cardNo"/>
         <result column="CARD_PSWD" property="cardPswd"/>
@@ -12,7 +12,7 @@
         <result column="PATIENT_NAME" property="patientName"/>
         <result column="CARD_STATE" property="cardState"/>
         <!-- 就诊卡里面的患者资料关系 -->
-        <association property="pati" javaType="cn.gson.his.model.pojos.wjc.PatientdataEntity">
+        <association property="pati" javaType="cn.gson.his.model.pojos.Outpatient.PatientdataEntity">
             <id column="PATIENT_NO" property="patientNo"></id>
             <result column="PATIENT_NAME" property="patientName"/>
             <result column="PATIENT_SEX" property="patientSex"/>

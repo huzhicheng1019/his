@@ -1,7 +1,8 @@
-package cn.gson.his.model.service.wjc;
+package cn.gson.his.model.service.Outpatient;
 
-import cn.gson.his.model.mappers.wjc.HangMarkMapper;
-import cn.gson.his.model.pojos.wjc.HangmarkEntity;
+
+import cn.gson.his.model.mappers.Outpatient.HangMarkMapper;
+import cn.gson.his.model.pojos.Outpatient.HangmarkEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
