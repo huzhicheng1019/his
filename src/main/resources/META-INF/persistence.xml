@@ -5,23 +5,23 @@
              version="3.0">
   <persistence-unit name="default">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-      <class>cn.gson.his.model.pojos.lxj.Announcement</class>
-      <class>cn.gson.his.model.pojos.lxj.Department</class>
-    <class>cn.gson.his.model.pojos.lxj.Dept</class>
-    <class>cn.gson.his.model.pojos.lxj.Employee</class>
-    <class>cn.gson.his.model.pojos.lxj.Perm</class>
-    <class>cn.gson.his.model.pojos.lxj.Schedu</class>
-    <class>cn.gson.his.model.pojos.lxj.Shift</class>
-    <class>cn.gson.his.model.pojos.lxj.ShiftType</class>
-    <class>cn.gson.his.model.pojos.lxj.Title</class>
-    <class>cn.gson.his.model.pojos.lxj.UserInfo</class>
-    <class>cn.gson.his.model.pojos.lxj.RoleInfo</class>
+      <class>cn.gson.his.model.pojos.Power.Announcement</class>
+      <class>cn.gson.his.model.pojos.Power.Department</class>
+    <class>cn.gson.his.model.pojos.Power.Dept</class>
+    <class>cn.gson.his.model.pojos.Power.Employee</class>
+    <class>cn.gson.his.model.pojos.Power.Perm</class>
+    <class>cn.gson.his.model.pojos.Power.Schedu</class>
+    <class>cn.gson.his.model.pojos.Power.Shift</class>
+    <class>cn.gson.his.model.pojos.Power.ShiftType</class>
+    <class>cn.gson.his.model.pojos.Power.Title</class>
+    <class>cn.gson.his.model.pojos.Power.UserInfo</class>
+    <class>cn.gson.his.model.pojos.Power.RoleInfo</class>
 
     <!-- llw-->
-    <class>cn.gson.his.model.pojos.llw.DrugEntity</class>
-    <class>cn.gson.his.model.pojos.llw.GysEntity</class>
-    <class>cn.gson.his.model.pojos.llw.LbEntity</class>
-      <class>cn.gson.his.model.pojos.lxj.RoleDept</class>
+    <class>cn.gson.his.model.pojos.Drug.DrugEntity</class>
+    <class>cn.gson.his.model.pojos.Drug.GysEntity</class>
+    <class>cn.gson.his.model.pojos.Drug.LbEntity</class>
+      <class>cn.gson.his.model.pojos.Power.RoleDept</class>
 
       <properties>
       <property name="hibernate.archive.autodetection" value="class"/>

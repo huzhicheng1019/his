@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.TheHospitalMapper">
+            <resultMap id="theHosp" type="cn.gson.his.model.pojos.Outpatient.TheHospitalEntity">
+                <id property="hospitalNo" column="hospital_no"></id>
+                <result property="patientNo" column="patient_no"></result>
+                <result property="hospitalDate" column="hospital_date"></result>
+                <result property="hosptalHospital" column="hosptal_hospital"></result>
+                <result property="depaId" column="depa_id"></result>
+                <result property="hospitalState" column="hospital_state"></result>
+
+                <association property="department" javaType="cn.gson.his.model.pojos.Power.Department">
+                    <id property="depaId" column="depa_id"></id>
+                    <result property="depaName" column="depa_name"></result>
+                </association>
+                <association property="patientdataEntity" javaType="cn.gson.his.model.pojos.Outpatient.PatientdataEntity">
+                    <id property="patientNo" column="patient_no"></id>
+                    <result property="patientName" column="patient_name"></result>
+                    <result property="patientSex" column="patient_sex"></result>
+                    <result property="patientAge" column="patient_age"></result>
+                    <result property="patientPhone" column="patient_phone"></result>
+                    <result property="patientInsu" column="patient_insu"></result>
+                    <result property="patientIdentity" column="patient_identity"></result>
+                    <result property="patientPirth" column="patient_pirth"></result>
+                </association>
+            </resultMap>
+
+    <!--查询所有住院申请表-->
+    <select id="selHospital" resultMap="theHosp">
+        select * from the_hospital t left join department d on t.depa_id = d.depa_id
+        left join patientdata p on t.patient_no = p.patient_no
+        <where>
+            <if test="content != '' ">
+                and (t.hospital_no like '%${content}%' or p.patient_name like '%${content}%' or p.patient_sex  like '%${content}%'
+                or p.patient_age like '%${content}%' or p.patient_phone  like '%${content}%'
+                or p.patient_identity like '%${content}%' or p.patient_pirth  like '%${content}%'
+                )
+            </if>
+            and t.hospital_state = 0
+        </where>
+
+
+    </select>
+    <!--新增病人资料表-->
+    <insert id="insertPatient">
+        <!--将增删改的值,回传-->
+        <selectKey order="BEFORE" keyProperty="patientNo" resultType="_int"  >
+            select seq.nextval from dual
+        </selectKey>
+        insert into patientData values (#{patientNo},#{patientName},#{patientSex},#{patientAge},#{patientPhone},0,#{patientIdentity},#{patientPirth})
+    </insert>
+
+    <!--新增住院申请表 （直接住院）-->
+    <insert id="insertHospital">
+        insert into the_hospital values (seq.nextval,#{patientNo},current_timestamp ,'无',#{depaId},0)
+    </insert>
+
+    <!--修改申请表状态-->
+    <update id="updateState">
+        update the_hospital set hospital_state = 1 where hospital_no = #{hospitalNo}
+    </update>
+
+
+</mapper>
