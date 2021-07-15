@@ -12,17 +12,18 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-
 public class CardRecordController {
 
     @Autowired
     private CardRecordService crs;
 
-
+    //查询就诊卡充值记录
     @RequestMapping("allCardrecord")
     public List<CardrecordEntity>allCardrecord(String record){
+        System.out.println(record);
+        //转对象
         CardrecordEntity cardrecordEntity = JSONObject.parseObject(record, CardrecordEntity.class);
+        //返回出去
         return  crs.allCardRecord(cardrecordEntity);
-
     }
 }

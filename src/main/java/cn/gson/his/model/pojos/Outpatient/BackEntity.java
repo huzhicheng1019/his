@@ -13,6 +13,17 @@ public class BackEntity {
     private String backWhy;
     private Long backPrice;
 
+    private HangmarkEntity hang;
+    @OneToOne
+    @JoinColumn(name = "HANG_ID",nullable = false)
+    public HangmarkEntity getHang() {
+        return hang;
+    }
+
+    public void setHang(HangmarkEntity hang) {
+        this.hang = hang;
+    }
+
     @Id
     @Column(name = "BACKNO")
     public int getBackno() {

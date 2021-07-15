@@ -29,13 +29,13 @@
     <select id="allCardRecord" resultMap="CardRecor">
         select * from CARDRECORD r inner join CARD c on r.CARD_ID = c.CARD_ID
         <where>
-            <if test="cardId != ''">
-                CARD_ID like '%${cardId}%'
+            <if test="card.cardNo != ''">
+                c.CARD_NO like '%${card.cardNo}%'
             </if>
-            <if test="recordDate != null">
+            <if test="recordDate != null    ">
                 or RECORD_DATE = #{recordDate}
             </if>
         </where>
-        order by RECORD_DATE  case
+        order by RECORD_DATE  desc
     </select>
 </mapper>

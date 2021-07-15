@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.BackMapper">
+    <resultMap id="back" type="cn.gson.his.model.pojos.Outpatient.BackEntity">
+        <id column="BACKNO" property="backno"></id>
+        <result column="HANG_ID" property="hangId"/>
+        <result column="BACK_DATE" property="backDate"/>
+        <result column="BACK_WHY" property="backWhy"/>
+        <result column="BACK_PRICE" property="backPrice"/>
+        <association property="hang" javaType="cn.gson.his.model.pojos.Outpatient.CardEntity">
+            <id column="CARD_ID" property="cardId"/>
+            <result column="CARD_NO" property="cardNo"/>
+            <result column="CARD_PSWD" property="cardPswd"/>
+            <result column="CARD_PRICE" property="cardPrice"/>
+            <result column="CARD_PREPAY" property="cardPrepay"/>
+            <result column="PATIENT_NAME" property="patientName"/>
+            <result column="CARD_STATE" property="cardState"/>
+        </association>
+    </resultMap>
+<!--        新增退号-->
+    <insert id="addBack">
+        insert into back values (seq.nextval,#{hangId},#{backDate},#{backWhy},#{backPrice})
+    </insert>
+<!--    查询退号-->
+    <select id="seleBack" resultMap="back">
+        select * from  back
+        <where>
+            <if test="backDate != null ">
+                BACK_DATE = #{backDate}
+            </if>
+            <if test="backWhy != null ">
+                BACK_WHY = #{backdate}
+            </if>
+        </where>
+    </select>
+<!--    删除-->
+    <delete id="deleBack">
+        delete from back where BACKNO = #{backno}
+    </delete>
+</mapper>

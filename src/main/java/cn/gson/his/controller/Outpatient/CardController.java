@@ -1,5 +1,6 @@
 package cn.gson.his.controller.Outpatient;
 
+
 import cn.gson.his.model.pojos.Outpatient.CardEntity;
 import cn.gson.his.model.pojos.Outpatient.CardrecordEntity;
 import cn.gson.his.model.service.Outpatient.CardRecordService;
@@ -28,7 +29,7 @@ public class CardController {
     private PatientService ps;
     //就诊卡充值记录的
     private CardRecordService srs;
-
+    //查询
     @RequestMapping("AllCard")
     public List<CardEntity> allCard(String card){
 //        try {
@@ -61,13 +62,25 @@ public class CardController {
             //操作的人
             cardrecord.setCollectPrice(1);
             //调用修改方法
-            System.out.println("-------------------------"+cardrecord.getCollectPrice());
-            cs.UpCard(cardEntity,cardrecord);
-            return "OK";
+            System.out.println("-"+cardrecord.getCollectPrice());
+            int s = cs.UpCard(cardEntity, cardrecord);
+            if (s == 1){
+                return "OK";
+            }else {
+                return "NO";
+            }
         }catch (Exception e){
             System.out.println(e.fillInStackTrace());
             return "NO";
         }
+    }
+    @RequestMapping("upState")
+    public String upStete(String card){
+        System.out.println(card);
+        CardEntity cardEntity = JSONObject.parseObject(card, CardEntity.class);
+
+        cs.upState(cardEntity);
+        return "OK";
     }
 
 }
