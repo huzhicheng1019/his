@@ -3,6 +3,7 @@ package cn.gson.his.model.service.llw;
 import cn.gson.his.model.dao.llw.YpDao;
 import cn.gson.his.model.mappers.llw.YpMapper;
 import cn.gson.his.model.pojos.llw.DrugEntity;
+import cn.gson.his.model.pojos.llw.LibraryxqEntity;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,9 @@ public class YpService {
 
     public void del(Integer id){
         ypDao.deleteById(id);
+    }
+
+    public List<LibraryxqEntity> selectck(Integer id){
+        return ypMapper.selectck(id);
     }
 }

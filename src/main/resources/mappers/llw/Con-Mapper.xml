@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.llw.ConMapper">
+    <resultMap id="conMap" type="cn.gson.his.model.pojos.llw.ConEntity">
+        <id column="CON_ID" property="conId"></id>
+        <result column="CON_NAME" property="conName"></result>
+        <result column="CON_GE" property="conGe"></result>
+        <result column="DW" property="dw"></result>
+        <result column="YF" property="yf"></result>
+        <result column="CON_SM" property="conSm"></result>
+        <result column="BZQ" property="bzq"></result>
+        <result column="DRUG_PFPRICE" property="drugPfprice"></result>
+        <result column="CON_PRICE" property="conPrice"></result>
+        <result column="ZDKCS" property="zdkcs"></result>
+        <association property="gys" javaType="cn.gson.his.model.pojos.llw.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
+    </resultMap>
+
+    <select id="concx" resultMap="conMap">
+        SELECT c.*,g.GYS_NAME g_name FROM con c INNER JOIN gys g on c.GYS_ID=g.GYS_ID
+        <where>
+            <if test="conName!=null and conName!=''">
+                and con_name like '%${conName}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="selectck" resultType="cn.gson.his.model.pojos.llw.LibraryxqEntity">
+        select * from LIBRARYXQ where PRODUCT_FL=1 and PRODUCT_ID=#{id}
+    </select>
+
+    <select id="selectgys" resultType="cn.gson.his.model.pojos.llw.GysEntity">
+        select * from gys
+    </select>
+</mapper>

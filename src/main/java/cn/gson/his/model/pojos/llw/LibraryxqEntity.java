@@ -17,6 +17,7 @@ public class LibraryxqEntity {
     private Timestamp gqdate;
     private Integer libraryId;
     private Long price;
+    private String ge;
 
     @Id
     @Column(name = "LIBRARYXQ_ID")
@@ -118,6 +119,16 @@ public class LibraryxqEntity {
         this.price = price;
     }
 
+    @Basic
+    @Column(name = "GE")
+    public String getGe() {
+        return ge;
+    }
+
+    public void setGe(String ge) {
+        this.ge = ge;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -132,11 +143,12 @@ public class LibraryxqEntity {
                 Objects.equals(scdate, that.scdate) &&
                 Objects.equals(gqdate, that.gqdate) &&
                 Objects.equals(libraryId, that.libraryId) &&
+                Objects.equals(ge, that.ge) &&
                 Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(libraryxqId, productId, productName, productFl, kcs, ph, scdate, gqdate, libraryId, price);
+        return Objects.hash(libraryxqId, productId, productName, productFl, kcs, ph, scdate, gqdate, libraryId,ge,price);
     }
 }

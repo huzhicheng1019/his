@@ -16,12 +16,18 @@
     <class>cn.gson.his.model.pojos.lxj.Title</class>
     <class>cn.gson.his.model.pojos.lxj.UserInfo</class>
     <class>cn.gson.his.model.pojos.lxj.RoleInfo</class>
-
+    <class>cn.gson.his.model.pojos.lxj.RoleDept</class>
     <!-- llw-->
     <class>cn.gson.his.model.pojos.llw.DrugEntity</class>
     <class>cn.gson.his.model.pojos.llw.GysEntity</class>
     <class>cn.gson.his.model.pojos.llw.LbEntity</class>
-      <class>cn.gson.his.model.pojos.lxj.RoleDept</class>
+    <class>cn.gson.his.model.pojos.llw.ConEntity</class>
+    <class>cn.gson.his.model.pojos.llw.LibraryInfoEntity</class>
+    <class>cn.gson.his.model.pojos.llw.LibraryxqEntity</class>
+    <class>cn.gson.his.model.pojos.llw.StoEntity</class>
+    <class>cn.gson.his.model.pojos.llw.StojlEntity</class>
+    <class>cn.gson.his.model.pojos.llw.ChuEntity</class>
+    <class>cn.gson.his.model.pojos.llw.ChujlEntity</class>
 
       <properties>
       <property name="hibernate.archive.autodetection" value="class"/>

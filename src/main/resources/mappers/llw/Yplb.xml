@@ -5,5 +5,14 @@
 
     <select id="lbcx" resultType="cn.gson.his.model.pojos.llw.LbEntity">
         select * from lb
+        <where>
+            <if test="lbName!=null and lbName!=''">
+                and lb_name like '%${lbName}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="ypcx" resultType="cn.gson.his.model.pojos.llw.DrugEntity">
+        select * from drug where lb_id=#{id}
     </select>
 </mapper>

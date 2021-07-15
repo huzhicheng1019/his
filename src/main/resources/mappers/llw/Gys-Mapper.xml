@@ -4,5 +4,19 @@
 <mapper namespace="cn.gson.his.model.mappers.llw.GysMapper">
     <select id="selectgys" resultType="cn.gson.his.model.pojos.llw.GysEntity">
         select * from gys
+        <where>
+            <if test="gysName!=null and gysName!=''">
+                and gys_name like '%${gysName}%'
+            </if>
+        </where>
     </select>
+
+    <select id="ypcx" resultType="cn.gson.his.model.pojos.llw.DrugEntity">
+        select * from drug where gys_id=#{id}
+    </select>
+    
+    <select id="concx" resultType="cn.gson.his.model.pojos.llw.ConEntity">
+        select * from con where gys_id=#{id}
+    </select>
+    
 </mapper>

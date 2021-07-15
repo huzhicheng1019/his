@@ -4,20 +4,23 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "CON", schema = "HIS", catalog = "")
+@Table(name = "CON", schema = "HIS")
 public class ConEntity {
     private int conId;
     private String conName;
     private String conGe;
-    private Integer bzq;
-    private Integer gysId;
+    private String bzq;
+    private GysEntity gys;
     private Long conPrice;
     private String dw;
     private Long drugPfprice;
     private String yf;
     private Integer zdkcs;
+    private String conSm;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "CON_ID")
     public int getConId() {
         return conId;
@@ -49,22 +52,12 @@ public class ConEntity {
 
     @Basic
     @Column(name = "BZQ")
-    public Integer getBzq() {
+    public String getBzq() {
         return bzq;
     }
 
-    public void setBzq(Integer bzq) {
+    public void setBzq(String bzq) {
         this.bzq = bzq;
-    }
-
-    @Basic
-    @Column(name = "GYS_ID")
-    public Integer getGysId() {
-        return gysId;
-    }
-
-    public void setGysId(Integer gysId) {
-        this.gysId = gysId;
     }
 
     @Basic
@@ -117,6 +110,26 @@ public class ConEntity {
         this.zdkcs = zdkcs;
     }
 
+    @Basic
+    @Column(name = "CON_SM")
+    public String getConSm() {
+        return conSm;
+    }
+
+    public void setConSm(String conSm) {
+        this.conSm = conSm;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "GYS_ID", referencedColumnName = "GYS_ID")
+    public GysEntity getGys() {
+        return gys;
+    }
+
+    public void setGys(GysEntity gys) {
+        this.gys = gys;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -126,16 +139,17 @@ public class ConEntity {
                 Objects.equals(conName, conEntity.conName) &&
                 Objects.equals(conGe, conEntity.conGe) &&
                 Objects.equals(bzq, conEntity.bzq) &&
-                Objects.equals(gysId, conEntity.gysId) &&
+                Objects.equals(gys, conEntity.gys) &&
                 Objects.equals(conPrice, conEntity.conPrice) &&
                 Objects.equals(dw, conEntity.dw) &&
                 Objects.equals(drugPfprice, conEntity.drugPfprice) &&
                 Objects.equals(yf, conEntity.yf) &&
-                Objects.equals(zdkcs, conEntity.zdkcs);
+                Objects.equals(zdkcs, conEntity.zdkcs)&&
+                Objects.equals(conSm, conEntity.conSm);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(conId, conName, conGe, bzq, gysId, conPrice, dw, drugPfprice, yf, zdkcs);
+        return Objects.hash(conId, conName, conGe, bzq, gys, conPrice, dw, drugPfprice, yf, zdkcs,conSm);
     }
 }

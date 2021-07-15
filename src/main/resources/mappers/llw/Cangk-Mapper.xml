@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.llw.CangkMapper">
+    <select id="cangkcx" resultType="cn.gson.his.model.pojos.llw.LibraryInfoEntity">
+        select * from LIBRARY_INFO
+        <where>
+            <if test="nr!=null and nr!=''">
+                and LIBRARY_NAME like '%#{nr}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="ckxqcx" resultType="cn.gson.his.model.pojos.llw.LibraryxqEntity">
+        select * from LIBRARYXQ where LIBRARY_ID=#{id}
+        <where>
+            <if test="nr!=null and nr!=''">
+                and PRODUCT_NAME like '%#{nr}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="ckcxid" resultType="cn.gson.his.model.pojos.llw.LibraryInfoEntity">
+        select * from LIBRARY_INFO where LIBRARY_ID=#{id}
+    </select>
+
+    <select id="stocx" resultType="cn.gson.his.model.pojos.llw.StoEntity">
+        select * from sto where LIBRARY_ID=#{id}
+    </select>
+
+    <select id="stojlcx" resultType="cn.gson.his.model.pojos.llw.StojlEntity">
+        select * from stojl where STO_ID=#{id} and PRODUCT_ID=#{proid} and PRODUCT_FL=#{fl} and PH=#{ph}
+    </select>
+
+    <select id="chucx" resultType="cn.gson.his.model.pojos.llw.ChuEntity">
+        select * from chu where LIBRARY_ID=#{id}
+    </select>
+
+    <select id="chujlcx" resultType="cn.gson.his.model.pojos.llw.ChujlEntity">
+        select * from chujl where CHU_ID=#{id} and PRODUCT_ID=#{proid} and PRODUCT_FL=#{fl} and PH=#{ph}
+    </select>
+</mapper>

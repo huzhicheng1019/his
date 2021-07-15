@@ -1,8 +1,8 @@
 package cn.gson.his.controller.llw;
 
-import cn.gson.his.model.pojos.llw.DrugEntity;
+import cn.gson.his.model.pojos.llw.ConEntity;
 import cn.gson.his.model.pojos.llw.LibraryxqEntity;
-import cn.gson.his.model.service.llw.YpService;
+import cn.gson.his.model.service.llw.ConService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,23 +16,23 @@ import java.util.Map;
 @CrossOrigin
 @RequestMapping("/llw")
 @RestController
-public class Ypgl {
+public class ConController {
     @Autowired
-    YpService ypService;
+    ConService conService;
 
-    @RequestMapping("ypgl")
-    public Map<String,Object> getYp(Integer pageNo, Integer size,String form){
+    @RequestMapping("congl")
+    public Map<String,Object> getcon(Integer pageNo, Integer size, String form){
         System.out.println(form);
-        DrugEntity drugEntity= JSONObject.parseObject(form,DrugEntity.class);
-        Map<String, Object> stringObjectMap = ypService.ypselect(pageNo,size,drugEntity);
+        ConEntity conEntity = JSONObject.parseObject(form, ConEntity.class);
+        Map<String, Object> stringObjectMap = conService.conselect(pageNo,size,conEntity);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }
 
-    @RequestMapping("add-yp")
-    public String ypxz(@RequestBody DrugEntity form){
+    @RequestMapping("add-con")
+    public String conxz(@RequestBody ConEntity form){
         try {
-            ypService.saveYp(form);
+            conService.savecon(form);
             return "ok";
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,15 +40,15 @@ public class Ypgl {
         }
     }
 
-    @RequestMapping("del-yp")
+    @RequestMapping("del-con")
     public String delyp(Integer id){
         System.out.println(id);
         try {
-            List<LibraryxqEntity> selectck = ypService.selectck(id);
+            List<LibraryxqEntity> selectck = conService.selectck(id);
             if(selectck.size()>0){
                 return "该药品不可删除";
             }else {
-                ypService.del(id);
+                conService.del(id);
                 return "ok";
             }
         } catch (Exception e) {
@@ -56,4 +56,5 @@ public class Ypgl {
             return "fail";
         }
     }
+
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -22,11 +23,11 @@ public class YplbService {
     @Autowired
     YplbDao yplbDao;
 
-    public Map<String,Object> lbcx(int pageNo,int size){
+    public Map<String,Object> lbcx(int pageNo,int size,LbEntity lbEntity){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("lb",yplbMapper.lbcx());
+        map.put("lb",yplbMapper.lbcx(lbEntity));
         map.put("total",page.getTotal());
         return map;
     }
@@ -37,5 +38,9 @@ public class YplbService {
 
     public void del(Integer id){
         yplbDao.deleteById(id);
+    }
+
+    public List<DrugEntity> ypcx(Integer id){
+        return yplbMapper.ypcx(id);
     }
 }
