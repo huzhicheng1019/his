@@ -90,4 +90,16 @@ public class OperationRoomEntity {
     public int hashCode() {
         return Objects.hash(roomId, roomName, roomDress, roomScale, roomPhone, roomState);
     }
+
+    @Override
+    public String toString() {
+        return "OperationRoomEntity{" +
+                "roomId=" + roomId +
+                ", roomName='" + roomName + '\'' +
+                ", roomDress='" + roomDress + '\'' +
+                ", roomScale='" + roomScale + '\'' +
+                ", roomPhone='" + roomPhone + '\'' +
+                ", roomState=" + roomState +
+                '}';
+    }
 }

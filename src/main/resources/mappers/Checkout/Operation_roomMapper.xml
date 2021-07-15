@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Checkout.Operation_roomMapper">
+    <resultMap id="roomMap" type="cn.gson.his.model.pojos.Checkout.OperationRoomEntity">
+        <id property="roomId" column="Room_id"></id>
+        <result property="roomName" column="Room_name"></result>
+        <result property="roomDress" column="Room_dress"></result>
+        <result property="roomScale" column="Room_scale"></result>
+        <result property="roomPhone" column="Room_phone"></result>
+        <result property="roomState" column="Room_state"></result>
+    </resultMap>
+
+    <!--查询所有手术室-->
+    <select id="selectroom" resultMap="roomMap">
+        select * from Operation_room
+        order by Room_id desc
+    </select>
+
+    <!--新增手术室-->
+    <insert id="insertroom">
+        insert into Operation_room values(seq.nextval,#{roomName},#{roomDress},#{roomScale},#{roomPhone},#{roomState})
+    </insert>
+
+    <!--根据id删除手术室-->
+    <delete id="delroom">
+        delete Operation_room where Room_id =#{id}
+    </delete>
+</mapper>
