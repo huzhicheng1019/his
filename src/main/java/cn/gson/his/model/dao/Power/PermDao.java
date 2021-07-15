@@ -1,6 +1,6 @@
-package cn.gson.his.model.dao.lxj;
+package cn.gson.his.model.dao.Power;
 
-import cn.gson.his.model.pojos.lxj.Perm;
+import cn.gson.his.model.pojos.Power.Perm;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

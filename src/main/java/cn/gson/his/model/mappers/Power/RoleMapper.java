@@ -1,9 +1,9 @@
-package cn.gson.his.model.mappers.lxj;
+package cn.gson.his.model.mappers.Power;
 
-import cn.gson.his.model.pojos.lxj.Dept;
-import cn.gson.his.model.pojos.lxj.Perm;
-import cn.gson.his.model.pojos.lxj.RoleDeptPK;
-import cn.gson.his.model.pojos.lxj.RoleInfo;
+import cn.gson.his.model.pojos.Power.Dept;
+import cn.gson.his.model.pojos.Power.Perm;
+import cn.gson.his.model.pojos.Power.RoleDeptPK;
+import cn.gson.his.model.pojos.Power.RoleInfo;
 import com.alibaba.fastjson.JSONArray;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

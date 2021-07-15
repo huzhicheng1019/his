@@ -1,6 +1,6 @@
-package cn.gson.his.model.dao.lxj;
+package cn.gson.his.model.dao.Power;
 
-import cn.gson.his.model.pojos.lxj.RoleInfo;
+import cn.gson.his.model.pojos.Power.RoleInfo;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

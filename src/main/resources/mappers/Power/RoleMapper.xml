@@ -94,7 +94,7 @@
         select p.PERM_ID from PERM p inner join ROLE_PERM r on p.PERM_ID=r.PERM_ID where r.ROLE_ID=#{roleId} and p.PERM_PARENT is not null
     </select>
 
-    <resultMap id="Perm" type="cn.gson.his.model.pojos.lxj.Perm">
+    <resultMap id="Perm" type="cn.gson.his.model.pojos.Power.Perm">
         <id column="PERM_ID" property="permId"/>
         <result column="PERM_NAME" property="permName"/>
         <result column="PERM_COMP" property="permComp"/>

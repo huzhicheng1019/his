@@ -1,7 +1,7 @@
-package cn.gson.his.controller.lxj;
+package cn.gson.his.controller.Power;
 
-import cn.gson.his.model.pojos.lxj.*;
-import cn.gson.his.model.service.lxj.RoleService;
+import cn.gson.his.model.pojos.Power.*;
+import cn.gson.his.model.service.Power.RoleService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;

@@ -1,9 +1,9 @@
-package cn.gson.his.model.service.lxj;
+package cn.gson.his.model.service.Power;
 
-import cn.gson.his.model.dao.lxj.EmployeeDao;
-import cn.gson.his.model.mappers.lxj.EmployeeMapper;
-import cn.gson.his.model.pojos.lxj.Dept;
-import cn.gson.his.model.pojos.lxj.Employee;
+import cn.gson.his.model.dao.Power.EmployeeDao;
+import cn.gson.his.model.mappers.Power.EmployeeMapper;
+import cn.gson.his.model.pojos.Power.Dept;
+import cn.gson.his.model.pojos.Power.Employee;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
