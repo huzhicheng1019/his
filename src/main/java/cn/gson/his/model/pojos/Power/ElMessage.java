@@ -4,8 +4,8 @@
 package cn.gson.his.model.pojos.Power;
 
 public class ElMessage {
-    private String message;
-    private String type;
+    private String message="更新数据失败";
+    private String type="error";
 
     public String getMessage() {
         return message;

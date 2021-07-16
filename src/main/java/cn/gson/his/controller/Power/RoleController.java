@@ -100,9 +100,6 @@ public class RoleController {
         if(p>0){
             elm.setType("success");
             elm.setMessage("批量删除角色成功！");
-        }else{
-            elm.setType("error");
-            elm.setMessage("更新数据失败！");
         }
         return elm;
     }
