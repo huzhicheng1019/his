@@ -12,6 +12,19 @@
         <result property="doctorId" column="doctor_id"></result>
         <result property="doctorName" column="doctor_name"></result>
         <result property="regIs" column="reg_is"></result>
+
+        <!--床位使用记录-->
+        <collection property="beds" ofType="cn.gson.his.model.pojos.InHospital.BedsEntity">
+            <id property="bedsId" column="beds_id"></id>
+            <result property="bedId" column="bed_id"></result>
+            <result property="regMark" column="reg_mark"></result>
+            <result property="bedsName" column="beds_name"></result>
+            <result property="nurseId" column="nurse_id"></result>
+            <result property="nurseName" column="nurse_name"></result>
+            <result property="bedsStart" column="beds_start"></result>
+            <result property="bedsEnd" column="beds_end"></result>
+            <result property="bedsIs" column="beds_is"></result>
+        </collection>
     </resultMap>
 
     <!--新增住院登记-->
@@ -30,10 +43,17 @@
             </if>
             and h.reg_is = 0
         </where>
-
-
-
-
     </select>
 
+    <!--查询所有住院登记和床位-->
+    <select id="selRegBeds" resultMap="HopRegMap">
+          select * from hospital_register h left join beds b on h.reg_mark = b.reg_mark
+        <where>
+            <if test="text != '' ">
+                and  (h.reg_mark like '%${text}%' or h.reg_name like '%${text}%' or h.doctor_name like '%${text}%')
+            </if>
+            and h.reg_is = 0 and b.beds_is = 0
+        </where>
+
+    </select>
 </mapper>

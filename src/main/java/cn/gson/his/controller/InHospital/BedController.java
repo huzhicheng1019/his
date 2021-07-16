@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
@@ -18,10 +19,10 @@ public class BedController {
     @Autowired
     BedService bedService;
 
-    //查询所有床位 带分页
+    //根据id查询所有床位
     @RequestMapping("/selBed")
-    public Map<String,Object> demo( Integer pageNo, Integer pageSize, String content,String screen){
-        return bedService.selectBed(pageNo,pageSize,content,screen);
+    public List<BedEntity> demo(String roomId){
+        return bedService.selectBed(roomId);
     }
 
     //新增床位

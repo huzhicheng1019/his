@@ -10,7 +10,7 @@ spring:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     filter: stat
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd hh:mm:ss
 
 mybatis:
   type-aliases-package: cn.gson.his.model.pojos

@@ -1,7 +1,10 @@
 package cn.gson.his.model.pojos.InHospital;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -9,6 +12,7 @@ import java.util.Objects;
 public class HospitalRegisterEntity {
     private int regId;
     private String regMark;
+    @JsonFormat(timezone = "GMT+8")
     private Timestamp regDate;
     private Integer patientNo;
     private String regName;
@@ -17,7 +21,17 @@ public class HospitalRegisterEntity {
     private String doctorName;
     private Integer regIs;
 
+    //床位使用记录
+    private List<BedsEntity> beds;
 
+    @OneToMany
+    public List<BedsEntity> getBeds() {
+        return beds;
+    }
+
+    public void setBeds(List<BedsEntity> beds) {
+        this.beds = beds;
+    }
 
     @Id
     @Column(name = "REG_ID")

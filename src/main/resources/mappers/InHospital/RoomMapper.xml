@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.InHospital.RoomMapper">
+    <resultMap id="RoomMap" type="cn.gson.his.model.pojos.InHospital.RoomEntity">
+        <id property="roomId" column="room_id"></id>
+        <result property="roomName" column="room_name"></result>
+        <result property="roomSite" column="room_site"></result>
+        <result property="depaId" column="depa_id"></result>
+        <result property="roomIs" column="room_is"></result>
+
+        <association property="department" javaType="cn.gson.his.model.pojos.Power.Department">
+            <id property="depaId" column="depa_id"></id>
+            <result property="depaName" column="depa_name"></result>
+        </association>
+    </resultMap>
+
+    <!--查询所有病房-->
+    <select id="selRoom" resultMap="RoomMap">
+        select * from room r left join department d on r.depa_id = d.depa_id
+
+        <where>
+            <if test="depasId != '' and depasId != null and depasId != 0 " >
+                and d.depa_id= #{depasId}
+            </if>
+            <if test="text !='' and text != null " >
+                and (r.room_name like '%${text}%' or r.room_site like '%${text}%' )
+            </if>
+        </where>
+    </select>
+
+    <!--新增病房-->
+    <insert id="insertRoom">
+        insert into room values (seq.nextval,#{roomName},#{roomSite},#{depaId},0)
+    </insert>
+
+    <!--修改病房-->
+    <update id="updateRoom">
+        update room set room_name = #{roomName},room_site=#{roomSite},depa_id=#{depaId},room_is=#{roomIs} where room_id=#{roomId}
+    </update>
+
+
+</mapper>

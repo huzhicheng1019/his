@@ -20,9 +20,7 @@ public class HospitalRegisterController {
     //新增住院登记
     @RequestMapping("/insertReg")
     public int demo(@RequestBody String hospitalRegisterEntity){
-        System.out.println("11111111111111"+hospitalRegisterEntity);
         HospitalRegisterEntity HospReg = JSONObject.parseObject(hospitalRegisterEntity, HospitalRegisterEntity.class);
-        System.out.println("11111111111111"+HospReg);
         int i = reg.insertReg(HospReg);
         if(i>0){
             return 1;

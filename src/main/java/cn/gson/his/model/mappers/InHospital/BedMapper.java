@@ -11,12 +11,13 @@ import java.util.Map;
 @Mapper
 @Repository
 public interface BedMapper {
-        //查询所有床位 带分页
-        public List<Map<String,Object>> selectBed(@Param("content") String content, @Param("screen")String screen);
 
         //新增床位
         public int insertBed(BedEntity bed);
 
         //修改床位
         public int updateBed(BedEntity bed);
+
+        //根据病房id查询所有床位
+        public List<BedEntity> selectBed(String roomId);
 }

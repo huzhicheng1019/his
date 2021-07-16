@@ -18,14 +18,9 @@ public class BedService {
     @Autowired
     BedMapper bedMapper;
 
-    //查询所有床位 带分页
-    public Map<String,Object> selectBed(int page,int size,String content,String screen){
-        Page<Object> p = PageHelper.startPage(page,size);
-        List<Map<String,Object>> list = bedMapper.selectBed(content,screen);
-        Map<String,Object> map = new HashMap<>();
-        map.put("rows",list);
-        map.put("total",p.getTotal());
-        return map;
+    //根据id查询所有床位
+    public List<BedEntity> selectBed(String roomId){
+        return bedMapper.selectBed(roomId);
     }
     //新增床位
     public int insertBed(BedEntity bedEntity){
