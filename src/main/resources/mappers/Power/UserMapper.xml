@@ -45,4 +45,14 @@
             where  u.USER_ACCOUNT=#{userAccount}
             and u.USER_PASS=#{userPass}
     </select>
+
+    <update id="resetUser" parameterType="com.alibaba.fastjson.JSONArray">
+        update user_info set user_pass=#{s}
+        <where>
+            user_emp in
+            <foreach collection="choose" item="p" open="(" index="i" separator="," close=")">
+                #{p}
+            </foreach>
+        </where>
+    </update>
 </mapper>

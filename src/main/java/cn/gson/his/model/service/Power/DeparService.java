@@ -3,6 +3,7 @@ package cn.gson.his.model.service.Power;
 import cn.gson.his.model.dao.Power.DeparDao;
 import cn.gson.his.model.mappers.Power.DeparMapper;
 import cn.gson.his.model.pojos.Power.Department;
+import cn.gson.his.model.pojos.Power.Dept;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -60,5 +61,14 @@ public class DeparService {
      */
     public List<Department> allDeparmy(){
         return deparMapper.allDepar();
+    }
+
+    /**
+     * 根据部门id查询该部门的科室
+     * @param id
+     * @return
+     */
+    public List<Department> allDeptIdDepar(Integer id) {
+        return dao.findAllByDept_DeptId(id);
     }
 }
