@@ -26,8 +26,10 @@ public class PatientService {
     }
     //新增患者资料
     @Transactional
-    public void AddPtient(PatientdataEntity patient){
-            pm.AddPatient(patient);
+    public int AddPtient(PatientdataEntity patient){
+        pm.AddPatient(patient);
+        return  patient.getPatientNo();
+        //返回主键
     }
     //修改患者资料
     @Transactional

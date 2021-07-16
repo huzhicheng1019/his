@@ -24,6 +24,7 @@ public class PatientController {
     public List<PatientdataEntity> getPati(String pati){
         //通过json 把字符串修改成对象
         PatientdataEntity bankCardData = JSONObject.parseObject(pati, PatientdataEntity.class);
+        //System.out.println("------------"+bankCardData);
         //数据返回给前端
         return  ps.allPatientByPage(bankCardData);
 
@@ -34,7 +35,8 @@ public class PatientController {
         try {
             PatientdataEntity bankCardData = JSONObject.parseObject(pati, PatientdataEntity.class);
             ps.AddPtient(bankCardData);
-           return "OK";
+            //System.out.println("----------------"+i);
+            return "OK";
         }catch (Exception e){
             System.out.println("患者资料新增失败");
             return"NO";

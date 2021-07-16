@@ -25,7 +25,7 @@
     </resultMap>
 <!--新增就诊卡-->
     <insert id="addCard">
-        insert into CARD values(seq.nextval,#{cardNo},#{cardPswd},#{cardPrice},#{cardPrepay},#{patientName},#{patientNo},#{cardState});
+        insert into CARD values(seq.nextval,#{cardNo},#{cardPswd},#{cardPrice},#{cardPrepay},#{patientName},#{patientNo},#{cardState})
     </insert>
 <!--修改就诊卡-->
     <update id="upCard">

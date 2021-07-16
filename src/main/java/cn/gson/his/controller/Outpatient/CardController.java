@@ -8,18 +8,18 @@ import cn.gson.his.model.service.Outpatient.CardService;
 import cn.gson.his.model.service.Outpatient.PatientService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin
 @RestController
-public class CardController {
+public class CardController<SJSONObject> {
 
     @Autowired
     //就诊卡的service
@@ -29,6 +29,37 @@ public class CardController {
     private PatientService ps;
     //就诊卡充值记录的
     private CardRecordService srs;
+    //新增就诊卡
+    @ResponseBody
+    @RequestMapping("addCard")
+    public String addCard(@RequestBody Map<String,Object> datas){
+        try {
+            //new 一个就诊卡对象 set 赋值
+            CardEntity card = new CardEntity();
+            //默认密码123456
+            card.setCardPswd("123456");
+            //根据时间生成就诊卡号
+            Date date = new Date();//获取当前的日期
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+            String str = df.format(date);//获取String类型的时间
+            String response = str.replaceAll("[[\\s-:punct:]]","");
+            card.setCardNo(response);
+            //余额
+            card.setCardPrice(0L);
+            //预交金额
+            card.setCardPrepay(0L);
+            //病人姓名
+            card.setPatientName((String) datas.get("patientName"));
+            //病人的编号
+            card.setPatientNo(Integer.valueOf((int)datas.get("patientNo")));
+            //就诊卡状态
+            card.setCardState(1);
+            cs.AddCard(card);
+            return "OK";
+        }catch (Exception e){
+            return "NO";
+        }
+    }
     //查询
     @RequestMapping("AllCard")
     public List<CardEntity> allCard(String card){

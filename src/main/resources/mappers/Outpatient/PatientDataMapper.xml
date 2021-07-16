@@ -45,7 +45,11 @@
     </update>
 <!--新增患者信息-->
     <insert id="AddPatient">
-        insert into patientData values (seq.nextval,#{patientName},#{patientSex},#{patientAge},#{patientPhone},#{patientInsu},#{patientIdentity},#{patientPirth})
+        insert into patientData
+        values (seq.nextval,#{patientName},#{patientSex},#{patientAge},#{patientPhone},#{patientInsu},#{patientIdentity},#{patientPirth})
+        <selectKey order="AFTER" keyProperty="patientNo" resultType="_int">
+            select seq.currval from dual
+        </selectKey>
     </insert>
     <!--    查询患者资料,多条件查询-->
     <select id="selePatient" resultMap="Patient">

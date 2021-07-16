@@ -19,7 +19,7 @@ public interface PatientMapper{
     public List<PatientdataEntity> selePatient(PatientdataEntity patient);
 
     //新增患者资料
-    public void AddPatient(PatientdataEntity patient);
+    public int AddPatient(PatientdataEntity patient);
 
     //修改患者信息
     public void UpdatePatient(PatientdataEntity patient);

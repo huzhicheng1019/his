@@ -22,17 +22,7 @@ public class HangMarkService {
 
     }
 //    新增挂号
-    public int addHang(HangmarkEntity hang){
-        try {
-            int i = hmm.addHang(hang);
-            if (i<0){
-                return 0;
-            }else {
-                return 1;
-            }
-        }catch (Exception e){
-            System.out.println(e.fillInStackTrace());
-            return 1;
-        }
+    public void addHang(HangmarkEntity hang){
+        hmm.addHang(hang);
     }
 }
