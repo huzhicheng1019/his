@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Drug.RkMapper">
+    <resultMap id="stoMap" type="cn.gson.his.model.pojos.Drug.StoEntity">
+        <id column="STO_ID" property="stoId"></id>
+        <result column="STO_DATE" property="stoDate"></result>
+        <result column="WHY" property="why"></result>
+        <result column="SHR" property="shr"></result>
+        <result column="LY_ID" property="lyId"></result>
+        <association property="library" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
+            <id column="LIBRARY_ID" property="libraryId"></id>
+            <result column="lname" property="libraryName"></result>
+        </association>
+    </resultMap>
+
+    <select id="rkcx" resultMap="stoMap">
+        select s.*,l.library_name lname from sto s LEFT JOIN LIBRARY_INFO l on s.library_id=l.library_id
+        <where>
+            <if test="why!=null and why!=''">
+                and s.why=#{why}
+            </if>
+            <if test="nr!=null and nr!=''">
+               and l.library_name like concat(concat('%',#{nr}),'%') or s.ly_id like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+</mapper>

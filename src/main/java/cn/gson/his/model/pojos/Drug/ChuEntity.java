@@ -10,8 +10,8 @@ public class ChuEntity {
     private int chuId;
     private Timestamp chuDate;
     private Integer libraryId;
-    private String why;
-    private Integer lyId;
+    private Integer why;
+    private String lyId;
 
     @Id
     @Column(name = "CHU_ID")
@@ -45,21 +45,21 @@ public class ChuEntity {
 
     @Basic
     @Column(name = "WHY")
-    public String getWhy() {
+    public Integer getWhy() {
         return why;
     }
 
-    public void setWhy(String why) {
+    public void setWhy(Integer why) {
         this.why = why;
     }
 
     @Basic
     @Column(name = "LY_ID")
-    public Integer getLyId() {
+    public String getLyId() {
         return lyId;
     }
 
-    public void setLyId(Integer lyId) {
+    public void setLyId(String lyId) {
         this.lyId = lyId;
     }
 
