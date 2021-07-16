@@ -5,14 +5,14 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "STO", schema = "HIS", catalog = "")
+@Table(name = "STO", schema = "HIS")
 public class StoEntity {
     private int stoId;
     private Timestamp stoDate;
-    private Integer libraryId;
+    private LibraryInfoEntity library;
     private Integer why;
     private Integer shr;
-    private Integer lyId;
+    private String lyId;
 
     @Id
     @Column(name = "STO_ID")
@@ -34,14 +34,24 @@ public class StoEntity {
         this.stoDate = stoDate;
     }
 
-    @Basic
-    @Column(name = "LIBRARY_ID")
-    public Integer getLibraryId() {
-        return libraryId;
+//    @Basic
+//    @Column(name = "LIBRARY_ID")
+//    public Integer getLibraryId() {
+//        return libraryId;
+//    }
+//
+//    public void setLibraryId(Integer libraryId) {
+//        this.libraryId = libraryId;
+//    }
+
+    @ManyToOne
+    @JoinColumn(name = "LIBRARY_ID", referencedColumnName = "LIBRARY_ID")
+    public LibraryInfoEntity getLibrary() {
+        return library;
     }
 
-    public void setLibraryId(Integer libraryId) {
-        this.libraryId = libraryId;
+    public void setLibrary(LibraryInfoEntity library) {
+        this.library = library;
     }
 
     @Basic
@@ -66,11 +76,11 @@ public class StoEntity {
 
     @Basic
     @Column(name = "LY_ID")
-    public Integer getLyId() {
+    public String getLyId() {
         return lyId;
     }
 
-    public void setLyId(Integer lyId) {
+    public void setLyId(String lyId) {
         this.lyId = lyId;
     }
 
@@ -81,7 +91,7 @@ public class StoEntity {
         StoEntity stoEntity = (StoEntity) o;
         return stoId == stoEntity.stoId &&
                 Objects.equals(stoDate, stoEntity.stoDate) &&
-                Objects.equals(libraryId, stoEntity.libraryId) &&
+                Objects.equals(library, stoEntity.library) &&
                 Objects.equals(why, stoEntity.why) &&
                 Objects.equals(shr, stoEntity.shr) &&
                 Objects.equals(lyId, stoEntity.lyId);
@@ -89,6 +99,6 @@ public class StoEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(stoId, stoDate, libraryId, why, shr, lyId);
+        return Objects.hash(stoId, stoDate, library, why, shr, lyId);
     }
 }

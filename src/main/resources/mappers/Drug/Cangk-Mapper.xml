@@ -6,16 +6,17 @@
         select * from LIBRARY_INFO
         <where>
             <if test="nr!=null and nr!=''">
-                and LIBRARY_NAME like '%#{nr}%'
+                and LIBRARY_NAME like concat(concat('%',#{nr}),'%')
             </if>
         </where>
     </select>
 
     <select id="ckxqcx" resultType="cn.gson.his.model.pojos.Drug.LibraryxqEntity">
-        select * from LIBRARYXQ where LIBRARY_ID=#{id}
+        select * from LIBRARYXQ
         <where>
+            LIBRARY_ID=#{id}
             <if test="nr!=null and nr!=''">
-                and PRODUCT_NAME like '%#{nr}%'
+                and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
             </if>
         </where>
     </select>

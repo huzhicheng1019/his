@@ -45,6 +45,8 @@ public class CangkService {
     }
 
     public Map<String,Object> ckxqselect(int pageNo, int size,Integer id, String nr){
+        System.out.println(id);
+        System.out.println(nr);
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
@@ -105,6 +107,22 @@ public class CangkService {
         for (LibraryxqEntity libraryxqEntity : libraryxqList) {
             libraryxqEntity.setLibraryId(librarysave.getLibraryId());
             cankxqDao.save(libraryxqEntity);
+        }
+    }
+
+    public String delck(Integer id){
+        List<StoEntity> stocx = cangkMapper.stocx(id);
+        List<ChuEntity> chucx = cangkMapper.chucx(id);
+
+        if(stocx.size()>0 || chucx.size()>0){
+            return "不可删除";
+        }else {
+            List<LibraryxqEntity> ckxqcx = cangkMapper.ckxqcx(id, "");
+            for (LibraryxqEntity libraryxqEntity : ckxqcx) {
+                cankxqDao.deleteById(libraryxqEntity.getLibraryxqId());
+            }
+            cangkDao.deleteById(id);
+            return "ok";
         }
     }
 }

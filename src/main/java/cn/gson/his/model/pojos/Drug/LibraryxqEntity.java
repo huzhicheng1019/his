@@ -1,5 +1,7 @@
 package cn.gson.his.model.pojos.Drug;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -13,13 +15,17 @@ public class LibraryxqEntity {
     private Integer productFl;
     private Integer kcs;
     private String ph;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp scdate;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp gqdate;
     private Integer libraryId;
     private Long price;
     private String ge;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "LIBRARYXQ_ID")
     public int getLibraryxqId() {
         return libraryxqId;
@@ -150,5 +156,22 @@ public class LibraryxqEntity {
     @Override
     public int hashCode() {
         return Objects.hash(libraryxqId, productId, productName, productFl, kcs, ph, scdate, gqdate, libraryId,ge,price);
+    }
+
+    @Override
+    public String toString() {
+        return "LibraryxqEntity{" +
+                "libraryxqId=" + libraryxqId +
+                ", productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", productFl=" + productFl +
+                ", kcs=" + kcs +
+                ", ph='" + ph + '\'' +
+                ", scdate=" + scdate +
+                ", gqdate=" + gqdate +
+                ", libraryId=" + libraryId +
+                ", price=" + price +
+                ", ge='" + ge + '\'' +
+                '}';
     }
 }

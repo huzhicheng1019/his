@@ -10,7 +10,7 @@ import java.util.List;
 public interface CangkMapper {
     public List<LibraryInfoEntity> cangkcx(String nr);
 
-    public List<LibraryxqEntity> ckxqcx(@Param("id") Integer id,@Param("nr")String nr);
+    public List<LibraryxqEntity> ckxqcx(@Param("id") Integer id,@Param("nr") String nr);
 
     public List<LibraryInfoEntity> ckcxid(Integer id);
 

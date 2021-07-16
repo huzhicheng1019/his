@@ -12,6 +12,8 @@ public class LibraryInfoEntity {
     private Integer libraryJb;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "LIBRARY_ID")
     public int getLibraryId() {
         return libraryId;
