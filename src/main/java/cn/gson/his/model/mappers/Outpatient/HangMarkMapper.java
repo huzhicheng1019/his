@@ -15,4 +15,6 @@ public interface HangMarkMapper{
     public int addHang(HangmarkEntity hang);
     //修改挂号信息
     public int upHang(HangmarkEntity hang);
+    //专门修改状态的方法
+    public int upState(HangmarkEntity hang);
 }

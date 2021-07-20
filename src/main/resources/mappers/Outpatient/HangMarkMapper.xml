@@ -49,6 +49,20 @@
     <insert id="addHang">
         insert into  HANGMARK values (seq.nextval,#{department.depaId},#{doctorName.empId},#{registrantName.empId},#{hangDate},#{patie.patientNo},#{hangCharge},#{hangType.hangtypeNo},#{timequantum},#{hangState},#{diagnoseState})
     </insert>
+<!--    专门修改状态的sql语句-->
+    <update id="upState">
+        update HANGMARK
+        <set>
+            <if test="hangState !=null">
+                HANG_STATE =#{hangState}
+            </if>
+            --诊断状态
+            <if test="diagnoseState !=null ">
+                , DIAGNOSE_STATE = #{diagnoseState}
+            </if>
+        </set>
+        where HANG_NO = #{hangNo}
+    </update>
 <!--    修改挂号信息-->
     <update id="upHang">
         update HANGMARK
@@ -69,11 +83,12 @@
             <if test="hangType.HANGTYPE_NO != ''">
                 HANGTYPE_NO =#{hangType.hangtypeNo},
             </if>
-            <if test="hangState !=''">
+--
+            <if test="hangState !=null">
                 HANG_STATE =#{hangState},
             </if>
 --             诊断状态
-            <if test="diagnoseState !='' ">
+            <if test="diagnoseState !=null ">
                 DIAGNOSE_STATE = #{diagnoseState},
             </if>
         </set>
@@ -91,17 +106,17 @@
             1=1
             <if test="department != null">
                 <if test="department.depaName != ''">
-                    D.DEPA_NAME = #{department.depaName}
+                    and D.DEPA_NAME = #{department.depaName}
                 </if>
             </if>
             <if test="doctorName != null">
                 --         根据主治医生
                 <if test="doctorName.empName != ''">
-                    or E.EMP_NAME = #{doctorName.doctorName}
+                    and E.EMP_NAME = #{doctorName.empName}
                 </if>
             </if>
             <if test="patie !=null">
-                --          根据患者资料
+                --根据患者资料
                 <if test="patie.patientName != ''">
                     or p.PATIENT_NAME = #{patie.patientName}
                 </if>
@@ -116,7 +131,7 @@
                 </if>
             </if>
             <if test=" hangState != null ">
-                or  h.HANG_STATE =#{hangState}
+                and  h.HANG_STATE =#{hangState}
             </if>
             <if test=" diagnoseState != null ">
                 or  h.DIAGNOSE_STATE = #{diagnoseState}
@@ -127,7 +142,4 @@
         </where>
         order by H.HANG_NO desc
     </select>
-
-
-
 </mapper>

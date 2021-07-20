@@ -11,7 +11,7 @@ spring:
     filter: stat
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
-
+    time-zone: GMT+8
 mybatis:
   type-aliases-package: cn.gson.his.model.pojos
   mapper-locations: classpath:mappers/*/*.xml

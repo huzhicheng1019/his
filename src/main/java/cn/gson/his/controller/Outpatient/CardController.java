@@ -55,7 +55,7 @@ public class CardController<SJSONObject> {
             //就诊卡状态
             card.setCardState(1);
             cs.AddCard(card);
-            return "OK";
+            return response;
         }catch (Exception e){
             return "NO";
         }

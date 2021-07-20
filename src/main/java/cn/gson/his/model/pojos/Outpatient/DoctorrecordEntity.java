@@ -1,22 +1,63 @@
 package cn.gson.his.model.pojos.Outpatient;
 
+import cn.gson.his.model.pojos.Power.Employee;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "DOCTORRECORD", schema = "HIS", catalog = "")
 public class DoctorrecordEntity {
-    private int recordNo;
-    private String recordIdentity;
-    private String recordName;
-    private Integer patientNo;
-    private String recordPhone;
-    private Integer cardId;
-    private String doctorName;
-    private Integer doctorNo;
-    private Integer recordIndoor;
-    private String recordRecord;
-    private Integer caseHissstory;
+    private int recordNo;//就诊记录编号
+    private String recordIdentity;//患者身份证
+    private String recordName;//患者名字
+    private String recordPhone;//患者电话
+    private String doctorName;//就诊医生名字
+    private Integer recordIndoor;//就诊结果
+    private String recordRecord;//诊断结果
+
+    private Employee doctor;//主治医生对象
+    private CardEntity card;//就诊卡对象
+    private PatientdataEntity patient;//患者信对象
+    private CaseHistoryEntity caseHissstory;//病历编号
+
+
+    @OneToOne
+    @JoinColumn(name = "DOCTOR_NO",nullable = false)
+    public Employee getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Employee doctor) {
+        this.doctor = doctor;
+    }
+    @OneToOne
+    @JoinColumn(name = "CARD_ID",nullable = false)
+    public CardEntity getCard() {
+        return card;
+    }
+
+    public void setCard(CardEntity card) {
+        this.card = card;
+    }
+    @OneToOne
+    @JoinColumn(name = "PATIENT_NO",nullable = false)
+    public PatientdataEntity getPatient() {
+        return patient;
+    }
+
+    public void setPatient(PatientdataEntity patient) {
+        this.patient = patient;
+    }
+    @OneToOne
+    @JoinColumn(name = "CASE_HISSSTORY",nullable = false)
+    public CaseHistoryEntity getCaseHissstory() {
+        return caseHissstory;
+    }
+
+    public void setCaseHissstory(CaseHistoryEntity caseHissstory) {
+        this.caseHissstory = caseHissstory;
+    }
 
     @Id
     @Column(name = "RECORD_NO")
@@ -49,33 +90,12 @@ public class DoctorrecordEntity {
     }
 
     @Basic
-    @Column(name = "PATIENT_NO")
-    public Integer getPatientNo() {
-        return patientNo;
-    }
-
-    public void setPatientNo(Integer patientNo) {
-        this.patientNo = patientNo;
-    }
-
-    @Basic
     @Column(name = "RECORD_PHONE")
     public String getRecordPhone() {
         return recordPhone;
     }
-
     public void setRecordPhone(String recordPhone) {
         this.recordPhone = recordPhone;
-    }
-
-    @Basic
-    @Column(name = "CARD_ID")
-    public Integer getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(Integer cardId) {
-        this.cardId = cardId;
     }
 
     @Basic
@@ -86,16 +106,6 @@ public class DoctorrecordEntity {
 
     public void setDoctorName(String doctorName) {
         this.doctorName = doctorName;
-    }
-
-    @Basic
-    @Column(name = "DOCTOR_NO")
-    public Integer getDoctorNo() {
-        return doctorNo;
-    }
-
-    public void setDoctorNo(Integer doctorNo) {
-        this.doctorNo = doctorNo;
     }
 
     @Basic
@@ -118,15 +128,6 @@ public class DoctorrecordEntity {
         this.recordRecord = recordRecord;
     }
 
-    @Basic
-    @Column(name = "CASE_HISSSTORY")
-    public Integer getCaseHissstory() {
-        return caseHissstory;
-    }
-
-    public void setCaseHissstory(Integer caseHissstory) {
-        this.caseHissstory = caseHissstory;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -136,11 +137,8 @@ public class DoctorrecordEntity {
         return recordNo == that.recordNo &&
                 Objects.equals(recordIdentity, that.recordIdentity) &&
                 Objects.equals(recordName, that.recordName) &&
-                Objects.equals(patientNo, that.patientNo) &&
                 Objects.equals(recordPhone, that.recordPhone) &&
-                Objects.equals(cardId, that.cardId) &&
                 Objects.equals(doctorName, that.doctorName) &&
-                Objects.equals(doctorNo, that.doctorNo) &&
                 Objects.equals(recordIndoor, that.recordIndoor) &&
                 Objects.equals(recordRecord, that.recordRecord) &&
                 Objects.equals(caseHissstory, that.caseHissstory);
@@ -148,6 +146,6 @@ public class DoctorrecordEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(recordNo, recordIdentity, recordName, patientNo, recordPhone, cardId, doctorName, doctorNo, recordIndoor, recordRecord, caseHissstory);
+        return Objects.hash(recordNo, recordIdentity, recordName, recordPhone, doctorName, recordIndoor, recordRecord, caseHissstory);
     }
 }
