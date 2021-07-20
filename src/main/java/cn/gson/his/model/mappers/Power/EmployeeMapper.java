@@ -2,6 +2,8 @@ package cn.gson.his.model.mappers.Power;
 
 
 import cn.gson.his.model.pojos.Power.Employee;
+import cn.gson.his.model.pojos.Power.Perm;
+import cn.gson.his.model.pojos.Power.RoleInfo;
 import com.alibaba.fastjson.JSONArray;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,6 +24,28 @@ public interface EmployeeMapper {
      */
     public List<Map<String,Object>> allEmp();
 
+    /**
+     * 离职员工
+     * @param state
+     * @param choose
+     * @return
+     */
     public int quitEmp(@Param("state") Integer state,@Param("choose") JSONArray choose);
 
+    /**
+     * 根据用户id查询角色id
+     * @param userId
+     * @return
+     */
+    public List<Integer> allEmpRole(Integer userId);
+
+    /**
+     * 查询角色
+     * @return
+     */
+    public List<RoleInfo> allRole();
+
+    public List<Perm> homeMenu(Integer userId);
+
+    //public List<RoleInfo> childrenFuns(Integer parentId);
 }

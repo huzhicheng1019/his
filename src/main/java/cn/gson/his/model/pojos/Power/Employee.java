@@ -95,8 +95,7 @@ public class Employee {
         this.empState = empState;
     }
 
-    @OneToOne
-    @JoinColumn(name = "EMP_USER", referencedColumnName = "USER_ID")
+    @OneToOne(mappedBy="employeeByUserEmp")
     public UserInfo getUseres() {
         return useres;
     }
