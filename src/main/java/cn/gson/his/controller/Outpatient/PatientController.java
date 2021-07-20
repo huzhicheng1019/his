@@ -55,4 +55,14 @@ public class PatientController {
             return"NO";
         }
     }
+
+    //根据id删除患者信息
+    @RequestMapping("delPatient")
+    public void delPatient(String patientNo){
+        try {
+            ps.delPatient(patientNo);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

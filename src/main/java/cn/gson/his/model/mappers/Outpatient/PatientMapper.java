@@ -23,4 +23,7 @@ public interface PatientMapper{
 
     //修改患者信息
     public void UpdatePatient(PatientdataEntity patient);
+
+    //根据id删除患者信息
+    public int delPatient(String patientNo);
 }

@@ -1,5 +1,7 @@
 package cn.gson.his.model.pojos.InHospital;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -13,7 +15,9 @@ public class BedsEntity {
     private String bedsName;
     private Integer nurseId;
     private String nurseName;
+    @JsonFormat(timezone = "GMT+8")
     private Timestamp bedsStart;
+    @JsonFormat(timezone = "GMT+8")
     private Timestamp bedsEnd;
     private Integer bedsIs;
 
@@ -126,5 +130,20 @@ public class BedsEntity {
     @Override
     public int hashCode() {
         return Objects.hash(bedsId, bedId, regMark, bedsName, nurseId, nurseName, bedsStart, bedsEnd, bedsIs);
+    }
+
+    @Override
+    public String toString() {
+        return "BedsEntity{" +
+                "bedsId=" + bedsId +
+                ", bedId=" + bedId +
+                ", regMark='" + regMark + '\'' +
+                ", bedsName='" + bedsName + '\'' +
+                ", nurseId=" + nurseId +
+                ", nurseName='" + nurseName + '\'' +
+                ", bedsStart=" + bedsStart +
+                ", bedsEnd=" + bedsEnd +
+                ", bedsIs=" + bedsIs +
+                '}';
     }
 }

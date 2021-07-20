@@ -34,4 +34,10 @@ public class HospitalRegisterController {
         return reg.selReg(text);
     }
 
+
+    //查询所有住院登记表 和 床位记录表
+    @RequestMapping("/selRegBeds")
+    public List<HospitalRegisterEntity> demo2(HospitalRegisterEntity hospitalRegister){
+        return reg.selRegBeds(hospitalRegister);
+    }
 }

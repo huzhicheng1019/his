@@ -37,4 +37,8 @@ public class PatientService {
             pm.UpdatePatient(patient);
     }
 
+    //根据id删除患者信息
+    public int delPatient(String patientNo){
+        return pm.delPatient(patientNo);
+    };
 }

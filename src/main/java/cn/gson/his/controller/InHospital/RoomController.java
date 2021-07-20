@@ -46,4 +46,10 @@ public class RoomController {
         }
         return 0;
     }
+
+    //根据科室id查病房
+    @RequestMapping("selIdRoom")
+    public List<RoomEntity> demo3(String depaId){
+        return roomService.selIdRoom(depaId);
+    }
 }

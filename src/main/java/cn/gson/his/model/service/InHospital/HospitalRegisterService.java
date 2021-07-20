@@ -23,4 +23,9 @@ public class HospitalRegisterService {
     public List<HospitalRegisterEntity> selReg(String text){
         return hospitalRegisterMapper.selReg(text);
     };
+
+    //查询所有住院登记表 和 床位记录表
+    public List<HospitalRegisterEntity> selRegBeds(HospitalRegisterEntity hospitalRegisterEntity){
+        return hospitalRegisterMapper.selRegBeds(hospitalRegisterEntity);
+    };
 }

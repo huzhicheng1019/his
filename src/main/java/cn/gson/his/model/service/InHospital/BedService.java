@@ -26,11 +26,15 @@ public class BedService {
     public int insertBed(BedEntity bedEntity){
         return bedMapper.insertBed(bedEntity);
     }
+
     //修改床位
     public int updateBed(BedEntity bedEntity){
         return bedMapper.updateBed(bedEntity);
     }
 
-
+    //根据床位id查所属病房
+    public BedEntity selIdBed(String bedId){
+        return bedMapper.selIdBed(bedId);
+    };
 
 }

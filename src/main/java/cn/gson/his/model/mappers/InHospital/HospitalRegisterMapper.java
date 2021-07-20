@@ -13,4 +13,9 @@ public interface HospitalRegisterMapper {
 
     //查询所有住院登记表
     public List<HospitalRegisterEntity> selReg(String text);
+
+
+    //查询所有住院登记表 和 床位记录表
+     public List<HospitalRegisterEntity> selRegBeds(HospitalRegisterEntity hospitalRegisterEntity);
+
 }

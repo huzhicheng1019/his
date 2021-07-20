@@ -2,6 +2,8 @@ package cn.gson.his.controller.InHospital;
 
 
 import cn.gson.his.model.pojos.InHospital.BedEntity;
+import cn.gson.his.model.pojos.InHospital.BedRecordEntity;
+import cn.gson.his.model.service.InHospital.BedRecordService;
 import cn.gson.his.model.service.InHospital.BedService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ import java.util.Map;
 public class BedController {
     @Autowired
     BedService bedService;
+
+    @Autowired
+    BedRecordService bedRecordService;
 
     //根据id查询所有床位
     @RequestMapping("/selBed")
@@ -46,5 +51,21 @@ public class BedController {
         return 0;
     }
 
+    //新增床位使用记录
+    @RequestMapping("/insertRec")
+    public int demo3(String bedRecord){
+        BedRecordEntity BedRec = JSONObject.parseObject(bedRecord, BedRecordEntity.class);
+        int i = bedRecordService.insertRec(BedRec);
+        if(i>0){
+            return 1;
+        }
+        return 0;
+    }
+
+    //根据床位id查所属病房
+    @RequestMapping("/selIdBed")
+    public BedEntity demo4(String bedId){
+        return bedService.selIdBed(bedId);
+    }
 
 }

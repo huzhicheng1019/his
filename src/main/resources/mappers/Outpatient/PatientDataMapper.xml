@@ -79,4 +79,10 @@
         </where>
         order by PATIENT_NO desc
     </select>
+
+    <!--根据id删除病人信息表-->
+    <delete id="delPatient">
+        delete from PATIENTDATA where PATIENT_NO = #{patientNo}
+    </delete>
+
 </mapper>

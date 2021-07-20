@@ -27,4 +27,9 @@ public class RoomService {
     public int updateRoom(RoomEntity room){
         return roomMapper.updateRoom(room);
     };
+
+    //根据科室id查病房
+    public List<RoomEntity> selIdRoom(String depaId){
+        return  roomMapper.selIdRoom(depaId);
+    };
 }

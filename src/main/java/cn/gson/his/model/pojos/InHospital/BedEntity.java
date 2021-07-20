@@ -12,7 +12,7 @@ public class BedEntity {
     private String bedName;//床位名称
     private Integer roomId; //所属科室编号
     private Integer bedIs; //床位状态
-    private Double bedCost; //床位费用
+
 
 
 

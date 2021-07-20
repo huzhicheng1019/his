@@ -13,8 +13,21 @@
         <result property="doctorName" column="doctor_name"></result>
         <result property="regIs" column="reg_is"></result>
 
+        <!--科室-->
+        <association property="depa" javaType="cn.gson.his.model.pojos.Power.Department">
+            <id property="depaId" column="depa_id"></id>
+            <result property="depaName" column="depa_name"></result>
+        </association>
+
+        <association property="bed" javaType="cn.gson.his.model.pojos.InHospital.BedEntity">
+            <id property="bedId" column="bed_id"></id>
+            <result property="bedName" column="bed_name"></result>
+            <result property="roomId" column="room_id"></result>
+            <result property="bedIs" column="bed_is"></result>
+        </association>
+
         <!--床位使用记录-->
-        <collection property="beds" ofType="cn.gson.his.model.pojos.InHospital.BedsEntity">
+        <association property="beds" javaType="cn.gson.his.model.pojos.InHospital.BedsEntity">
             <id property="bedsId" column="beds_id"></id>
             <result property="bedId" column="bed_id"></result>
             <result property="regMark" column="reg_mark"></result>
@@ -24,7 +37,7 @@
             <result property="bedsStart" column="beds_start"></result>
             <result property="bedsEnd" column="beds_end"></result>
             <result property="bedsIs" column="beds_is"></result>
-        </collection>
+        </association>
     </resultMap>
 
     <!--新增住院登记-->
@@ -36,7 +49,6 @@
     <select id="selReg" resultMap="HopRegMap">
         select * from hospital_register h left join patientdata p on h.patient_no = p.patient_no
         left join department d on h.depa_id = d.depa_id
-
         <where>
             <if test="text != '' ">
                 and  (h.reg_mark like '%${text}%' or h.reg_name like '%${text}%' or h.doctor_name like '%${text}%')
@@ -48,12 +60,18 @@
     <!--查询所有住院登记和床位-->
     <select id="selRegBeds" resultMap="HopRegMap">
           select * from hospital_register h left join beds b on h.reg_mark = b.reg_mark
+          left join department d on h.depa_id = d.depa_id
+          left join bed be on b.bed_id = be.bed_id
         <where>
-            <if test="text != '' ">
-                and  (h.reg_mark like '%${text}%' or h.reg_name like '%${text}%' or h.doctor_name like '%${text}%')
-            </if>
+<!--            <if test="text != '' ">-->
+<!--                and  (h.reg_mark like '%${text}%' or h.reg_name like '%${text}%' or h.doctor_name like '%${text}%')-->
+<!--            </if>-->
+
+
             and h.reg_is = 0 and b.beds_is = 0
         </where>
+
+            order by h.depa_id
 
     </select>
 </mapper>

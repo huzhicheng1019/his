@@ -19,4 +19,7 @@ public interface RoomMapper {
 
         //修改病房
         public int updateRoom(RoomEntity room);
+
+        //根据科室id查病房
+        public List<RoomEntity> selIdRoom(String depaId);
 }

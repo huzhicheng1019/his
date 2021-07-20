@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.InHospital.BedsMapper">
+    <resultMap id="bedsMap" type="cn.gson.his.model.pojos.InHospital.BedsEntity">
+        <id property="bedsId" column="beds_id"></id>
+        <result property="bedId" column="bed_id"></result>
+        <result property="regMark" column="reg_mark"></result>
+        <result property="bedsName" column="beds_name"></result>
+        <result property="nurseId" column="nurse_id"></result>
+        <result property="nurseName" column="nurse_name"></result>
+        <result property="bedsStart" column="beds_start"></result>
+        <result property="bedsEnd" column="beds_end"></result>
+        <result property="bedsIs" column="beds_is"></result>
+    </resultMap>
+
+    <!--新增床位记录-->
+    <insert id="insertBeds">
+        insert into beds values (seq.nextval,#{bedId},#{regMark},#{bedsName},#{nurseId},#{nurseName},#{bedsStart},null,#{bedsIs})
+    </insert>
+
+    <!--新增床位记录-->
+    <insert id="insertBedsOne">
+        insert into beds values (seq.nextval,#{bedId},#{regMark},#{bedsName},#{nurseId},#{nurseName},#{bedsStart},#{bedsEnd},#{bedsIs})
+    </insert>
+
+
+    <!--修改床位记录-->
+    <update id="updateBeds">
+        update beds set bed_id = #{bedId},reg_mark=#{regMark},beds_name=#{bedsName},nurse_id=#{nurseId},nurse_name=#{nurseName},
+        beds_start = #{bedsStart},beds_end = #{bedsEnd}, beds_is = #{bedsIs}
+
+        where beds_id = #{bedsId}
+    </update>
+
+</mapper>

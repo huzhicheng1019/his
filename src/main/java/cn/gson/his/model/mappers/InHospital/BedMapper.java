@@ -20,4 +20,7 @@ public interface BedMapper {
 
         //根据病房id查询所有床位
         public List<BedEntity> selectBed(String roomId);
+
+        //根据床位id查所属病房
+        public BedEntity selIdBed(String bedId);
 }

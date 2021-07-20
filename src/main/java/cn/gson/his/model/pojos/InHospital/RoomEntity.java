@@ -18,7 +18,7 @@ public class RoomEntity {
     private String roomSite;
     private Integer depaId;
     private Integer roomIs;
-
+    private Double roomCost;
     //科室对象
     private Department department;
 

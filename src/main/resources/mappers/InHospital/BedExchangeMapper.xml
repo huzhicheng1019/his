@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.InHospital.BedExchangeMapper">
+    <resultMap id="ExMap" type="cn.gson.his.model.pojos.InHospital.BedExchangeEntity">
+        <id property="excId" column="exc_id"></id>
+        <result property="formerBer" column="former_ber"></result>
+        <result property="nowBed" column="now_bed"></result>
+        <result property="regMark" column="reg_mark"></result>
+        <result property="excDate" column="exc_date"></result>
+    </resultMap>
+
+    <!--新增床位调换记录-->
+    <insert id="insertEx">
+        insert into bed_exchange values (seq.nextval,#{formerBer},#{nowBed},#{regMark},#{excDate})
+    </insert>
+
+</mapper>
