@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ORDERTHXQ", schema = "HIS", catalog = "")
+@Table(name = "ORDERTHXQ", schema = "HIS")
 public class OrderthxqEntity {
     private int orderthxqId;
     private Integer productId;
@@ -17,6 +17,7 @@ public class OrderthxqEntity {
     private Timestamp mfg;
     private Long price;
     private Integer libraryId;
+    private String ge;
 
     @Id
     @Column(name = "ORDERTHXQ_ID")
@@ -118,6 +119,16 @@ public class OrderthxqEntity {
         this.libraryId = libraryId;
     }
 
+    @Basic
+    @Column(name = "GE")
+    public String getGe() {
+        return ge;
+    }
+
+    public void setGe(String ge) {
+        this.ge = ge;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -132,11 +143,12 @@ public class OrderthxqEntity {
                 Objects.equals(ph, that.ph) &&
                 Objects.equals(mfg, that.mfg) &&
                 Objects.equals(price, that.price) &&
+                Objects.equals(ge, that.ge) &&
                 Objects.equals(libraryId, that.libraryId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderthxqId, productId, productName, productFl, orderthId, sl, ph, mfg, price, libraryId);
+        return Objects.hash(orderthxqId, productId, productName, productFl, orderthId, sl, ph, mfg, price, libraryId,ge);
     }
 }

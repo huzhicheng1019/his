@@ -1,5 +1,8 @@
 package cn.gson.his.model.pojos.Drug;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -8,13 +11,17 @@ import java.util.Objects;
 @Table(name = "PLAN_INFO", schema = "HIS", catalog = "")
 public class PlanInfoEntity {
     private int planId;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp planDate;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp planCgdate;
     private Integer zdr;
     private String zje;
     private String bz;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "PLAN_ID")
     public int getPlanId() {
         return planId;

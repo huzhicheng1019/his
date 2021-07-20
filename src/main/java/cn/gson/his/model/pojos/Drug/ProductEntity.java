@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "PRODUCT", schema = "HIS", catalog = "")
+@Table(name = "PRODUCT", schema = "HIS")
 public class ProductEntity {
     private int planxqId;
     private Integer productId;
@@ -13,9 +13,11 @@ public class ProductEntity {
     private Integer planId;
     private Long price;
     private Integer sl;
-    private String ph;
+    private String ge;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "PLANXQ_ID")
     public int getPlanxqId() {
         return planxqId;
@@ -85,14 +87,16 @@ public class ProductEntity {
         this.sl = sl;
     }
 
+
+
     @Basic
-    @Column(name = "PH")
-    public String getPh() {
-        return ph;
+    @Column(name = "GE")
+    public String getGe() {
+        return ge;
     }
 
-    public void setPh(String ph) {
-        this.ph = ph;
+    public void setGe(String ge) {
+        this.ge = ge;
     }
 
     @Override
@@ -107,11 +111,11 @@ public class ProductEntity {
                 Objects.equals(planId, that.planId) &&
                 Objects.equals(price, that.price) &&
                 Objects.equals(sl, that.sl) &&
-                Objects.equals(ph, that.ph);
+                Objects.equals(ge, that.ge);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(planxqId, productId, productName, productFl, planId, price, sl, ph);
+        return Objects.hash(planxqId, productId, productName, productFl, planId, price, sl, ge);
     }
 }
