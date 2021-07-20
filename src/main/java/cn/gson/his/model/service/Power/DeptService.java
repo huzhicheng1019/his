@@ -43,10 +43,7 @@ public class DeptService {
      */
     public int addDept(Dept dept) {
        Dept dept1=dao.save(dept);
-       if(dept1==null){
-           return 0;
-       }
-       return 1;
+       return dept1==null ? 0:1;
     }
 
     /**

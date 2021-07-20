@@ -103,11 +103,7 @@ public class RoleService {
         }else{
             k=mapper.addRoleDept(list);
         }
-        if(p>0 && k>0){
-            return 1;
-        }
-        new RuntimeException("新增失败");
-        return 0;
+        return p>0 && k>0 ? 1:0;
     }
 
     /**

@@ -70,7 +70,7 @@
     </resultMap>
 
     <select id="allEmp" resultMap="EmpAll">
-        select * from employee e left join user_info u on e.emp_user=u.user_emp left join title t on e.EMP_TIT=t.tit_id left join DEPARTMENT a on e.EMP_DEPAR=a.depa_id LEFT JOIN DEPT d on e.EMP_DEPT=d.dept_id
+        select * from employee e left join user_info u on e.emp_id=u.user_emp left join title t on e.EMP_TIT=t.tit_id left join DEPARTMENT a on e.EMP_DEPAR=a.depa_id LEFT JOIN DEPT d on e.EMP_DEPT=d.dept_id
     </select>
 
     <!--批量删除角色-->
@@ -83,5 +83,54 @@
             </foreach>
         </where>
     </update>
+
+    <select id="allEmpRole" resultType="_int">
+        SELECT r.ROLE_ID FROM ROLE_INFO r INNER JOIN EMP_ROLE e on r.ROLE_ID=e.ROLE_ID where e.user_id=#{userId} and r.ROLE_PARENT is not null
+    </select>
+
+    <resultMap id="Role" type="cn.gson.his.model.pojos.Power.RoleInfo">
+        <id column="ROLE_ID" property="roleId"/>
+        <result column="ROLE_NAME" property="roleName"/>
+        <result column="ROLE_CREATE" property="roleCreate"/>
+    </resultMap>
+    <select id="allRole" resultMap="Role">
+        select * from ROLE_INFO
+    </select>
+
+    <!--<select id="childrenFuns" resultMap="Role">
+        select f.* from ROLE_INFO f where f.role_parent = #{parentId}
+    </select>-->
+
+    <resultMap id="Perm" type="cn.gson.his.model.pojos.Power.Perm">
+        <id column="parent_id" property="permId"/>
+        <result column="parent_name" property="permName"/>
+        <result column="parent_comp" property="permComp"/>
+        <result column="parent_url" property="permUrl"/>
+        <result column="parent_img" property="permImg"/>
+        <result column="parent_state" property="permState"/>
+        <result column="parent_level" property="permLevel"/>
+        <result column="parent_mata" property="permMata"/>
+        <collection property="permByPermParent" ofType="cn.gson.his.model.pojos.Power.Perm">
+            <id column="PERM_ID" property="permId"/>
+            <result column="PERM_NAME" property="permName"/>
+            <result column="PERM_COMP" property="permComp"/>
+            <result column="PERM_URL" property="permUrl"/>
+            <result column="PERM_IMG" property="permImg"/>
+            <result column="PERM_STATE" property="permState"/>
+            <result column="PERM_LEVEL" property="permLevel"/>
+            <result column="PERM_MATA" property="permMata"/>
+        </collection>
+    </resultMap>
+
+    <select id="homeMenu" resultMap="Perm">
+        SELECT e.perm_id parent_id,e.perm_name parent_name,
+               e.perm_comp parent_comp,e.perm_url parent_url,
+               e.perm_img parent_img,e.perm_state parent_state,
+               e.perm_level parent_level,e.perm_mata parent_mata,p.* FROM PERM p
+               INNER JOIN PERM e on p.perm_parent=e.perm_id
+               INNER JOIN ROLE_PERM rp on e.perm_id=rp.perm_id
+               INNER JOIN EMP_ROLE er on rp.role_id=er.role_id
+        where er.user_id=#{userId} and p.perm_state=0
+    </select>
 
 </mapper>

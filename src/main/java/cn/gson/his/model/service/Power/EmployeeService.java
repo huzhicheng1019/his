@@ -1,12 +1,11 @@
 package cn.gson.his.model.service.Power;
 
 import cn.gson.his.model.dao.Power.EmployeeDao;
+import cn.gson.his.model.dao.Power.RoleDao;
 import cn.gson.his.model.dao.Power.UserDao;
 import cn.gson.his.model.mappers.Power.EmployeeMapper;
 import cn.gson.his.model.mappers.Power.RoleMapper;
-import cn.gson.his.model.pojos.Power.Dept;
-import cn.gson.his.model.pojos.Power.Employee;
-import cn.gson.his.model.pojos.Power.UserInfo;
+import cn.gson.his.model.pojos.Power.*;
 import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -15,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +30,9 @@ public class EmployeeService {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    RoleDao roleDao;
 
     @Autowired
     RoleMapper roleMapper;
@@ -59,17 +62,69 @@ public class EmployeeService {
      * @return
      */
     public int addEmp(Employee emp){
-        Integer id=roleMapper.allSeq();
-        emp.getUseres().setUserId(id);
+        emp.getUseres().setEmployeeByUserEmp(emp);
         Employee s = dao.save(emp);
-        if(s==null){
-            return 0;
-        }
-        return 1;
+        UserInfo u = userDao.save(emp.getUseres());
+        return s==null || u==null ? 0:1;
     }
 
+    /**
+     * 批量离职、重置密码
+     * @param choose
+     * @param state
+     * @return
+     */
     public int quitEmp(JSONArray choose,Integer state) {
         int p=empMapper.quitEmp(state,choose);
         return p;
+    }
+
+    /**
+     * 根据用户id查询角色id
+     * @param userId
+     * @return
+     */
+    public List<Integer> allEmpRole(Integer userId) {
+        return empMapper.allEmpRole(userId);
+    }
+
+    /**
+     * 授权角色、新增中间表
+     * @param userId
+     * @param funs
+     */
+    public void addRolePerm(Integer userId, List<Integer> funs) {
+        UserInfo userInfo = userDao.findById(userId).get();
+        List<RoleInfo> allById =
+                (List<RoleInfo>)roleDao.findAllById(funs);
+
+        List<RoleInfo> functions = userInfo.getRoleinfos();
+        if(functions == null){
+            functions = new ArrayList<>();
+        }
+        functions.clear();//把原来的全部清空
+        functions.addAll(allById);
+        userInfo.setRoleinfos(functions);//触发中间表新增
+    }
+
+    /**
+     * 查询角色
+     * @return
+     */
+    public List<RoleInfo> allRole() {
+        List<RoleInfo> firstFuns = empMapper.allRole();
+        return firstFuns;
+    }
+
+    /*public List<RoleInfo> childrenFuns(Integer parentId){
+        List<RoleInfo> childrenFuns = empMapper.childrenFuns(parentId);
+        for (RoleInfo cFun : childrenFuns) {
+            cFun.setPermByPermParent(childrenFuns(cFun.getPermId()));
+        }
+        return childrenFuns;
+    };*/
+
+    public List<Perm> homeMenu(Integer userId){
+        return empMapper.homeMenu(userId);
     }
 }

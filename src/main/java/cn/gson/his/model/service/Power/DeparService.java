@@ -45,11 +45,7 @@ public class DeparService {
      */
     public int addDepar(Department department){
        Department department1=dao.save(department);
-       if(department1==null){
-           new RuntimeException("更新数据失败");
-           return 0;
-       }
-       return 1;
+       return department1==null ? 0:1;
     }
 
     @Autowired
