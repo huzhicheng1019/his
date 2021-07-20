@@ -22,6 +22,7 @@ public class LibraryxqEntity {
     private Integer libraryId;
     private Long price;
     private String ge;
+    private Integer qskcs;
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -135,6 +136,16 @@ public class LibraryxqEntity {
         this.ge = ge;
     }
 
+    @Basic
+    @Column(name = "QSKCS")
+    public Integer getQskcs() {
+        return qskcs;
+    }
+
+    public void setQskcs(Integer qskcs) {
+        this.qskcs = qskcs;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -150,12 +161,13 @@ public class LibraryxqEntity {
                 Objects.equals(gqdate, that.gqdate) &&
                 Objects.equals(libraryId, that.libraryId) &&
                 Objects.equals(ge, that.ge) &&
+                Objects.equals(qskcs, that.qskcs) &&
                 Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(libraryxqId, productId, productName, productFl, kcs, ph, scdate, gqdate, libraryId,ge,price);
+        return Objects.hash(libraryxqId, productId, productName, productFl, kcs, ph, scdate, gqdate, libraryId,ge,price,qskcs);
     }
 
     @Override
@@ -172,6 +184,7 @@ public class LibraryxqEntity {
                 ", libraryId=" + libraryId +
                 ", price=" + price +
                 ", ge='" + ge + '\'' +
+                ", qskcs=" + qskcs +
                 '}';
     }
 }
