@@ -12,10 +12,11 @@ public class OrderxqEntity {
     private String productName;
     private String productFl;
     private Integer orderId;
-    private Integer 数量;
+    private Integer sl;
     private String ph;
     private Timestamp mfg;
     private Long price;
+    private String ge;
 
     @Id
     @Column(name = "ORDERXQ_ID")
@@ -67,14 +68,25 @@ public class OrderxqEntity {
         this.orderId = orderId;
     }
 
+
     @Basic
-    @Column(name = "数量")
-    public Integer get数量() {
-        return 数量;
+    @Column(name = "SL")
+    public Integer getSl() {
+        return sl;
     }
 
-    public void set数量(Integer 数量) {
-        this.数量 = 数量;
+    public void setSl(Integer sl) {
+        this.sl = sl;
+    }
+
+    @Basic
+    @Column(name = "GE")
+    public String getGe() {
+        return ge;
+    }
+
+    public void setGe(String ge) {
+        this.ge = ge;
     }
 
     @Basic
@@ -117,14 +129,15 @@ public class OrderxqEntity {
                 Objects.equals(productName, that.productName) &&
                 Objects.equals(productFl, that.productFl) &&
                 Objects.equals(orderId, that.orderId) &&
-                Objects.equals(数量, that.数量) &&
+                Objects.equals(sl, that.sl) &&
                 Objects.equals(ph, that.ph) &&
                 Objects.equals(mfg, that.mfg) &&
+                Objects.equals(ge, that.ge) &&
                 Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderxqId, productId, productName, productFl, orderId, 数量, ph, mfg, price);
+        return Objects.hash(orderxqId, productId, productName, productFl, orderId, sl, ph, mfg, price,ge);
     }
 }
