@@ -35,7 +35,6 @@ public class PatientController {
         try {
             PatientdataEntity bankCardData = JSONObject.parseObject(pati, PatientdataEntity.class);
             ps.AddPtient(bankCardData);
-            //System.out.println("----------------"+i);
             return "OK";
         }catch (Exception e){
             System.out.println("患者资料新增失败");

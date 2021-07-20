@@ -5,6 +5,7 @@ import cn.gson.his.model.pojos.Outpatient.HangmarkEntity;
 import cn.gson.his.model.pojos.Outpatient.HangtypeEntity;
 import cn.gson.his.model.pojos.Outpatient.PatientdataEntity;
 import cn.gson.his.model.pojos.Power.Department;
+import cn.gson.his.model.pojos.Power.Employee;
 import cn.gson.his.model.service.Outpatient.CardService;
 import cn.gson.his.model.service.Outpatient.HangMarkService;
 import cn.gson.his.model.service.Outpatient.HangTypeService;
@@ -20,6 +21,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -69,14 +71,13 @@ public class HangMarkController {
         HangmarkEntity  hang = new HangmarkEntity();
         Timestamp time2= new Timestamp(new Date().getTime());
         hang.setHangDate(time2);
+        hang.setHangState(0);
         return hms.seleHangMark(hang);
     }
     //查询患者有没有就诊卡
     @RequestMapping(value = "HangCard")
     public List<CardEntity> allCard(@RequestBody String patientNo){
-        System.out.println("----------------------"+patientNo);
         patientNo = patientNo.substring(0, patientNo.length()-1);
-        System.out.println("----------------------"+patientNo);
         CardEntity cardEntity = new CardEntity();
         cardEntity.setPati(new PatientdataEntity());
         cardEntity.getPati().setPatientNo(Integer.valueOf(patientNo));
@@ -149,11 +150,34 @@ public class HangMarkController {
             //就诊卡的患者编号
             bankCardData.getPatie().setPatientNo(i);
             hms.addHang(bankCardData);
-            return "OK";
+            return response;
         }catch(Exception e){
             System.out.println(e.fillInStackTrace());
             return  "NO";
         }
+    }
+    //单独查询挂号记录
+    @RequestMapping("DHangMark")
+    public List<HangmarkEntity> DHangMark(@RequestBody Map<String,Object> datas){
+        System.out.println("前端------------"+ datas.get("value"));
+        HangmarkEntity hangmarkEntity = new HangmarkEntity();
+        List<HangmarkEntity> hangMark = hms.seleHangMark(hangmarkEntity);
+        return hms.seleHangMark(hangmarkEntity);
+    }
+    //就诊里面的查询方法
+    @RequestMapping("see_a_doctor")
+    public List<HangmarkEntity>see_a_doctor(@RequestBody Map<String,Object> datas){
+        System.out.println("--------------就诊"+datas);
+        HangmarkEntity hangmarkEntity = new HangmarkEntity();
+        //主治医生
+        hangmarkEntity.setDoctorName(new Employee());
+        hangmarkEntity.getDoctorName().setEmpName((String) datas.get("empName"));
+        //科室
+        hangmarkEntity.setDepartment(new Department());
+        hangmarkEntity.getDepartment().setDepaName((String) datas.get("deptName"));
+        //状态
+        hangmarkEntity.setHangState((int)datas.get("state"));
+        return hms.seleHangMark(hangmarkEntity);
     }
 
 }

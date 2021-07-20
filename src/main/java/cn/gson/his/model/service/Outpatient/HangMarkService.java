@@ -17,12 +17,15 @@ public class HangMarkService {
 
 //    查询挂号记录
     public List<HangmarkEntity> seleHangMark(HangmarkEntity hang){
-        System.out.println("---------------"+hang.getHangDate());
         return hmm.seleHangMark(hang);
 
     }
 //    新增挂号
     public void addHang(HangmarkEntity hang){
         hmm.addHang(hang);
+    }
+//    修改状态的方法
+    public int upState(HangmarkEntity hang){
+        return hmm.upState(hang);
     }
 }
