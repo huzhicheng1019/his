@@ -57,7 +57,7 @@
                 HANG_STATE =#{hangState}
             </if>
             --诊断状态
-            <if test="diagnoseState !=null ">
+            <if test="diagnoseState !=nulls">
                 , DIAGNOSE_STATE = #{diagnoseState}
             </if>
         </set>

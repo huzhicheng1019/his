@@ -1,5 +1,8 @@
 package cn.gson.his.model.pojos.Outpatient;
 
+import cn.gson.his.model.pojos.Power.Department;
+import cn.gson.his.model.pojos.Power.Employee;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -7,14 +10,34 @@ import java.util.Objects;
 @Table(name = "CASE_HISTORY_PARTI", schema = "HIS", catalog = "")
 public class CaseHistoryPartiEntity {
     private int partiNo;
-    private String chief;
-    private String presents;
-    private String previouss;
-    private String checkup;
-    private String suggestion;
-    private String doctorName;
-    private Integer doctorId;
-    private Integer caseNo;
+    private String chief;//患者的主要症状，持续时间
+    private String presents;//全面记录病人此次就诊的主要病史
+    private String previouss;//既往史
+    private String checkup;//症状
+    private String suggestion;//处理意见
+    private String doctorName;//医师签名
+
+
+    private Employee doctorId;//员工医生
+    private CaseHistoryEntity caseNo;//病历
+
+    @OneToOne
+    @JoinColumn(name = "DOCTOR_ID",nullable = false)
+    public Employee getDoctorId() {
+        return doctorId;
+    }
+    public void setDoctorId(Employee doctorId) {
+        this.doctorId = doctorId;
+    }
+    @OneToOne
+    @JoinColumn(name = "CASE_NO",nullable = false)
+    public CaseHistoryEntity getCaseNo() {
+        return caseNo;
+    }
+
+    public void setCaseNo(CaseHistoryEntity caseNo) {
+        this.caseNo = caseNo;
+    }
 
     @Id
     @Column(name = "PARTI_NO")
@@ -84,26 +107,6 @@ public class CaseHistoryPartiEntity {
 
     public void setDoctorName(String doctorName) {
         this.doctorName = doctorName;
-    }
-
-    @Basic
-    @Column(name = "DOCTOR_ID")
-    public Integer getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(Integer doctorId) {
-        this.doctorId = doctorId;
-    }
-
-    @Basic
-    @Column(name = "CASE_NO")
-    public Integer getCaseNo() {
-        return caseNo;
-    }
-
-    public void setCaseNo(Integer caseNo) {
-        this.caseNo = caseNo;
     }
 
     @Override
