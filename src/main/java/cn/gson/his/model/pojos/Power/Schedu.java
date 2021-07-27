@@ -1,6 +1,3 @@
-/**
- * 排班
- */
 package cn.gson.his.model.pojos.Power;
 
 import javax.persistence.*;
@@ -9,12 +6,12 @@ import java.util.Objects;
 
 @Entity
 public class Schedu {
-    private Integer scheId;//id
-    private Timestamp startTime;//开始时间
-    private Timestamp stopTime;//结束时间
-    private Timestamp startDate;//开始日期
-    private Timestamp stopDate;//结束日期
-    private Employee employeeByEmpId;//员工
+    private Integer scheId;
+    private Employee emp;
+    private String scheDate;
+    private String startTime;
+    private String stopTime;
+
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -28,44 +25,44 @@ public class Schedu {
         this.scheId = scheId;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "EMP_ID", referencedColumnName = "EMP_ID")
+    public Employee getEmp() {
+        return emp;
+    }
+
+    public void setEmp(Employee emp) {
+        this.emp = emp;
+    }
+
+    @Basic
+    @Column(name = "SCHE_DATE")
+    public String getScheDate() {
+        return scheDate;
+    }
+
+    public void setScheDate(String scheDate) {
+        this.scheDate = scheDate;
+    }
+
     @Basic
     @Column(name = "START_TIME")
-    public Timestamp getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Timestamp startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
     @Basic
     @Column(name = "STOP_TIME")
-    public Timestamp getStopTime() {
+    public String getStopTime() {
         return stopTime;
     }
 
-    public void setStopTime(Timestamp stopTime) {
+    public void setStopTime(String stopTime) {
         this.stopTime = stopTime;
-    }
-
-    @Basic
-    @Column(name = "START_DATE")
-    public Timestamp getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Timestamp startDate) {
-        this.startDate = startDate;
-    }
-
-    @Basic
-    @Column(name = "STOP_DATE")
-    public Timestamp getStopDate() {
-        return stopDate;
-    }
-
-    public void setStopDate(Timestamp stopDate) {
-        this.stopDate = stopDate;
     }
 
     @Override
@@ -73,30 +70,19 @@ public class Schedu {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Schedu schedu = (Schedu) o;
-        return Objects.equals(scheId, schedu.scheId) && Objects.equals(startTime, schedu.startTime) && Objects.equals(stopTime, schedu.stopTime) && Objects.equals(startDate, schedu.startDate) && Objects.equals(stopDate, schedu.stopDate);
+        return Objects.equals(scheId, schedu.scheId) && Objects.equals(scheDate, schedu.scheDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scheId, startTime, stopTime, startDate, stopDate);
+        return Objects.hash(scheId, scheDate);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "EMP_ID", referencedColumnName = "EMP_ID")
-    public Employee getEmployeeByEmpId() {
-        return employeeByEmpId;
-    }
-
-    public void setEmployeeByEmpId(Employee employeeByEmpId) {
-        this.employeeByEmpId = employeeByEmpId;
-    }
-
-    public Schedu(Timestamp startTime, Timestamp stopTime, Timestamp startDate, Timestamp stopDate, Employee employeeByEmpId) {
+    public Schedu(Employee emp, String scheDate, String startTime, String stopTime) {
+        this.emp = emp;
+        this.scheDate = scheDate;
         this.startTime = startTime;
         this.stopTime = stopTime;
-        this.startDate = startDate;
-        this.stopDate = stopDate;
-        this.employeeByEmpId = employeeByEmpId;
     }
 
     public Schedu() {
@@ -106,10 +92,9 @@ public class Schedu {
     public String toString() {
         return "Schedu{" +
                 "scheId=" + scheId +
-                ", startTime=" + startTime +
-                ", stopTime=" + stopTime +
-                ", startDate=" + startDate +
-                ", stopDate=" + stopDate +
+                ", scheDate='" + scheDate + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", stopTime='" + stopTime + '\'' +
                 '}';
     }
 }

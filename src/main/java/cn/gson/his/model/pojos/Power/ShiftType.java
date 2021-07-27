@@ -10,20 +10,19 @@ import java.util.Objects;
 @Entity
 @Table(name = "SHIFT_TYPE", schema = "HIS")
 public class ShiftType {
-    private Long typeId;//id
+    private Integer typeId;//id
     private String typeName;//类别名
     private String typeLength;//时长
-    private List<Shift> shifts;//班次
 
     @Id
     @GeneratedValue(generator = "SEQ")
     @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "TYPE_ID")
-    public Long getTypeId() {
+    public Integer getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Long typeId) {
+    public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
 
@@ -47,19 +46,11 @@ public class ShiftType {
         this.typeLength = typeLength;
     }
 
-    @OneToMany(mappedBy = "shiftType")
-    public List<Shift> getShifts() {
-        return shifts;
-    }
 
-    public void setShifts(List<Shift> shifts) {
-        this.shifts = shifts;
-    }
-
-    public ShiftType(String typeName, String typeLength, List<Shift> shifts) {
+    public ShiftType(String typeName, String typeLength) {
         this.typeName = typeName;
         this.typeLength = typeLength;
-        this.shifts = shifts;
+
     }
 
     public ShiftType() {

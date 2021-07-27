@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Power.ShiftMapper">
+    <resultMap id="Shift" type="cn.gson.his.model.pojos.Power.Shift">
+        <id property="shiId" column="SHI_ID"/>
+        <result property="shiName" column="SHI_NAME"/>
+        <result property="startTime" column="START_TIME"/>
+        <result property="stopTime" column="STOP_TIME"/>
+        <association property="shiftType" javaType="cn.gson.his.model.pojos.Power.ShiftType">
+            <id property="typeId" column="TYPE_ID"/>
+            <result property="typeName" column="TYPE_NAME"/>
+            <result property="typeLength" column="TYPE_LENGTH"/>
+        </association>
+    </resultMap>
+    <select id="allShift" resultMap="Shift">
+        SELECT * FROM SHIFT s LEFT JOIN SHIFT_TYPE t on s.SHI_TYPE=t.TYPE_ID
+    </select>
+</mapper>
