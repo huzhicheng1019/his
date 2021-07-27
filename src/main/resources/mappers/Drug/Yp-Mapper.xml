@@ -35,6 +35,10 @@
         order by drug_id desc
     </select>
 
+    <select id="ypcxid" resultMap="ypMap">
+        select d.*,g.gys_name g_name,l.lb_name l_name,l.lb_fl l_fl  from drug d LEFT JOIN GYS g on d.GYS_ID=g.GYS_ID LEFT JOIN Lb l on d.lb_id=l.lb_id where drug_id=#{id}
+    </select>
+
     <select id="selectgys" resultType="cn.gson.his.model.pojos.Drug.GysEntity">
         select * from gys
     </select>

@@ -1,37 +1,41 @@
 package cn.gson.his.model.pojos.Drug;
 
+import cn.gson.his.model.pojos.Power.Employee;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ORDERS", schema = "HIS", catalog = "")
+@Table(name = "ORDERS", schema = "HIS")
 public class OrdersEntity {
-    private int orderId;
-    private Integer cgr;
+    private String orderId;
+    private Employee employee;
     private Timestamp orderDate;
     private Integer planId;
     private Long zje;
     private String bz;
 
+
+
     @Id
     @Column(name = "ORDER_ID")
-    public int getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
-    @Basic
-    @Column(name = "CGR")
-    public Integer getCgr() {
-        return cgr;
+    @ManyToOne
+    @JoinColumn(name = "CGR", referencedColumnName = "EMP_ID")
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setCgr(Integer cgr) {
-        this.cgr = cgr;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Basic
@@ -80,7 +84,7 @@ public class OrdersEntity {
         if (o == null || getClass() != o.getClass()) return false;
         OrdersEntity that = (OrdersEntity) o;
         return orderId == that.orderId &&
-                Objects.equals(cgr, that.cgr) &&
+                Objects.equals(employee, that.employee) &&
                 Objects.equals(orderDate, that.orderDate) &&
                 Objects.equals(planId, that.planId) &&
                 Objects.equals(zje, that.zje) &&
@@ -89,6 +93,6 @@ public class OrdersEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, cgr, orderDate, planId, zje, bz);
+        return Objects.hash(orderId, employee, orderDate, planId, zje, bz);
     }
 }

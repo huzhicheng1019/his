@@ -1,24 +1,27 @@
 package cn.gson.his.model.pojos.Drug;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ORDERXQ", schema = "HIS", catalog = "")
+@Table(name = "ORDERXQ", schema = "HIS")
 public class OrderxqEntity {
     private int orderxqId;
     private Integer productId;
     private String productName;
     private String productFl;
-    private Integer orderId;
+    private String orderId;
     private Integer sl;
-    private String ph;
-    private Timestamp mfg;
     private Long price;
     private String ge;
+    private GysEntity gys;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "ORDERXQ_ID")
     public int getOrderxqId() {
         return orderxqId;
@@ -60,11 +63,11 @@ public class OrderxqEntity {
 
     @Basic
     @Column(name = "ORDER_ID")
-    public Integer getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -89,24 +92,15 @@ public class OrderxqEntity {
         this.ge = ge;
     }
 
-    @Basic
-    @Column(name = "PH")
-    public String getPh() {
-        return ph;
+
+    @ManyToOne
+    @JoinColumn(name = "GYS_ID", referencedColumnName = "GYS_ID")
+    public GysEntity getGys() {
+        return gys;
     }
 
-    public void setPh(String ph) {
-        this.ph = ph;
-    }
-
-    @Basic
-    @Column(name = "MFG")
-    public Timestamp getMfg() {
-        return mfg;
-    }
-
-    public void setMfg(Timestamp mfg) {
-        this.mfg = mfg;
+    public void setGys(GysEntity gys) {
+        this.gys = gys;
     }
 
     @Basic
@@ -130,14 +124,13 @@ public class OrderxqEntity {
                 Objects.equals(productFl, that.productFl) &&
                 Objects.equals(orderId, that.orderId) &&
                 Objects.equals(sl, that.sl) &&
-                Objects.equals(ph, that.ph) &&
-                Objects.equals(mfg, that.mfg) &&
                 Objects.equals(ge, that.ge) &&
+                Objects.equals(gys, that.gys) &&
                 Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderxqId, productId, productName, productFl, orderId, sl, ph, mfg, price,ge);
+        return Objects.hash(orderxqId, productId, productName, productFl, orderId, sl, price,ge,gys);
     }
 }

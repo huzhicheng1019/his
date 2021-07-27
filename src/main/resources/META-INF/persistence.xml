@@ -30,6 +30,9 @@
     <class>cn.gson.his.model.pojos.Drug.ChujlEntity</class>
     <class>cn.gson.his.model.pojos.Drug.PlanInfoEntity</class>
     <class>cn.gson.his.model.pojos.Drug.ProductEntity</class>
+    <class>cn.gson.his.model.pojos.Drug.OrdersEntity</class>
+    <class>cn.gson.his.model.pojos.Drug.OrderxqEntity</class>
+
 
       <properties>
       <property name="hibernate.archive.autodetection" value="class"/>

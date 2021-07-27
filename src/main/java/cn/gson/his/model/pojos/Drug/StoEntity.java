@@ -1,5 +1,7 @@
 package cn.gson.his.model.pojos.Drug;
 
+import cn.gson.his.model.pojos.Power.Employee;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -11,10 +13,12 @@ public class StoEntity {
     private Timestamp stoDate;
     private LibraryInfoEntity library;
     private Integer why;
-    private Integer shr;
+    private Employee employee;
     private String lyId;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "STO_ID")
     public int getStoId() {
         return stoId;
@@ -34,15 +38,6 @@ public class StoEntity {
         this.stoDate = stoDate;
     }
 
-//    @Basic
-//    @Column(name = "LIBRARY_ID")
-//    public Integer getLibraryId() {
-//        return libraryId;
-//    }
-//
-//    public void setLibraryId(Integer libraryId) {
-//        this.libraryId = libraryId;
-//    }
 
     @ManyToOne
     @JoinColumn(name = "LIBRARY_ID", referencedColumnName = "LIBRARY_ID")
@@ -64,14 +59,14 @@ public class StoEntity {
         this.why = why;
     }
 
-    @Basic
-    @Column(name = "SHR")
-    public Integer getShr() {
-        return shr;
+    @ManyToOne
+    @JoinColumn(name = "SHR", referencedColumnName = "EMP_ID")
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setShr(Integer shr) {
-        this.shr = shr;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Basic
@@ -93,12 +88,12 @@ public class StoEntity {
                 Objects.equals(stoDate, stoEntity.stoDate) &&
                 Objects.equals(library, stoEntity.library) &&
                 Objects.equals(why, stoEntity.why) &&
-                Objects.equals(shr, stoEntity.shr) &&
+                Objects.equals(employee, stoEntity.employee) &&
                 Objects.equals(lyId, stoEntity.lyId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stoId, stoDate, library, why, shr, lyId);
+        return Objects.hash(stoId, stoDate, library, why, employee, lyId);
     }
 }

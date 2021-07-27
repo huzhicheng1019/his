@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Drug.CgMapper">
+    <resultMap id="cgMap" type="cn.gson.his.model.pojos.Drug.OrdersEntity">
+        <id column="ORDER_ID" property="orderId"></id>
+        <result column="ORDER_DATE" property="orderDate"></result>
+        <result column="PLAN_ID" property="planId"></result>
+        <result column="ZJE" property="zje"></result>
+        <result column="BZ" property="bz"></result>
+        <association property="employee" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id column="cgr" property="empId"></id>
+            <result column="e_name" property="empName"></result>
+        </association>
+    </resultMap>
+
+    <select id="cgcx" resultMap="cgMap">
+        select o.*,e.EMP_NAME e_name from orders o left join EMPLOYEE e on o.cgr=e.EMP_ID
+        <where>
+            <if test="nr!=null and nr!=''">
+                and ORDER_ID like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="cgxqMap" type="cn.gson.his.model.pojos.Drug.OrderxqEntity">
+        <id column="ORDERXQ_ID" property="orderxqId"></id>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="PRODUCT_NAME" property="productName"></result>
+        <result column="PRODUCT_FL" property="productFl"></result>
+        <result column="ORDER_ID" property="orderId"></result>
+        <result column="PRICE" property="price"></result>
+        <result column="SL" property="sl"></result>
+        <result column="GE" property="ge"></result>
+        <result column="PH" property="ph"></result>
+        <result column="MFG" property="mfg"></result>
+        <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
+    </resultMap>
+
+    <select id="cgxqcx" resultMap="cgxqMap">
+        select o.*,g.gys_name g_name from ORDERXQ o LEFT JOIN gys g on o.gys_id=g.gys_id
+        <where>
+            ORDER_ID=#{id}
+            <if test="nr!=null and nr!=''">
+                and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="cgxqfl" resultMap="cgxqMap">
+        select o.*,g.gys_name g_name from ORDERXQ o LEFT JOIN gys g on o.gys_id=g.gys_id
+        <where>
+            ORDER_ID=#{id}
+            <if test="fl!=null and fl!=''">
+                and o.PRODUCT_FL=#{fl}
+            </if>
+        </where>
+    </select>
+
+    <select id="cgcxid" resultMap="cgMap">
+        select o.*,e.EMP_NAME e_name from orders o left join EMPLOYEE e on o.cgr=e.EMP_ID where ORDER_ID=#{id}
+    </select>
+
+    <select id="empcx" resultType="cn.gson.his.model.pojos.Power.Employee">
+        select * from EMPLOYEE where EMP_STATE=0
+    </select>
+
+    <select id="stocx" resultType="cn.gson.his.model.pojos.Drug.StoEntity">
+        select * from sto where LY_ID=#{id} and why=0
+    </select>
+</mapper>

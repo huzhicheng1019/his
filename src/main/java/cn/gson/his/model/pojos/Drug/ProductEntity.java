@@ -14,6 +14,8 @@ public class ProductEntity {
     private Long price;
     private Integer sl;
     private String ge;
+    private GysEntity gys;
+
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -99,6 +101,16 @@ public class ProductEntity {
         this.ge = ge;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "GYS_ID", referencedColumnName = "GYS_ID")
+    public GysEntity getGys() {
+        return gys;
+    }
+
+    public void setGys(GysEntity gys) {
+        this.gys = gys;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -111,11 +123,12 @@ public class ProductEntity {
                 Objects.equals(planId, that.planId) &&
                 Objects.equals(price, that.price) &&
                 Objects.equals(sl, that.sl) &&
+                Objects.equals(gys, that.gys) &&
                 Objects.equals(ge, that.ge);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(planxqId, productId, productName, productFl, planId, price, sl, ge);
+        return Objects.hash(planxqId, productId, productName, productFl, planId, price, sl, ge,gys);
     }
 }

@@ -1,10 +1,13 @@
 package cn.gson.his.model.pojos.Drug;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "STOJL", schema = "HIS", catalog = "")
+@Table(name = "STOJL", schema = "HIS")
 public class StojlEntity {
     private int stojlId;
     private Integer stoId;
@@ -14,8 +17,17 @@ public class StojlEntity {
     private Integer sl;
     private String ph;
     private String bz;
+    private String ge;
+    private GysEntity gys;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
+    private Timestamp scdate;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
+    private Timestamp gqdate;
+
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "STOJL_ID")
     public int getStojlId() {
         return stojlId;
@@ -95,6 +107,46 @@ public class StojlEntity {
         this.bz = bz;
     }
 
+    @Basic
+    @Column(name = "SCDATE")
+    public Timestamp getScdate() {
+        return scdate;
+    }
+
+    public void setScdate(Timestamp scdate) {
+        this.scdate = scdate;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "GYS_ID", referencedColumnName = "GYS_ID")
+    public GysEntity getGys() {
+        return gys;
+    }
+
+    public void setGys(GysEntity gys) {
+        this.gys = gys;
+    }
+
+    @Basic
+    @Column(name = "GE")
+    public String getGe() {
+        return ge;
+    }
+
+    public void setGe(String ge) {
+        this.ge = ge;
+    }
+
+    @Basic
+    @Column(name = "GQDATE")
+    public Timestamp getGqdate() {
+        return gqdate;
+    }
+
+    public void setGqdate(Timestamp gqdate) {
+        this.gqdate = gqdate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,11 +159,15 @@ public class StojlEntity {
                 Objects.equals(productFl, that.productFl) &&
                 Objects.equals(sl, that.sl) &&
                 Objects.equals(ph, that.ph) &&
+                Objects.equals(ge, that.ge) &&
+                Objects.equals(gys, that.gys) &&
+                Objects.equals(scdate, that.scdate) &&
+                Objects.equals(gqdate, that.gqdate) &&
                 Objects.equals(bz, that.bz);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stojlId, stoId, productName, productId, productFl, sl, ph, bz);
+        return Objects.hash(stojlId, stoId, productName, productId, productFl, sl, ph, bz,ge,gys,scdate,gqdate);
     }
 }
