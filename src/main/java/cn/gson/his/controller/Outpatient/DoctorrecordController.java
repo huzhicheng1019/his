@@ -8,6 +8,7 @@ import cn.gson.his.model.pojos.Power.Employee;
 import cn.gson.his.model.service.Outpatient.CaseHistoryPartiService;
 import cn.gson.his.model.service.Outpatient.CaseHistoryService;
 import cn.gson.his.model.service.Outpatient.DoctorrecordService;
+import cn.gson.his.model.service.Outpatient.HangMarkService;
 import com.alibaba.fastjson.JSONObject;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,8 +92,11 @@ public class DoctorrecordController {
         LinkedHashMap docto  = (LinkedHashMap)date.get("form");
         String doctorrecord = JSONObject.toJSONString(docto);
         DoctorrecordEntity doctorrecordEntity = JSONObject.parseObject(doctorrecord, DoctorrecordEntity.class);
-        //新增就诊记录
-        ds.addDoctorrecord(doctorrecordEntity,caseHistory1,caseHistoryPar);
+
+        //修改挂号状态根据编号
+        Integer state =(int)date.get("state");
+        Integer HnagNo = (int)date.get("hangNo");
+        ds.addDoctorrecord(doctorrecordEntity,caseHistory1,caseHistoryPar,state,HnagNo);
         //先新增病历详情
         return 1;
     }

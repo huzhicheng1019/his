@@ -83,7 +83,6 @@
 <!--    根据就诊科室和主治医生查询-->
     <select id="alldoctor" resultMap="Doctorrecord">
         select * from DOCTORRECORD d inner join PATIENTDATA P on d.PATIENT_NO = P.PATIENT_NO
-        inner join CARD C2 on d.CARD_ID = C2.CARD_ID
         inner join EMPLOYEE E on E.EMP_ID = d.DOCTOR_NO
         inner join DEPARTMENT D2 on D2.DEPA_ID = d.RECORD_INDOOR
         inner join CASE_HISTORY_PARTI C1 on C1.PARTI_NO = d.CASE_HISSSTORY
@@ -104,7 +103,6 @@
 <!--  查询就诊记录-->
     <select id="allDoctorrecord" resultMap="Doctorrecord">
         select * from DOCTORRECORD d inner join PATIENTDATA P on d.PATIENT_NO = P.PATIENT_NO
-        inner join CARD C2 on d.CARD_ID = C2.CARD_ID
         inner join EMPLOYEE E on E.EMP_ID = d.DOCTOR_NO
         inner join DEPARTMENT D2 on D2.DEPA_ID = d.RECORD_INDOOR
         inner join CASE_HISTORY_PARTI C1 on C1.PARTI_NO = d.CASE_HISSSTORY

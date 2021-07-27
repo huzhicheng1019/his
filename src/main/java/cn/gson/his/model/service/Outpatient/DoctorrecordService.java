@@ -4,6 +4,7 @@ import cn.gson.his.model.mappers.Outpatient.DoctorrecordMapper;
 import cn.gson.his.model.pojos.Outpatient.CaseHistoryEntity;
 import cn.gson.his.model.pojos.Outpatient.CaseHistoryPartiEntity;
 import cn.gson.his.model.pojos.Outpatient.DoctorrecordEntity;
+import cn.gson.his.model.pojos.Outpatient.HangmarkEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,13 +24,17 @@ public class DoctorrecordService {
     @Autowired
     private CaseHistoryPartiService chps;
 
+    //挂号修改状态的方法
+    @Autowired
+    private HangMarkService hms;
+
     //查询就诊记录
     public List<DoctorrecordEntity>allDoctorrecord(DoctorrecordEntity doctorre){
         return  dm.allDoctorrecord(doctorre);
     }
     //新增
     @Transactional
-    public int addDoctorrecord(DoctorrecordEntity doctorre,CaseHistoryEntity caseHis, CaseHistoryPartiEntity CaseHistory){
+    public int addDoctorrecord(DoctorrecordEntity doctorre,CaseHistoryEntity caseHis, CaseHistoryPartiEntity CaseHistory,int state,int hangNo){
         //新增病历
         int i = ahs.addCaseHistory(caseHis);
         //给病历详情里面的病历主键赋值
@@ -42,6 +47,13 @@ public class DoctorrecordService {
         CaseHistoryPartiEntity  caseh1 = new CaseHistoryPartiEntity();
         caseh1.setPartiNo(i1);
         doctorre.setCaseNo(caseh1);
+        //修改挂号状态
+        HangmarkEntity hangmarkEntity = new HangmarkEntity();
+        hangmarkEntity.setHangState(state);
+        hangmarkEntity.setHangNo(hangNo);
+        System.out.println("修改挂号信息");
+        hms.upState(hangmarkEntity);
+        //返回回去
         return  dm.addDoctorrecord(doctorre);
     }
 
