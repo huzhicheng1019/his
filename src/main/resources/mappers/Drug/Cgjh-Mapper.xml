@@ -11,8 +11,23 @@
         </where>
     </select>
 
-    <select id="cgjhxqcx" resultType="cn.gson.his.model.pojos.Drug.ProductEntity">
-        select * from PRODUCT
+    <resultMap id="cgjhMap" type="cn.gson.his.model.pojos.Drug.ProductEntity">
+        <id column="PLANXQ_ID" property="planxqId"></id>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="PRODUCT_NAME" property="productName"></result>
+        <result column="PRODUCT_FL" property="productFl"></result>
+        <result column="PLAN_ID" property="planId"></result>
+        <result column="PRICE" property="price"></result>
+        <result column="SL" property="sl"></result>
+        <result column="GE" property="ge"></result>
+        <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
+    </resultMap>
+
+    <select id="cgjhxqcx" resultMap="cgjhMap">
+        select p.*,g.gys_name g_name from PRODUCT p left join gys g on p.gys_id=g.gys_id
         <where>
             PLAN_ID=#{id}
             <if test="nr!=null and nr!=''">

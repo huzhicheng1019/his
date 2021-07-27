@@ -76,11 +76,23 @@ public class CgjhController {
             return "fail";
         }
     }
+
     @RequestMapping("delxg-pd")
-    public String delyp(Integer planId){
+    public String delxgpd(Integer planId){
         System.out.println(planId);
         try {
             return cgjhService.scxgpd(planId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+
+    @RequestMapping("del-cgjh")
+    public String delcgjh(Integer planId){
+        System.out.println(planId);
+        try {
+            return cgjhService.cgjhdel(planId);
         } catch (Exception e) {
             e.printStackTrace();
             return "fail";

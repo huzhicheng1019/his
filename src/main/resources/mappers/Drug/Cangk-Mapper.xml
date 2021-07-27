@@ -11,8 +11,28 @@
         </where>
     </select>
 
-    <select id="ckxqcx" resultType="cn.gson.his.model.pojos.Drug.LibraryxqEntity">
-        select * from LIBRARYXQ
+    <resultMap id="ckxqMap" type="cn.gson.his.model.pojos.Drug.LibraryxqEntity">
+        <id column="LIBRARYXQ_ID" property="libraryxqId"></id>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="PRODUCT_NAME" property="productName"></result>
+        <result column="PRODUCT_FL" property="productFl"></result>
+        <result column="KCS" property="kcs"></result>
+        <result column="PH" property="ph"></result>
+        <result column="SCDATE" property="scdate"></result>
+        <result column="GQDATE" property="gqdate"></result>
+        <result column="LIBRARY_ID" property="libraryId"></result>
+        <result column="PRICE" property="price"></result>
+        <result column="SJPRICE" property="sjprice"></result>
+        <result column="GE" property="ge"></result>
+        <result column="QSKCS" property="qskcs"></result>
+        <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
+    </resultMap>
+
+    <select id="ckxqcx" resultMap="ckxqMap">
+        select l.*,g.gys_name g_name from LIBRARYXQ l left join gys g on l.gys_id=g.gys_id
         <where>
             LIBRARY_ID=#{id}
             <if test="nr!=null and nr!=''">
@@ -29,15 +49,49 @@
         select * from sto where LIBRARY_ID=#{id}
     </select>
 
-    <select id="stojlcx" resultType="cn.gson.his.model.pojos.Drug.StojlEntity">
-        select * from stojl where STO_ID=#{id} and PRODUCT_ID=#{proid} and PRODUCT_FL=#{fl} and PH=#{ph}
+    <resultMap id="stojlMap" type="cn.gson.his.model.pojos.Drug.StojlEntity">
+        <id column="STOJL_ID" property="stojlId"></id>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="PRODUCT_NAME" property="productName"></result>
+        <result column="PRODUCT_FL" property="productFl"></result>
+        <result column="SL" property="sl"></result>
+        <result column="PH" property="ph"></result>
+        <result column="SCDATE" property="scdate"></result>
+        <result column="STO_ID" property="stoId"></result>
+        <result column="BZ" property="bz"></result>
+        <result column="GE" property="ge"></result>
+        <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
+    </resultMap>
+
+    <select id="stojlcx" resultMap="stojlMap">
+        select s.*,g.gys_name g_name from stojl s left join gys g on s.gys_id=g.gys_id where STO_ID=#{id} and PRODUCT_ID=#{proid} and PRODUCT_FL=#{fl} and PH=#{ph}
     </select>
 
     <select id="chucx" resultType="cn.gson.his.model.pojos.Drug.ChuEntity">
         select * from chu where LIBRARY_ID=#{id}
     </select>
 
-    <select id="chujlcx" resultType="cn.gson.his.model.pojos.Drug.ChujlEntity">
-        select * from chujl where CHU_ID=#{id} and PRODUCT_ID=#{proid} and PRODUCT_FL=#{fl} and PH=#{ph}
+    <resultMap id="chujlMap" type="cn.gson.his.model.pojos.Drug.ChujlEntity">
+        <id column="CHUJL_ID" property="chujlId"></id>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="PRODUCT_NAME" property="productName"></result>
+        <result column="PRODUCT_FL" property="productFl"></result>
+        <result column="SL" property="sl"></result>
+        <result column="PH" property="ph"></result>
+        <result column="SCDATE" property="scdate"></result>
+        <result column="CHU_ID" property="chuId"></result>
+        <result column="BZ" property="bz"></result>
+        <result column="GE" property="ge"></result>
+        <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
+    </resultMap>
+
+    <select id="chujlcx" resultMap="chujlMap">
+        select c.*,g.gys_name g_name from chujl c left join gys g on c.gys_id=g.gys_id where CHU_ID=#{id} and PRODUCT_ID=#{proid} and PRODUCT_FL=#{fl} and PH=#{ph}
     </select>
 </mapper>

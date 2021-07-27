@@ -28,6 +28,10 @@
         </where>
     </select>
 
+    <select id="concxid" resultMap="conMap">
+        SELECT c.*,g.GYS_NAME g_name FROM con c INNER JOIN gys g on c.GYS_ID=g.GYS_ID where con_id=#{id}
+    </select>
+
     <select id="selectck" resultType="cn.gson.his.model.pojos.Drug.LibraryxqEntity">
         select * from LIBRARYXQ where PRODUCT_FL=1 and PRODUCT_ID=#{id}
     </select>

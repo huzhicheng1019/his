@@ -1,14 +1,18 @@
 package cn.gson.his.model.pojos.Drug;
 
+import cn.gson.his.model.pojos.Power.Employee;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ORDERTH", schema = "HIS", catalog = "")
+@Table(name = "ORDERTH", schema = "HIS")
 public class OrderthEntity {
     private int orderthId;
-    private String cgr;
+    private Employee employee;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp orderDate;
     private Long zje;
     private String bz;
@@ -23,14 +27,14 @@ public class OrderthEntity {
         this.orderthId = orderthId;
     }
 
-    @Basic
-    @Column(name = "CGR")
-    public String getCgr() {
-        return cgr;
+    @ManyToOne
+    @JoinColumn(name = "CGR", referencedColumnName = "EMP_ID")
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setCgr(String cgr) {
-        this.cgr = cgr;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Basic
@@ -69,7 +73,7 @@ public class OrderthEntity {
         if (o == null || getClass() != o.getClass()) return false;
         OrderthEntity that = (OrderthEntity) o;
         return orderthId == that.orderthId &&
-                Objects.equals(cgr, that.cgr) &&
+                Objects.equals(employee, that.employee) &&
                 Objects.equals(orderDate, that.orderDate) &&
                 Objects.equals(zje, that.zje) &&
                 Objects.equals(bz, that.bz);
@@ -77,6 +81,6 @@ public class OrderthEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderthId, cgr, orderDate, zje, bz);
+        return Objects.hash(orderthId, employee, orderDate, zje, bz);
     }
 }

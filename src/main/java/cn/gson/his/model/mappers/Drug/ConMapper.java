@@ -17,4 +17,6 @@ public interface ConMapper {
     public List<LibraryxqEntity> selectck(@Param("id") Integer id);
 
     public List<GysEntity> selectgys();
+
+    public ConEntity concxid(Integer id);
 }

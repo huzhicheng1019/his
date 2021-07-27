@@ -16,8 +16,9 @@ public class OrderthxqEntity {
     private String ph;
     private Timestamp mfg;
     private Long price;
-    private Integer libraryId;
     private String ge;
+    private GysEntity gys;
+
 
     @Id
     @Column(name = "ORDERTHXQ_ID")
@@ -110,16 +111,6 @@ public class OrderthxqEntity {
     }
 
     @Basic
-    @Column(name = "LIBRARY_ID")
-    public Integer getLibraryId() {
-        return libraryId;
-    }
-
-    public void setLibraryId(Integer libraryId) {
-        this.libraryId = libraryId;
-    }
-
-    @Basic
     @Column(name = "GE")
     public String getGe() {
         return ge;
@@ -127,6 +118,16 @@ public class OrderthxqEntity {
 
     public void setGe(String ge) {
         this.ge = ge;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "GYS_ID", referencedColumnName = "GYS_ID")
+    public GysEntity getGys() {
+        return gys;
+    }
+
+    public void setGys(GysEntity gys) {
+        this.gys = gys;
     }
 
     @Override
@@ -144,11 +145,11 @@ public class OrderthxqEntity {
                 Objects.equals(mfg, that.mfg) &&
                 Objects.equals(price, that.price) &&
                 Objects.equals(ge, that.ge) &&
-                Objects.equals(libraryId, that.libraryId);
+                Objects.equals(gys, that.gys);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderthxqId, productId, productName, productFl, orderthId, sl, ph, mfg, price, libraryId,ge);
+        return Objects.hash(orderthxqId, productId, productName, productFl, orderthId, sl, ph, mfg, price,ge,gys);
     }
 }

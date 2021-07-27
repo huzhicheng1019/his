@@ -65,4 +65,18 @@ public class CgjhService {
         }
     }
 
+    public String cgjhdel(Integer id){
+        List<OrdersEntity> cgcx = cgjhMapper.cgcx(id);
+        if(cgcx.size()>0){
+            return "该计划已被应用,不可删除或更改";
+        }else {
+            List<ProductEntity> cgjhxqcx = cgjhMapper.cgjhxqcx(id, "");
+            for (ProductEntity productEntity : cgjhxqcx) {
+                cgjhxqDao.deleteById(productEntity.getPlanxqId());
+            }
+            cgjhDao.deleteById(id);
+            return "ok";
+        }
+    }
+
 }

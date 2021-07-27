@@ -16,9 +16,9 @@ public interface CangkMapper {
 
     public List<StoEntity> stocx(@Param("id") Integer id);
 
-    public List<StojlEntity> stojlcx(@Param("id") Integer id,@Param("proid") Integer proid,@Param("fl") Integer fl,@Param("ph") String ph);
+    public List<StojlEntity> stojlcx(@Param("id") Integer id,@Param("proid") Integer proid,@Param("fl") String fl,@Param("ph") String ph);
 
     public List<ChuEntity> chucx(@Param("id") Integer id);
 
-    public List<ChujlEntity> chujlcx(@Param("id") Integer id,@Param("proid") Integer proid,@Param("fl") Integer fl,@Param("ph") String ph);
+    public List<ChujlEntity> chujlcx(@Param("id") Integer id,@Param("proid") Integer proid,@Param("fl") String fl,@Param("ph") String ph);
 }

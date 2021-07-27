@@ -7,12 +7,12 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "LIBRARYXQ", schema = "HIS", catalog = "")
+@Table(name = "LIBRARYXQ", schema = "HIS")
 public class LibraryxqEntity {
     private int libraryxqId;
     private Integer productId;
     private String productName;
-    private Integer productFl;
+    private String productFl;
     private Integer kcs;
     private String ph;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
@@ -23,6 +23,8 @@ public class LibraryxqEntity {
     private Long price;
     private String ge;
     private Integer qskcs;
+    private GysEntity gys;
+    private Long sjprice;
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -58,11 +60,11 @@ public class LibraryxqEntity {
 
     @Basic
     @Column(name = "PRODUCT_FL")
-    public Integer getProductFl() {
+    public String getProductFl() {
         return productFl;
     }
 
-    public void setProductFl(Integer productFl) {
+    public void setProductFl(String productFl) {
         this.productFl = productFl;
     }
 
@@ -146,6 +148,46 @@ public class LibraryxqEntity {
         this.qskcs = qskcs;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "GYS_ID", referencedColumnName = "GYS_ID")
+    public GysEntity getGys() {
+        return gys;
+    }
+
+    public void setGys(GysEntity gys) {
+        this.gys = gys;
+    }
+
+    @Basic
+    @Column(name = "SJPRICE")
+    public Long getSjprice() {
+        return sjprice;
+    }
+
+    public void setSjprice(Long sjprice) {
+        this.sjprice = sjprice;
+    }
+
+
+    public LibraryxqEntity() {
+    }
+
+    public LibraryxqEntity(Integer productId, String productName, String productFl, Integer kcs, String ph, Timestamp scdate, Timestamp gqdate, Integer libraryId, Long price, String ge, Integer qskcs, GysEntity gys, Long sjprice) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productFl = productFl;
+        this.kcs = kcs;
+        this.ph = ph;
+        this.scdate = scdate;
+        this.gqdate = gqdate;
+        this.libraryId = libraryId;
+        this.price = price;
+        this.ge = ge;
+        this.qskcs = qskcs;
+        this.gys = gys;
+        this.sjprice = sjprice;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -162,12 +204,14 @@ public class LibraryxqEntity {
                 Objects.equals(libraryId, that.libraryId) &&
                 Objects.equals(ge, that.ge) &&
                 Objects.equals(qskcs, that.qskcs) &&
+                Objects.equals(gys, that.gys) &&
+                Objects.equals(sjprice, that.sjprice) &&
                 Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(libraryxqId, productId, productName, productFl, kcs, ph, scdate, gqdate, libraryId,ge,price,qskcs);
+        return Objects.hash(libraryxqId, productId, productName, productFl, kcs, ph, scdate, gqdate, libraryId,ge,price,qskcs,gys,sjprice);
     }
 
     @Override

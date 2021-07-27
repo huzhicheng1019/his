@@ -20,6 +20,5 @@ public interface YpMapper {
 
     public List<LibraryxqEntity> selectck(@Param("id") Integer id);
 
-
-
+    public DrugEntity ypcxid(Integer id);
 }
