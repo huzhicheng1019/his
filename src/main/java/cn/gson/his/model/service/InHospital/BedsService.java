@@ -26,4 +26,9 @@ public class BedsService {
     public int updateBeds(BedsEntity beds){
         return bedsMapper.updateBeds(beds);
     };
+
+    //修改床位护士
+    public int updateNurse(BedsEntity beds){
+        return bedsMapper.updateNurse(beds);
+    };
 }

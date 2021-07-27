@@ -25,6 +25,13 @@ public class EmployeeController {
     public List<Employee> demo(Integer depaId){
         return  empService.selDoctor(depaId);
     }
+    //查询住院部的医生
+    @RequestMapping("selNurse")
+    public List<Employee> demo1(Integer depaId){
+        return  empService.selNurse(depaId);
+    }
+
+
 
     /**
      * 分页查询所有

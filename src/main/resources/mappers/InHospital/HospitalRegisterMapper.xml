@@ -12,13 +12,25 @@
         <result property="doctorId" column="doctor_id"></result>
         <result property="doctorName" column="doctor_name"></result>
         <result property="regIs" column="reg_is"></result>
-
+        <result property="diagnoseResult" column="diagnose_result"></result>
+        <!--病人信息-->
+        <association property="patientData" javaType="cn.gson.his.model.pojos.Outpatient.PatientdataEntity">
+            <id column="PATIENT_NO" property="patientNo" ></id>
+            <result column="PATIENT_NAME" property="patientName"/>
+            <result column="PATIENT_SEX" property="patientSex"/>
+            <result column="PATIENT_AGE" property="patientAge"/>
+            <result column="PATIENT_PHONE" property="patientPhone"/>
+            <result column="PATIENT_INSU" property="patientInsu"/>
+            <result column="PATIENT_IDENTITY" property="patientIdentity"/>
+            <result column="PATIENT_PIRTH" property="patientPirth"/>
+        </association>
         <!--科室-->
         <association property="depa" javaType="cn.gson.his.model.pojos.Power.Department">
             <id property="depaId" column="depa_id"></id>
             <result property="depaName" column="depa_name"></result>
         </association>
 
+        <!--病床-->
         <association property="bed" javaType="cn.gson.his.model.pojos.InHospital.BedEntity">
             <id property="bedId" column="bed_id"></id>
             <result property="bedName" column="bed_name"></result>
@@ -38,11 +50,30 @@
             <result property="bedsEnd" column="beds_end"></result>
             <result property="bedsIs" column="beds_is"></result>
         </association>
+        <!--押金表-->
+        <association property="prepay" javaType="cn.gson.his.model.pojos.InHospital.PrepayEntity">
+            <id property="preId" column="pre_id"></id>
+            <result property="regMark" column="reg_mark"></result>
+            <result property="preBalance" column="pre_balance"></result>
+            <result property="preArrearage" column="pre_arrearage"></result>
+        </association>
+        <!--医嘱-->
+        <collection property="doctorEnjoin" ofType="cn.gson.his.model.pojos.InHospital.DoctorEnjoinEntity">
+            <id property="enId" column="en_id"></id>
+            <result property="enStart" column="en_start"></result>
+            <result property="enEnd" column="en_end"></result>
+            <result property="regMark" column="reg_mark"></result>
+            <result property="doctorId" column="doctor_id"></result>
+            <result property="enType" column="en_type"></result>
+            <result property="enState" column="en_state"></result>
+            <result property="enContent" column="en_content"></result>
+        </collection>
+
     </resultMap>
 
     <!--新增住院登记-->
     <insert id="insertReg">
-        insert into hospital_register values(seq.nextval,#{regMark},current_timestamp ,#{patientNo},#{regName},#{depaId},#{doctorId},#{doctorName},0)
+        insert into hospital_register values(seq.nextval,#{regMark},current_timestamp ,#{patientNo},#{regName},#{depaId},#{doctorId},#{doctorName},0,#{diagnoseResult})
     </insert>
 
     <!--查询所有住院登记-->
@@ -66,12 +97,28 @@
 <!--            <if test="text != '' ">-->
 <!--                and  (h.reg_mark like '%${text}%' or h.reg_name like '%${text}%' or h.doctor_name like '%${text}%')-->
 <!--            </if>-->
-
-
             and h.reg_is = 0 and b.beds_is = 0
         </where>
+        order by h.depa_id
+    </select>
 
-            order by h.depa_id
+    <!--住院医生工作站 病人的所有信息-->
+    <select id="selAll" resultMap="HopRegMap">
+        select * from hospital_register h left join beds b on h.reg_mark = b.reg_mark
+          left join department d on h.depa_id = d.depa_id
+          left join bed be on b.bed_id = be.bed_id
+          left join patientdata p on h.patient_no = p.patient_no
+          left join prepay pr on h.reg_mark = pr.reg_mark
+          left join doctor_enjoin en on h.reg_mark = en.reg_mark
+
+            <where>
+                <if test="text!='' and text != null">
+                    and (h.reg_mark like '%${text}%' or h.reg_name like '%${text}%')
+                </if>
+
+                and h.reg_is = 0
+            </where>
 
     </select>
+
 </mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.InHospital.DoctorEnjoinMapper">
+    <resultMap id="EnMap" type="cn.gson.his.model.pojos.InHospital.DoctorEnjoinEntity">
+        <id property="enId" column="en_id"></id>
+        <result property="enStart" column="en_start"></result>
+        <result property="enEnd" column="en_end"></result>
+        <result property="regMark" column="reg_mark"></result>
+        <result property="doctorId" column="doctor_id"></result>
+        <result property="enType" column="en_type"></result>
+        <result property="enState" column="en_state"></result>
+        <result property="enContent" column="en_content"></result>
+
+        <collection property="advice" ofType="cn.gson.his.model.pojos.InHospital.DoctorEnjoinsEntity">
+            <id property="ensId" column="ens_id"></id>
+            <result property="enId" column="en_id"></result>
+            <result property="drugId" column="drug_id"></result>
+            <result property="drugName" column="drug_name"></result>
+            <result property="drugType" column="drug_type"></result>
+            <result property="drugGe" column="drug_ge"></result>
+            <result property="drugDw" column="drug_dw"></result>
+            <result property="drugYf" column="drug_yf"></result>
+            <result property="drugDosage" column="drug_dosage"></result>
+            <result property="ensAmount" column="ens_amount"></result>
+            <result property="drugPrice" column="drug_price"></result>
+            <result property="ensState" column="ens_state"></result>
+            <result property="ensType" column="ens_type"></result>
+            <result property="ensCount" column="ens_count"></result>
+        </collection>
+    </resultMap>
+
+    <!--新增医嘱表-->
+    <insert id="insertEn">
+        <selectKey order="BEFORE" keyProperty="enId" resultType="_int"  >
+            select seq.nextval from dual
+        </selectKey>
+        insert into doctor_enjoin values (#{enId},#{enStart},#{enEnd},#{regMark},#{doctorId},#{enType},#{enState},#{enContent})
+    </insert>
+    <!--新增医嘱详表-->
+    <insert id="insertEns" parameterType="java.util.List">
+        insert all into doctor_enjoins
+        <selectKey keyProperty="ensId" resultType="_int" order="BEFORE">
+            select seq.nextval from dual
+        </selectKey>
+        <foreach collection="doctorEnjoins" item="e" index="i" separator=" ">
+            <if test="i != doctorEnjoins.size()-1 ">
+                into doctor_enjoins
+                values (seq.nextval,#{e.enId},#{e.drugId},#{e.drugName},#{e.drugType},#{e.drugGe},#{e.drugDw},#{e.drugYf},#{e.drugDosage},#{e.ensAmount}
+                ,#{e.drugPrice},#{e.ensState},#{e.ensType},#{e.ensCount})
+            </if>
+            <if test="i == doctorEnjoins.size()-1">
+                select #{ensId},#{e.enId},#{e.drugId},#{e.drugName},#{e.drugType},#{e.drugGe},#{e.drugDw},#{e.drugYf},#{e.drugDosage},#{e.ensAmount}
+                ,#{e.drugPrice},#{e.ensState},#{e.ensType},#{e.ensCount} from dual
+            </if>
+        </foreach>
+
+    </insert>
+
+    <!--根据住院号查医嘱-->
+    <select id="selEn" resultMap="EnMap">
+        select * from doctor_enjoin e left join doctor_enjoins en on e.en_id = en.en_id
+        where e.reg_mark = #{regMark}
+    </select>
+
+    <!--修改医嘱状态-->
+    <update id="updateEn">
+        update doctor_enjoin set en_state = 1 where en_id = #{enId}
+    </update>
+    <!--修改医嘱详表状态-->
+    <update id="updateEns">
+        update doctor_enjoins set ens_state = 1 where en_id = #{enId}
+    </update>
+
+    <!--单独修改医嘱详表状态-->
+    <update id="upEns">
+        update doctor_enjoins set ens_state = 1 where ens_id = #{ensId}
+    </update>
+</mapper>

@@ -12,6 +12,7 @@ public class DoctorStopEntity {
     private Integer enId;
     private Integer doctorId;
     private String stoCause;
+    private String regMark;
 
     @Id
     @Column(name = "STO_ID")
@@ -63,6 +64,16 @@ public class DoctorStopEntity {
         this.stoCause = stoCause;
     }
 
+    @Basic
+    @Column(name = "REG_MARK")
+    public String getRegMark() {
+        return regMark;
+    }
+
+    public void setRegMark(String regMark) {
+        this.regMark = regMark;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,11 +83,24 @@ public class DoctorStopEntity {
                 Objects.equals(stoDate, that.stoDate) &&
                 Objects.equals(enId, that.enId) &&
                 Objects.equals(doctorId, that.doctorId) &&
-                Objects.equals(stoCause, that.stoCause);
+                Objects.equals(stoCause, that.stoCause) &&
+                Objects.equals(regMark, that.regMark);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stoId, stoDate, enId, doctorId, stoCause);
+        return Objects.hash(stoId, stoDate, enId, doctorId, stoCause, regMark);
+    }
+
+    @Override
+    public String toString() {
+        return "DoctorStopEntity{" +
+                "stoId=" + stoId +
+                ", stoDate=" + stoDate +
+                ", enId=" + enId +
+                ", doctorId=" + doctorId +
+                ", stoCause='" + stoCause + '\'' +
+                ", regMark='" + regMark + '\'' +
+                '}';
     }
 }

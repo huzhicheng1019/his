@@ -16,7 +16,8 @@ public interface EmployeeMapper {
 
     //查询住院部的医生
     public List<Employee> selDoctor(Integer depaId);
-
+    //查询住院部某科室的护士
+    public List<Employee> selNurse(Integer depaId);
 
     /**
      * 分页查询所有

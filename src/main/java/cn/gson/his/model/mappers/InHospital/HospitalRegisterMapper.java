@@ -1,5 +1,6 @@
 package cn.gson.his.model.mappers.InHospital;
 
+import cn.gson.his.model.pojos.Drug.DrugEntity;
 import cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,5 +18,13 @@ public interface HospitalRegisterMapper {
 
     //查询所有住院登记表 和 床位记录表
      public List<HospitalRegisterEntity> selRegBeds(HospitalRegisterEntity hospitalRegisterEntity);
+
+
+    /**
+     * 查询病人所有信息
+     */
+    public List<HospitalRegisterEntity> selAll(String text);
+
+
 
 }

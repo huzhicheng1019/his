@@ -23,4 +23,8 @@ public interface BedMapper {
 
         //根据床位id查所属病房
         public BedEntity selIdBed(String bedId);
+
+        //修改床位状态
+        public int updateStatus(@Param("bedIs")String bedIs,@Param("bedId") String bedId);
+
 }

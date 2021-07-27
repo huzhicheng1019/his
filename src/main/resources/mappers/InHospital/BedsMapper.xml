@@ -32,5 +32,9 @@
 
         where beds_id = #{bedsId}
     </update>
-
+    <!--修改床位护士-->
+    <update id="updateNurse">
+        update beds set nurse_id=#{nurseId},nurse_name=#{nurseName}
+        where beds_id = #{bedsId}
+    </update>
 </mapper>

@@ -1,20 +1,36 @@
 package cn.gson.his.model.pojos.InHospital;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "DOCTOR_ENJOIN", schema = "HIS", catalog = "")
 public class DoctorEnjoinEntity {
     private int enId;
+    @JsonFormat(timezone="GMT+8")
     private Timestamp enStart;
+    @JsonFormat(timezone = "GMT+8")
     private Timestamp enEnd;
     private String regMark;
     private Integer doctorId;
     private Integer enType;
     private Integer enState;
     private String enContent;
+
+    private List<DoctorEnjoinsEntity> advice;
+    @OneToMany
+    public List<DoctorEnjoinsEntity> getAdvice() {
+        return advice;
+    }
+
+    public void setAdvice(List<DoctorEnjoinsEntity> advice) {
+        this.advice = advice;
+    }
 
     @Id
     @Column(name = "EN_ID")
@@ -114,5 +130,20 @@ public class DoctorEnjoinEntity {
     @Override
     public int hashCode() {
         return Objects.hash(enId, enStart, enEnd, regMark, doctorId, enType, enState, enContent);
+    }
+
+    @Override
+    public String toString() {
+        return "DoctorEnjoinEntity{" +
+                "enId=" + enId +
+                ", enStart=" + enStart +
+                ", enEnd=" + enEnd +
+                ", regMark='" + regMark + '\'' +
+                ", doctorId=" + doctorId +
+                ", enType=" + enType +
+                ", enState=" + enState +
+                ", enContent='" + enContent + '\'' +
+                ", advice=" + advice +
+                '}';
     }
 }

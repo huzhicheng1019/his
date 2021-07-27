@@ -17,4 +17,7 @@ public interface BedsMapper {
 
     //修改床位使用记录
     public int updateBeds(BedsEntity beds);
+
+    //修改床位护士
+    public int updateNurse(BedsEntity beds);
 }
