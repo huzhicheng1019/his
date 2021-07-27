@@ -1,5 +1,6 @@
 package cn.gson.his.model.pojos.Drug;
 
+import cn.gson.his.model.pojos.Power.Employee;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -8,14 +9,14 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "PLAN_INFO", schema = "HIS", catalog = "")
+@Table(name = "PLAN_INFO", schema = "HIS")
 public class PlanInfoEntity {
     private int planId;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp planDate;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp planCgdate;
-    private Integer zdr;
+    private Employee employee;
     private String zje;
     private String bz;
 
@@ -51,14 +52,14 @@ public class PlanInfoEntity {
         this.planCgdate = planCgdate;
     }
 
-    @Basic
-    @Column(name = "ZDR")
-    public Integer getZdr() {
-        return zdr;
+    @ManyToOne
+    @JoinColumn(name = "ZDR", referencedColumnName = "EMP_ID")
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setZdr(Integer zdr) {
-        this.zdr = zdr;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Basic
@@ -89,13 +90,13 @@ public class PlanInfoEntity {
         return planId == that.planId &&
                 Objects.equals(planDate, that.planDate) &&
                 Objects.equals(planCgdate, that.planCgdate) &&
-                Objects.equals(zdr, that.zdr) &&
+                Objects.equals(employee, that.employee) &&
                 Objects.equals(zje, that.zje) &&
                 Objects.equals(bz, that.bz);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(planId, planDate, planCgdate, zdr, zje, bz);
+        return Objects.hash(planId, planDate, planCgdate, employee, zje, bz);
     }
 }
