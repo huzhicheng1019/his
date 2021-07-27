@@ -4,6 +4,7 @@ import cn.gson.his.model.mappers.InHospital.BedMapper;
 import cn.gson.his.model.pojos.InHospital.BedEntity;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,4 +38,8 @@ public class BedService {
         return bedMapper.selIdBed(bedId);
     };
 
+    //修改床位状态
+    public int updateStatus(String bedIs,String bedId){
+        return bedMapper.updateStatus(bedIs,bedId);
+    };
 }

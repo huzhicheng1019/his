@@ -104,7 +104,7 @@ public class Employee {
         this.useres = useres;
     }
 
-    @OneToMany(mappedBy = "employeeByEmpId")
+    @OneToMany(mappedBy = "emp")
     public List<Schedu> getSchedus() {
         return schedus;
     }

@@ -9,10 +9,10 @@ import java.util.Objects;
 
 @Entity
 public class Shift {
-    private Long shiId;//id
+    private Integer shiId;//id
     private String shiName;//班次名
-    private Timestamp startTime;//开始时间
-    private Timestamp stopTime;//结束时间
+    private String startTime;//开始时间
+    private String stopTime;//结束时间
     private ShiftType shiftType;//类别
 
 
@@ -20,11 +20,11 @@ public class Shift {
     @GeneratedValue(generator = "SEQ")
     @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "SHI_ID")
-    public Long getShiId() {
+    public Integer getShiId() {
         return shiId;
     }
 
-    public void setShiId(Long shiId) {
+    public void setShiId(Integer shiId) {
         this.shiId = shiId;
     }
 
@@ -40,21 +40,21 @@ public class Shift {
 
     @Basic
     @Column(name = "START_TIME")
-    public Timestamp getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Timestamp startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
     @Basic
     @Column(name = "STOP_TIME")
-    public Timestamp getStopTime() {
+    public String getStopTime() {
         return stopTime;
     }
 
-    public void setStopTime(Timestamp stopTime) {
+    public void setStopTime(String stopTime) {
         this.stopTime = stopTime;
     }
 
@@ -68,7 +68,7 @@ public class Shift {
         this.shiftType = shiftType;
     }
 
-    public Shift(String shiName, Timestamp startTime, Timestamp stopTime, ShiftType shiftType) {
+    public Shift(String shiName, String startTime, String stopTime, ShiftType shiftType) {
         this.shiName = shiName;
         this.startTime = startTime;
         this.stopTime = stopTime;

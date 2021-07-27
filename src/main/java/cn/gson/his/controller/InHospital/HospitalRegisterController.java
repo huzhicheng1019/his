@@ -1,6 +1,7 @@
 package cn.gson.his.controller.InHospital;
 
 
+import cn.gson.his.model.pojos.Drug.DrugEntity;
 import cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity;
 import cn.gson.his.model.service.InHospital.HospitalRegisterService;
 import com.alibaba.fastjson.JSONObject;
@@ -40,4 +41,17 @@ public class HospitalRegisterController {
     public List<HospitalRegisterEntity> demo2(HospitalRegisterEntity hospitalRegister){
         return reg.selRegBeds(hospitalRegister);
     }
+
+
+    /**
+     * 查询病人所有信息
+     */
+    @RequestMapping("/selAll")
+    public List<HospitalRegisterEntity> demo3(String text){
+        return reg.selAll(text);
+    };
+
+
+
+
 }

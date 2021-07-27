@@ -1,5 +1,6 @@
 package cn.gson.his.model.pojos.InHospital;
 
+import cn.gson.his.model.pojos.Outpatient.PatientdataEntity;
 import cn.gson.his.model.pojos.Power.Department;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -22,7 +23,10 @@ public class HospitalRegisterEntity {
     private Integer doctorId;
     private String doctorName;
     private Integer regIs;
+    private String diagnoseResult;
 
+    //病人信息
+    private PatientdataEntity patientData;
     //床位使用记录
     private BedsEntity beds;
 
@@ -33,6 +37,11 @@ public class HospitalRegisterEntity {
     //科室
     private Department depa;
 
+    //押金表对象
+    private PrepayEntity prepay;
+
+    //医嘱
+    private List<DoctorEnjoinEntity> doctorEnjoin;
 
 
 

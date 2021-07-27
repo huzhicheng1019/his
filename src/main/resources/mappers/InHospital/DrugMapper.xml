@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.InHospital.DrugMapper">
+    <resultMap id="drugMap" type="cn.gson.his.model.pojos.Drug.DrugEntity">
+        <id column="DRUG_ID" property="drugId"></id>
+        <result column="DRUG_NAME" property="drugName"></result>
+        <result column="DRUG_GE" property="drugGe"></result>
+        <result column="DW" property="dw"></result>
+        <result column="YF" property="yf"></result>
+        <result column="DRUG_SM" property="drugSm"></result>
+        <result column="BZQ" property="bzq"></result>
+        <result column="DRUG_PFPRICE" property="drugPfprice"></result>
+        <result column="DRUG_PRICE" property="drugPrice"></result>
+        <result column="ZDKCS" property="zdkcs"></result>
+
+        <association property="lb" javaType="cn.gson.his.model.pojos.Drug.LbEntity">
+            <id column="lb_id" property="lbId"></id>
+            <result column="lb_name" property="lbName"></result>
+            <result column="lb_fl" property="lbFl"></result>
+        </association>
+    </resultMap>
+
+    <select id="selDrug" resultMap="drugMap">
+        select * from drug d left join lb l on d.lb_id = l.lb_id
+        <where>
+            <if test=" drugText !='' and drugText !=null ">
+                and (d.drug_name like '%${drugText}%' or d.drug_ge like '%${drugText}%' or d.dw like '%${drugText}%'  )
+            </if>
+        </where>
+
+    </select>
+</mapper>

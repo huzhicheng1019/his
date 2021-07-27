@@ -68,4 +68,9 @@ public class BedController {
         return bedService.selIdBed(bedId);
     }
 
+    //修改床位状态
+    @RequestMapping("/updateStatus")
+    public int demo5(String bedIs,String bedId){
+        return bedService.updateStatus(bedIs,bedId);
+    }
 }

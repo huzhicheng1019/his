@@ -43,4 +43,11 @@
     <select id="selIdBed" resultMap="BedMap">
         select * from bed where bed_id = #{bedId}
     </select>
+
+    <!--修改床位状态-->
+    <update id="updateStatus">
+        update bed  set bed_is=#{bedIs} where bed_id=#{bedId}
+    </update>
+
+
 </mapper>

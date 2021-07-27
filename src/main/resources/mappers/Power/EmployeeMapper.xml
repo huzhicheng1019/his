@@ -73,7 +73,7 @@
         select * from employee e left join user_info u on e.emp_id=u.user_emp left join title t on e.EMP_TIT=t.tit_id left join DEPARTMENT a on e.EMP_DEPAR=a.depa_id LEFT JOIN DEPT d on e.EMP_DEPT=d.dept_id
     </select>
 
-    <!--批量删除角色-->
+
     <update id="quitEmp" parameterType="com.alibaba.fastjson.JSONArray">
         update employee set EMP_STATE=#{state}
         <where>

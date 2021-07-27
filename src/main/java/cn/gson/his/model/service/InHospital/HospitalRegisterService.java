@@ -1,6 +1,7 @@
 package cn.gson.his.model.service.InHospital;
 
 import cn.gson.his.model.mappers.InHospital.HospitalRegisterMapper;
+import cn.gson.his.model.pojos.Drug.DrugEntity;
 import cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,4 +29,13 @@ public class HospitalRegisterService {
     public List<HospitalRegisterEntity> selRegBeds(HospitalRegisterEntity hospitalRegisterEntity){
         return hospitalRegisterMapper.selRegBeds(hospitalRegisterEntity);
     };
+
+    /**
+     * 查询病人所有信息
+     */
+    public List<HospitalRegisterEntity> selAll(String text){
+        return hospitalRegisterMapper.selAll(text);
+    };
+
+
 }

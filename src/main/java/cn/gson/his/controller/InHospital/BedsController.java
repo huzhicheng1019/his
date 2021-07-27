@@ -48,4 +48,18 @@ public class BedsController {
         }
         return 0;
     }
+
+    //修改床位护士
+    @RequestMapping("updateNurse")
+    public int demo3(String bedsEntity){
+        BedsEntity bedsEntity1 = JSONObject.parseObject(bedsEntity, BedsEntity.class);
+
+        System.out.println("修改护士"+bedsEntity1);
+
+        int i = bedsService.updateNurse(bedsEntity1);
+        if(i>0){
+            return 1;
+        }
+        return 0;
+    }
 }

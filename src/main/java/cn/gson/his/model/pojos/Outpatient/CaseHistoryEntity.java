@@ -1,26 +1,35 @@
 package cn.gson.his.model.pojos.Outpatient;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "CASE_HISTORY", schema = "HIS", catalog = "")
 public class CaseHistoryEntity {
-    private String caseHissstory;
-    private String patientName;
-    private String patientIdentity;
-    private String patientNo;
+    private int caseHissstory;//病历编号
+    private String patientName;//患者姓名
+    private String patientIdentity;//患者身份证
 
-    @Basic
+
+
+    private PatientdataEntity patientNo;//患者外建
+    @OneToOne
+    @JoinColumn(name = "PATIENT_NO",nullable = false)
+    public PatientdataEntity getPatientNo() {
+        return patientNo;
+    }
+
+    public void setPatientNo(PatientdataEntity patientNo) {
+        this.patientNo = patientNo;
+    }
+
+    @Id
     @Column(name = "CASE_HISSSTORY")
-    public String getCaseHissstory() {
+    public int getCaseHissstory() {
         return caseHissstory;
     }
 
-    public void setCaseHissstory(String caseHissstory) {
+    public void setCaseHissstory(int caseHissstory) {
         this.caseHissstory = caseHissstory;
     }
 
@@ -42,16 +51,6 @@ public class CaseHistoryEntity {
 
     public void setPatientIdentity(String patientIdentity) {
         this.patientIdentity = patientIdentity;
-    }
-
-    @Basic
-    @Column(name = "PATIENT_NO")
-    public String getPatientNo() {
-        return patientNo;
-    }
-
-    public void setPatientNo(String patientNo) {
-        this.patientNo = patientNo;
     }
 
     @Override

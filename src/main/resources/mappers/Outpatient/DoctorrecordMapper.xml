@@ -9,7 +9,6 @@
     <result column="RECORD_NAME" property="recordName"/>
     <result column="RECORD_PHONE" property="recordPhone"/>
     <result column="DOCTOR_NAME" property="doctorName"/>
-    <result column="RECORD_INDOOR" property="recordIndoor"/>
     <result column="RECORD_RECORD" property="recordRecord"/>
 <!--    主治医生-->
     <association property="doctor" javaType="cn.gson.his.model.pojos.Power.Employee">
@@ -37,33 +36,89 @@
         <result column="PATIENT_IDENTITY" property="patientIdentity"/>
         <result column="PATIENT_PIRTH" property="patientPirth"/>
     </association>
-<!-- 病历-->
-    <association property="caseHissstory" javaType="cn.gson.his.model.pojos.Outpatient.CaseHistoryEntity">
-        <id column="CASE_HISSSTORY" property="caseHissstory"/>
-        <result column="PATIENT_NAME" property="patientName"/>
-        <result column="PATIENT_IDENTITY" property="patientIdentity"/>
-        <result column="PATIENT_NO" property="patientNo"/>
+<!--    就诊科室-->
+    <association property="recordIndoor" javaType="cn.gson.his.model.pojos.Power.Department">
+        <id property="depaId" column="DEPA_ID"/>
+        <result property="depaName" column="DEPA_NAME"/>
+        <result property="depaCreate" column="DEPA_CREATE"/>
+    </association>
+    <!-- 病历-->
+    <association property="caseNo" javaType="cn.gson.his.model.pojos.Outpatient.CaseHistoryPartiEntity">
+        <id column="PARTI_NO" property="partiNo"/>
+        <result column="CHIEF" property="chief"/>
+        <result column="PRESENTS" property="presents"/>
+        <result column="PREVIOUSS" property="previouss"/>
+        <result column="CHECKUP" property="checkup"/>
+        <result column="SUGGESTION" property="suggestion"/>
+        <result column="DOCTOR_NAME" property="doctorName"/>
     </association>
 </resultMap>
+<!--    修改就诊记录-->
+    <update id="upDoctorrecord">
+        update DOCTORRECORD
+        <set>
+--             修改身份证
+            <if test="recordIdentity !=null">
+                RECORD_IDENTITY = #{recordIdentity}
+            </if>
+            <if test="recordName !=null">
+                 ,RECORD_NAME = #{recordName}
+            </if>
+            <if test="recordPhone !=null">
+                ,RECORD_PHONE = #{recordPhone}
+            </if>
+            <if test="recordRecord !=null">
+                ,RECORD_RECORD = #{recordRecord}
+            </if>
+        </set>
+        where D.RECORD_NO = #{recordNo}
+    </update>
+<!--    新增就诊记录-->
+    <insert id="addDoctorrecord">
+        insert into DOCTORRECORD values (#{recordNo},#{recordIdentity},#{recordName},#{patient.patientNo},#{recordPhone},#{card.cardId},#{doctorName},#{doctor.empId},#{recordIndoor.depaId},#{recordRecord},#{caseNo.partiNo})
+        <selectKey order="AFTER" keyProperty="recordNo" resultType="_int">
+            select seq.currval from dual
+        </selectKey>
+    </insert>
+<!--    根据就诊科室和主治医生查询-->
+    <select id="alldoctor" resultMap="Doctorrecord">
+        select * from DOCTORRECORD d inner join PATIENTDATA P on d.PATIENT_NO = P.PATIENT_NO
+        inner join EMPLOYEE E on E.EMP_ID = d.DOCTOR_NO
+        inner join DEPARTMENT D2 on D2.DEPA_ID = d.RECORD_INDOOR
+        inner join CASE_HISTORY_PARTI C1 on C1.PARTI_NO = d.CASE_HISSSTORY
+        <where>
+            <if test="recordIndoor !=null">
+                <if test="recordIndoor.depaName !=null">
+                    D2.DEPA_NAME = #{recordIndoor.depaName}
+                </if>
+            </if>
+            <if test="doctor !=null">
+                <if test="doctor.empName!=null">
+                    and E.EMP_NAME = #{doctor.empName}
+                </if>
+            </if>
+        </where>
+        order  by D.RECORD_NO
+    </select>
 <!--  查询就诊记录-->
     <select id="allDoctorrecord" resultMap="Doctorrecord">
         select * from DOCTORRECORD d inner join PATIENTDATA P on d.PATIENT_NO = P.PATIENT_NO
-        inner join CARD C2 on d.CARD_ID = C2.CARD_ID
         inner join EMPLOYEE E on E.EMP_ID = d.DOCTOR_NO
         inner join DEPARTMENT D2 on D2.DEPA_ID = d.RECORD_INDOOR
-        inner join CASE_HISTORY C1 on C1.CASE_HISSSTORY = d.CASE_HISSSTORY
+        inner join CASE_HISTORY_PARTI C1 on C1.PARTI_NO = d.CASE_HISSSTORY
         <where>
             1=1
-            <if test="patient.patientName !=null">
-                P.PATIENT_NAME = #{patient.patientName}
-            </if>
-            <if test="patient.patientIdentity !=null">
-                and P.PATIENT_IDENTITY = #{patient.patientIdentity}
-            </if>
-            <if test="recordNo != null">
+                <if test="recordName !=null">
+                    D.RECORD_NAME = #{recordName}
+                </if>
+                <if test="recordIdentity !=null">
+                    and D.RECORD_IDENTITY = #{recordIdentity}
+                </if>
+            <if test="recordNo != 0">
                 and D.RECORD_NO = #{recordNo}
             </if>
         </where>
+            order  by D.RECORD_NO
     </select>
 
 </mapper>

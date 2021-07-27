@@ -37,9 +37,15 @@ public class EmployeeService {
     @Autowired
     RoleMapper roleMapper;
 
+    //查询住院部的医生
     public List<Employee> selDoctor(Integer depaId){
         return empMapper.selDoctor(depaId);
     }
+    //查询住院部某科室的护士
+    public List<Employee> selNurse(Integer depaId){
+        return empMapper.selNurse(depaId);
+    };
+
 
     /**
      * 分页查询所有

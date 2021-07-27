@@ -2,20 +2,11 @@ GET http://localhost:80/api/item?id=99
 Accept: application/json
 
 ###
-GET http://localhost:80/api/item?id=99
+GET http://localhost:8008/lxj/depaEmp?dept=住院部&depaId=131
 Accept: application/json
 
 ###
-GET http://localhost:80/api/item?id=99
+GET http://localhost:8008/lxj/ScheShift
 Accept: application/json
-
-###
-GET http://localhost:80/api/item?id=99
-Accept: application/json
-
-###
-GET http://localhost:8008/lxj/home-menus?userId=1
-Accept: application/json
-
 
 ###

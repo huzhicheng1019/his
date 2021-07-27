@@ -18,6 +18,7 @@
                 <result property="doctorId" column="doctor_id"></result>
                 <result property="doctorName" column="doctor_name"></result>
                 <result property="regIs" column="reg_is"></result>
+                <result property="diagnoseResult" column="diagnose_result"></result>
             </association>
             <!--病人信息表-->
             <association property="patientdata" javaType="cn.gson.his.model.pojos.Outpatient.PatientdataEntity">
