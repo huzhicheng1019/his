@@ -1,8 +1,10 @@
 package cn.gson.his.model.pojos.Outpatient;
 
+import cn.gson.his.model.pojos.Power.Department;
 import cn.gson.his.model.pojos.Power.Employee;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,14 +15,23 @@ public class DoctorrecordEntity {
     private String recordName;//患者名字
     private String recordPhone;//患者电话
     private String doctorName;//就诊医生名字
-    private Integer recordIndoor;//就诊结果
     private String recordRecord;//诊断结果
 
+    private Department recordIndoor;//就诊科室
     private Employee doctor;//主治医生对象
     private CardEntity card;//就诊卡对象
-    private PatientdataEntity patient;//患者信对象
-    private CaseHistoryEntity caseHissstory;//病历编号
+    private PatientdataEntity patient;//患者信息对象
+    private CaseHistoryPartiEntity caseNo;//病历详情编号
 
+    @OneToOne
+    @JoinColumn(name = "RECORD_INDOOR",nullable = false)
+    public Department getRecordIndoor() {
+        return recordIndoor;
+    }
+
+    public void setRecordIndoor(Department recordIndoor) {
+        this.recordIndoor = recordIndoor;
+    }
 
     @OneToOne
     @JoinColumn(name = "DOCTOR_NO",nullable = false)
@@ -49,14 +60,17 @@ public class DoctorrecordEntity {
     public void setPatient(PatientdataEntity patient) {
         this.patient = patient;
     }
+
+
+
     @OneToOne
     @JoinColumn(name = "CASE_HISSSTORY",nullable = false)
-    public CaseHistoryEntity getCaseHissstory() {
-        return caseHissstory;
+    public CaseHistoryPartiEntity getCaseNo() {
+        return caseNo;
     }
 
-    public void setCaseHissstory(CaseHistoryEntity caseHissstory) {
-        this.caseHissstory = caseHissstory;
+    public void setCaseNo(CaseHistoryPartiEntity caseNo) {
+        this.caseNo = caseNo;
     }
 
     @Id
@@ -108,15 +122,6 @@ public class DoctorrecordEntity {
         this.doctorName = doctorName;
     }
 
-    @Basic
-    @Column(name = "RECORD_INDOOR")
-    public Integer getRecordIndoor() {
-        return recordIndoor;
-    }
-
-    public void setRecordIndoor(Integer recordIndoor) {
-        this.recordIndoor = recordIndoor;
-    }
 
     @Basic
     @Column(name = "RECORD_RECORD")
@@ -141,11 +146,11 @@ public class DoctorrecordEntity {
                 Objects.equals(doctorName, that.doctorName) &&
                 Objects.equals(recordIndoor, that.recordIndoor) &&
                 Objects.equals(recordRecord, that.recordRecord) &&
-                Objects.equals(caseHissstory, that.caseHissstory);
+                Objects.equals(caseNo, that.caseNo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(recordNo, recordIdentity, recordName, recordPhone, doctorName, recordIndoor, recordRecord, caseHissstory);
+        return Objects.hash(recordNo, recordIdentity, recordName, recordPhone, doctorName, recordIndoor, recordRecord, caseNo);
     }
 }

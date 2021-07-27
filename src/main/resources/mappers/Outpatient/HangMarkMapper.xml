@@ -57,8 +57,8 @@
                 HANG_STATE =#{hangState}
             </if>
             --诊断状态
-            <if test="diagnoseState !=null ">
-                , DIAGNOSE_STATE = #{diagnoseState}
+            <if test="diagnoseState !=null">
+                 DIAGNOSE_STATE = #{diagnoseState}
             </if>
         </set>
         where HANG_NO = #{hangNo}

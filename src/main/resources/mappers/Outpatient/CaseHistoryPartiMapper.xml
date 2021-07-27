@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.CaseHistoryPartiMapper">
+<resultMap id="CaseHistoryParti" type="cn.gson.his.model.pojos.Outpatient.CaseHistoryPartiEntity">
+    <id column="PARTI_NO" property="partiNo"/>
+    <result column="CHIEF" property="chief"/>
+    <result column="PRESENTS" property="presents"/>
+    <result column="PREVIOUSS" property="previouss"/>
+    <result column="CHECKUP" property="checkup"/>
+    <result column="SUGGESTION" property="suggestion"/>
+    <result column="DOCTOR_NAME" property="doctorName"/>
+<!--主治医生-->
+    <association property="doctorId" javaType="cn.gson.his.model.pojos.Power.Employee">
+        <id property="empId" column="EMP_ID"></id>
+        <result property="empName" column="EMP_NAME"></result>
+    </association>
+<!--    病历-->
+    <association property="caseNo" javaType="cn.gson.his.model.pojos.Outpatient.CaseHistoryEntity">
+        <id column="CASE_HISSSTORY" property="caseHissstory"/>
+        <result column="PATIENT_NAME" property="patientName"/>
+        <result column="PATIENT_IDENTITY" property="patientIdentity"/>
+    </association>
+</resultMap>
+<!--新增病历-->
+    <insert id="addCaseHistory">
+        insert into CASE_HISTORY_PARTI values (SEQ.nextval,#{chief},#{presents},#{previouss},#{checkup},#{suggestion},#{doctorName},#{doctorId.empId},#{caseNo.caseHissstory})
+        <selectKey order="AFTER" keyProperty="partiNo" resultType="_int">
+            select seq.currval from dual
+        </selectKey>
+    </insert>
+<!--查询病历记录-->
+    <select id="allCaseHistoryX" resultMap="CaseHistoryParti">
+        select * from CASE_HISTORY_PARTI c
+            inner join CASE_HISTORY c1 on c.CASE_NO = c1.CASE_HISSSTORY
+            inner join EMPLOYEE DE on c.DOCTOR_ID = DE.EMP_ID
+        <where>
+            <if test="Doctor_name !=null">
+                c.DOCTOR_NAME = #{Doctor_name}
+            </if>
+        </where>
+        order by c.PARTI_NO
+    </select>
+</mapper>
