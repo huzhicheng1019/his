@@ -78,4 +78,30 @@
             </if>
         </foreach>
     </insert>
+
+    <resultMap id="Schedu" type="cn.gson.his.model.pojos.Power.Schedu">
+        <id column="SCHE_ID" property="scheId"/>
+        <result column="SCHE_DATE" property="scheDate"/>
+        <result column="START_TIME" property="startTime"/>
+        <result column="STOP_TIME" property="stopTime"/>
+        <association property="emp" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id column="EMP_ID" property="empId"/>
+            <result column="EMP_NAME" property="empName"/>
+            <association property="deptByEmpDept" javaType="cn.gson.his.model.pojos.Power.Dept">
+                <id column="DEPT_ID" property="deptId"/>
+                <result column="DEPT_NAME" property="deptName"/>
+            </association>
+            <association property="departmentByEmpDepar" javaType="cn.gson.his.model.pojos.Power.Department">
+                <id column="DEPA_ID" property="depaId"/>
+                <result column="DEPA_NAME" property="depaName"/>
+            </association>
+            <association property="titles" javaType="cn.gson.his.model.pojos.Power.Title">
+                <id column="TIT_ID" property="titId"/>
+                <result column="TIT_NAME" property="titName"/>
+            </association>
+        </association>
+    </resultMap>
+    <select id="allSche" resultMap="Schedu">
+        select * from schedu s left join employee e on s.emp_id=e.emp_id left join dept p on e.emp_dept=dept_id left join department d on e.emp_depar=d.depa_id left join title t on e.emp_tit=t.tit_id where p.dept_name=#{dept}
+    </select>
 </mapper>

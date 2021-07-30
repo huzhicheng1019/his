@@ -3,6 +3,8 @@ package cn.gson.his.model.service.Power;
 import cn.gson.his.model.dao.Power.ScheduDao;
 import cn.gson.his.model.mappers.Power.ScheduMapper;
 import cn.gson.his.model.pojos.Power.*;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,8 +54,28 @@ public class ScheduService {
         return mapper.allShift();
     }
 
+    /**
+     * 新增排班
+     * @param list
+     * @return
+     */
     public int addSchedu(List<Schedu> list){
         return mapper.addSchedu(list);
     }
 
+    /**
+     * 查询排班
+     * @param pageNo
+     * @param size
+     * @param dept
+     * @return
+     */
+    public Map<String, Object> allSche(Integer pageNo, Integer size, String dept) {
+        Page<Object> p = PageHelper.startPage(pageNo,size);
+        List<Map<String,Object>> list = mapper.allSche(dept);
+        Map<String,Object> map = new HashMap<>();
+        map.put("rows",list);
+        map.put("total",p.getTotal());
+        return map;
+    }
 }

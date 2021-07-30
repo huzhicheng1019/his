@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ScheduMapper {
@@ -20,4 +21,6 @@ public interface ScheduMapper {
     public List<Shift> allShift();//查询所有班次
 
     public int addSchedu(List<Schedu> list);//新增排班表
+
+    List<Map<String, Object>> allSche(String dept);//查询排班
 }
