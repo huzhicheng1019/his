@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--处方-->
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.PrescriptionMapper">
+
+<!--处方的结果集映射-->
+    <resultMap id="pres" type="cn.gson.his.model.pojos.Outpatient.PrescriptionEntity">
+        <id column="PRES_NO" property="presNo"/>
+        <result column="PRES_NAME" property="presName"/>
+        <result column="PRES_DATE" property="presDate"/>
+        <result column="NEW_SEE" property="newSee"/>
+        <result column="PRIVE_TYPE" property="priveType"/>
+        <result column="EXPLAIN" property="explain"/>
+        <result column="TOTAL_PRICE" property="totalPrice"/>
+        <result column="MEDICINE_TYPE" property="medicineType"/>
+        <association property="recordId" javaType="cn.gson.his.model.pojos.Outpatient.DoctorrecordEntity">
+            <id column="RECORD_NO" property="recordNo"/>
+            <result column="RECORD_IDENTITY" property="recordIdentity"/>
+            <result column="RECORD_NAME" property="recordName"/>
+            <result column="RECORD_PHONE" property="recordPhone"/>
+            <result column="DOCTOR_NAME" property="doctorName"/>
+            <result column="RECORD_RECORD" property="recordRecord"/>
+        </association>
+<!--        就诊卡号-->
+        <association property="cardNo" javaType="cn.gson.his.model.pojos.Outpatient.CardEntity">
+            <id column="CARD_ID" property="cardId"/>
+            <result column="CARD_NO" property="cardNo"/>
+            <result column="CARD_PSWD" property="cardPswd"/>
+            <result column="CARD_PRICE" property="cardPrice"/>
+            <result column="CARD_PREPAY" property="cardPrepay"/>
+            <result column="PATIENT_NAME" property="patientName"/>
+            <result column="CARD_STATE" property="cardState"/>
+        </association>
+<!--        主治医生-->
+        <association property="doctorName" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id property="empId" column="EMP_ID"></id>
+            <result property="empName" column="EMP_NAME"></result>
+        </association>
+        <!--    患者信息-->
+        <association property="patientNo" javaType="cn.gson.his.model.pojos.Outpatient.PatientdataEntity">
+            <id column="PATIENT_NO" property="patientNo"></id>
+            <result column="PATIENT_NAME" property="patientName"/>
+            <result column="PATIENT_SEX" property="patientSex"/>
+            <result column="PATIENT_AGE" property="patientAge"/>
+            <result column="PATIENT_PHONE" property="patientPhone"/>
+            <result column="PATIENT_INSU" property="patientInsu"/>
+            <result column="PATIENT_IDENTITY" property="patientIdentity"/>
+            <result column="PATIENT_PIRTH" property="patientPirth"/>
+        </association>
+    </resultMap>
+<!--    查询处方-->
+    <select id="allPres" resultMap="pres">
+        select  * from   PRESCRIPTION P inner join DOCTORRECORD D  on P.RECORD_ID = D.RECORD_NO
+        inner join CARD C2 on P.CARD_NO = C2.CARD_ID
+        inner join PATIENTDATA P2 on P.PATIENT_NO = P2.PATIENT_NO
+        inner join EMPLOYEE E on e.EMP_ID = p.DOCTOR_NAME  where  1=1
+        <where>
+            <if test="recordId.recordNo !=null">
+                and D.RECORD_NO = #{recordId.recordNo}
+            </if>
+            <if test="patient.patientName !=null">
+                and P2.PATIENT_NAME = #{patient.patientName}
+            </if>
+        </where>
+    </select>
+<!--    新增处方-->
+<insert id="addPres">
+    insert into PRESCRIPTION (PRES_NO, RECORD_ID, CARD_NO, PRES_NAME, PRES_DATE, DOCTOR_NAME, NEW_SEE, PATIENT_NO,PRIVE_TYPE, EXPLAIN, TOTAL_PRICE, MEDICINE_TYPE)
+    values (seq.nextval,#{recordId.recordNo},#{cardNo.cardId},#{presName},#{presDate},#{doctorName.empId},#{newSee},#{patientNo.patientNo},#{priveType},#{explain},#{totalPrice},#{medicineType})
+    <selectKey order="AFTER" keyProperty="presNo" resultType="_int">
+        select seq.currval from dual
+    </selectKey>
+</insert>
+
+</mapper>

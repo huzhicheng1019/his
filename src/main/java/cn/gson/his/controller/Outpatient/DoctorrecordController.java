@@ -57,6 +57,7 @@ public class DoctorrecordController {
         String select = (String)date.get("select");
         //new 就诊记录的对象
         DoctorrecordEntity doctorrecordEntity = new DoctorrecordEntity();
+
         if(select == ""){
             return ds.allDoctorrecord(doctorrecordEntity);
         }else if(select.equals("患者姓名")){
