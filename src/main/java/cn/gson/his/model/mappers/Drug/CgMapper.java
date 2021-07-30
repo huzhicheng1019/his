@@ -13,7 +13,7 @@ public interface CgMapper {
 
     public List<OrderxqEntity> cgxqcx(@Param("id") String id, @Param("nr") String nr);
 
-    public List<OrderxqEntity> cgxqfl(@Param("id") String id, @Param("fl") Integer fl);
+    public List<OrderxqEntity> cgxqfl(@Param("id") String id, @Param("fl") String fl);
 
     public List<OrdersEntity> cgcxid(String id);
 

@@ -10,7 +10,7 @@ import java.util.Objects;
 @Table(name = "STOJL", schema = "HIS")
 public class StojlEntity {
     private int stojlId;
-    private Integer stoId;
+    private StoEntity sto;
     private String productName;
     private Integer productId;
     private String productFl;
@@ -19,6 +19,7 @@ public class StojlEntity {
     private String bz;
     private String ge;
     private GysEntity gys;
+    private Long price;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp scdate;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
@@ -37,14 +38,14 @@ public class StojlEntity {
         this.stojlId = stojlId;
     }
 
-    @Basic
-    @Column(name = "STO_ID")
-    public Integer getStoId() {
-        return stoId;
+    @ManyToOne
+    @JoinColumn(name = "STO_ID", referencedColumnName = "STO_ID")
+    public StoEntity getSto() {
+        return sto;
     }
 
-    public void setStoId(Integer stoId) {
-        this.stoId = stoId;
+    public void setSto(StoEntity sto) {
+        this.sto = sto;
     }
 
     @Basic
@@ -147,13 +148,23 @@ public class StojlEntity {
         this.gqdate = gqdate;
     }
 
+    @Basic
+    @Column(name = "PRICE")
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StojlEntity that = (StojlEntity) o;
         return stojlId == that.stojlId &&
-                Objects.equals(stoId, that.stoId) &&
+                Objects.equals(sto, that.sto) &&
                 Objects.equals(productName, that.productName) &&
                 Objects.equals(productId, that.productId) &&
                 Objects.equals(productFl, that.productFl) &&
@@ -163,11 +174,12 @@ public class StojlEntity {
                 Objects.equals(gys, that.gys) &&
                 Objects.equals(scdate, that.scdate) &&
                 Objects.equals(gqdate, that.gqdate) &&
+                Objects.equals(price, that.price) &&
                 Objects.equals(bz, that.bz);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stojlId, stoId, productName, productId, productFl, sl, ph, bz,ge,gys,scdate,gqdate);
+        return Objects.hash(stojlId, sto, productName, productId, productFl, sl, ph, bz,ge,gys,scdate,gqdate,price);
     }
 }

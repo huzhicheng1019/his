@@ -37,9 +37,13 @@
         <result column="SL" property="sl"></result>
         <result column="PH" property="ph"></result>
         <result column="SCDATE" property="scdate"></result>
-        <result column="STO_ID" property="stoId"></result>
         <result column="BZ" property="bz"></result>
         <result column="GE" property="ge"></result>
+        <result column="GQDATE" property="gqdate"></result>
+        <result column="PRICE" property="price"></result>
+        <association property="sto" javaType="cn.gson.his.model.pojos.Drug.StoEntity">
+            <id column="STO_ID" property="stoId"></id>
+        </association>
         <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
             <id column="gys_id" property="gysId"></id>
             <result column="g_name" property="gysName"></result>
