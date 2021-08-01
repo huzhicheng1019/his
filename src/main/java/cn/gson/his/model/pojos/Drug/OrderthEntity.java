@@ -10,20 +10,21 @@ import java.util.Objects;
 @Entity
 @Table(name = "ORDERTH", schema = "HIS")
 public class OrderthEntity {
-    private int orderthId;
+    private String orderthId;
     private Employee employee;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp orderDate;
     private Long zje;
     private String bz;
+    private String orderId;
 
     @Id
     @Column(name = "ORDERTH_ID")
-    public int getOrderthId() {
+    public String getOrderthId() {
         return orderthId;
     }
 
-    public void setOrderthId(int orderthId) {
+    public void setOrderthId(String orderthId) {
         this.orderthId = orderthId;
     }
 
@@ -67,6 +68,16 @@ public class OrderthEntity {
         this.bz = bz;
     }
 
+    @Basic
+    @Column(name = "ORDER_ID")
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,11 +87,12 @@ public class OrderthEntity {
                 Objects.equals(employee, that.employee) &&
                 Objects.equals(orderDate, that.orderDate) &&
                 Objects.equals(zje, that.zje) &&
+                Objects.equals(orderId, that.orderId) &&
                 Objects.equals(bz, that.bz);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderthId, employee, orderDate, zje, bz);
+        return Objects.hash(orderthId, employee, orderDate, zje, bz,orderId);
     }
 }

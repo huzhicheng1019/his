@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +54,8 @@ public class CgjhController {
         System.out.println(map.get("plan"));
         System.out.println(map.get("xqsj"));
         PlanInfoEntity plan = mapper.convertValue(map.get("plan"), PlanInfoEntity.class);
+        Timestamp d = new Timestamp(System.currentTimeMillis());
+        plan.setPlanDate(d);
         System.out.println(2);
         List<ProductEntity> xqsj=new ArrayList<>();
         List<ProductEntity> delxq=new ArrayList<>();

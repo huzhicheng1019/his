@@ -55,9 +55,10 @@ public class RkController {
     }
 
     @RequestMapping("sycg")
-    public Map<String,Object> getsycg(){
+    public Map<String,Object> getsycg(String nr){
         System.out.println("开始：");
-        Map<String, Object> stringObjectMap = rkService.cgcx();
+        System.out.println(nr);
+        Map<String, Object> stringObjectMap = rkService.cgcx(nr);
         return stringObjectMap;
     }
 

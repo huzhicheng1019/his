@@ -1,5 +1,7 @@
 package cn.gson.his.model.pojos.Drug;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -10,17 +12,22 @@ public class OrderthxqEntity {
     private int orderthxqId;
     private Integer productId;
     private String productName;
-    private Integer productFl;
-    private Integer orderthId;
+    private String productFl;
+    private String orderthId;
     private Integer sl;
     private String ph;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp mfg;
     private Long price;
     private String ge;
     private GysEntity gys;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
+    private Timestamp gqdate;
 
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "ORDERTHXQ_ID")
     public int getOrderthxqId() {
         return orderthxqId;
@@ -52,21 +59,21 @@ public class OrderthxqEntity {
 
     @Basic
     @Column(name = "PRODUCT_FL")
-    public Integer getProductFl() {
+    public String getProductFl() {
         return productFl;
     }
 
-    public void setProductFl(Integer productFl) {
+    public void setProductFl(String productFl) {
         this.productFl = productFl;
     }
 
     @Basic
     @Column(name = "ORDERTH_ID")
-    public Integer getOrderthId() {
+    public String getOrderthId() {
         return orderthId;
     }
 
-    public void setOrderthId(Integer orderthId) {
+    public void setOrderthId(String orderthId) {
         this.orderthId = orderthId;
     }
 
@@ -110,6 +117,7 @@ public class OrderthxqEntity {
         this.price = price;
     }
 
+
     @Basic
     @Column(name = "GE")
     public String getGe() {
@@ -130,6 +138,16 @@ public class OrderthxqEntity {
         this.gys = gys;
     }
 
+    @Basic
+    @Column(name = "GQDATE")
+    public Timestamp getGqdate() {
+        return gqdate;
+    }
+
+    public void setGqdate(Timestamp gqdate) {
+        this.gqdate = gqdate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -145,11 +163,12 @@ public class OrderthxqEntity {
                 Objects.equals(mfg, that.mfg) &&
                 Objects.equals(price, that.price) &&
                 Objects.equals(ge, that.ge) &&
-                Objects.equals(gys, that.gys);
+                Objects.equals(gys, that.gys) &&
+                Objects.equals(gqdate, that.gqdate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderthxqId, productId, productName, productFl, orderthId, sl, ph, mfg, price,ge,gys);
+        return Objects.hash(orderthxqId, productId, productName, productFl, orderthId, sl, ph, mfg, price, ge,gys,gqdate);
     }
 }

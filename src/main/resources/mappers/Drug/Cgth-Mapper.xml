@@ -7,6 +7,7 @@
         <result column="ORDER_DATE" property="orderDate"></result>
         <result column="ZJE" property="zje"></result>
         <result column="BZ" property="bz"></result>
+        <result column="ORDER_ID" property="orderId"></result>
         <association property="employee" javaType="cn.gson.his.model.pojos.Power.Employee">
             <id column="cgr" property="empId"></id>
             <result column="e_name" property="empName"></result>
@@ -20,5 +21,70 @@
                 and ORDERTH_ID like concat(concat('%',#{nr}),'%')
             </if>
         </where>
+    </select>
+
+    <resultMap id="cgthxqMap" type="cn.gson.his.model.pojos.Drug.OrderthxqEntity">
+        <id column="ORDERTHXQ_ID" property="orderthxqId"></id>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="PRODUCT_NAME" property="productName"></result>
+        <result column="PRODUCT_FL" property="productFl"></result>
+        <result column="ORDERTH_ID" property="orderthId"></result>
+        <result column="PRICE" property="price"></result>
+        <result column="SL" property="sl"></result>
+        <result column="GE" property="ge"></result>
+        <result column="PH" property="ph"></result>
+        <result column="MFG" property="mfg"></result>
+        <result column="GQDATE" property="gqdate"></result>
+        <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
+    </resultMap>
+
+    <select id="cgthxqcx" resultMap="cgthxqMap">
+        select o.*,g.gys_name g_name from ORDERTHXQ o LEFT JOIN gys g on o.gys_id=g.gys_id
+        <where>
+            ORDERTH_ID=#{id}
+            <if test="nr!=null and nr!=''">
+                and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="cgthid" resultMap="cgthMap">
+        select o.*,e.EMP_NAME e_name from orderth o left join EMPLOYEE e on o.cgr=e.EMP_ID where ORDERTH_ID=#{id}
+    </select>
+
+    <resultMap id="stojlMap" type="cn.gson.his.model.pojos.Drug.StojlEntity">
+        <id column="STOJL_ID" property="stojlId"></id>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="PRODUCT_NAME" property="productName"></result>
+        <result column="PRODUCT_FL" property="productFl"></result>
+        <result column="SL" property="sl"></result>
+        <result column="PH" property="ph"></result>
+        <result column="SCDATE" property="scdate"></result>
+        <result column="BZ" property="bz"></result>
+        <result column="GE" property="ge"></result>
+        <result column="GQDATE" property="gqdate"></result>
+        <result column="PRICE" property="price"></result>
+        <association property="sto" javaType="cn.gson.his.model.pojos.Drug.StoEntity">
+            <id column="STO_ID" property="stoId"></id>
+            <association property="library" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
+                <id column="LIBRARY_ID" property="libraryId"></id>
+                <result column="lname" property="libraryName"></result>
+            </association>
+        </association>
+        <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
+    </resultMap>
+
+    <select id="stojllyid" resultMap="stojlMap">
+        SELECT j.*,l.library_name lname,s.library_id,g.gys_name g_name from STO s LEFT JOIN STOJL j on s.sto_id = j.sto_id LEFT JOIN LIBRARY_INFO l on s.library_id=l.library_id LEFT JOIN gys g on j.gys_id=g.gys_id where s.ly_id=#{id} and why=0
+    </select>
+
+    <select id="chucx" resultType="cn.gson.his.model.pojos.Drug.ChuEntity">
+        select * from chu where LY_ID=#{id} and why=0
     </select>
 </mapper>

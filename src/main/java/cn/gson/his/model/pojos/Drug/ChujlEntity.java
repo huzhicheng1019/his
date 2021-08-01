@@ -12,7 +12,7 @@ public class ChujlEntity {
     private int chujlId;
     private Integer productId;
     private String productName;
-    private Integer productFl;
+    private String productFl;
     private Integer sl;
     private String ph;
     private Integer chuId;
@@ -22,8 +22,11 @@ public class ChujlEntity {
     private Timestamp scdate;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp gqdate;
+    private Long price;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "CHUJL_ID")
     public int getChujlId() {
         return chujlId;
@@ -55,11 +58,11 @@ public class ChujlEntity {
 
     @Basic
     @Column(name = "PRODUCT_FL")
-    public Integer getProductFl() {
+    public String getProductFl() {
         return productFl;
     }
 
-    public void setProductFl(Integer productFl) {
+    public void setProductFl(String productFl) {
         this.productFl = productFl;
     }
 
@@ -133,6 +136,16 @@ public class ChujlEntity {
         this.gqdate = gqdate;
     }
 
+    @Basic
+    @Column(name = "PRICE")
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -148,11 +161,12 @@ public class ChujlEntity {
                 Objects.equals(gys, that.gys) &&
                 Objects.equals(scdate, that.scdate) &&
                 Objects.equals(gqdate, that.gqdate) &&
+                Objects.equals(price, that.price) &&
                 Objects.equals(chuId, that.chuId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(chujlId, productId, productName, productFl, sl, ph, chuId,ge,gys,scdate,gqdate);
+        return Objects.hash(chujlId, productId, productName, productFl, sl, ph, chuId,ge,gys,scdate,gqdate,price);
     }
 }

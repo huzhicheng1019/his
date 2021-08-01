@@ -75,9 +75,9 @@ public class RkService {
         return map;
     }
 
-    public Map<String,Object> cgcx(){
+    public Map<String,Object> cgcx(String nr){
         Map<String,Object> map = new HashMap<>();
-        map.put("cg",cgMapper.cgcx(""));
+        map.put("cg",cgMapper.cgcx(nr));
         return map;
     }
 
@@ -90,7 +90,7 @@ public class RkService {
     public void xzsto(StoEntity stoEntity, List<StojlEntity> stojlEntityList){
         rkDao.save(stoEntity);
         for (StojlEntity stojlEntity : stojlEntityList) {
-            stojlEntity.setStoId(stoEntity.getStoId());
+            stojlEntity.setSto(stoEntity);
             rkxqDao.save(stojlEntity);
         }
         List<LibraryxqEntity> ckxqcx = cangkMapper.ckxqcx(stoEntity.getLibrary().getLibraryId(), "");
