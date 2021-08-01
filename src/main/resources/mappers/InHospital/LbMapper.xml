@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.InHospital.LbMapper">
+    <resultMap id="lbMap" type="cn.gson.his.model.pojos.Drug.LbEntity">
+        <id column="lb_id" property="lbId"></id>
+        <result column="lb_name" property="lbName"></result>
+        <result column="lb_fl" property="lbFl"></result>
+    </resultMap>
+
+    <!--查询类别-->
+    <select id="selLb" resultMap="lbMap">
+        select * from lb
+        <where>
+            <if test=" lbFl !='' and lbFl != null ">
+                and lb_fl = #{lbFl}
+            </if>
+        </where>
+    </select>
+</mapper>

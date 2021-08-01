@@ -1,5 +1,6 @@
 package cn.gson.his.model.pojos.InHospital;
 
+import cn.gson.his.model.pojos.Power.Employee;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -13,6 +14,8 @@ import java.util.Objects;
 public class DoctorEnjoinEntity {
     private int enId;
     @JsonFormat(timezone="GMT+8")
+    private Timestamp enDate;
+    @JsonFormat(timezone="GMT+8")
     private Timestamp enStart;
     @JsonFormat(timezone = "GMT+8")
     private Timestamp enEnd;
@@ -21,6 +24,8 @@ public class DoctorEnjoinEntity {
     private Integer enType;
     private Integer enState;
     private String enContent;
+
+    private Employee emp;
 
     private List<DoctorEnjoinsEntity> advice;
     @OneToMany
@@ -32,6 +37,15 @@ public class DoctorEnjoinEntity {
         this.advice = advice;
     }
 
+    @ManyToOne
+    public Employee getEmp() {
+        return emp;
+    }
+
+    public void setEmp(Employee emp) {
+        this.emp = emp;
+    }
+
     @Id
     @Column(name = "EN_ID")
     public int getEnId() {
@@ -40,6 +54,16 @@ public class DoctorEnjoinEntity {
 
     public void setEnId(int enId) {
         this.enId = enId;
+    }
+
+    @Basic
+    @Column(name = "EN_DATE")
+    public Timestamp getEnDate() {
+        return enDate;
+    }
+
+    public void setEnDate(Timestamp enDate) {
+        this.enDate = enDate;
     }
 
     @Basic
@@ -136,6 +160,7 @@ public class DoctorEnjoinEntity {
     public String toString() {
         return "DoctorEnjoinEntity{" +
                 "enId=" + enId +
+                ", enDate=" + enDate +
                 ", enStart=" + enStart +
                 ", enEnd=" + enEnd +
                 ", regMark='" + regMark + '\'' +

@@ -37,5 +37,8 @@ public class HospitalRegisterService {
         return hospitalRegisterMapper.selAll(text);
     };
 
-
+    //查询医嘱执行这里
+    public List<HospitalRegisterEntity> query(){
+        return hospitalRegisterMapper.query();
+    };
 }

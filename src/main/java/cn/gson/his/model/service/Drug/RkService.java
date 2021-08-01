@@ -81,7 +81,7 @@ public class RkService {
         return map;
     }
 
-    public Map<String,Object> cgxqcx(String id,Integer fl){
+    public Map<String,Object> cgxqcx(String id,String fl){
         Map<String,Object> map = new HashMap<>();
         map.put("cgxq",cgMapper.cgxqfl(id,fl));
         return map;

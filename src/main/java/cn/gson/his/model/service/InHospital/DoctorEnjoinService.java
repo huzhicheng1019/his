@@ -24,6 +24,7 @@ public class DoctorEnjoinService {
 
         for (DoctorEnjoinsEntity d: doctorEnjoins) {
             d.setEnId(en.getEnId());
+            d.setEnsStart(en.getEnStart());
         }
 
         return doctorEnjoinMapper.insertEns(doctorEnjoins);
@@ -44,8 +45,35 @@ public class DoctorEnjoinService {
     }
 
     //单独修医嘱详表状态
-    public int upEns(String ensId){
-        return doctorEnjoinMapper.upEns(ensId);
+    public int upEns(String ensId,String regMark){
+
+        int i = doctorEnjoinMapper.upEns(ensId);
+
+        int a = 0;
+        int b = 0;
+        int c = 0;
+        //根据住院号查
+        List<DoctorEnjoinEntity> doctorEnjoin = doctorEnjoinMapper.selEn(regMark);
+        for (DoctorEnjoinEntity s: doctorEnjoin) {
+
+            b = s.getEnId();
+
+            List<DoctorEnjoinsEntity> advice = s.getAdvice();
+
+            c = advice.size();
+
+            for (DoctorEnjoinsEntity d: advice) {
+                if(d.getEnsEnd() != null ){
+                    a++;
+                }
+
+            }
+
+        }
+        if(a == c){
+            doctorEnjoinMapper.updateEn(b+"");
+        }
+        return i;
     }
 
 

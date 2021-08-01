@@ -63,15 +63,8 @@ public class RkController {
 
     @RequestMapping("cgxqid")
     public Map<String,Object> getcgxq(String id,String fl){
-        System.out.println(fl);
-        Integer cpfl=null;
-        if(fl.equals("0")){
-            cpfl=0;
-        }else if(fl.equals("1")){
-            cpfl=1;
-        }
         System.out.println("开始：");
-        Map<String, Object> stringObjectMap = rkService.cgxqcx(id,cpfl);
+        Map<String, Object> stringObjectMap = rkService.cgxqcx(id,fl);
         return stringObjectMap;
     }
 
