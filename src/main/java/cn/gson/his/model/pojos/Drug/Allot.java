@@ -1,6 +1,7 @@
 package cn.gson.his.model.pojos.Drug;
 
 import cn.gson.his.model.pojos.Power.Employee;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -9,11 +10,13 @@ import java.util.Objects;
 @Entity
 public class Allot {
     private Integer allotId;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp allotDate;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp sqdate;
     private Employee employee;
     private LibraryInfoEntity library;//调入仓库
-    private LibraryInfoEntity libraryto;//调离仓库
+    private Integer zt;
 
     @Id
     @Column(name = "ALLOT_ID", nullable = false, precision = 0)
@@ -55,17 +58,6 @@ public class Allot {
         this.employee = employee;
     }
 
-
-    @ManyToOne
-    @JoinColumn(name = "LIBRARYTO_ID", referencedColumnName = "LIBRARY_ID")
-    public LibraryInfoEntity getLibraryto() {
-        return libraryto;
-    }
-
-    public void setLibraryto(LibraryInfoEntity libraryto) {
-        this.libraryto = libraryto;
-    }
-
     @ManyToOne
     @JoinColumn(name = "LIBRARY_ID", referencedColumnName = "LIBRARY_ID")
     public LibraryInfoEntity getLibrary() {
@@ -76,16 +68,26 @@ public class Allot {
         this.library = library;
     }
 
+    @Basic
+    @Column(name = "ZT")
+    public Integer getZt() {
+        return zt;
+    }
+
+    public void setZt(Integer zt) {
+        this.zt = zt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Allot allot = (Allot) o;
-        return Objects.equals(allotId, allot.allotId) && Objects.equals(allotDate, allot.allotDate) && Objects.equals(sqdate, allot.sqdate) && Objects.equals(libraryto, allot.libraryto) && Objects.equals(library, allot.library);
+        return Objects.equals(allotId, allot.allotId) && Objects.equals(allotDate, allot.allotDate) && Objects.equals(sqdate, allot.sqdate) && Objects.equals(zt, allot.zt) && Objects.equals(library, allot.library);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(allotId, allotDate, sqdate, employee, libraryto, library);
+        return Objects.hash(allotId, allotDate, sqdate, employee, library,zt);
     }
 }

@@ -16,9 +16,10 @@ public class Allotxq {
     private String bz;
     private Timestamp scdate;
     private String ge;
-    private Long gysId;
+    private GysEntity gys;
     private Timestamp gqdate;
     private Long price;
+    private LibraryInfoEntity libraryto;//调离仓库
 
 
     @Id
@@ -121,14 +122,14 @@ public class Allotxq {
         this.ge = ge;
     }
 
-    @Basic
-    @Column(name = "GYS_ID", nullable = true, precision = 0)
-    public Long getGysId() {
-        return gysId;
+    @ManyToOne
+    @JoinColumn(name = "GYS_ID", referencedColumnName = "GYS_ID")
+    public GysEntity getGys() {
+        return gys;
     }
 
-    public void setGysId(Long gysId) {
-        this.gysId = gysId;
+    public void setGys(GysEntity gys) {
+        this.gys = gys;
     }
 
     @Basic
@@ -151,16 +152,26 @@ public class Allotxq {
         this.price = price;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "LIBRARYTO_ID", referencedColumnName = "LIBRARY_ID")
+    public LibraryInfoEntity getLibraryto() {
+        return libraryto;
+    }
+
+    public void setLibraryto(LibraryInfoEntity libraryto) {
+        this.libraryto = libraryto;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Allotxq allotxq = (Allotxq) o;
-        return Objects.equals(allotxqId, allotxq.allotxqId) && Objects.equals(allotId, allotxq.allotId) && Objects.equals(productId, allotxq.productId) && Objects.equals(productName, allotxq.productName) && Objects.equals(productFl, allotxq.productFl) && Objects.equals(sl, allotxq.sl) && Objects.equals(ph, allotxq.ph) && Objects.equals(bz, allotxq.bz) && Objects.equals(scdate, allotxq.scdate) && Objects.equals(ge, allotxq.ge) && Objects.equals(gysId, allotxq.gysId) && Objects.equals(gqdate, allotxq.gqdate) && Objects.equals(price, allotxq.price);
+        return Objects.equals(allotxqId, allotxq.allotxqId) && Objects.equals(allotId, allotxq.allotId) && Objects.equals(productId, allotxq.productId) && Objects.equals(productName, allotxq.productName) && Objects.equals(productFl, allotxq.productFl) && Objects.equals(sl, allotxq.sl) && Objects.equals(ph, allotxq.ph) && Objects.equals(bz, allotxq.bz) && Objects.equals(scdate, allotxq.scdate) && Objects.equals(ge, allotxq.ge) && Objects.equals(gys, allotxq.gys) && Objects.equals(gqdate, allotxq.gqdate) &&  Objects.equals(libraryto, allotxq.libraryto) && Objects.equals(price, allotxq.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(allotxqId, allotId, productId, productName, productFl, sl, ph, bz, scdate, ge, gysId, gqdate, price);
+        return Objects.hash(allotxqId, allotId, productId, productName, productFl, sl, ph, bz, scdate, ge, gys, gqdate, libraryto, price);
     }
 }

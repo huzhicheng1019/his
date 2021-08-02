@@ -3,21 +3,59 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.gson.his.model.mappers.Drug.DbsqMapper">
     <resultMap id="dbMap" type="cn.gson.his.model.pojos.Drug.Allot">
-        <id column="CHU_ID" property="chuId"></id>
-        <result column="CHU_DATE" property="chuDate"></result>
-        <result column="WHY" property="why"></result>
-        <result column="LY_ID" property="lyId"></result>
+        <id column="ALLOT_ID" property="allotId"></id>
+        <result column="ALLOT_DATE" property="allotDate"></result>
+        <result column="SQDATE" property="sqdate"></result>
+        <result column="ZT" property="zt"></result>
         <association property="library" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
             <id column="LIBRARY_ID" property="libraryId"></id>
             <result column="lname" property="libraryName"></result>
         </association>
         <association property="employee" javaType="cn.gson.his.model.pojos.Power.Employee">
-            <id column="SHR" property="empId"></id>
+            <id column="ZXR" property="empId"></id>
             <result column="e_name" property="empName"></result>
         </association>
     </resultMap>
 
-    <select id="dbMap" resultMap="dbMap">
+    <select id="dbcx" resultMap="dbMap">
+        SELECT a.*,e.emp_name e_name,l.library_name lname from ALLOT a LEFT JOIN EMPLOYEE e ON a.zxr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID
+        <where>
+            <if test="nr!=null and nr!=''">
+                and ALLOT_ID like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
 
+    <resultMap id="dbxqMap" type="cn.gson.his.model.pojos.Drug.Allotxq">
+        <id column="ALLOTXQ_ID" property="allotxqId"></id>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="PRODUCT_NAME" property="productName"></result>
+        <result column="PRODUCT_FL" property="productFl"></result>
+        <result column="SL" property="sl"></result>
+        <result column="PH" property="ph"></result>
+        <result column="SCDATE" property="scdate"></result>
+        <result column="BZ" property="bz"></result>
+        <result column="GE" property="ge"></result>
+        <result column="GQDATE" property="gqdate"></result>
+        <result column="PRICE" property="price"></result>
+        <result column="ALLOT_ID" property="allotId"></result>
+        <association property="libraryto" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
+            <id column="LIBRARYTO_ID" property="libraryId"></id>
+            <result column="ltoname" property="libraryName"></result>
+        </association>
+        <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
+    </resultMap>
+
+    <select id="dbxqcx" resultMap="dbxqMap">
+        select s.*,g.gys_name g_name,lto.library_name ltoname from ALLOTXQ s left join gys g on s.gys_id=g.gys_id LEFT JOIN LIBRARY_INFO lto on s.LIBRARYTO_ID=lto.LIBRARY_ID
+        <where>
+            ALLOT_ID=#{id}
+            <if test="nr!=null and nr!=''">
+                and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
     </select>
 </mapper>
