@@ -1,5 +1,7 @@
 package cn.gson.his.model.pojos.Outpatient;
 
+import cn.gson.his.model.pojos.Power.Employee;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -7,18 +9,58 @@ import java.util.Objects;
 @Entity
 @Table(name = "PRESCRIPTION", schema = "HIS", catalog = "")
 public class PrescriptionEntity {
-    private int presNo;
-    private Integer recordId;
-    private Integer cardNo;
-    private String presName;
-    private Timestamp presDate;
-    private Integer doctorName;
-    private Integer newSee;
-    private Integer patientNo;
-    private String priveType;
-    private String explain;
-    private Long totalPrice;
-    private Integer medicineType;
+    private int presNo;//处方编号
+    private String presName;//处方名字
+    private Timestamp presDate;//开处方时间
+    private Integer newSee;//初复诊
+    private String priveType;//费别
+    private String explain;//诊断描述
+    private Long totalPrice;//总价
+    private Integer medicineType;//类型
+
+    private DoctorrecordEntity recordId;//就诊号
+    private CardEntity cardNo;//就诊卡号
+    private Employee doctorName;//主治医生
+    private PatientdataEntity patientNo;//患者信息
+
+    @OneToOne
+    @Column(name = "RECORD_ID",nullable = false)
+    public DoctorrecordEntity getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(DoctorrecordEntity recordId) {
+        this.recordId = recordId;
+    }
+
+    @OneToOne
+    @Column(name = "CARD_NO",nullable = false)
+    public CardEntity getCardNo() {
+        return cardNo;
+    }
+
+    public void setCardNo(CardEntity cardNo) {
+        this.cardNo = cardNo;
+    }
+
+    @OneToOne
+    @Column(name = "DOCTOR_NAME",nullable = false)
+    public Employee getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(Employee doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    @OneToOne
+    @Column(name = "PATIENT_NO",nullable = false)
+    public PatientdataEntity getPatientNo() {
+        return patientNo;
+    }
+    public void setPatientNo(PatientdataEntity patientNo) {
+        this.patientNo = patientNo;
+    }
 
     @Id
     @Column(name = "PRES_NO")
@@ -30,25 +72,7 @@ public class PrescriptionEntity {
         this.presNo = presNo;
     }
 
-    @Basic
-    @Column(name = "RECORD_ID")
-    public Integer getRecordId() {
-        return recordId;
-    }
 
-    public void setRecordId(Integer recordId) {
-        this.recordId = recordId;
-    }
-
-    @Basic
-    @Column(name = "CARD_NO")
-    public Integer getCardNo() {
-        return cardNo;
-    }
-
-    public void setCardNo(Integer cardNo) {
-        this.cardNo = cardNo;
-    }
 
     @Basic
     @Column(name = "PRES_NAME")
@@ -70,15 +94,7 @@ public class PrescriptionEntity {
         this.presDate = presDate;
     }
 
-    @Basic
-    @Column(name = "DOCTOR_NAME")
-    public Integer getDoctorName() {
-        return doctorName;
-    }
 
-    public void setDoctorName(Integer doctorName) {
-        this.doctorName = doctorName;
-    }
 
     @Basic
     @Column(name = "NEW_SEE")
@@ -90,15 +106,6 @@ public class PrescriptionEntity {
         this.newSee = newSee;
     }
 
-    @Basic
-    @Column(name = "PATIENT_NO")
-    public Integer getPatientNo() {
-        return patientNo;
-    }
-
-    public void setPatientNo(Integer patientNo) {
-        this.patientNo = patientNo;
-    }
 
     @Basic
     @Column(name = "PRIVE_TYPE")

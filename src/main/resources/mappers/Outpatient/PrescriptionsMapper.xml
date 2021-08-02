@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--处方详情-->
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.PrescriptionsMapper">
+<resultMap id="prescs" type="cn.gson.his.model.pojos.Outpatient.PrescriptionsEntity">
+    <id column="CHINESE_NO" property="chineseNo"/>
+    <result column="C_COUNT" property="cCount"/>
+    <result column="C_PRICE" property="cPrice"/>
+    <result column="PRES_NO" property="presNo"/>
+    <result column="W_SKIN" property="wSkin"/>
+    <result column="W_SKINRESULT" property="wSkinresult"/>
+    <result column="C_STATE" property="cState"/>
+    <result column="P_TYPE" property="pType"/>
+    <result column="CHINESE_ID" property="chineseId"/>
+    <result column="CHINESE_NAME" property="ChineseName"/>
+    <result column="CHINESE_GG" property="ChineseGG"/>
+    <result column="CHINESE_DW" property="ChineseDW"/>
+    <result column="CHINESE_YF" property="ChineseYF"/>
+    <association property="presId" javaType="cn.gson.his.model.pojos.Outpatient.PrescriptionsEntity">
+        <id column="PRES_NO" property="presNo"/>
+        <result column="PRES_NAME" property="presName"/>
+        <result column="PRES_DATE" property="presDate"/>
+        <result column="NEW_SEE" property="newSee"/>
+        <result column="PRIVE_TYPE" property="priveType"/>
+        <result column="EXPLAIN" property="explain"/>
+        <result column="TOTAL_PRICE" property="totalPrice"/>
+        <result column="MEDICINE_TYPE" property="medicineType"/>
+    </association>
+</resultMap>
+
+<select id="allPrescs" resultMap="prescs">
+    select * from PRESCRIPTIONS P inner join PRESCRIPTION P1 on p.PRES_ID = P1.PRES_NO WHERE  1=1
+    <where>
+        <if test="presId.presNo!= null">
+            and  P1.PRES_NO = presId.presNo
+        </if>
+    </where>
+</select>
+
+
+<!--新增处方详情-->
+<insert id="addprescs">
+    insert into PRESCRIPTIONS values(seq.nextval,#{chineseId},#{cCount},#{cPrice},#{presNo},#{wSkin},#{wSkinresult},#{presId.presNo},#{cState},#{pType},#{ChineseName},#{ChineseGG},#{ChineseDW},#{ChineseYF})
+
+</insert>
+
+
+</mapper>

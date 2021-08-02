@@ -1,21 +1,47 @@
 package cn.gson.his.model.pojos.Outpatient;
 
+import cn.gson.his.model.pojos.Drug.DrugEntity;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "PRESCRIPTIONS", schema = "HIS", catalog = "")
 public class PrescriptionsEntity {
-    private int chineseNo;
-    private Integer chineseId;
-    private Integer cCount;
-    private Long cPrice;
-    private Integer presNo;
-    private Integer wSkin;
-    private String wSkinresult;
-    private Integer presId;
-    private Integer cState;
-    private Integer pType;
+    private int chineseNo;//处方详情单号
+    private Integer cCount;//数量
+    private Long cPrice;//这个处方的总价
+    private Integer presNo;//药品原来的价格
+    private Integer wSkin;//是否皮试
+    private String wSkinresult;//皮试结果
+    private Integer cState;//收费状态
+    private String pType;//类别
+    private Integer chineseId;//药品(耗材)编号
+    private String  ChineseName;//药品规格
+    private String  ChineseGG;//药品规格
+    private String  ChineseDW;//药品单位
+    private String  ChineseYF;//药品用法
+
+    private PrescriptionEntity presId;//处方编号
+    @Id
+    @Column(name = "CHINESE_ID")
+    public Integer getChineseId() {
+        return chineseId;
+    }
+
+    public void setChineseId(Integer chineseId) {
+        this.chineseId = chineseId;
+    }
+
+    @OneToOne
+    @Column(name = "PRES_ID",nullable = false)
+    public PrescriptionEntity getPresId() {
+        return presId;
+    }
+
+    public void setPresId(PrescriptionEntity presId) {
+        this.presId = presId;
+    }
 
     @Id
     @Column(name = "CHINESE_NO")
@@ -27,15 +53,6 @@ public class PrescriptionsEntity {
         this.chineseNo = chineseNo;
     }
 
-    @Basic
-    @Column(name = "CHINESE_ID")
-    public Integer getChineseId() {
-        return chineseId;
-    }
-
-    public void setChineseId(Integer chineseId) {
-        this.chineseId = chineseId;
-    }
 
     @Basic
     @Column(name = "C_COUNT")
@@ -87,15 +104,6 @@ public class PrescriptionsEntity {
         this.wSkinresult = wSkinresult;
     }
 
-    @Basic
-    @Column(name = "PRES_ID")
-    public Integer getPresId() {
-        return presId;
-    }
-
-    public void setPresId(Integer presId) {
-        this.presId = presId;
-    }
 
     @Basic
     @Column(name = "C_STATE")
@@ -109,12 +117,48 @@ public class PrescriptionsEntity {
 
     @Basic
     @Column(name = "P_TYPE")
-    public Integer getpType() {
+    public String getpType() {
         return pType;
     }
 
-    public void setpType(Integer pType) {
+    public void setpType(String pType) {
         this.pType = pType;
+    }
+    @Basic
+    @Column(name = "CHINESE_NAME")
+    public String getChineseName() {
+        return ChineseName;
+    }
+
+    public void setChineseName(String chineseName) {
+        ChineseName = chineseName;
+    }
+    @Basic
+    @Column(name = "CHINESE_GG")
+    public String getChineseGG() {
+        return ChineseGG;
+    }
+
+    public void setChineseGG(String chineseGG) {
+        ChineseGG = chineseGG;
+    }
+    @Basic
+    @Column(name = "CHINESE_DW")
+    public String getChineseDW() {
+        return ChineseDW;
+    }
+
+    public void setChineseDW(String chineseDW) {
+        ChineseDW = chineseDW;
+    }
+    @Basic
+    @Column(name = "CHINESE_YF")
+    public String getChineseYF() {
+        return ChineseYF;
+    }
+
+    public void setChineseYF(String chineseYF) {
+        ChineseYF = chineseYF;
     }
 
     @Override

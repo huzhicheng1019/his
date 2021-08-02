@@ -60,6 +60,7 @@
         <!--医嘱-->
         <collection property="doctorEnjoin" ofType="cn.gson.his.model.pojos.InHospital.DoctorEnjoinEntity">
             <id property="enId" column="en_id"></id>
+            <result property="enDate" column="en_date"></result>
             <result property="enStart" column="en_start"></result>
             <result property="enEnd" column="en_end"></result>
             <result property="regMark" column="reg_mark"></result>
@@ -120,6 +121,21 @@
             </where>
 
     </select>
-    <!---->
+    <!--查询执行医嘱-->
+    <select id="query" resultMap="HopRegMap">
+        select * from hospital_register h left join beds b on h.reg_mark = b.reg_mark
+          left join department d on h.depa_id = d.depa_id
+          left join bed be on b.bed_id = be.bed_id
+          left join patientdata p on h.patient_no = p.patient_no
+          left join prepay pr on h.reg_mark = pr.reg_mark
+          left join doctor_enjoin en on h.reg_mark = en.reg_mark
+
+            <where>
+
+
+                and h.reg_is = 0
+            </where>
+
+    </select>
 
 </mapper>

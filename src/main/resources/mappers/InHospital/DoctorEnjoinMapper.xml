@@ -4,6 +4,7 @@
 <mapper namespace="cn.gson.his.model.mappers.InHospital.DoctorEnjoinMapper">
     <resultMap id="EnMap" type="cn.gson.his.model.pojos.InHospital.DoctorEnjoinEntity">
         <id property="enId" column="en_id"></id>
+        <result property="enDate" column="en_date"></result>
         <result property="enStart" column="en_start"></result>
         <result property="enEnd" column="en_end"></result>
         <result property="regMark" column="reg_mark"></result>
@@ -11,6 +12,16 @@
         <result property="enType" column="en_type"></result>
         <result property="enState" column="en_state"></result>
         <result property="enContent" column="en_content"></result>
+
+        <association property="emp" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id property="empId" column="emp_id"></id>
+            <result property="empName" column="emp_name"></result>
+            <result property="empPhone" column="emp_phone"></result>
+            <result property="empCard" column="emp_card"></result>
+            <result property="empInduction" column="emp_induction"></result>
+            <result property="empDeparture" column="emp_departure"></result>
+            <result property="empState" column="emp_state"></result>
+        </association>
 
         <collection property="advice" ofType="cn.gson.his.model.pojos.InHospital.DoctorEnjoinsEntity">
             <id property="ensId" column="ens_id"></id>
@@ -21,6 +32,8 @@
             <result property="drugGe" column="drug_ge"></result>
             <result property="drugDw" column="drug_dw"></result>
             <result property="drugYf" column="drug_yf"></result>
+            <result property="ensStart" column="ens_start"></result>
+            <result property="ensEnd" column="ens_end"></result>
             <result property="drugDosage" column="drug_dosage"></result>
             <result property="ensAmount" column="ens_amount"></result>
             <result property="drugPrice" column="drug_price"></result>
@@ -28,6 +41,7 @@
             <result property="ensType" column="ens_type"></result>
             <result property="ensCount" column="ens_count"></result>
         </collection>
+
     </resultMap>
 
     <!--新增医嘱表-->
@@ -35,45 +49,68 @@
         <selectKey order="BEFORE" keyProperty="enId" resultType="_int"  >
             select seq.nextval from dual
         </selectKey>
-        insert into doctor_enjoin values (#{enId},#{enStart},#{enEnd},#{regMark},#{doctorId},#{enType},#{enState},#{enContent})
+        insert into doctor_enjoin values (#{enId},current_timestamp ,#{enStart},null ,#{regMark},#{doctorId},#{enType},#{enState},#{enContent})
     </insert>
+
     <!--新增医嘱详表-->
     <insert id="insertEns" parameterType="java.util.List">
-        insert all into doctor_enjoins
-        <selectKey keyProperty="ensId" resultType="_int" order="BEFORE">
-            select seq.nextval from dual
-        </selectKey>
-        <foreach collection="doctorEnjoins" item="e" index="i" separator=" ">
-            <if test="i != doctorEnjoins.size()-1 ">
-                into doctor_enjoins
-                values (seq.nextval,#{e.enId},#{e.drugId},#{e.drugName},#{e.drugType},#{e.drugGe},#{e.drugDw},#{e.drugYf},#{e.drugDosage},#{e.ensAmount}
-                ,#{e.drugPrice},#{e.ensState},#{e.ensType},#{e.ensCount})
+        insert into doctor_enjoins(ens_id,en_id,drug_id,drug_name,drug_type,drug_ge,drug_dw,drug_yf,ens_start,drug_dosage,ens_amount,drug_price,ens_state,ens_type,ens_count)
+        select seq.nextval,en_id,drug_id,drug_name,drug_type,drug_ge,drug_dw,drug_yf,ens_start,drug_dosage,ens_amount,drug_price,ens_state,ens_type,ens_count from
+        <foreach collection="doctorEnjoins" item="e" index="i" separator=" " open="(" close=")">
+            <if test="i != doctorEnjoins.size()-1">
+                select #{e.enId} as en_id, #{e.drugId} as drug_id,#{e.drugName} as drug_name,#{e.drugType} as drug_type,#{e.drugGe} as drug_ge,#{e.drugDw} as drug_dw,#{e.drugYf} as drug_yf,#{e.ensStart} as ens_start,#{e.drugDosage} as drug_dosage,#{e.ensAmount} as ens_amount,#{e.drugPrice} as drug_price,#{e.ensState} as ens_state,#{e.ensType} as ens_type,#{e.ensCount} as ens_count  from dual
+                union
             </if>
             <if test="i == doctorEnjoins.size()-1">
-                select #{ensId},#{e.enId},#{e.drugId},#{e.drugName},#{e.drugType},#{e.drugGe},#{e.drugDw},#{e.drugYf},#{e.drugDosage},#{e.ensAmount}
-                ,#{e.drugPrice},#{e.ensState},#{e.ensType},#{e.ensCount} from dual
+                select #{e.enId} as en_id, #{e.drugId} as drug_id,#{e.drugName} as drug_name,#{e.drugType} as drug_type,#{e.drugGe} as drug_ge,#{e.drugDw} as drug_dw,#{e.drugYf} as drug_yf,#{e.ensStart} as ens_start,#{e.drugDosage} as drug_dosage,#{e.ensAmount} as ens_amount,#{e.drugPrice} as drug_price,#{e.ensState} as ens_state,#{e.ensType} as ens_type,#{e.ensCount} as ens_count  from dual
             </if>
         </foreach>
-
     </insert>
+
+
+<!--    <insert id="insertEns" parameterType="java.util.List">-->
+<!--        insert all into doctor_enjoins-->
+<!--        <selectKey keyProperty="ensId" resultType="_int" order="BEFORE">-->
+<!--            select seq.nextval from dual-->
+<!--        </selectKey>-->
+<!--        <foreach collection="doctorEnjoins" item="e" index="i" separator=" ">-->
+<!--            <if test="i != doctorEnjoins.size()-1 ">-->
+<!--                into doctor_enjoins-->
+<!--                values (seq.nextval,#{e.enId},#{e.drugId},#{e.drugName},#{e.drugType},#{e.drugGe},#{e.drugDw},#{e.drugYf},#{e.ensStart},null,#{e.drugDosage},#{e.ensAmount}-->
+<!--                ,#{e.drugPrice},#{e.ensState},#{e.ensType},#{e.ensCount})-->
+<!--            </if>-->
+<!--            <if test="i == doctorEnjoins.size()-1">-->
+<!--                select #{ensId},#{e.enId},#{e.drugId},#{e.drugName},#{e.drugType},#{e.drugGe},#{e.drugDw},#{e.drugYf},#{e.ensStart},null,#{e.drugDosage},#{e.ensAmount}-->
+<!--                ,#{e.drugPrice},#{e.ensState},#{e.ensType},#{e.ensCount} from dual-->
+<!--            </if>-->
+<!--        </foreach>-->
+
+<!--    </insert>-->
 
     <!--根据住院号查医嘱-->
     <select id="selEn" resultMap="EnMap">
         select * from doctor_enjoin e left join doctor_enjoins en on e.en_id = en.en_id
-        where e.reg_mark = #{regMark}
+        left join employee emp on  e.doctor_id = emp.emp_id
+
+        where e.reg_mark = #{regMark}  order by en.ens_end desc
     </select>
+
 
     <!--修改医嘱状态-->
     <update id="updateEn">
-        update doctor_enjoin set en_state = 1 where en_id = #{enId}
+        update doctor_enjoin set en_end = current_timestamp where en_id = #{enId}
     </update>
     <!--修改医嘱详表状态-->
     <update id="updateEns">
-        update doctor_enjoins set ens_state = 1 where en_id = #{enId}
+        update doctor_enjoins set ens_end = current_timestamp where en_id = #{enId}
     </update>
 
     <!--单独修改医嘱详表状态-->
     <update id="upEns">
-        update doctor_enjoins set ens_state = 1 where ens_id = #{ensId}
+        update doctor_enjoins set ens_end = current_timestamp where ens_id = #{ensId}
     </update>
+
+
+    
+
 </mapper>

@@ -42,7 +42,7 @@ public class DoctorEnjoinController {
 
     //单独修医嘱详表状态
     @RequestMapping("/updateEns")
-    public int demo3(String ensId){
-        return service.upEns(ensId);
+    public int demo3(String ensId,String regMark){
+        return service.upEns(ensId,regMark);
     }
 }

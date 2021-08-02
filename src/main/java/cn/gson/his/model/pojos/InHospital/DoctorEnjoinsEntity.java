@@ -1,6 +1,9 @@
 package cn.gson.his.model.pojos.InHospital;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +17,10 @@ public class DoctorEnjoinsEntity {
     private String drugGe;
     private String drugDw;
     private String drugYf;
+    @JsonFormat(timezone="GMT+8")
+    private Timestamp ensStart;
+    @JsonFormat(timezone = "GMT+8")
+    private Timestamp ensEnd;
     private String drugDosage;
     private Integer ensAmount;
     private Integer drugPrice;
@@ -187,6 +194,25 @@ public class DoctorEnjoinsEntity {
         return Objects.hash(ensId, enId, drugId, drugName, drugType, drugGe, drugDw, drugYf, drugDosage, ensAmount, drugPrice, ensState, ensType, ensCount);
     }
 
+    @Basic
+    @Column(name = "ens_start")
+    public Timestamp getEnsStart() {
+        return ensStart;
+    }
+
+    public void setEnsStart(Timestamp ensStart) {
+        this.ensStart = ensStart;
+    }
+    @Basic
+    @Column(name = "ens_end")
+    public Timestamp getEnsEnd() {
+        return ensEnd;
+    }
+
+    public void setEnsEnd(Timestamp ensEnd) {
+        this.ensEnd = ensEnd;
+    }
+
     @Override
     public String toString() {
         return "DoctorEnjoinsEntity{" +
@@ -198,6 +224,8 @@ public class DoctorEnjoinsEntity {
                 ", drugGe='" + drugGe + '\'' +
                 ", drugDw='" + drugDw + '\'' +
                 ", drugYf='" + drugYf + '\'' +
+                ", ensStart=" + ensStart +
+                ", ensEnd=" + ensEnd +
                 ", drugDosage='" + drugDosage + '\'' +
                 ", ensAmount=" + ensAmount +
                 ", drugPrice=" + drugPrice +
