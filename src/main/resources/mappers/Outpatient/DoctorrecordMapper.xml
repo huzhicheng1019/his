@@ -97,6 +97,9 @@
                     and E.EMP_NAME = #{doctor.empName}
                 </if>
             </if>
+            <if test="recordRecord != null">
+                RECORD_RECORD = #{recordRecord}
+            </if>
         </where>
         order  by D.RECORD_NO
     </select>
