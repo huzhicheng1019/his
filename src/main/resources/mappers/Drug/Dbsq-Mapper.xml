@@ -39,6 +39,9 @@
         <result column="GQDATE" property="gqdate"></result>
         <result column="PRICE" property="price"></result>
         <result column="ALLOT_ID" property="allotId"></result>
+        <result column="KSZT" property="kszt"></result>
+        <result column="GESL" property="gesl"></result>
+        <result column="SHDW" property="shdw"></result>
         <association property="libraryto" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
             <id column="LIBRARYTO_ID" property="libraryId"></id>
             <result column="ltoname" property="libraryName"></result>
@@ -58,4 +61,6 @@
             </if>
         </where>
     </select>
+
+
 </mapper>

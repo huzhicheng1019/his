@@ -23,6 +23,9 @@ public class OrderthxqEntity {
     private GysEntity gys;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp gqdate;
+    private String kszt;
+    private Integer gesl;
+    private String shdw;
 
 
     @Id
@@ -148,6 +151,36 @@ public class OrderthxqEntity {
         this.gqdate = gqdate;
     }
 
+    @Basic
+    @Column(name = "KSZT")
+    public String getKszt() {
+        return kszt;
+    }
+
+    public void setKszt(String kszt) {
+        this.kszt = kszt;
+    }
+
+    @Basic
+    @Column(name = "GESL")
+    public Integer getGesl() {
+        return gesl;
+    }
+
+    public void setGesl(Integer gesl) {
+        this.gesl = gesl;
+    }
+
+    @Basic
+    @Column(name = "Shdw")
+    public String getShdw() {
+        return shdw;
+    }
+
+    public void setShdw(String shdw) {
+        this.shdw = shdw;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -164,11 +197,14 @@ public class OrderthxqEntity {
                 Objects.equals(price, that.price) &&
                 Objects.equals(ge, that.ge) &&
                 Objects.equals(gys, that.gys) &&
+                Objects.equals(kszt, that.kszt) &&
+                Objects.equals(gesl, that.gesl) &&
+                Objects.equals(shdw, that.shdw) &&
                 Objects.equals(gqdate, that.gqdate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderthxqId, productId, productName, productFl, orderthId, sl, ph, mfg, price, ge,gys,gqdate);
+        return Objects.hash(orderthxqId, productId, productName, productFl, orderthId, sl, ph, mfg, price, ge,gys,gqdate,kszt,gesl,shdw);
     }
 }

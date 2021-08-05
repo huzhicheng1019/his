@@ -31,4 +31,12 @@ public class DbsqController {
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }
+
+    @RequestMapping("dbckxq")
+    public Map<String,Object> getdbckxq(Integer id,String nr){
+        System.out.println(id);
+        System.out.println(nr);
+        Map<String, Object> stringObjectMap = dbsqService.dbckxqcx(id,nr);
+        return stringObjectMap;
+    }
 }

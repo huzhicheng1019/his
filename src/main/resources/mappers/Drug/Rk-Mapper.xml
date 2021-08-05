@@ -41,6 +41,9 @@
         <result column="GE" property="ge"></result>
         <result column="GQDATE" property="gqdate"></result>
         <result column="PRICE" property="price"></result>
+        <result column="KSZT" property="kszt"></result>
+        <result column="GESL" property="gesl"></result>
+        <result column="SHDW" property="shdw"></result>
         <association property="sto" javaType="cn.gson.his.model.pojos.Drug.StoEntity">
             <id column="STO_ID" property="stoId"></id>
         </association>

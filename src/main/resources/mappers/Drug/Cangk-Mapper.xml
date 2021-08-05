@@ -20,11 +20,17 @@
         <result column="PH" property="ph"></result>
         <result column="SCDATE" property="scdate"></result>
         <result column="GQDATE" property="gqdate"></result>
-        <result column="LIBRARY_ID" property="libraryId"></result>
+        <result column="KSZT" property="kszt"></result>
+        <result column="GESL" property="gesl"></result>
+        <result column="SHDW" property="shdw"></result>
         <result column="PRICE" property="price"></result>
         <result column="SJPRICE" property="sjprice"></result>
         <result column="GE" property="ge"></result>
         <result column="QSKCS" property="qskcs"></result>
+        <association property="library" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
+            <id column="LIBRARY_ID" property="libraryId"></id>
+            <result column="lname" property="libraryName"></result>
+        </association>
         <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
             <id column="gys_id" property="gysId"></id>
             <result column="g_name" property="gysName"></result>
@@ -32,9 +38,11 @@
     </resultMap>
 
     <select id="ckxqcx" resultMap="ckxqMap">
-        select l.*,g.gys_name g_name from LIBRARYXQ l left join gys g on l.gys_id=g.gys_id
+        select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
         <where>
-            LIBRARY_ID=#{id}
+            <if test="id!=null and id!=0">
+                and l.LIBRARY_ID=#{id}
+            </if>
             <if test="nr!=null and nr!=''">
                 and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
             </if>
@@ -60,6 +68,9 @@
         <result column="STO_ID" property="stoId"></result>
         <result column="BZ" property="bz"></result>
         <result column="GE" property="ge"></result>
+        <result column="KSZT" property="kszt"></result>
+        <result column="GESL" property="gesl"></result>
+        <result column="SHDW" property="shdw"></result>
         <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
             <id column="gys_id" property="gysId"></id>
             <result column="g_name" property="gysName"></result>
@@ -85,6 +96,9 @@
         <result column="CHU_ID" property="chuId"></result>
         <result column="BZ" property="bz"></result>
         <result column="GE" property="ge"></result>
+        <result column="KSZT" property="kszt"></result>
+        <result column="GESL" property="gesl"></result>
+        <result column="SHDW" property="shdw"></result>
         <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
             <id column="gys_id" property="gysId"></id>
             <result column="g_name" property="gysName"></result>

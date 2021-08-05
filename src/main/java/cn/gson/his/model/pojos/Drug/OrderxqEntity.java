@@ -18,6 +18,9 @@ public class OrderxqEntity {
     private Long price;
     private String ge;
     private GysEntity gys;
+    private String kszt;
+    private Integer gesl;
+    private String shdw;
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -113,6 +116,36 @@ public class OrderxqEntity {
         this.price = price;
     }
 
+    @Basic
+    @Column(name = "KSZT")
+    public String getKszt() {
+        return kszt;
+    }
+
+    public void setKszt(String kszt) {
+        this.kszt = kszt;
+    }
+
+    @Basic
+    @Column(name = "GESL")
+    public Integer getGesl() {
+        return gesl;
+    }
+
+    public void setGesl(Integer gesl) {
+        this.gesl = gesl;
+    }
+
+    @Basic
+    @Column(name = "Shdw")
+    public String getShdw() {
+        return shdw;
+    }
+
+    public void setShdw(String shdw) {
+        this.shdw = shdw;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -126,11 +159,14 @@ public class OrderxqEntity {
                 Objects.equals(sl, that.sl) &&
                 Objects.equals(ge, that.ge) &&
                 Objects.equals(gys, that.gys) &&
+                Objects.equals(kszt, that.kszt) &&
+                Objects.equals(gesl, that.gesl) &&
+                Objects.equals(shdw, that.shdw) &&
                 Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderxqId, productId, productName, productFl, orderId, sl, price,ge,gys);
+        return Objects.hash(orderxqId, productId, productName, productFl, orderId, sl, price,ge,gys,kszt,gesl,shdw);
     }
 }

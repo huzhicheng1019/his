@@ -17,6 +17,9 @@ public class ConEntity {
     private String yf;
     private Integer zdkcs;
     private String conSm;
+    private String kszt;
+    private Integer gesl;
+    private String shdw;
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -130,6 +133,36 @@ public class ConEntity {
         this.gys = gys;
     }
 
+    @Basic
+    @Column(name = "KSZT")
+    public String getKszt() {
+        return kszt;
+    }
+
+    public void setKszt(String kszt) {
+        this.kszt = kszt;
+    }
+
+    @Basic
+    @Column(name = "GESL")
+    public Integer getGesl() {
+        return gesl;
+    }
+
+    public void setGesl(Integer gesl) {
+        this.gesl = gesl;
+    }
+
+    @Basic
+    @Column(name = "Shdw")
+    public String getShdw() {
+        return shdw;
+    }
+
+    public void setShdw(String shdw) {
+        this.shdw = shdw;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -145,11 +178,14 @@ public class ConEntity {
                 Objects.equals(drugPfprice, conEntity.drugPfprice) &&
                 Objects.equals(yf, conEntity.yf) &&
                 Objects.equals(zdkcs, conEntity.zdkcs)&&
+                Objects.equals(kszt, conEntity.kszt) &&
+                Objects.equals(gesl, conEntity.gesl) &&
+                Objects.equals(shdw, conEntity.shdw) &&
                 Objects.equals(conSm, conEntity.conSm);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(conId, conName, conGe, bzq, gys, conPrice, dw, drugPfprice, yf, zdkcs,conSm);
+        return Objects.hash(conId, conName, conGe, bzq, gys, conPrice, dw, drugPfprice, yf, zdkcs,conSm,kszt,gesl,shdw);
     }
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "DRUG", schema = "HIS", catalog = "")
+@Table(name = "DRUG", schema = "HIS")
 public class DrugEntity {
     private int drugId;
     private String drugName;
@@ -18,8 +18,9 @@ public class DrugEntity {
     private String dw;
     private String yf;
     private Integer zdkcs;
-
-
+    private String kszt;
+    private Integer gesl;
+    private String shdw;
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -124,6 +125,37 @@ public class DrugEntity {
         this.zdkcs = zdkcs;
     }
 
+
+    @Basic
+    @Column(name = "KSZT")
+    public String getKszt() {
+        return kszt;
+    }
+
+    public void setKszt(String kszt) {
+        this.kszt = kszt;
+    }
+
+    @Basic
+    @Column(name = "GESL")
+    public Integer getGesl() {
+        return gesl;
+    }
+
+    public void setGesl(Integer gesl) {
+        this.gesl = gesl;
+    }
+
+    @Basic
+    @Column(name = "Shdw")
+    public String getShdw() {
+        return shdw;
+    }
+
+    public void setShdw(String shdw) {
+        this.shdw = shdw;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -140,12 +172,15 @@ public class DrugEntity {
                 Objects.equals(drugPrice, that.drugPrice) &&
                 Objects.equals(dw, that.dw) &&
                 Objects.equals(yf, that.yf) &&
+                Objects.equals(kszt, that.kszt) &&
+                Objects.equals(gesl, that.gesl) &&
+                Objects.equals(shdw, that.shdw) &&
                 Objects.equals(zdkcs, that.zdkcs);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(drugId, drugName, drugGe, gys, lb, drugSm, bzq, drugPfprice, drugPrice, dw, yf, zdkcs);
+        return Objects.hash(drugId, drugName, drugGe, gys, lb, drugSm, bzq, drugPfprice, drugPrice, dw, yf, zdkcs,kszt,gesl,shdw);
     }
 
     @ManyToOne

@@ -13,6 +13,9 @@
         <result column="DRUG_PFPRICE" property="drugPfprice"></result>
         <result column="CON_PRICE" property="conPrice"></result>
         <result column="ZDKCS" property="zdkcs"></result>
+        <result column="KSZT" property="kszt"></result>
+        <result column="GESL" property="gesl"></result>
+        <result column="SHDW" property="shdw"></result>
         <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
             <id column="gys_id" property="gysId"></id>
             <result column="g_name" property="gysName"></result>

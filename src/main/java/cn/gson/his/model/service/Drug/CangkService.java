@@ -75,8 +75,8 @@ public class CangkService {
     }
 
     public int stojlcx(LibraryxqEntity libraryxqEntity){
-        System.out.println(libraryxqEntity.getLibraryId());
-        List<StoEntity> stocx = cangkMapper.stocx(libraryxqEntity.getLibraryId());
+        System.out.println(libraryxqEntity.getLibrary().getLibraryId());
+        List<StoEntity> stocx = cangkMapper.stocx(libraryxqEntity.getLibrary().getLibraryId());
         int size=0;
         for (StoEntity sto: stocx) {
             List<StojlEntity> stojlcx= cangkMapper.stojlcx(sto.getStoId(), libraryxqEntity.getProductId(), libraryxqEntity.getProductFl(), libraryxqEntity.getPh());
@@ -86,7 +86,7 @@ public class CangkService {
     }
 
     public int chujlcx(LibraryxqEntity libraryxqEntity){
-        List<ChuEntity> chucx = cangkMapper.chucx(libraryxqEntity.getLibraryId());
+        List<ChuEntity> chucx = cangkMapper.chucx(libraryxqEntity.getLibrary().getLibraryId());
         int size=0;
         for (ChuEntity chuEntity : chucx) {
             List<ChujlEntity> chujlcx = cangkMapper.chujlcx(chucx.get(0).getChuId(), libraryxqEntity.getProductId(), libraryxqEntity.getProductFl(), libraryxqEntity.getPh());
@@ -105,7 +105,9 @@ public class CangkService {
         System.out.println(librarysave.getLibraryId());
 
         for (LibraryxqEntity libraryxqEntity : libraryxqList) {
-            libraryxqEntity.setLibraryId(librarysave.getLibraryId());
+            LibraryInfoEntity libraryInfoEntity = new LibraryInfoEntity();
+            libraryInfoEntity.setLibraryId(librarysave.getLibraryId());
+            libraryxqEntity.setLibrary(libraryInfoEntity);
             cankxqDao.save(libraryxqEntity);
         }
     }
