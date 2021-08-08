@@ -40,7 +40,7 @@ public class BedsController {
     //修改床位使用记录
     @RequestMapping("updateBeds")
     public int demo1(String bedsEntity){
-        BedsEntity bedsEntity1 = JSONObject.parseObject(bedsEntity, BedsEntity.class);
+        BedsEntity bedsEntity1 = JSONObject.parseObject(bedsEntity,BedsEntity.class);
         System.out.println("修改"+bedsEntity1);
         int i = bedsService.updateBeds(bedsEntity1);
         if(i>0){

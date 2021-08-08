@@ -27,4 +27,8 @@ public interface DoctorEnjoinMapper {
     //单独修医嘱详表状态
     public int upEns(String ensId);
 
+
+    //执行医嘱查询
+    public List<DoctorEnjoinEntity> execute();
+
 }

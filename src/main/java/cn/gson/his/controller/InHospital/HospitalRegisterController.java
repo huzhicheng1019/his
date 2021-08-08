@@ -52,8 +52,5 @@ public class HospitalRegisterController {
     };
 
 
-    @RequestMapping("/query")
-    public List<HospitalRegisterEntity> demo4(){
-        return reg.query();
-    };
+
 }

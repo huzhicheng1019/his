@@ -21,16 +21,22 @@
 
     <!--新增床位记录-->
     <insert id="insertBedsOne">
-        insert into beds values (seq.nextval,#{bedId},#{regMark},#{bedsName},#{nurseId},#{nurseName},#{bedsStart},#{bedsEnd},#{bedsIs})
+        insert into beds values (seq.nextval,#{bedId},#{regMark},#{bedsName},#{nurseId},#{nurseName,jdbcType=VARCHAR},#{bedsStart},#{bedsEnd},#{bedsIs})
     </insert>
 
 
     <!--修改床位记录-->
     <update id="updateBeds">
-        update beds set bed_id = #{bedId},reg_mark=#{regMark},beds_name=#{bedsName},nurse_id=#{nurseId},nurse_name=#{nurseName},
-        beds_start = #{bedsStart},beds_end = #{bedsEnd}, beds_is = #{bedsIs}
+        update beds set bed_id=#{bedId},reg_mark=#{regMark},beds_name=#{bedsName},nurse_id=#{nurseId},
+        <if test="nurseName != null and nurseName != ''">
+            nurse_name=#{nurseName},
+        </if>
+        beds_start=#{bedsStart},beds_end=#{bedsEnd},beds_is=#{bedsIs}
 
-        where beds_id = #{bedsId}
+        <where>
+
+            and beds_id = #{bedsId}
+        </where>
     </update>
     <!--修改床位护士-->
     <update id="updateNurse">
