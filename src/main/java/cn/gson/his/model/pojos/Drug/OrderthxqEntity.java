@@ -207,4 +207,25 @@ public class OrderthxqEntity {
     public int hashCode() {
         return Objects.hash(orderthxqId, productId, productName, productFl, orderthId, sl, ph, mfg, price, ge,gys,gqdate,kszt,gesl,shdw);
     }
+
+    @Override
+    public String toString() {
+        return "OrderthxqEntity{" +
+                "orderthxqId=" + orderthxqId +
+                ", productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", productFl='" + productFl + '\'' +
+                ", orderthId='" + orderthId + '\'' +
+                ", sl=" + sl +
+                ", ph='" + ph + '\'' +
+                ", mfg=" + mfg +
+                ", price=" + price +
+                ", ge='" + ge + '\'' +
+                ", gys=" + gys +
+                ", gqdate=" + gqdate +
+                ", kszt='" + kszt + '\'' +
+                ", gesl=" + gesl +
+                ", shdw='" + shdw + '\'' +
+                '}';
+    }
 }

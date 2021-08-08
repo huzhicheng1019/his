@@ -101,7 +101,7 @@ public class RkService {
             System.out.println(ckxqcx.size());
             for (int j=0;j<ckxqcx.size();j++){
                 System.out.println(ckxqcx.get(j));
-                if(ckxqcx.get(j).getProductId()==stojlEntityList.get(i).getProductId() && ckxqcx.get(j).getProductFl().equals(stojlEntityList.get(i).getProductFl()) && ckxqcx.get(j).getPh().equals(stojlEntityList.get(i).getPh())){
+                if(ckxqcx.get(j).getProductId().equals(stojlEntityList.get(i).getProductId()) && ckxqcx.get(j).getProductFl().equals(stojlEntityList.get(i).getProductFl()) && ckxqcx.get(j).getPh().equals(stojlEntityList.get(i).getPh())){
                     e=1;
                     System.out.println("那里");
                     ckxqcx.get(j).setKcs(ckxqcx.get(j).getKcs()+stojlEntityList.get(i).getSl());

@@ -73,7 +73,7 @@ public class CkService {
         for (int i=0;i<cgthxqcx.size();i++) {
             for (int j=0;j<chujllyid.size();j++) {
                 if(chujllyid.get(j)!=null){
-                    if(cgthxqcx.get(i).getProductId()==chujllyid.get(j).getProductId() && cgthxqcx.get(i).getProductFl().equals(chujllyid.get(j).getProductFl()) &&
+                    if(cgthxqcx.get(i).getProductId().equals(chujllyid.get(j).getProductId()) && cgthxqcx.get(i).getProductFl().equals(chujllyid.get(j).getProductFl()) &&
                             cgthxqcx.get(i).getPh().equals(chujllyid.get(j).getPh())){
                         cgthxqcx.get(i).setSl(cgthxqcx.get(i).getSl()-chujllyid.get(j).getSl());
                     }
@@ -88,14 +88,17 @@ public class CkService {
         //该仓库的数据
         List<LibraryxqEntity> ckxqcx = cangkMapper.ckxqcx(libraryId, "");
         for (OrderthxqEntity orderthxqEntity : cgthxqcx) {
-            System.out.println(orderthxqEntity.toString());
+            System.out.println(orderthxqEntity.getProductId());
             for (LibraryxqEntity libraryxqEntity : ckxqcx) {
-                if(orderthxqEntity.getProductId()==libraryxqEntity.getProductId() && orderthxqEntity.getProductFl().equals(libraryxqEntity.getProductFl()) &&
+                if(orderthxqEntity.getProductId().equals(libraryxqEntity.getProductId()) && orderthxqEntity.getProductFl().equals(libraryxqEntity.getProductFl()) &&
                         orderthxqEntity.getPh().equals(libraryxqEntity.getPh())){
+                    System.out.println(1);
                     if(orderthxqEntity.getSl()>libraryxqEntity.getKcs()){
                         orderthxqEntity.setSl(libraryxqEntity.getKcs());
+                        System.out.println("2");
                     }
                     if(orderthxqEntity.getSl()>0){
+                        System.out.println("3");
                         thxq.add(orderthxqEntity);
                     }
                 }
