@@ -77,4 +77,10 @@ public class DoctorEnjoinService {
     }
 
 
+    //执行医嘱查询
+    public List<DoctorEnjoinEntity> execute(){
+        return  doctorEnjoinMapper.execute();
+    };
+
+
 }

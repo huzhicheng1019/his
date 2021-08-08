@@ -29,6 +29,7 @@ public class RoomController {
     @RequestMapping("insertRoom")
     public int demo1(String room){
         RoomEntity roomEntity = JSONObject.parseObject(room, RoomEntity.class);
+        System.out.println("111" +  roomEntity);
         int i = roomService.insertRoom(roomEntity);
         if(i>0){
             return 1;

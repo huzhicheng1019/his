@@ -36,7 +36,15 @@
             where e.emp_dept = 55  and e.emp_tit = 1 and e.emp_depar = #{depaId}
 
         </select>
+    <!--查询住院部的护士-->
+    <select id="selNurse" resultMap="EmpMap">
+            select * from employee e left join dept d on e.emp_dept = d.dept_id
+            left join department de on e.emp_depar = de.depa_id
+            left join title t on e.emp_tit = t.tit_id
 
+            where e.emp_dept = 55  and e.emp_tit = 2 and e.emp_depar = #{depaId}
+
+        </select>
     <resultMap id="EmpAll" type="cn.gson.his.model.pojos.Power.Employee">
         <id property="empId" column="emp_id"></id>
         <result property="empName" column="emp_name"></result>

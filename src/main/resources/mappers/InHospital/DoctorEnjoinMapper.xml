@@ -23,6 +23,19 @@
             <result property="empState" column="emp_state"></result>
         </association>
 
+        <association property="hospitalRegisterEntity" javaType="cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity">
+            <id property="regId" column="reg_id"></id>
+            <result property="regMark" column="reg_mark"></result>
+            <result property="regDate" column="reg_date"></result>
+            <result property="patientNo" column="patient_no"></result>
+            <result property="regName" column="reg_name"></result>
+            <result property="depaId" column="depa_id"></result>
+            <result property="doctorId" column="doctor_id"></result>
+            <result property="doctorName" column="doctor_name"></result>
+            <result property="regIs" column="reg_is"></result>
+            <result property="diagnoseResult" column="diagnose_result"></result>
+        </association>
+
         <collection property="advice" ofType="cn.gson.his.model.pojos.InHospital.DoctorEnjoinsEntity">
             <id property="ensId" column="ens_id"></id>
             <result property="enId" column="en_id"></result>
@@ -110,7 +123,17 @@
         update doctor_enjoins set ens_end = current_timestamp where ens_id = #{ensId}
     </update>
 
+    <!--执行医嘱查询-->
+    <select id="execute" resultMap="EnMap">
+        select * from doctor_enjoin e left join doctor_enjoins en on e.en_id = en.en_id
+        left join employee emp on  e.doctor_id = emp.emp_id
+        left join hospital_register h on e.reg_mark = h.reg_mark
 
+        <where>
+            and e.en_end is null or e.en_end &gt;= current_timestamp
+
+        </where>
+    </select>
     
 
 </mapper>

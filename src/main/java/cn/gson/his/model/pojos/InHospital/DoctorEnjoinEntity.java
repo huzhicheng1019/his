@@ -25,7 +25,22 @@ public class DoctorEnjoinEntity {
     private Integer enState;
     private String enContent;
 
+    //下嘱医生
     private Employee emp;
+    //住院登记信息
+    private HospitalRegisterEntity hospitalRegisterEntity;
+
+
+
+
+    @ManyToOne
+    public HospitalRegisterEntity getHospitalRegisterEntity() {
+        return hospitalRegisterEntity;
+    }
+
+    public void setHospitalRegisterEntity(HospitalRegisterEntity hospitalRegisterEntity) {
+        this.hospitalRegisterEntity = hospitalRegisterEntity;
+    }
 
     private List<DoctorEnjoinsEntity> advice;
     @OneToMany

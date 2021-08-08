@@ -45,4 +45,12 @@ public class DoctorEnjoinController {
     public int demo3(String ensId,String regMark){
         return service.upEns(ensId,regMark);
     }
+
+    //执行医嘱查询
+    @RequestMapping("/execute")
+    public List<DoctorEnjoinEntity> demo4(){
+        return service.execute();
+    }
+
+
 }
