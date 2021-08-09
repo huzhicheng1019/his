@@ -62,5 +62,4 @@ public class DoctorrecordService {
     public List<DoctorrecordEntity>alldoctor(DoctorrecordEntity doctorre){
         return  dm.alldoctor(doctorre);
     }
-
 }

@@ -1,5 +1,7 @@
 package cn.gson.his.controller.Outpatient;
 
+import cn.gson.his.model.mappers.Outpatient.DoctorrecordMapper;
+import cn.gson.his.model.pojos.Outpatient.DoctorrecordEntity;
 import cn.gson.his.model.pojos.Outpatient.PrescriptionEntity;
 import cn.gson.his.model.pojos.Outpatient.PrescriptionsEntity;
 import cn.gson.his.model.service.Outpatient.PrescriptionService;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.print.Doc;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -27,7 +30,7 @@ public class PrescriptionController{
     public int addPrescr(@RequestBody Map<String,Object> data){
 
 
-        try {
+       //try {
             //处方
             LinkedHashMap prescription = (LinkedHashMap)data.get("prescription");
             String json1 = JSONObject.toJSONString(prescription);
@@ -39,13 +42,17 @@ public class PrescriptionController{
             String json = JSONObject.toJSONString(data.get("drug"));
             List<PrescriptionsEntity> prescriptionsEntities = JSONObject.parseArray(json,PrescriptionsEntity.class);
             System.out.println(prescriptionsEntities);
-
-            prescriptionService.addPres(prescriptionEntity,prescriptionsEntities);
+            //修改就诊的状态
+            String state =(String)data.get("state");
+            DoctorrecordEntity doctorr = new DoctorrecordEntity();
+            doctorr.setAttState((String)data.get("state"));
+            doctorr.setRecordNo(prescriptionEntity.getRecordId().getRecordNo());
+            prescriptionService.addPres(prescriptionEntity,prescriptionsEntities,doctorr);
             return 1;
-        }catch (Exception e){
-            System.out.println(e.fillInStackTrace());
-            return 2;
-        }
+//        }catch (Exception e){
+//            System.out.println(e.fillInStackTrace());
+//            return 2;
+//        }
 
 
     }

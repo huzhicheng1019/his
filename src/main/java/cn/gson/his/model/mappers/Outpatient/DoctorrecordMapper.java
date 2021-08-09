@@ -12,7 +12,7 @@ public interface DoctorrecordMapper {
 //    新增就诊记录
     public int addDoctorrecord(DoctorrecordEntity doctorre);
 //    修改就诊记录
-    public int DOCTORRECORD(DoctorrecordEntity doctorre);
+    public int upDoctorrecord(DoctorrecordEntity doctorre);
 // 科室主治医生
     public List<DoctorrecordEntity> alldoctor(DoctorrecordEntity doctorre);
 }

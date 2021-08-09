@@ -38,6 +38,8 @@ public class DoctorrecordController {
     public List<DoctorrecordEntity>allDoctorr(@RequestBody Map<String,Object> date){
         System.out.println(date);
         DoctorrecordEntity doctorrecordEntity = new DoctorrecordEntity();
+
+        doctorrecordEntity.setAttState((String)date.get("state"));
         //就诊科室
         Department department = new Department();
         doctorrecordEntity.setRecordIndoor(department);
@@ -93,7 +95,7 @@ public class DoctorrecordController {
         LinkedHashMap docto  = (LinkedHashMap)date.get("form");
         String doctorrecord = JSONObject.toJSONString(docto);
         DoctorrecordEntity doctorrecordEntity = JSONObject.parseObject(doctorrecord, DoctorrecordEntity.class);
-
+        doctorrecordEntity.setAttState("就诊");
         //修改挂号状态根据编号
         Integer state =(int)date.get("state");
         Integer HnagNo = (int)date.get("hangNo");
