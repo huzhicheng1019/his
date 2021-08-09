@@ -101,7 +101,7 @@ public class RkService {
             System.out.println(ckxqcx.size());
             for (int j=0;j<ckxqcx.size();j++){
                 System.out.println(ckxqcx.get(j));
-                if(ckxqcx.get(j).getProductId()==stojlEntityList.get(i).getProductId() && ckxqcx.get(j).getProductFl().equals(stojlEntityList.get(i).getProductFl()) && ckxqcx.get(j).getPh().equals(stojlEntityList.get(i).getPh())){
+                if(ckxqcx.get(j).getProductId().equals(stojlEntityList.get(i).getProductId()) && ckxqcx.get(j).getProductFl().equals(stojlEntityList.get(i).getProductFl()) && ckxqcx.get(j).getPh().equals(stojlEntityList.get(i).getPh())){
                     e=1;
                     System.out.println("那里");
                     ckxqcx.get(j).setKcs(ckxqcx.get(j).getKcs()+stojlEntityList.get(i).getSl());
@@ -126,7 +126,7 @@ public class RkService {
                             sjprice=concxid.getConPrice();
                             gysEntity=concxid.getGys();
                         }
-                        LibraryxqEntity libraryxqEntity=new LibraryxqEntity(stojlEntityList.get(i).getProductId(),stojlEntityList.get(i).getProductName(),stojlEntityList.get(i).getProductFl(),stojlEntityList.get(i).getSl(),stojlEntityList.get(i).getPh(),stojlEntityList.get(i).getScdate(),stojlEntityList.get(i).getGqdate(),stoEntity.getLibrary(),price,stojlEntityList.get(i).getGe(),stojlEntityList.get(i).getSl(),gysEntity,sjprice,stojlEntityList.get(i).getKszt(),stojlEntityList.get(i).getGesl(),stojlEntityList.get(i).getShdw());
+                        LibraryxqEntity libraryxqEntity=new LibraryxqEntity(stojlEntityList.get(i).getProductId(),stojlEntityList.get(i).getProductName(),stojlEntityList.get(i).getProductFl(),stojlEntityList.get(i).getSl(),stojlEntityList.get(i).getPh(),stojlEntityList.get(i).getScdate(),stojlEntityList.get(i).getGqdate(),stoEntity.getLibrary(),price,stojlEntityList.get(i).getGe(),0,gysEntity,sjprice,stojlEntityList.get(i).getKszt(),stojlEntityList.get(i).getGesl(),stojlEntityList.get(i).getShdw());
                         cankxqDao.save(libraryxqEntity);
                     }else{
                         e=0;

@@ -62,5 +62,11 @@
         </where>
     </select>
 
+    <select id="dbxx" resultMap="dbMap">
+        SELECT a.*,e.emp_name e_name,l.library_name lname from ALLOT a LEFT JOIN EMPLOYEE e ON a.zxr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID where a.allot_id=#{id}
+    </select>
 
+    <select id="stocx" resultType="cn.gson.his.model.pojos.Drug.StoEntity">
+        select * from sto where LY_ID=#{id} and why=1
+    </select>
 </mapper>

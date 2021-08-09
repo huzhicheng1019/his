@@ -35,6 +35,9 @@
         <result column="PH" property="ph"></result>
         <result column="MFG" property="mfg"></result>
         <result column="GQDATE" property="gqdate"></result>
+        <result column="KSZT" property="kszt"></result>
+        <result column="GESL" property="gesl"></result>
+        <result column="SHDW" property="shdw"></result>
         <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
             <id column="gys_id" property="gysId"></id>
             <result column="g_name" property="gysName"></result>

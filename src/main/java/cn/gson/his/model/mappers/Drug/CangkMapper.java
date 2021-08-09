@@ -12,6 +12,8 @@ public interface CangkMapper {
 
     public List<LibraryxqEntity> ckxqcx(@Param("id") Integer id,@Param("nr") String nr);
 
+    public List<LibraryxqEntity> dbckxqcx(@Param("id") Integer id,@Param("nr") String nr,@Param("ckid") Integer ckid);
+
     public List<LibraryInfoEntity> ckcxid(Integer id);
 
     public List<StoEntity> stocx(@Param("id") Integer id);

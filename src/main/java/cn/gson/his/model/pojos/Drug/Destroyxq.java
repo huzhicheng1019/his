@@ -7,15 +7,17 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-public class Allotxq {
-    private Integer allotxqId;
-    private Integer allotId;
+public class Destroyxq {
+    private Integer destroyxqId;
+    private Integer destroyId;
     private Integer productId;
     private String productName;
     private String productFl;
     private Integer sl;
     private String ph;
+    private String why;
     private String bz;
+    private LibraryInfoEntity library;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp scdate;
     private String ge;
@@ -23,33 +25,29 @@ public class Allotxq {
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp gqdate;
     private Long price;
-    private LibraryInfoEntity libraryto;//调离仓库
     private String kszt;
     private Integer gesl;
     private String shdw;
     private Long sjprice;
 
-
     @Id
-    @GeneratedValue(generator = "SEQ")
-    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
-    @Column(name = "ALLOTXQ_ID", nullable = false, precision = 0)
-    public Integer getAllotxqId() {
-        return allotxqId;
+    @Column(name = "DESTROYXQ_ID", nullable = false, precision = 0)
+    public Integer getDestroyxqId() {
+        return destroyxqId;
     }
 
-    public void setAllotxqId(Integer allotxqId) {
-        this.allotxqId = allotxqId;
+    public void setDestroyxqId(Integer destroyxqId) {
+        this.destroyxqId = destroyxqId;
     }
 
     @Basic
-    @Column(name = "ALLOT_ID", nullable = true, precision = 0)
-    public Integer getAllotId() {
-        return allotId;
+    @Column(name = "DESTROY_ID", nullable = true, precision = 0)
+    public Integer getDestroyId() {
+        return destroyId;
     }
 
-    public void setAllotId(Integer allotId) {
-        this.allotId = allotId;
+    public void setDestroyId(Integer destroyId) {
+        this.destroyId = destroyId;
     }
 
     @Basic
@@ -103,6 +101,16 @@ public class Allotxq {
     }
 
     @Basic
+    @Column(name = "WHY", nullable = true, length = 3072)
+    public String getWhy() {
+        return why;
+    }
+
+    public void setWhy(String why) {
+        this.why = why;
+    }
+
+    @Basic
     @Column(name = "BZ", nullable = true, length = 3072)
     public String getBz() {
         return bz;
@@ -110,6 +118,16 @@ public class Allotxq {
 
     public void setBz(String bz) {
         this.bz = bz;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "LIBRARY_ID", referencedColumnName = "LIBRARY_ID")
+    public LibraryInfoEntity getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(LibraryInfoEntity library) {
+        this.library = library;
     }
 
     @Basic
@@ -162,18 +180,8 @@ public class Allotxq {
         this.price = price;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "LIBRARYTO_ID", referencedColumnName = "LIBRARY_ID")
-    public LibraryInfoEntity getLibraryto() {
-        return libraryto;
-    }
-
-    public void setLibraryto(LibraryInfoEntity libraryto) {
-        this.libraryto = libraryto;
-    }
-
     @Basic
-    @Column(name = "KSZT")
+    @Column(name = "KSZT", nullable = true, length = 255)
     public String getKszt() {
         return kszt;
     }
@@ -183,7 +191,7 @@ public class Allotxq {
     }
 
     @Basic
-    @Column(name = "GESL")
+    @Column(name = "GESL", nullable = true, precision = 0)
     public Integer getGesl() {
         return gesl;
     }
@@ -193,7 +201,7 @@ public class Allotxq {
     }
 
     @Basic
-    @Column(name = "Shdw")
+    @Column(name = "SHDW", nullable = true, length = 255)
     public String getShdw() {
         return shdw;
     }
@@ -203,7 +211,7 @@ public class Allotxq {
     }
 
     @Basic
-    @Column(name = "SJPRICE")
+    @Column(name = "SJPRICE", nullable = true, precision = 0)
     public Long getSjprice() {
         return sjprice;
     }
@@ -216,15 +224,12 @@ public class Allotxq {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Allotxq allotxq = (Allotxq) o;
-        return Objects.equals(allotxqId, allotxq.allotxqId) && Objects.equals(allotId, allotxq.allotId) && Objects.equals(productId, allotxq.productId) && Objects.equals(productName, allotxq.productName) && Objects.equals(productFl, allotxq.productFl) && Objects.equals(sl, allotxq.sl) && Objects.equals(ph, allotxq.ph) && Objects.equals(bz, allotxq.bz) && Objects.equals(scdate, allotxq.scdate) && Objects.equals(ge, allotxq.ge) && Objects.equals(gys, allotxq.gys) && Objects.equals(gqdate, allotxq.gqdate) &&  Objects.equals(libraryto, allotxq.libraryto) && Objects.equals(kszt, allotxq.kszt) &&
-                Objects.equals(gesl, allotxq.gesl) &&
-                Objects.equals(sjprice, allotxq.sjprice) &&
-                Objects.equals(shdw, allotxq.shdw) && Objects.equals(price, allotxq.price);
+        Destroyxq destroyxq = (Destroyxq) o;
+        return Objects.equals(destroyxqId, destroyxq.destroyxqId) && Objects.equals(destroyId, destroyxq.destroyId) && Objects.equals(productId, destroyxq.productId) && Objects.equals(productName, destroyxq.productName) && Objects.equals(productFl, destroyxq.productFl) && Objects.equals(sl, destroyxq.sl) && Objects.equals(ph, destroyxq.ph) && Objects.equals(why, destroyxq.why) && Objects.equals(bz, destroyxq.bz) && Objects.equals(library, destroyxq.library) && Objects.equals(scdate, destroyxq.scdate) && Objects.equals(ge, destroyxq.ge) && Objects.equals(gys, destroyxq.gys) && Objects.equals(gqdate, destroyxq.gqdate) && Objects.equals(price, destroyxq.price) && Objects.equals(kszt, destroyxq.kszt) && Objects.equals(gesl, destroyxq.gesl) && Objects.equals(shdw, destroyxq.shdw) && Objects.equals(sjprice, destroyxq.sjprice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(allotxqId, allotId, productId, productName, productFl, sl, ph, bz, scdate, ge, gys, gqdate, libraryto, price,kszt,gesl,shdw,sjprice);
+        return Objects.hash(destroyxqId, destroyId, productId, productName, productFl, sl, ph, why, bz, library, scdate, ge, gys, gqdate, price, kszt, gesl, shdw, sjprice);
     }
 }
