@@ -20,4 +20,7 @@ public interface PrepayMapper {
 
     //修改押金表余额
     public int updatePre(PrepayEntity prepay);
+
+    //根据住院号修改余额
+    public int updateMoney(PrepayEntity prepay);
 }

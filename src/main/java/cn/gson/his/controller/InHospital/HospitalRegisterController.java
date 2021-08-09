@@ -51,6 +51,10 @@ public class HospitalRegisterController {
         return reg.selAll(text);
     };
 
-
+    //查询执行医嘱
+    @RequestMapping("/query")
+    public List<HospitalRegisterEntity> demo4(){
+        return reg.query();
+    };
 
 }

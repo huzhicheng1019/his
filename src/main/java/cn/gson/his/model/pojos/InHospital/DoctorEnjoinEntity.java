@@ -42,6 +42,7 @@ public class DoctorEnjoinEntity {
         this.hospitalRegisterEntity = hospitalRegisterEntity;
     }
 
+    //医嘱详情
     private List<DoctorEnjoinsEntity> advice;
     @OneToMany
     public List<DoctorEnjoinsEntity> getAdvice() {

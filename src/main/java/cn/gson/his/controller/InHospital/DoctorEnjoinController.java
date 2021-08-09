@@ -48,8 +48,16 @@ public class DoctorEnjoinController {
 
     //执行医嘱查询
     @RequestMapping("/execute")
-    public List<DoctorEnjoinEntity> demo4(){
-        return service.execute();
+    public List<DoctorEnjoinEntity> demo4(String regMark){
+        return service.execute(regMark);
+    }
+
+
+    //确认执行医嘱  新增执行记录 并扣费
+    @RequestMapping("/carryout")
+    public String demo5(String regMark){
+        System.out.println("住院号" + regMark);
+        return service.carryout(regMark);
     }
 
 

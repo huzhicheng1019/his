@@ -69,7 +69,21 @@
             <result property="enState" column="en_state"></result>
             <result property="enContent" column="en_content"></result>
         </collection>
-
+        <!--医嘱执行记录-->
+        <collection property="doctorExecute" ofType="cn.gson.his.model.pojos.InHospital.DoctorExecuteEntity">
+            <id column="exe_id" property="exeId"></id>
+            <result column="exe_date" property="exeDate"></result>
+            <result column="ens_id" property="ensId"></result>
+            <result column="nurse_id" property="nurseId"></result>
+            <result column="nurse_name" property="nurseName"></result>
+            <result column="reg_mark" property="regMark"></result>
+            <result column="drug_id" property="drugId"></result>
+            <result column="drug_name" property="drugName"></result>
+            <result column="drug_ge" property="drugGe"></result>
+            <result column="drug_dw" property="drugDw"></result>
+            <result column="drug_count" property="drugCount"></result>
+            <result column="drug_price" property="drugPrice"></result>
+        </collection>
     </resultMap>
 
     <!--新增住院登记-->
@@ -117,7 +131,7 @@
                     and (h.reg_mark like '%${text}%' or h.reg_name like '%${text}%')
                 </if>
 
-                and h.reg_is = 0
+                and h.reg_is = 0 and b.beds_is = 0
             </where>
 
     </select>
@@ -129,11 +143,12 @@
           left join patientdata p on h.patient_no = p.patient_no
           left join prepay pr on h.reg_mark = pr.reg_mark
           left join doctor_enjoin en on h.reg_mark = en.reg_mark
+          left join doctor_execute ex on h.reg_mark = ex.reg_mark
 
         <where>
 
 
-            and h.reg_is = 0
+            and h.reg_is = 0 and b.beds_is = 0
         </where>
 
     </select>

@@ -26,4 +26,6 @@ public interface HospitalRegisterMapper {
     public List<HospitalRegisterEntity> selAll(String text);
 
 
+    //查询执行医嘱
+    public List<HospitalRegisterEntity> query();
 }

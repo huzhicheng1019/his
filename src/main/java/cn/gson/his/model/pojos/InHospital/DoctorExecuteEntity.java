@@ -9,10 +9,16 @@ import java.util.Objects;
 public class DoctorExecuteEntity {
     private int exeId;
     private Timestamp exeDate;
-    private Integer enId;
+    private Integer ensId;
     private Integer nurseId;
+    private String nurseName;
     private String regMark;
-    private String exeText;
+    private Integer drugId;
+    private String drugName;
+    private String drugGe;
+    private String drugDw;
+    private Integer drugCount;
+    private Long drugPrice;
 
     @Id
     @Column(name = "EXE_ID")
@@ -35,13 +41,13 @@ public class DoctorExecuteEntity {
     }
 
     @Basic
-    @Column(name = "EN_ID")
-    public Integer getEnId() {
-        return enId;
+    @Column(name = "ENS_ID")
+    public Integer getEnsId() {
+        return ensId;
     }
 
-    public void setEnId(Integer enId) {
-        this.enId = enId;
+    public void setEnsId(Integer ensId) {
+        this.ensId = ensId;
     }
 
     @Basic
@@ -55,6 +61,16 @@ public class DoctorExecuteEntity {
     }
 
     @Basic
+    @Column(name = "NURSE_NAME")
+    public String getNurseName() {
+        return nurseName;
+    }
+
+    public void setNurseName(String nurseName) {
+        this.nurseName = nurseName;
+    }
+
+    @Basic
     @Column(name = "REG_MARK")
     public String getRegMark() {
         return regMark;
@@ -65,13 +81,63 @@ public class DoctorExecuteEntity {
     }
 
     @Basic
-    @Column(name = "EXE_TEXT")
-    public String getExeText() {
-        return exeText;
+    @Column(name = "DRUG_ID")
+    public Integer getDrugId() {
+        return drugId;
     }
 
-    public void setExeText(String exeText) {
-        this.exeText = exeText;
+    public void setDrugId(Integer drugId) {
+        this.drugId = drugId;
+    }
+
+    @Basic
+    @Column(name = "DRUG_NAME")
+    public String getDrugName() {
+        return drugName;
+    }
+
+    public void setDrugName(String drugName) {
+        this.drugName = drugName;
+    }
+
+    @Basic
+    @Column(name = "DRUG_GE")
+    public String getDrugGe() {
+        return drugGe;
+    }
+
+    public void setDrugGe(String drugGe) {
+        this.drugGe = drugGe;
+    }
+
+    @Basic
+    @Column(name = "DRUG_DW")
+    public String getDrugDw() {
+        return drugDw;
+    }
+
+    public void setDrugDw(String drugDw) {
+        this.drugDw = drugDw;
+    }
+
+    @Basic
+    @Column(name = "DRUG_COUNT")
+    public Integer getDrugCount() {
+        return drugCount;
+    }
+
+    public void setDrugCount(Integer drugCount) {
+        this.drugCount = drugCount;
+    }
+
+    @Basic
+    @Column(name = "DRUG_PRICE")
+    public Long getDrugPrice() {
+        return drugPrice;
+    }
+
+    public void setDrugPrice(Long drugPrice) {
+        this.drugPrice = drugPrice;
     }
 
     @Override
@@ -81,14 +147,20 @@ public class DoctorExecuteEntity {
         DoctorExecuteEntity that = (DoctorExecuteEntity) o;
         return exeId == that.exeId &&
                 Objects.equals(exeDate, that.exeDate) &&
-                Objects.equals(enId, that.enId) &&
+                Objects.equals(ensId, that.ensId) &&
                 Objects.equals(nurseId, that.nurseId) &&
+                Objects.equals(nurseName, that.nurseName) &&
                 Objects.equals(regMark, that.regMark) &&
-                Objects.equals(exeText, that.exeText);
+                Objects.equals(drugId, that.drugId) &&
+                Objects.equals(drugName, that.drugName) &&
+                Objects.equals(drugGe, that.drugGe) &&
+                Objects.equals(drugDw, that.drugDw) &&
+                Objects.equals(drugCount, that.drugCount) &&
+                Objects.equals(drugPrice, that.drugPrice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(exeId, exeDate, enId, nurseId, regMark, exeText);
+        return Objects.hash(exeId, exeDate, ensId, nurseId, nurseName, regMark, drugId, drugName, drugGe, drugDw, drugCount, drugPrice);
     }
 }

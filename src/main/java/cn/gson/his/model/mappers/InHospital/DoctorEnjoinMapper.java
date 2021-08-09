@@ -29,6 +29,6 @@ public interface DoctorEnjoinMapper {
 
 
     //执行医嘱查询
-    public List<DoctorEnjoinEntity> execute();
+    public List<DoctorEnjoinEntity> execute(String regMark);
 
 }
