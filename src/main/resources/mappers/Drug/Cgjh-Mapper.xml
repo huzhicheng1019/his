@@ -53,7 +53,7 @@
     </select>
 
     <select id="cgjhcxid" resultMap="cgjhMap">
-        select select p.*,e.EMP_NAME e_name from PLAN_INFO p left join EMPLOYEE e on p.ZDR=e.EMP_ID where PLAN_ID=#{id}
+        select p.*,e.EMP_NAME e_name from PLAN_INFO p left join EMPLOYEE e on p.ZDR=e.EMP_ID where PLAN_ID=#{id}
     </select>
 
     <select id="cgcx" resultType="cn.gson.his.model.pojos.Drug.OrdersEntity">

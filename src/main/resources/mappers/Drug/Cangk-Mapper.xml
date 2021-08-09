@@ -49,6 +49,21 @@
         </where>
     </select>
 
+    <select id="dbckxqcx" resultMap="ckxqMap">
+        select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
+        <where>
+            <if test="id!=null and id!=0">
+                and l.LIBRARY_ID=#{id}
+            </if>
+            <if test="ckid!=null and ckid!=0">
+                and l.LIBRARY_ID!=#{ckid}
+            </if>
+            <if test="nr!=null and nr!=''">
+                and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
     <select id="ckcxid" resultType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
         select * from LIBRARY_INFO where LIBRARY_ID=#{id}
     </select>

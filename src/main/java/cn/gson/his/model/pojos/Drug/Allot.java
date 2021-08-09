@@ -19,6 +19,8 @@ public class Allot {
     private Integer zt;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "ALLOT_ID", nullable = false, precision = 0)
     public Integer getAllotId() {
         return allotId;

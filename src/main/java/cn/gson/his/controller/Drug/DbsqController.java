@@ -1,11 +1,19 @@
 package cn.gson.his.controller.Drug;
 
+import cn.gson.his.model.pojos.Drug.Allot;
+import cn.gson.his.model.pojos.Drug.Allotxq;
+import cn.gson.his.model.pojos.Drug.OrdersEntity;
+import cn.gson.his.model.pojos.Drug.OrderxqEntity;
 import cn.gson.his.model.service.Drug.DbsqService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
@@ -33,10 +41,71 @@ public class DbsqController {
     }
 
     @RequestMapping("dbckxq")
-    public Map<String,Object> getdbckxq(Integer id,String nr){
+    public Map<String,Object> getdbckxq(Integer id,String nr,Integer ckid){
         System.out.println(id);
         System.out.println(nr);
-        Map<String, Object> stringObjectMap = dbsqService.dbckxqcx(id,nr);
+        Map<String, Object> stringObjectMap = dbsqService.dbckxqcx(id,nr,ckid);
         return stringObjectMap;
+    }
+
+    @RequestMapping("add-db")
+    public String dbxz(@RequestBody Map<String,Object> map){
+        System.out.println("开始：");
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println(1);
+        System.out.println(map.get("allot"));
+        System.out.println(map.get("xqsj"));
+        Allot allot = mapper.convertValue(map.get("allot"), Allot.class);
+        System.out.println(2);
+        List<Allotxq> xqsj=new ArrayList<>();
+        List<Allotxq> delxq=new ArrayList<>();
+        List<Object> list = (List<Object>)map.get("xqsj");
+        List<Object> list1 = (List<Object>)map.get("delxq");
+        for (Object i : list) {
+            System.out.println(i);
+            Allotxq allotxq = mapper.convertValue(i, Allotxq.class);
+            xqsj.add(allotxq);
+        }
+        for (Object i : list1){
+            Allotxq allotxq = mapper.convertValue(i, Allotxq.class);
+            delxq.add(allotxq);
+        }
+        try {
+            dbsqService.xzxgdb(allot,xqsj,delxq);
+//            cangkService.xzgxck(library, xqsj, delxq);
+            return "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+
+    @RequestMapping("dbxx")
+    public Map<String,Object> getcgxx(Integer id){
+        System.out.println("开始：");
+        Map<String, Object> stringObjectMap = dbsqService.dbcxid(id);
+        return stringObjectMap;
+    }
+
+    @RequestMapping("delxg-dbpd")
+    public String delxgcgpd(Integer allotId){
+        System.out.println(allotId);
+        try {
+            return dbsqService.scxgpd(allotId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+
+    @RequestMapping("del-db")
+    public String delcg(Integer allotId){
+        System.out.println(allotId);
+        try {
+            return dbsqService.dbdel(allotId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
     }
 }

@@ -126,7 +126,7 @@ public class RkService {
                             sjprice=concxid.getConPrice();
                             gysEntity=concxid.getGys();
                         }
-                        LibraryxqEntity libraryxqEntity=new LibraryxqEntity(stojlEntityList.get(i).getProductId(),stojlEntityList.get(i).getProductName(),stojlEntityList.get(i).getProductFl(),stojlEntityList.get(i).getSl(),stojlEntityList.get(i).getPh(),stojlEntityList.get(i).getScdate(),stojlEntityList.get(i).getGqdate(),stoEntity.getLibrary(),price,stojlEntityList.get(i).getGe(),stojlEntityList.get(i).getSl(),gysEntity,sjprice,stojlEntityList.get(i).getKszt(),stojlEntityList.get(i).getGesl(),stojlEntityList.get(i).getShdw());
+                        LibraryxqEntity libraryxqEntity=new LibraryxqEntity(stojlEntityList.get(i).getProductId(),stojlEntityList.get(i).getProductName(),stojlEntityList.get(i).getProductFl(),stojlEntityList.get(i).getSl(),stojlEntityList.get(i).getPh(),stojlEntityList.get(i).getScdate(),stojlEntityList.get(i).getGqdate(),stoEntity.getLibrary(),price,stojlEntityList.get(i).getGe(),0,gysEntity,sjprice,stojlEntityList.get(i).getKszt(),stojlEntityList.get(i).getGesl(),stojlEntityList.get(i).getShdw());
                         cankxqDao.save(libraryxqEntity);
                     }else{
                         e=0;

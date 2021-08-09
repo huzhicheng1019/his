@@ -65,7 +65,7 @@ public class CgService {
 
     public void xzxgcg(OrdersEntity ordersEntity, List<OrderxqEntity> orderxqEntityList, List<OrderxqEntity> delxq){
         for (OrderxqEntity orderxqEntity : delxq) {
-            cgxqDao.deleteById(orderxqEntity.getProductId());
+            cgxqDao.deleteById(orderxqEntity.getOrderxqId());
 
         }
         cgDao.save(ordersEntity);
