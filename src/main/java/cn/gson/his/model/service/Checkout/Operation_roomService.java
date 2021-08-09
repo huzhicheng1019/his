@@ -4,7 +4,6 @@ package cn.gson.his.model.service.Checkout;
 
 import cn.gson.his.model.mappers.Checkout.Operation_roomMapper;
 import cn.gson.his.model.pojos.Checkout.OperationRoomEntity;
-import cn.gson.his.model.pojos.Checkout.OperationRoomEntity;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
