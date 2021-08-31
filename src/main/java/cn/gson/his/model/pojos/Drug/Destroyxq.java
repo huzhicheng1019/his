@@ -31,6 +31,8 @@ public class Destroyxq {
     private Long sjprice;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "DESTROYXQ_ID", nullable = false, precision = 0)
     public Integer getDestroyxqId() {
         return destroyxqId;
@@ -120,7 +122,7 @@ public class Destroyxq {
         this.bz = bz;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "LIBRARY_ID", referencedColumnName = "LIBRARY_ID")
     public LibraryInfoEntity getLibrary() {
         return library;

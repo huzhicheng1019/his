@@ -97,4 +97,15 @@ public class ChuEntity {
     public int hashCode() {
         return Objects.hash(chuId, chuDate, library, why, lyId,employee);
     }
+
+    public ChuEntity() {
+    }
+
+    public ChuEntity(Timestamp chuDate, LibraryInfoEntity library, Employee employee, Integer why, String lyId) {
+        this.chuDate = chuDate;
+        this.library = library;
+        this.employee = employee;
+        this.why = why;
+        this.lyId = lyId;
+    }
 }

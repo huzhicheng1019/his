@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Drug.XhMapper">
+    <resultMap id="xhMap" type="cn.gson.his.model.pojos.Drug.Destroy">
+        <id column="DESTROY_ID" property="destroyId"></id>
+        <result column="DESTROY_DATE" property="destroyDate"></result>
+        <result column="SQDATE" property="sqdate"></result>
+        <result column="DESTROY_ZT" property="destroyZt"></result>
+        <result column="BZ" property="bz"></result>
+        <association property="employee" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id column="ZXR" property="empId"></id>
+            <result column="e_name" property="empName"></result>
+        </association>
+    </resultMap>
+
+    <select id="xhcx" resultMap="xhMap">
+        SELECT a.*,e.emp_name e_name from DESTROY a LEFT JOIN EMPLOYEE e ON a.zxr = e.EMP_ID
+        <where>
+            <if test="nr!=null and nr!=''">
+                and DESTROY_ID like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="xhcxid" resultMap="xhMap">
+        SELECT a.*,e.emp_name e_name from DESTROY a LEFT JOIN EMPLOYEE e ON a.zxr = e.EMP_ID where DESTROY_ID=#{id}
+    </select>
+
+    <resultMap id="xhxqMap" type="cn.gson.his.model.pojos.Drug.Destroyxq">
+        <id column="DESTROYXQ_ID" property="destroyxqId"></id>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="PRODUCT_NAME" property="productName"></result>
+        <result column="PRODUCT_FL" property="productFl"></result>
+        <result column="SL" property="sl"></result>
+        <result column="PH" property="ph"></result>
+        <result column="SCDATE" property="scdate"></result>
+        <result column="BZ" property="bz"></result>
+        <result column="GE" property="ge"></result>
+        <result column="GQDATE" property="gqdate"></result>
+        <result column="PRICE" property="price"></result>
+        <result column="DESTROY_ID" property="destroyId"></result>
+        <result column="KSZT" property="kszt"></result>
+        <result column="GESL" property="gesl"></result>
+        <result column="SHDW" property="shdw"></result>
+        <association property="library" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
+            <id column="LIBRARYTO_ID" property="libraryId"></id>
+            <result column="ltoname" property="libraryName"></result>
+        </association>
+        <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
+    </resultMap>
+
+    <select id="xhxqcx" resultMap="xhxqMap">
+        select s.*,g.gys_name g_name,lto.library_name ltoname from DESTROYXQ s left join gys g on s.gys_id=g.gys_id LEFT JOIN LIBRARY_INFO lto on s.LIBRARY_ID=lto.LIBRARY_ID
+        <where>
+            DESTROY_ID=#{id}
+            <if test="nr!=null and nr!=''">
+                and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+</mapper>

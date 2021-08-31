@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Drug.YfMapper">
+    <resultMap id="yfMap" type="cn.gson.his.model.pojos.Drug.PillsEntity">
+        <id column="PILLS_ID" property="pillsId"></id>
+        <result column="PILLS_DATE" property="pillsDate"></result>
+        <result column="FYLY_ID" property="fylyId"></result>
+        <result column="FYLY_FL" property="fylyFl"></result>
+        <result column="ZJE" property="zje"></result>
+        <result column="FQZT" property="fqzt"></result>
+        <result column="ZT" property="zt"></result>
+        <result column="TQJE" property="tqje"></result>
+        <result column="BJJE" property="bjje"></result>
+        <result column="YFJE" property="yfje"></result>
+        <result column="SFJE" property="sfje"></result>
+        <association property="library" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
+            <id column="LIBRARY_ID" property="libraryId"></id>
+            <result column="lname" property="libraryName"></result>
+        </association>
+        <association property="employee" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id column="ZXR" property="empId"></id>
+            <result column="e_name" property="empName"></result>
+        </association>
+    </resultMap>
+
+    <select id="yfcx" resultMap="yfMap">
+        SELECT a.*,e.emp_name e_name,l.library_name lname from PILLS a LEFT JOIN EMPLOYEE e ON a.fyr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID
+        <where>
+            <if test="nr!=null and nr!=''">
+                and PILLS_ID like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="yfxqMap" type="cn.gson.his.model.pojos.Drug.Pillsxq">
+        <id column="PILLSXQ_ID" property="pillsxqId"></id>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="PRODUCT_NAME" property="productName"></result>
+        <result column="PRODUCT_FL" property="productFl"></result>
+        <result column="SL" property="sl"></result>
+        <result column="PH" property="ph"></result>
+        <result column="SCDATE" property="scdate"></result>
+        <result column="BZ" property="bz"></result>
+        <result column="DRUG_GE" property="drugGe"></result>
+        <result column="GQDATE" property="gqdate"></result>
+        <result column="DRUG_PRICE" property="drugPrice"></result>
+        <result column="PRICE" property="price"></result>
+        <result column="PILLS_ID" property="pillsId"></result>
+        <result column="KSZT" property="kszt"></result>
+        <result column="GESL" property="gesl"></result>
+        <result column="SHDW" property="shdw"></result>
+        <result column="DW" property="dw"></result>
+        <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
+    </resultMap>
+
+    <select id="yfxqcx" resultMap="yfxqMap">
+        select s.*,g.gys_name g_name from PILLSXQ s left join gys g on s.gys_id=g.gys_id
+        <where>
+            PILLS_ID=#{id}
+            <if test="nr!=null and nr!=''">
+                and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+
+    <resultMap id="prescs" type="cn.gson.his.model.pojos.Outpatient.PrescriptionsEntity">
+        <id column="CHINESE_NO" property="chineseNo"/>
+        <result column="C_COUNT" property="cCount"/>
+        <result column="C_PRICE" property="cPrice"/>
+        <result column="PRES_NO" property="presNo"/>
+        <result column="W_SKIN" property="wSkin"/>
+        <result column="W_SKINRESULT" property="wSkinresult"/>
+        <result column="C_STATE" property="cState"/>
+        <result column="P_TYPE" property="pType"/>
+        <result column="CHINESE_ID" property="chineseId"/>
+        <result column="CHINESE_NAME" property="ChineseName"/>
+        <result column="CHINESE_GG" property="ChineseGG"/>
+        <result column="CHINESE_DW" property="ChineseDW"/>
+        <result column="CHINESE_YF" property="ChineseYF"/>
+        <association property="presId" javaType="cn.gson.his.model.pojos.Outpatient.PrescriptionEntity">
+            <id column="PRES_NO" property="presNo"/>
+            <result column="PRES_NAME" property="presName"/>
+            <result column="PRES_DATE" property="presDate"/>
+            <result column="NEW_SEE" property="newSee"/>
+            <result column="PRIVE_TYPE" property="priveType"/>
+            <result column="EXPLAIN" property="explain"/>
+            <result column="TOTAL_PRICE" property="totalPrice"/>
+            <result column="MEDICINE_TYPE" property="medicineType"/>
+        </association>
+    </resultMap>
+    <select id="cfxqcx" resultMap="prescs">
+        select * from PRESCRIPTIONS where PRES_ID=#{id}
+    </select>
+</mapper>

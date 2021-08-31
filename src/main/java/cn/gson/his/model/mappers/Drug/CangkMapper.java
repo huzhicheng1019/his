@@ -23,4 +23,8 @@ public interface CangkMapper {
     public List<ChuEntity> chucx(@Param("id") Integer id);
 
     public List<ChujlEntity> chujlcx(@Param("id") Integer id,@Param("proid") Integer proid,@Param("fl") String fl,@Param("ph") String ph);
+
+    public List<LibraryInfoEntity> yfckcx();
+
+    public List<LibraryxqEntity> yfcfcx(@Param("id") Integer id,@Param("pid") Integer pid,@Param("fl") String fl);
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +57,8 @@ public class DbsqController {
         System.out.println(map.get("allot"));
         System.out.println(map.get("xqsj"));
         Allot allot = mapper.convertValue(map.get("allot"), Allot.class);
+        Timestamp d = new Timestamp(System.currentTimeMillis());
+        allot.setSqdate(d);
         System.out.println(2);
         List<Allotxq> xqsj=new ArrayList<>();
         List<Allotxq> delxq=new ArrayList<>();
