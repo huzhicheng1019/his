@@ -7,7 +7,7 @@
     <id column="CHINESE_NO" property="chineseNo"/>
     <result column="C_COUNT" property="cCount"/>
     <result column="C_PRICE" property="cPrice"/>
-    <result column="PRES_NO" property="presNo"/>
+    <result column="PRICE" property="price"/>
     <result column="W_SKIN" property="wSkin"/>
     <result column="W_SKINRESULT" property="wSkinresult"/>
     <result column="C_STATE" property="cState"/>
@@ -17,7 +17,7 @@
     <result column="CHINESE_GG" property="ChineseGG"/>
     <result column="CHINESE_DW" property="ChineseDW"/>
     <result column="CHINESE_YF" property="ChineseYF"/>
-    <association property="presId" javaType="cn.gson.his.model.pojos.Outpatient.PrescriptionsEntity">
+    <association property="presId" javaType="cn.gson.his.model.pojos.Outpatient.PrescriptionEntity">
         <id column="PRES_NO" property="presNo"/>
         <result column="PRES_NAME" property="presName"/>
         <result column="PRES_DATE" property="presDate"/>
@@ -26,14 +26,40 @@
         <result column="EXPLAIN" property="explain"/>
         <result column="TOTAL_PRICE" property="totalPrice"/>
         <result column="MEDICINE_TYPE" property="medicineType"/>
+        <association property="recordId" javaType="cn.gson.his.model.pojos.Outpatient.DoctorrecordEntity">
+            <id column="RECORD_NO" property="recordNo"/>
+            <result column="RECORD_IDENTITY" property="recordIdentity"/>
+            <result column="RECORD_NAME" property="recordName"/>
+            <result column="RECORD_PHONE" property="recordPhone"/>
+            <result column="DOCTOR_NAME" property="doctorName"/>
+            <result column="RECORD_RECORD" property="recordRecord"/>
+        </association>
+        <association property="doctorName" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id property="empId" column="EMP_ID"></id>
+            <result property="empName" column="EMP_NAME"></result>
+        </association>
+        <!--    患者信息-->
+        <association property="patientNo" javaType="cn.gson.his.model.pojos.Outpatient.PatientdataEntity">
+            <id column="PATIENT_NO" property="patientNo"></id>
+            <result column="PATIENT_NAME" property="patientName"/>
+            <result column="PATIENT_SEX" property="patientSex"/>
+            <result column="PATIENT_AGE" property="patientAge"/>
+            <result column="PATIENT_PHONE" property="patientPhone"/>
+            <result column="PATIENT_INSU" property="patientInsu"/>
+            <result column="PATIENT_IDENTITY" property="patientIdentity"/>
+            <result column="PATIENT_PIRTH" property="patientPirth"/>
+        </association>
     </association>
 </resultMap>
-
+<!--查询处方单-->
 <select id="allPrescs" resultMap="prescs">
-    select * from PRESCRIPTIONS P inner join PRESCRIPTION P1 on p.PRES_ID = P1.PRES_NO WHERE  1=1
+    select * from PRESCRIPTIONS P inner join PRESCRIPTION P1 on p.PRES_ID = P1.PRES_NO
+    inner join DOCTORRECORD D  on P1.RECORD_ID = D.RECORD_NO
+    inner join PATIENTDATA P2 on P1.PATIENT_NO = P2.PATIENT_NO
+    inner join EMPLOYEE E on e.EMP_ID = p1.DOCTOR_NAME
     <where>
         <if test="presId.presNo!= null">
-            and  P1.PRES_NO = presId.presNo
+            and  P1.RECORD_ID = #{presId.presNo}
         </if>
     </where>
 </select>
@@ -41,7 +67,7 @@
 
 <!--新增处方详情-->
 <insert id="addprescs">
-    insert into PRESCRIPTIONS values(seq.nextval,#{chineseId},#{cCount},#{cPrice},#{presNo},#{wSkin},#{wSkinresult},#{presId.presNo},#{cState},#{pType},#{ChineseName},#{ChineseGG},#{ChineseDW},#{ChineseYF})
+    insert into PRESCRIPTIONS(CHINESE_NO,CHINESE_ID,C_COUNT,C_PRICE,PRICE,W_SKIN,W_SKINRESULT,PRES_ID,C_STATE,P_TYPE,CHINESE_NAME,CHINESE_GG,CHINESE_DW,CHINESE_YF) values(seq.nextval,#{chineseId},#{cCount},#{cPrice},#{price},#{wSkin},#{wSkinresult},#{presId.presNo},#{cState},#{pType},#{ChineseName},#{ChineseGG},#{ChineseDW},#{ChineseYF})
 
 </insert>
 

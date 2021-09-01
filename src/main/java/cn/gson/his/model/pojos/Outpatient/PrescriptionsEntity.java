@@ -11,7 +11,7 @@ public class PrescriptionsEntity {
     private int chineseNo;//处方详情单号
     private Integer cCount;//数量
     private Long cPrice;//这个处方的总价
-    private Integer presNo;//药品原来的价格
+    private Integer price;//药品原来的价格
     private Integer wSkin;//是否皮试
     private String wSkinresult;//皮试结果
     private Integer cState;//收费状态
@@ -75,13 +75,13 @@ public class PrescriptionsEntity {
     }
 
     @Basic
-    @Column(name = "PRES_NO")
-    public Integer getPresNo() {
-        return presNo;
+    @Column(name = "PRICE")
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setPresNo(Integer presNo) {
-        this.presNo = presNo;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     @Basic
@@ -170,7 +170,7 @@ public class PrescriptionsEntity {
                 Objects.equals(chineseId, that.chineseId) &&
                 Objects.equals(cCount, that.cCount) &&
                 Objects.equals(cPrice, that.cPrice) &&
-                Objects.equals(presNo, that.presNo) &&
+                Objects.equals(price, that.price) &&
                 Objects.equals(wSkin, that.wSkin) &&
                 Objects.equals(wSkinresult, that.wSkinresult) &&
                 Objects.equals(presId, that.presId) &&
@@ -180,6 +180,6 @@ public class PrescriptionsEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(chineseNo, chineseId, cCount, cPrice, presNo, wSkin, wSkinresult, presId, cState, pType);
+        return Objects.hash(chineseNo, chineseId, cCount, cPrice, price, wSkin, wSkinresult, presId, cState, pType);
     }
 }
