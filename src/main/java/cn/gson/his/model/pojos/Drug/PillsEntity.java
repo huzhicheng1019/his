@@ -1,27 +1,37 @@
 package cn.gson.his.model.pojos.Drug;
 
+import cn.gson.his.model.pojos.Power.Employee;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "PILLS", schema = "HIS", catalog = "")
+@Table(name = "PILLS", schema = "HIS")
 public class PillsEntity {
-    private int pillsId;
+    private String pillsId;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp pillsDate;
     private String fylyId;
     private Integer fylyFl;
-    private Integer fyr;
+    private Employee employee;
     private Long zje;
-    private String libraryId;
+    private LibraryInfoEntity library;
+    private Long tqje;
+    private Integer fqzt;
+    private Integer zt;
+    private Long bjje;
+    private Long yfje;
+    private Long sfje;
 
     @Id
     @Column(name = "PILLS_ID")
-    public int getPillsId() {
+    public String getPillsId() {
         return pillsId;
     }
 
-    public void setPillsId(int pillsId) {
+    public void setPillsId(String pillsId) {
         this.pillsId = pillsId;
     }
 
@@ -55,14 +65,14 @@ public class PillsEntity {
         this.fylyFl = fylyFl;
     }
 
-    @Basic
-    @Column(name = "FYR")
-    public Integer getFyr() {
-        return fyr;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "FYR", referencedColumnName = "EMP_ID")
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setFyr(Integer fyr) {
-        this.fyr = fyr;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Basic
@@ -75,14 +85,77 @@ public class PillsEntity {
         this.zje = zje;
     }
 
+
     @Basic
-    @Column(name = "LIBRARY_ID")
-    public String getLibraryId() {
-        return libraryId;
+    @Column(name = "TQJE")
+    public Long getTqje() {
+        return tqje;
     }
 
-    public void setLibraryId(String libraryId) {
-        this.libraryId = libraryId;
+    public void setTqje(Long tqje) {
+        this.tqje = tqje;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "LIBRARY_ID", referencedColumnName = "LIBRARY_ID")
+    public LibraryInfoEntity getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(LibraryInfoEntity library) {
+        this.library = library;
+    }
+
+
+
+    @Basic
+    @Column(name = "FQZT", nullable = true, precision = 8)
+    public Integer getFqzt() {
+        return fqzt;
+    }
+
+    public void setFqzt(Integer fqzt) {
+        this.fqzt = fqzt;
+    }
+
+    @Basic
+    @Column(name = "ZT", nullable = true, precision = 8)
+    public Integer getZt() {
+        return zt;
+    }
+
+    public void setZt(Integer zt) {
+        this.zt = zt;
+    }
+
+    @Basic
+    @Column(name = "BJJE", nullable = true, precision = 8)
+    public Long getBjje() {
+        return bjje;
+    }
+
+    public void setBjje(Long bjje) {
+        this.bjje = bjje;
+    }
+
+    @Basic
+    @Column(name = "YFJE", nullable = true, precision = 8)
+    public Long getYfje() {
+        return yfje;
+    }
+
+    public void setYfje(Long yfje) {
+        this.yfje = yfje;
+    }
+
+    @Basic
+    @Column(name = "SFJE", nullable = true, precision = 8)
+    public Long getSfje() {
+        return sfje;
+    }
+
+    public void setSfje(Long sfje) {
+        this.sfje = sfje;
     }
 
     @Override
@@ -94,13 +167,19 @@ public class PillsEntity {
                 Objects.equals(pillsDate, that.pillsDate) &&
                 Objects.equals(fylyId, that.fylyId) &&
                 Objects.equals(fylyFl, that.fylyFl) &&
-                Objects.equals(fyr, that.fyr) &&
+                Objects.equals(employee, that.employee) &&
                 Objects.equals(zje, that.zje) &&
-                Objects.equals(libraryId, that.libraryId);
+                Objects.equals(tqje, that.tqje) &&
+                Objects.equals(fqzt, that.fqzt) &&
+                Objects.equals(zt, that.zt) &&
+                Objects.equals(bjje, that.bjje) &&
+                Objects.equals(yfje, that.yfje) &&
+                Objects.equals(sfje, that.sfje) &&
+                Objects.equals(library, that.library);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pillsId, pillsDate, fylyId, fylyFl, fyr, zje, libraryId);
+        return Objects.hash(pillsId, pillsDate, fylyId, fylyFl, employee, zje, library,tqje,fqzt,zt,bjje,yfje,sfje);
     }
 }

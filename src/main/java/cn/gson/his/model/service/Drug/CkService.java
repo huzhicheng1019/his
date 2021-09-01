@@ -75,7 +75,7 @@ public class CkService {
                 if(chujllyid.get(j)!=null){
                     if(cgthxqcx.get(i).getProductId().equals(chujllyid.get(j).getProductId()) && cgthxqcx.get(i).getProductFl().equals(chujllyid.get(j).getProductFl()) &&
                             cgthxqcx.get(i).getPh().equals(chujllyid.get(j).getPh())){
-                        cgthxqcx.get(i).setSl(cgthxqcx.get(i).getSl()-chujllyid.get(j).getSl());
+                        cgthxqcx.get(i).setSl(cgthxqcx.get(i).getSl()*cgthxqcx.get(i).getGesl()-chujllyid.get(j).getSl());
                     }
                     if (cgthxqcx.get(i).getSl()<=0){
                         cgthxqcx.remove(cgthxqcx.get(i));

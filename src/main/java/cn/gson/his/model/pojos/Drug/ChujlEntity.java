@@ -205,4 +205,24 @@ public class ChujlEntity {
     public int hashCode() {
         return Objects.hash(chujlId, productId, productName, productFl, sl, ph, chuId,ge,gys,scdate,gqdate,price,kszt,gesl,shdw);
     }
+
+    public ChujlEntity() {
+    }
+
+    public ChujlEntity(Integer productId, String productName, String productFl, Integer sl, String ph, Integer chuId, String ge, GysEntity gys, Timestamp scdate, Timestamp gqdate, Long price, String kszt, Integer gesl, String shdw) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productFl = productFl;
+        this.sl = sl;
+        this.ph = ph;
+        this.chuId = chuId;
+        this.ge = ge;
+        this.gys = gys;
+        this.scdate = scdate;
+        this.gqdate = gqdate;
+        this.price = price;
+        this.kszt = kszt;
+        this.gesl = gesl;
+        this.shdw = shdw;
+    }
 }

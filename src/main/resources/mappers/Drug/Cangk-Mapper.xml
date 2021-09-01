@@ -11,6 +11,10 @@
         </where>
     </select>
 
+    <select id="yfckcx" resultType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
+        select * from LIBRARY_INFO where LIBRARY_JB=1
+    </select>
+
     <resultMap id="ckxqMap" type="cn.gson.his.model.pojos.Drug.LibraryxqEntity">
         <id column="LIBRARYXQ_ID" property="libraryxqId"></id>
         <result column="PRODUCT_ID" property="productId"></result>
@@ -122,5 +126,10 @@
 
     <select id="chujlcx" resultMap="chujlMap">
         select c.*,g.gys_name g_name from chujl c left join gys g on c.gys_id=g.gys_id where CHU_ID=#{id} and PRODUCT_ID=#{proid} and PRODUCT_FL=#{fl} and PH=#{ph}
+    </select>
+
+    <select id="yfcfcx" resultMap="ckxqMap">
+        select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
+        where l.LIBRARY_ID=#{id} and l.PRODUCT_ID=#{pid} and l.PRODUCT_FL=#{fl}
     </select>
 </mapper>

@@ -17,9 +17,10 @@ public class Destroy {
     private Timestamp sqdate;
     private Integer destroyZt;
     private String bz;
-    private String shr;
 
     @Id
+    @GeneratedValue(generator = "SEQ")
+    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "DESTROY_ID", nullable = false, precision = 0)
     public Integer getDestroyId() {
         return destroyId;
@@ -79,26 +80,17 @@ public class Destroy {
         this.bz = bz;
     }
 
-    @Basic
-    @Column(name = "SHR", nullable = true, length = 1024)
-    public String getShr() {
-        return shr;
-    }
-
-    public void setShr(String shr) {
-        this.shr = shr;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Destroy destroy = (Destroy) o;
-        return Objects.equals(destroyId, destroy.destroyId) && Objects.equals(employee, destroy.employee) && Objects.equals(destroyDate, destroy.destroyDate) && Objects.equals(sqdate, destroy.sqdate) && Objects.equals(destroyZt, destroy.destroyZt) && Objects.equals(bz, destroy.bz) && Objects.equals(shr, destroy.shr);
+        return Objects.equals(destroyId, destroy.destroyId) && Objects.equals(employee, destroy.employee) && Objects.equals(destroyDate, destroy.destroyDate) && Objects.equals(sqdate, destroy.sqdate) && Objects.equals(destroyZt, destroy.destroyZt) && Objects.equals(bz, destroy.bz);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(destroyId, employee, destroyDate, sqdate, destroyZt, bz, shr);
+        return Objects.hash(destroyId, employee, destroyDate, sqdate, destroyZt, bz);
     }
 }
