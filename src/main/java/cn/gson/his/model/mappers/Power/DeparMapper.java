@@ -2,9 +2,13 @@ package cn.gson.his.model.mappers.Power;
 
 
 import cn.gson.his.model.pojos.Power.Department;
+import cn.gson.his.model.pojos.Power.Dept;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface DeparMapper {
@@ -14,4 +18,6 @@ public interface DeparMapper {
      * @return
      */
     public List<Department> allDepar();
+
+    public List<Map<String,Object>> pageDepar(@Param("depa") Department depa, @Param("startDate") Timestamp startDate, @Param("endDate")Timestamp endDate);
 }

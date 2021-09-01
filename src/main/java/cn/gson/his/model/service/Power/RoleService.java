@@ -35,17 +35,10 @@ public class RoleService {
 
     /**
      * 分页查询所有
-     * @param pageNo
-     * @param size
      * @return
      */
-    public Map<String, Object> allRole(Integer pageNo,Integer size){
-        Page<Object> p = PageHelper.startPage(pageNo,size);
-        List<Map<String,Object>> list = mapper.allRole();
-        Map<String,Object> map = new HashMap<>();
-        map.put("rows",list);
-        map.put("total",p.getTotal());
-        return map;
+    public List<RoleInfo> allRole(){
+        return mapper.allRole();
     }
 
     /**

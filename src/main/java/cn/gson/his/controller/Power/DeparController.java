@@ -5,6 +5,7 @@ import cn.gson.his.model.pojos.Power.Dept;
 import cn.gson.his.model.pojos.Power.ElMessage;
 import cn.gson.his.model.service.Power.DeparService;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +27,20 @@ public class DeparController {
      * @return
      */
     @RequestMapping("/allDepar")
-    public Map<String, Object> allDept(Integer pageNo, Integer size){
-        return service.allDepar(pageNo,size);
+    public Map<String, Object> allDept(Integer pageNo, Integer size,@RequestParam("li")String li){
+        System.out.println("值"+li);
+        JSONObject o= JSONObject.parseObject(li);//转换Object
+        String zhi=o.get("date")+"";
+        Timestamp start=null;
+        Timestamp end=null;
+        if(zhi!=null && !("".equals(zhi))){
+            String date[] = zhi.split(",");
+            start=new Timestamp(new Date(Date.parse(date[0])).getTime());
+            end=new Timestamp(new Date(Date.parse(date[1])).getTime());
+        }
+        Department depa=new Department();
+        depa.setDepaName(o.get("idOrnameOradd")+"");
+        return service.allDepar(pageNo,size,depa,start,end);
     }
 
     /**

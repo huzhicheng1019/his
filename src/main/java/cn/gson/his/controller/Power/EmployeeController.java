@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -108,7 +109,7 @@ public class EmployeeController {
     }
 
     @RequestMapping("/home-menus")
-    public List<Perm> home_menus(Integer userId){
+    public List<Perm> home_menus(Integer userId, HttpSession session){
         return empService.homeMenu(userId);
     }
 

@@ -19,7 +19,7 @@ public interface RoleMapper {
      * 分页查询所有角色
      * @return
      */
-    public List<Map<String,Object>> allRole();
+    public List<RoleInfo> allRole();
 
     /**
      * 查询角色、部门中间表，根据中间表的角色id查询所有部门
