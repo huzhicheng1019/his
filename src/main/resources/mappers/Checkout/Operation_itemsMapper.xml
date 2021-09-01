@@ -10,6 +10,7 @@
             <result property="operationDress" column="operation_dress"></result>
             <result property="operationIndication" column="operation_indication"></result>
             <result property="operationTaboo" column="operation_taboo"></result>
+            <result property="operationZt" column="operation_zt"></result>
 
             <!--手术室-->
             <association property="room" javaType="cn.gson.his.model.pojos.Checkout.OperationRoomEntity">
@@ -27,7 +28,6 @@
                 <association property="drug" javaType="cn.gson.his.model.pojos.Checkout.YpEntity">
                     <id property="drugId" column="DRUG_ID"></id>
                     <result property="drugName" column="DRUG_NAME"></result>
-
                 </association>
             </collection>
 
@@ -91,17 +91,18 @@
         </select>
 
         <!--新增手术项目-->
-        <insert id="insertoperation" parameterType="cn.gson.his.model.pojos.Checkout.ItemVo" useGeneratedKeys="true" keyProperty="operation_id">
-            insert into operation_item values(seq.nextval,#{operationName},#{operationPrice},#{operationType},#{operationDress},#{operationIndication},#{operationTaboo},#{room})
+        <insert id="insertoperation" parameterType="cn.gson.his.model.pojos.Checkout.ItemVo">
+            insert into operation_item values(seq.nextval,#{operationName},#{operationPrice},#{operationType},
+                                              #{operationDress},#{room},#{operationIndication},#{operationTaboo},1)
         </insert>
 
         <!--新增药品中间表-->
         <insert id="insertdrug" >
-            insert into Surgery_drug values(seq.nextval,#{a},#{b},#{dNum},#{dPrice}
+            insert into Surgery_drug values(seq.nextval,#{a},#{b},#{dNum},#{dPrice})
         </insert>
 
         <!--新增耗材中间表-->
         <insert id="insertcon" >
-            insert into Surgery_consumables values(seq.nextval,#{a},#{b},#{consumablesNum},#{consumablesPrice}
+            insert into Surgery_consumables values(seq.nextval,#{a},#{b},#{consumablesNum},#{consumablesPrice})
         </insert>
 </mapper>

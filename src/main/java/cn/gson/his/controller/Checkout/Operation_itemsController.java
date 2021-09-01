@@ -1,7 +1,9 @@
 package cn.gson.his.controller.Checkout;
 
+import cn.gson.his.model.pojos.Checkout.HcEntity;
 import cn.gson.his.model.pojos.Checkout.ItemVo;
 import cn.gson.his.model.pojos.Checkout.OperationRoomEntity;
+import cn.gson.his.model.pojos.Checkout.YpEntity;
 import cn.gson.his.model.service.Checkout.Operation_itemsService;
 import cn.gson.his.model.service.Checkout.Operation_roomService;
 import cn.gson.his.model.service.Checkout.PageNo;
@@ -55,16 +57,19 @@ public class Operation_itemsController {
     @PostMapping("insertoperation")
     public int insertoperation(@RequestBody ItemVo form){
         System.out.println("接受到了");
+        System.out.println(form.toString());
+
         int i = operation_itemsService.insertoperation(form);
 
-        for (Integer o : form.getA()) {
-            operation_itemsService.insertdrug(1,1,o,form.getB());
+        //药品中间表
+        for (YpEntity o : form.getSsyp()) {
+            operation_itemsService.insertdrug((int) form.getOperationId(),o.getDrugId(),o.getCount(),Integer.valueOf(o.getDrugPrice()+""));
         }
 
-        for (Integer integer : form.getA1()) {
-            operation_itemsService.insertcon(1, 1,integer, form.getB1());
+        //耗材中间表
+        for (HcEntity o : form.getHaocai()) {
+            operation_itemsService.insertcon((int) form.getOperationId(),o.getConId(), o.getCount(),Integer.valueOf(o.getConPrice()+""));
         }
-
 
         if(i>0){
             return 1;
