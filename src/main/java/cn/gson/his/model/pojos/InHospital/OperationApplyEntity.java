@@ -2,6 +2,7 @@ package cn.gson.his.model.pojos.InHospital;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,6 +13,17 @@ public class OperationApplyEntity {
     private String regMark;
     private Timestamp appDate;
     private String appText;
+
+    private List<OperationApplysEntity> apps;
+
+    @OneToMany
+    public List<OperationApplysEntity> getApps() {
+        return apps;
+    }
+
+    public void setApps(List<OperationApplysEntity> apps) {
+        this.apps = apps;
+    }
 
     @Id
     @Column(name = "APP_ID")
