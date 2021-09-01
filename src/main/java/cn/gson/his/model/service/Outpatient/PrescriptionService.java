@@ -5,6 +5,7 @@ import cn.gson.his.model.mappers.Outpatient.PrescriptionMapper;
 import cn.gson.his.model.pojos.Outpatient.DoctorrecordEntity;
 import cn.gson.his.model.pojos.Outpatient.PrescriptionEntity;
 import cn.gson.his.model.pojos.Outpatient.PrescriptionsEntity;
+import cn.gson.his.model.pojos.Outpatient.SyEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,8 +51,12 @@ public class PrescriptionService {
 
 
     //查询处方
-    public List<PrescriptionEntity> allPres(PrescriptionEntity presc){
+    public PrescriptionEntity allPres(PrescriptionEntity presc){
 
         return  pm.allPres(presc);
     }
+
+     public List<SyEntity> allSy(String id){
+            return pm.allSy(id);
+     }
 }

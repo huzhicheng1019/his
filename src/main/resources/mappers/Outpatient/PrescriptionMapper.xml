@@ -49,20 +49,36 @@
             <result column="PATIENT_PIRTH" property="patientPirth"/>
         </association>
     </resultMap>
+    <resultMap id="Sy" type="cn.gson.his.model.pojos.Outpatient.SyEntity">
+        <result column="RECORD_ID" property="recordId"></result>
+        <result column="NAME" property="name"></result>
+        <result column="COUNT" property="count"></result>
+        <result column="PRICE" property="price"></result>
+    </resultMap>
 <!--    查询处方-->
     <select id="allPres" resultMap="pres">
         select  * from   PRESCRIPTION P inner join DOCTORRECORD D  on P.RECORD_ID = D.RECORD_NO
         inner join CARD C2 on P.CARD_NO = C2.CARD_ID
         inner join PATIENTDATA P2 on P.PATIENT_NO = P2.PATIENT_NO
-        inner join EMPLOYEE E on e.EMP_ID = p.DOCTOR_NAME  where  1=1
+        inner join EMPLOYEE E on e.EMP_ID = p.DOCTOR_NAME
         <where>
             <if test="recordId.recordNo !=null">
                 and D.RECORD_NO = #{recordId.recordNo}
             </if>
-            <if test="patient.patientName !=null">
+            <if test="patientNo.patientName !=null">
                 and P2.PATIENT_NAME = #{patient.patientName}
             </if>
         </where>
+    </select>
+<!--    查询处方和所有的要缴费的东西-->
+    <select id="allSy" resultMap="Sy">
+        select * from(
+                         select P1.Record_id,P.CHINESE_NAME as name, p.C_COUNT as count,p.C_PRICE as price from PRESCRIPTIONS P inner join PRESCRIPTION P1 on p.PRES_ID = P1.PRES_NO
+                         union all
+                         select C.CHECKOUT_ID,c.CHECKOUT_CRIBE as name,null,c.CHECKOUT_PRICE as price  from CHECKOUT C inner join changePart C1  on C.Checkout_no = C.Checkout_no
+                         union all
+                         select CHECKOUT_ID, EXAMINE_METHOD as name,null,EXAMINE_LOOK as price from examine)rec
+        where rec.Record_id = #{Record_id}
     </select>
 <!--    新增处方-->
 <insert id="addPres">

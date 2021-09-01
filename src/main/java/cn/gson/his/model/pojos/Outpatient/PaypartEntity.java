@@ -7,7 +7,7 @@ import java.util.Objects;
 @Table(name = "PAYPART", schema = "HIS", catalog = "")
 public class PaypartEntity {
     private int paypartNo;
-    private Integer payNo;
+    private PayEntity payNo;
     private Integer drugName;
     private Integer drugQuantity;
     private Long drugPrice;
@@ -26,13 +26,13 @@ public class PaypartEntity {
         this.paypartNo = paypartNo;
     }
 
-    @Basic
-    @Column(name = "PAY_NO")
-    public Integer getPayNo() {
+    @OneToOne
+    @Column(name = "PAY_NO",nullable = false)
+    public PayEntity getPayNo() {
         return payNo;
     }
 
-    public void setPayNo(Integer payNo) {
+    public void setPayNo(PayEntity payNo) {
         this.payNo = payNo;
     }
 

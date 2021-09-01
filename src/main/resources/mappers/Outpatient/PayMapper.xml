@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--缴费mapper.xml-->
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.PayMapper">
+
+
+<!--    新增缴费表-->
+    <insert id="addPay">
+        insert into PAY values(seq.nextval,#{recordNo},#{payDate},#{payName},#{payProtect},#{payType},#{payPrice},#{payTotal})
+        <selectKey order="AFTER" keyProperty="payNo" resultType="_int">
+            select seq.currval from dual
+        </selectKey>
+    </insert>
+</mapper>
