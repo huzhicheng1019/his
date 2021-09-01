@@ -38,6 +38,7 @@ public class ShiftController {
         JSONObject o= JSONObject.parseObject(grant);//转换Object
         Shift shift= JSONObject.toJavaObject((JSON) o.get("shift"),Shift.class);//转换对象
         List<String> date = JSONArray.parseArray(o.get("date").toString(), String.class);//转换数组
+        System.out.println("传过来的时间"+date);
         Date date1 = UTCToCST(date.get(0), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");//国际时间转换北京时间
         Date date2 = UTCToCST(date.get(1), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");//国际时间转换北京时间
         DateFormat df = DateFormat.getTimeInstance();//只显示出时分秒

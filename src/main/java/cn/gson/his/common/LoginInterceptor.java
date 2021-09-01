@@ -1,5 +1,6 @@
 package cn.gson.his.common;
 
+import cn.gson.his.model.pojos.Power.UserInfo;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -10,13 +11,17 @@ import javax.servlet.http.HttpSession;
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        System.out.println("preHandle");
-//        HttpSession session = request.getSession();
-//        Users users = (Users)session.getAttribute("token");
-//        if(users == null){
-//            response.sendRedirect("/login");
-//        }
-        return true;
+        try{
+            HttpSession session = request.getSession();
+            UserInfo users = (UserInfo) session.getAttribute("user");
+            if(users != null){
+                return true;
+            }
+            //response.sendRedirect(request.getContextPath()+"lonin");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

@@ -14,6 +14,17 @@ public class Department {
     private String depaName;//科室名
     private Timestamp depaCreate;//创建时间
     private Dept dept;//部门
+    private String depaAddress;//科室地址
+
+    @Basic
+    @Column(name = "DEPA_ADDRESS")
+    public String getDepaAddress() {
+        return depaAddress;
+    }
+
+    public void setDepaAddress(String depaAddress) {
+        this.depaAddress = depaAddress;
+    }
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -57,10 +68,11 @@ public class Department {
         this.dept = dept;
     }
 
-    public Department(String depaName, Timestamp depaCreate, Dept dept) {
+    public Department(String depaName, Timestamp depaCreate, Dept dept,String depaAddress) {
         this.depaName = depaName;
         this.depaCreate = depaCreate;
         this.dept = dept;
+        this.depaAddress=depaAddress;
     }
 
     public Department() {

@@ -4,12 +4,14 @@ import cn.gson.his.model.dao.Power.DeparDao;
 import cn.gson.his.model.mappers.Power.DeparMapper;
 import cn.gson.his.model.pojos.Power.Department;
 import cn.gson.his.model.pojos.Power.Dept;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,20 +23,21 @@ public class DeparService {
     @Autowired
     DeparDao dao;
 
+    @Autowired
+    DeparMapper mapper;
+
     /**
      * 分页查询所有
      * @param pageNo
      * @param size
      * @return
      */
-    public Map<String,Object> allDepar(Integer pageNo, Integer size){
-        Map<String,Object> map = new HashMap<>();
-
-        Page<Department> page=dao.findAllBy(PageRequest.of(pageNo-1,size));
-
-        map.put("rows",page.iterator());
-        //System.out.println(page.getSize());
-        map.put("total",page.getTotalElements());
+    public Map<String,Object> allDepar(Integer pageNo, Integer size,Department depa, Timestamp startDate, Timestamp endDate){
+        Page<Object> p = PageHelper.startPage(pageNo,size);
+        List<Map<String, Object>> list = mapper.pageDepar(depa,startDate,endDate);
+        Map<String, Object> map = new HashMap<>();
+        map.put("rows",list);
+        map.put("total",p.getTotal());
         return map;
     }
 
