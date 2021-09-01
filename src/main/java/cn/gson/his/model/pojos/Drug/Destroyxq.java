@@ -122,7 +122,7 @@ public class Destroyxq {
         this.bz = bz;
     }
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "LIBRARY_ID", referencedColumnName = "LIBRARY_ID")
     public LibraryInfoEntity getLibrary() {
         return library;
