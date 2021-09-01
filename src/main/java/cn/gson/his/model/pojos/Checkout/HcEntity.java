@@ -25,6 +25,39 @@ public class HcEntity {
     private String shdw;
     private List<SurgeryConsumablesEntity> shuqianhc;
 
+
+    @Override
+    public String toString() {
+        return "HcEntity{" +
+                "conId=" + conId +
+                ", conName='" + conName + '\'' +
+                ", conGe='" + conGe + '\'' +
+                ", bzq='" + bzq + '\'' +
+                ", gys=" + gys +
+                ", conPrice=" + conPrice +
+                ", dw='" + dw + '\'' +
+                ", drugPfprice=" + drugPfprice +
+                ", yf='" + yf + '\'' +
+                ", zdkcs=" + zdkcs +
+                ", conSm='" + conSm + '\'' +
+                ", kszt='" + kszt + '\'' +
+                ", gesl=" + gesl +
+                ", shdw='" + shdw + '\'' +
+                ", count=" + count +
+                '}';
+    }
+
+    @Transient
+    private Integer count;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
     @OneToMany(mappedBy = "con")
     public List<SurgeryConsumablesEntity> getShuqianhc() {
         return shuqianhc;

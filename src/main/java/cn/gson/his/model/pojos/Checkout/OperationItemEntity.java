@@ -15,6 +15,7 @@ public class OperationItemEntity {
     private String operationIndication;
     private String operationTaboo;
     private OperationRoomEntity room;
+    private Long operationZt;
     private List<SurgeryDrugEntity> shuqiandrug;
     private List<SurgeryConsumablesEntity> hczjb;
 
@@ -79,6 +80,16 @@ public class OperationItemEntity {
     }
 
     @Basic
+    @Column(name = "OPERATION_ZT")
+    public long getOperationZt() {
+        return operationZt;
+    }
+
+    public void setOperationZt(long operationZt) {
+        this.operationZt = operationZt;
+    }
+
+    @Basic
     @Column(name = "OPERATION_TABOO")
     public String getOperationTaboo() {
         return operationTaboo;
@@ -93,12 +104,12 @@ public class OperationItemEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OperationItemEntity that = (OperationItemEntity) o;
-        return operationId == that.operationId && Objects.equals(operationName, that.operationName) && Objects.equals(operationPrice, that.operationPrice) && Objects.equals(operationType, that.operationType) && Objects.equals(operationDress, that.operationDress) && Objects.equals(operationIndication, that.operationIndication) && Objects.equals(operationTaboo, that.operationTaboo);
+        return operationId == that.operationId && Objects.equals(operationName, that.operationName) && Objects.equals(operationPrice, that.operationPrice) && Objects.equals(operationType, that.operationType) && Objects.equals(operationDress, that.operationDress) && Objects.equals(operationIndication, that.operationIndication) && Objects.equals(operationTaboo, that.operationTaboo ) && Objects.equals(operationZt,that.operationZt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(operationId, operationName, operationPrice, operationType, operationDress, operationIndication, operationTaboo);
+        return Objects.hash(operationId, operationName, operationPrice, operationType, operationDress, operationIndication, operationTaboo,operationZt);
     }
 
     @ManyToOne

@@ -27,6 +27,39 @@ public class YpEntity {
     private String shdw;
     private List<SurgeryDrugEntity> S_drug;
 
+    @Override
+    public String toString() {
+        return "YpEntity{" +
+                "drugId=" + drugId +
+                ", drugName='" + drugName + '\'' +
+                ", drugGe='" + drugGe + '\'' +
+                ", gys=" + gys +
+                ", lb=" + lb +
+                ", drugSm='" + drugSm + '\'' +
+                ", bzq='" + bzq + '\'' +
+                ", drugPfprice=" + drugPfprice +
+                ", drugPrice=" + drugPrice +
+                ", dw='" + dw + '\'' +
+                ", yf='" + yf + '\'' +
+                ", zdkcs=" + zdkcs +
+                ", kszt='" + kszt + '\'' +
+                ", gesl=" + gesl +
+                ", shdw='" + shdw + '\'' +
+                ", count=" + count +
+                '}';
+    }
+
+    @Transient
+    private Integer count;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
     @OneToMany(mappedBy = "drug")
     public List<SurgeryDrugEntity> getS_drug() {
         return S_drug;
