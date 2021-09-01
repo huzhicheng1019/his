@@ -57,6 +57,16 @@
             <result property="preBalance" column="pre_balance"></result>
             <result property="preArrearage" column="pre_arrearage"></result>
         </association>
+        <!--出院申请-->
+        <association property="doctorLeave" javaType="cn.gson.his.model.pojos.InHospital.DoctorLeaveEntity">
+            <id property="leaId" column="lea_id"></id>
+            <result property="regMark" column="reg_mark"></result>
+            <result property="leaDate" column="lea_date"></result>
+            <result property="leaCause" column="lea_cause"></result>
+            <result property="doctorId" column="doctor_id"></result>
+            <result property="leaIs" column="lea_is"></result>
+            <result property="leaReason" column="lea_reason"></result>
+        </association>
         <!--医嘱-->
         <collection property="doctorEnjoin" ofType="cn.gson.his.model.pojos.InHospital.DoctorEnjoinEntity">
             <id property="enId" column="en_id"></id>
@@ -84,6 +94,7 @@
             <result column="drug_count" property="drugCount"></result>
             <result column="drug_price" property="drugPrice"></result>
         </collection>
+
     </resultMap>
 
     <!--新增住院登记-->
@@ -117,7 +128,7 @@
         order by h.depa_id
     </select>
 
-    <!--住院医生工作站 病人的所有信息-->
+    <!--住院医生工作站 病人的所有信息  只查科室的病人-->
     <select id="selAll" resultMap="HopRegMap">
         select * from hospital_register h left join beds b on h.reg_mark = b.reg_mark
           left join department d on h.depa_id = d.depa_id
@@ -125,6 +136,7 @@
           left join patientdata p on h.patient_no = p.patient_no
           left join prepay pr on h.reg_mark = pr.reg_mark
           left join doctor_enjoin en on h.reg_mark = en.reg_mark
+          left join doctor_leave le on h.reg_mark = le.reg_mark
 
             <where>
                 <if test="text!='' and text != null">
@@ -152,4 +164,30 @@
         </where>
 
     </select>
+
+
+    <!--出院登记查询-->
+    <select id="selLeave" resultMap="HopRegMap">
+        select * from hospital_register h left join beds b on h.reg_mark = b.reg_mark
+        left join department d on h.depa_id = d.depa_id
+        left join bed be on b.bed_id = be.bed_id
+        left join patientdata p on h.patient_no = p.patient_no
+        left join prepay pr on h.reg_mark = pr.reg_mark
+        left join doctor_enjoin en on h.reg_mark = en.reg_mark
+        left join doctor_leave le on h.reg_mark = le.reg_mark
+
+        <where>
+            <if test="depaId != '' and depaId != null and depaId != 0 " >
+                and d.depa_id= #{depaId}
+            </if>
+            <if test="text !='' and text != null " >
+                and (h.reg_mark like '%${text}%' or h.reg_name like '%${text}%' or h.doctor_name like '%${text}%'
+                 or d.depa_name like '%${text}%' or be.bed_name like '%${text}%'
+                )
+            </if>
+
+            and h.reg_is = 0 and b.beds_is = 0 and le.lea_is = 0
+        </where>
+    </select>
+
 </mapper>

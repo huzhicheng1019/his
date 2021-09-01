@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.InHospital.DoctorLeaveMapper">
+    <resultMap id="leaMap" type="cn.gson.his.model.pojos.InHospital.DoctorLeaveEntity">
+        <id property="leaId" column="lea_id"></id>
+        <result property="regMark" column="reg_mark"></result>
+        <result property="leaDate" column="lea_date"></result>
+        <result property="leaCause" column="lea_cause"></result>
+        <result property="doctorId" column="doctor_id"></result>
+        <result property="leaIs" column="lea_is"></result>
+        <result property="leaReason" column="lea_reason"></result>
+    </resultMap>
+
+    <!--新增出院申请-->
+    <insert id="insertLea">
+        insert into doctor_leave values(seq.nextval,#{regMark},current_timestamp,#{leaCause},#{doctorId},#{leaIs},#{leaReason})
+    </insert>
+
+    <!--根据住院号查-->
+    <select id="selLea" resultMap="leaMap">
+        select * from doctor_leave where reg_mark=#{regMark} and lea_is = 0
+    </select>
+
+    <!--修改出院申请（取消）-->
+    <update id="updateLea">
+        update doctor_leave set lea_reason=#{leaReason},lea_is = 1 where lea_id = #{leaId}
+    </update>
+</mapper>
