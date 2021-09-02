@@ -2,6 +2,7 @@ package cn.gson.his.model.service.Drug;
 
 import cn.gson.his.model.dao.Drug.*;
 import cn.gson.his.model.mappers.Drug.CangkMapper;
+import cn.gson.his.model.mappers.Drug.TyMapper;
 import cn.gson.his.model.mappers.Drug.YfMapper;
 import cn.gson.his.model.pojos.Drug.*;
 import com.github.pagehelper.Page;
@@ -39,6 +40,10 @@ public class YfService {
 
     @Autowired
     CankxqDao cankxqDao;
+
+    @Autowired
+    TyMapper tyMapper;
+
     public Map<String,Object> yfselect(int pageNo, int size, String nr){
         Map<String,Object> map = new HashMap<>();
         //分页查询
@@ -112,5 +117,38 @@ public class YfService {
 
     public void bj(PillsEntity pillsEntity){
         fyDao.save(pillsEntity);
+    }
+
+
+
+
+    public Map<String,Object> yfidselect(String nr){
+        Map<String,Object> map = new HashMap<>();
+        map.put("rows",yfMapper.yfcx(nr));
+        return map;
+    }
+
+    public Map<String,Object> yfxqidcx(String id,String nr){
+        List<Pillsxq> pillsxqList=yfMapper.yfxqcx(id,nr);
+        List<StojlEntity> stojlEntityList=tyMapper.stojllyid(id);
+        if(pillsxqList!=null){
+            for (int i=0;i<pillsxqList.size();i++) {
+                if(stojlEntityList!=null){
+                    for(int j=0;j<stojlEntityList.size();j++){
+                        if(pillsxqList.get(i).getProductId().equals(stojlEntityList.get(j).getProductId()) && pillsxqList.get(i).getProductFl().equals(stojlEntityList.get(j).getProductFl()) &&
+                                pillsxqList.get(i).getPh().equals(stojlEntityList.get(j).getPh())){
+                            pillsxqList.get(i).setSl(pillsxqList.get(i).getSl()-stojlEntityList.get(j).getSl());
+                        }
+                        if(pillsxqList.get(i).getSl()<=0){
+                            pillsxqList.remove(pillsxqList.get(i));
+                            i--;
+                        }
+                    }
+                }
+            }
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("rows",pillsxqList);
+        return map;
     }
 }

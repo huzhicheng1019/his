@@ -40,6 +40,8 @@
     <class>cn.gson.his.model.pojos.Drug.Destroyxq</class>
     <class>cn.gson.his.model.pojos.Drug.PillsEntity</class>
     <class>cn.gson.his.model.pojos.Drug.Pillsxq</class>
+    <class>cn.gson.his.model.pojos.Drug.RefundEntity</class>
+    <class>cn.gson.his.model.pojos.Drug.Refundxq</class>
 
     <properties>
       <property name="hibernate.archive.autodetection" value="class"/>

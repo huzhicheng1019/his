@@ -7,19 +7,12 @@
         <result column="PILLS_DATE" property="pillsDate"></result>
         <result column="FYLY_ID" property="fylyId"></result>
         <result column="FYLY_FL" property="fylyFl"></result>
-        <result column="ZJE" property="zje"></result>
-        <result column="FQZT" property="fqzt"></result>
-        <result column="ZT" property="zt"></result>
-        <result column="TQJE" property="tqje"></result>
-        <result column="BJJE" property="bjje"></result>
-        <result column="YFJE" property="yfje"></result>
-        <result column="SFJE" property="sfje"></result>
         <association property="library" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
             <id column="LIBRARY_ID" property="libraryId"></id>
             <result column="lname" property="libraryName"></result>
         </association>
         <association property="employee" javaType="cn.gson.his.model.pojos.Power.Employee">
-            <id column="ZXR" property="empId"></id>
+            <id column="FYR" property="empId"></id>
             <result column="e_name" property="empName"></result>
         </association>
     </resultMap>

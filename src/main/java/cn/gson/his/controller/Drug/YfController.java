@@ -94,4 +94,18 @@ public class YfController {
             return "fail";
         }
     }
+
+    @RequestMapping("yfcxid")
+    public Map<String,Object> getyfid(String nr){
+        System.out.println("nr:"+nr);
+        Map<String, Object> stringObjectMap = yfService.yfidselect(nr);
+        return stringObjectMap;
+    }
+
+    @RequestMapping("yfxqidcx")
+    public Map<String,Object> getyfxqid(String id){
+        System.out.println(id);
+        Map<String, Object> stringObjectMap = yfService.yfxqidcx(id,"");
+        return stringObjectMap;
+    }
 }

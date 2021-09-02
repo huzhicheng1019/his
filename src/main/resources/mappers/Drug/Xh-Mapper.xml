@@ -44,7 +44,7 @@
         <result column="GESL" property="gesl"></result>
         <result column="SHDW" property="shdw"></result>
         <association property="library" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
-            <id column="LIBRARYTO_ID" property="libraryId"></id>
+            <id column="LIBRARY_ID" property="libraryId"></id>
             <result column="ltoname" property="libraryName"></result>
         </association>
         <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
