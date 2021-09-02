@@ -176,8 +176,7 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "empId=" + empId +
-                ", empName='" + empName + '\'' +
+                 ", empName='" + empName + '\'' +
                 ", empPhone='" + empPhone + '\'' +
                 ", empCard='" + empCard + '\'' +
                 ", empInduction=" + empInduction +

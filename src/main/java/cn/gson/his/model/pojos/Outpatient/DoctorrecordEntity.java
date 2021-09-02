@@ -16,6 +16,8 @@ public class DoctorrecordEntity {
     private String recordPhone;//患者电话
     private String doctorName;//就诊医生名字
     private String recordRecord;//诊断结果
+    private String attState;//就诊状态
+
 
     private Department recordIndoor;//就诊科室
     private Employee doctor;//主治医生对象
@@ -132,7 +134,15 @@ public class DoctorrecordEntity {
     public void setRecordRecord(String recordRecord) {
         this.recordRecord = recordRecord;
     }
+    @Id
+    @Column(name = "ATTSTATE")
+    public String getAttState() {
+        return attState;
+    }
 
+    public void setAttState(String attState) {
+        this.attState = attState;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,11 +1,11 @@
 package cn.gson.his.model.mappers.Checkout;
 
+
 import cn.gson.his.model.pojos.Checkout.OperationRoomEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 @Repository

@@ -10,6 +10,7 @@
     <result column="RECORD_PHONE" property="recordPhone"/>
     <result column="DOCTOR_NAME" property="doctorName"/>
     <result column="RECORD_RECORD" property="recordRecord"/>
+    <result column="ATTSTATE" property="attState"/>
 <!--    主治医生-->
     <association property="doctor" javaType="cn.gson.his.model.pojos.Power.Employee">
         <id property="empId" column="EMP_ID"></id>
@@ -57,25 +58,16 @@
     <update id="upDoctorrecord">
         update DOCTORRECORD
         <set>
---             修改身份证
-            <if test="recordIdentity !=null">
-                RECORD_IDENTITY = #{recordIdentity}
-            </if>
-            <if test="recordName !=null">
-                 ,RECORD_NAME = #{recordName}
-            </if>
-            <if test="recordPhone !=null">
-                ,RECORD_PHONE = #{recordPhone}
-            </if>
-            <if test="recordRecord !=null">
-                ,RECORD_RECORD = #{recordRecord}
+--          修改状态
+            <if test="attState !=null">
+                ATTSTATE = #{attState}
             </if>
         </set>
-        where D.RECORD_NO = #{recordNo}
+        where RECORD_NO = #{recordNo}
     </update>
 <!--    新增就诊记录-->
     <insert id="addDoctorrecord">
-        insert into DOCTORRECORD values (#{recordNo},#{recordIdentity},#{recordName},#{patient.patientNo},#{recordPhone},#{card.cardId},#{doctorName},#{doctor.empId},#{recordIndoor.depaId},#{recordRecord},#{caseNo.partiNo})
+        insert into DOCTORRECORD values (#{recordNo},#{recordIdentity},#{recordName},#{patient.patientNo},#{recordPhone},#{card.cardId},#{doctorName},#{doctor.empId},#{recordIndoor.depaId},#{recordRecord},#{caseNo.partiNo},#{attState})
         <selectKey order="AFTER" keyProperty="recordNo" resultType="_int">
             select seq.currval from dual
         </selectKey>
@@ -97,8 +89,8 @@
                     and E.EMP_NAME = #{doctor.empName}
                 </if>
             </if>
-            <if test="recordRecord != null">
-                RECORD_RECORD = #{recordRecord}
+            <if test="attState != null">
+                and d.ATTSTATE = #{attState}
             </if>
         </where>
         order  by D.RECORD_NO

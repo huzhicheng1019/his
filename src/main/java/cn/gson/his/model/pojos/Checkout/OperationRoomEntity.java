@@ -1,6 +1,7 @@
 package cn.gson.his.model.pojos.Checkout;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,6 +13,7 @@ public class OperationRoomEntity {
     private String roomScale;
     private String roomPhone;
     private Integer roomState;
+    private List<OperationItemEntity> items;
 
     @Id
     @Column(name = "ROOM_ID")
@@ -78,12 +80,7 @@ public class OperationRoomEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OperationRoomEntity that = (OperationRoomEntity) o;
-        return roomId == that.roomId &&
-                Objects.equals(roomName, that.roomName) &&
-                Objects.equals(roomDress, that.roomDress) &&
-                Objects.equals(roomScale, that.roomScale) &&
-                Objects.equals(roomPhone, that.roomPhone) &&
-                Objects.equals(roomState, that.roomState);
+        return roomId == that.roomId && Objects.equals(roomName, that.roomName) && Objects.equals(roomDress, that.roomDress) && Objects.equals(roomScale, that.roomScale) && Objects.equals(roomPhone, that.roomPhone) && Objects.equals(roomState, that.roomState);
     }
 
     @Override
@@ -91,15 +88,12 @@ public class OperationRoomEntity {
         return Objects.hash(roomId, roomName, roomDress, roomScale, roomPhone, roomState);
     }
 
-    @Override
-    public String toString() {
-        return "OperationRoomEntity{" +
-                "roomId=" + roomId +
-                ", roomName='" + roomName + '\'' +
-                ", roomDress='" + roomDress + '\'' +
-                ", roomScale='" + roomScale + '\'' +
-                ", roomPhone='" + roomPhone + '\'' +
-                ", roomState=" + roomState +
-                '}';
+    @OneToMany(mappedBy = "room")
+    public List<OperationItemEntity> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OperationItemEntity> items) {
+        this.items = items;
     }
 }

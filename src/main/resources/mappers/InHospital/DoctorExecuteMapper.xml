@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.InHospital.DoctorExecuteMapper">
+    <resultMap id="exeMap" type="cn.gson.his.model.pojos.InHospital.DoctorExecuteEntity">
+        <id column="exe_id" property="exeId"></id>
+        <result column="exe_date" property="exeDate"></result>
+        <result column="ens_id" property="ensId"></result>
+        <result column="nurse_id" property="nurseId"></result>
+        <result column="nurse_name" property="nurseName"></result>
+        <result column="reg_mark" property="regMark"></result>
+        <result column="drug_id" property="drugId"></result>
+        <result column="drug_name" property="drugName"></result>
+        <result column="drug_ge" property="drugGe"></result>
+        <result column="drug_dw" property="drugDw"></result>
+        <result column="drug_count" property="drugCount"></result>
+        <result column="drug_price" property="drugPrice"></result>
+    </resultMap>
+
+    <!--新增医嘱执行记录-->
+    <insert id="insertExe">
+        insert into doctor_execute values (seq.nextval,current_timestamp,#{ensId},#{nurseId},#{nurseName},#{regMark},
+        #{drugId},#{drugName},#{drugGe},#{drugDw},#{drugCount},#{drugPrice})
+    </insert>
+
+
+</mapper>

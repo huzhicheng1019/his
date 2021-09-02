@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.PayPartMappers">
+
+<!--    新增缴费详情-->
+    <insert id="addPayPart">
+        insert into PAYPART values (SEQ.nextval,883,'999感冒灵',1,20,null,null,null,null);
+    </insert>
+</mapper>

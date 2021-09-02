@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.InHospital.OperationItemMapper">
+    <resultMap id="itemsMap" type="cn.gson.his.model.pojos.Checkout.OperationItemEntity">
+        <id property="operationId" column="operation_id"></id>
+        <result property="operationName" column="operation_name"></result>
+        <result property="operationPrice" column="operation_price"></result>
+        <result property="operationType" column="operation_type"></result>
+        <result property="operationDress" column="operation_dress"></result>
+        <result property="operationIndication" column="operation_indication"></result>
+        <result property="operationTaboo" column="operation_taboo"></result>
+        <result property="operationZt" column="operation_zt"></result>
+    </resultMap>
+
+
+    <!--查询所有手术项目-->
+    <select id="selItem" resultMap="itemsMap">
+        select * from operation_item where operation_zt = 0
+    </select>
+
+
+
+</mapper>

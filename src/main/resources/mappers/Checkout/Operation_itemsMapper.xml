@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Checkout.Operation_itemsMapper">
+        <resultMap id="itemsMap" type="cn.gson.his.model.pojos.Checkout.OperationItemEntity">
+            <id property="operationId" column="operation_id"></id>
+            <result property="operationName" column="operation_name"></result>
+            <result property="operationPrice" column="operation_price"></result>
+            <result property="operationType" column="operation_type"></result>
+            <result property="operationDress" column="operation_dress"></result>
+            <result property="operationIndication" column="operation_indication"></result>
+            <result property="operationTaboo" column="operation_taboo"></result>
+            <result property="operationZt" column="operation_zt"></result>
+
+            <!--手术室-->
+            <association property="room" javaType="cn.gson.his.model.pojos.Checkout.OperationRoomEntity">
+                <result property="roomId" column="Room_id"></result>
+                <result property="roomName" column="Room_name"></result>
+            </association>
+
+            <!--药品中间表-->
+            <collection property="shuqiandrug" ofType="cn.gson.his.model.pojos.Checkout.SurgeryDrugEntity">
+                <id property="dId" column="d_id"></id>
+                <result property="dNum" column="d_num"></result>
+                <result property="dPrice" column="d_price"></result>
+
+                <!--药品表-->
+                <association property="drug" javaType="cn.gson.his.model.pojos.Checkout.YpEntity">
+                    <id property="drugId" column="DRUG_ID"></id>
+                    <result property="drugName" column="DRUG_NAME"></result>
+                </association>
+            </collection>
+
+            <!--耗材中间表-->
+            <collection property="hczjb" ofType="cn.gson.his.model.pojos.Checkout.SurgeryConsumablesEntity">
+                <id property="consumablesId" column="consumables_id"></id>
+                <result property="consumablesNum" column="consumables_num"></result>
+                <result property="consumablesPrice" column="consumables_price"></result>
+
+                <!--耗材表-->
+                <association property="con" javaType="cn.gson.his.model.pojos.Checkout.HcEntity">
+                    <id property="conId" column="CON_ID"></id>
+                    <result property="conName" column="CON_NAME"></result>
+
+                </association>
+            </collection>
+
+        </resultMap>
+
+        <!--查询所有手术项目、以及手术项目的耗材，药品等-->
+        <select id="selectitems" resultMap="itemsMap">
+            select
+                o.*,
+                r.Room_name,
+                d.drug_name,
+                sd.d_num,
+                sd.d_price,
+                hc.con_name,
+                sh.consumables_num,
+                sh.consumables_price
+            FROM
+                Operation_room r,
+                operation_item o,
+                Surgery_drug sd,
+                drug d,
+                con hc,
+                Surgery_consumables sh
+            WHERE
+                o.ROOM_ID = r.room_id and sd.OPERATION_ID = o.OPERATION_ID and sd.DRUG_ID = d.DRUG_ID and sh.OPERATION_ID = o.OPERATION_ID
+              and sh.CON_ID = hc.con_id
+        </select>
+
+        <!--根据删除所有-->
+        <delete id="delitems1">
+            delete operation_item where operation_id=#{id}
+        </delete>
+        <delete id="delitems2">
+            delete Surgery_drug where operation_id=#{id}
+        </delete> <delete id="delitems3">
+            delete Surgery_consumables where operation_id=#{id}
+        </delete>
+
+        <!--查询所有药品信息-->
+        <select id="seldrug" resultType="cn.gson.his.model.pojos.Checkout.YpEntity">
+            select * from drug
+        </select>
+
+        <!--查询所有耗材信息-->
+        <select id="selcon" resultType="cn.gson.his.model.pojos.Checkout.HcEntity">
+            select * from con
+        </select>
+
+        <!--新增手术项目-->
+        <insert id="insertoperation" parameterType="cn.gson.his.model.pojos.Checkout.ItemVo">
+            insert into operation_item values(seq.nextval,#{operationName},#{operationPrice},#{operationType},
+                                              #{operationDress},#{room},#{operationIndication},#{operationTaboo},1)
+        </insert>
+
+        <!--新增药品中间表-->
+        <insert id="insertdrug" >
+            insert into Surgery_drug values(seq.nextval,#{a},#{b},#{dNum},#{dPrice})
+        </insert>
+
+        <!--新增耗材中间表-->
+        <insert id="insertcon" >
+            insert into Surgery_consumables values(seq.nextval,#{a},#{b},#{consumablesNum},#{consumablesPrice})
+        </insert>
+</mapper>

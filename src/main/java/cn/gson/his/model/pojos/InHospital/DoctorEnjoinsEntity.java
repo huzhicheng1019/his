@@ -23,7 +23,7 @@ public class DoctorEnjoinsEntity {
     private Timestamp ensEnd;
     private String drugDosage;
     private Integer ensAmount;
-    private Integer drugPrice;
+    private Long drugPrice;
     private Integer ensState;
     private Integer ensType;
     private Integer ensCount;
@@ -130,11 +130,11 @@ public class DoctorEnjoinsEntity {
 
     @Basic
     @Column(name = "DRUG_PRICE")
-    public Integer getDrugPrice() {
+    public Long getDrugPrice() {
         return drugPrice;
     }
 
-    public void setDrugPrice(Integer drugPrice) {
+    public void setDrugPrice(Long drugPrice) {
         this.drugPrice = drugPrice;
     }
 

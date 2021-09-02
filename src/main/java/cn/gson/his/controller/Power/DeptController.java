@@ -3,10 +3,15 @@ package cn.gson.his.controller.Power;
 import cn.gson.his.model.pojos.Power.Dept;
 import cn.gson.his.model.pojos.Power.ElMessage;
 import cn.gson.his.model.service.Power.DeptService;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +30,19 @@ public class DeptController {
      * @return
      */
     @GetMapping("/allDept")
-    public Map<String, Object> allDept(Integer pageNo, Integer size){
-        return ser.allDept(pageNo,size);
+    public Map<String,Object> allDept(Integer pageNo,Integer size,@RequestParam("li")String li) throws ParseException {
+        JSONObject o= JSONObject.parseObject(li);//转换Object
+        String zhi=o.get("date")+"";
+        Timestamp start=null;
+        Timestamp end=null;
+        if(zhi!=null && !("".equals(zhi))){
+            String date[] = zhi.split(",");
+            start=new Timestamp(new Date(Date.parse(date[0])).getTime());
+            end=new Timestamp(new Date(Date.parse(date[1])).getTime());
+        }
+        Dept dept=new Dept();
+        dept.setDeptName(o.get("idOrname")+"");
+        return ser.allDept(pageNo,size,dept,start,end);
     }
 
     /**

@@ -43,6 +43,10 @@ public class HospitalRegisterEntity {
     //医嘱
     private List<DoctorEnjoinEntity> doctorEnjoin;
 
+    //医嘱执行记录
+    private List<DoctorExecuteEntity> doctorExecute;
 
+    //出院申请
+    private DoctorLeaveEntity doctorLeave;
 
 }

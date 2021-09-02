@@ -2,6 +2,7 @@ package cn.gson.his.controller.InHospital;
 
 
 import cn.gson.his.model.pojos.Drug.DrugEntity;
+import cn.gson.his.model.pojos.InHospital.DoctorLeaveEntity;
 import cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity;
 import cn.gson.his.model.service.InHospital.HospitalRegisterService;
 import com.alibaba.fastjson.JSONObject;
@@ -51,6 +52,40 @@ public class HospitalRegisterController {
         return reg.selAll(text);
     };
 
+    //查询执行医嘱
+    @RequestMapping("/query")
+    public List<HospitalRegisterEntity> demo4(){
+        return reg.query();
+    };
+
+
+    //新增出院申请
+    @RequestMapping("/insertLea")
+    public int demo5(String doctorLeaveEntity){
+        DoctorLeaveEntity  aa = JSONObject.parseObject(doctorLeaveEntity,DoctorLeaveEntity.class);
+
+        return reg.insertLea(aa);
+
+    };
+
+    //根据住院号查出院申请单
+    @RequestMapping("/selLea")
+    public DoctorLeaveEntity demo6(String regMark){
+        return reg.selLea(regMark);
+    };
+
+    //修改出院申请（取消）
+    @RequestMapping("/updateLea")
+    public int demo7(String leaReason,String leaId){
+        return reg.updateLea(leaReason,leaId);
+    };
+
+
+    //出院登记查询
+    @RequestMapping("/selLeave")
+    public List<HospitalRegisterEntity> demo8(String text,String depaId){
+        return reg.selLeave(text,depaId);
+    };
 
 
 }

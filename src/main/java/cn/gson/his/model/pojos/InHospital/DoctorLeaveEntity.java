@@ -12,6 +12,8 @@ public class DoctorLeaveEntity {
     private Timestamp leaDate;
     private String leaCause;
     private Integer doctorId;
+    private Integer leaIs;
+    private String leaReason;
 
     @Id
     @Column(name = "LEA_ID")
@@ -63,6 +65,26 @@ public class DoctorLeaveEntity {
         this.doctorId = doctorId;
     }
 
+    @Basic
+    @Column(name = "LEA_IS")
+    public Integer getLeaIs() {
+        return leaIs;
+    }
+
+    public void setLeaIs(Integer leaIs) {
+        this.leaIs = leaIs;
+    }
+
+    @Basic
+    @Column(name = "LEA_REASON")
+    public String getLeaReason() {
+        return leaReason;
+    }
+
+    public void setLeaReason(String leaReason) {
+        this.leaReason = leaReason;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,11 +94,13 @@ public class DoctorLeaveEntity {
                 Objects.equals(regMark, that.regMark) &&
                 Objects.equals(leaDate, that.leaDate) &&
                 Objects.equals(leaCause, that.leaCause) &&
-                Objects.equals(doctorId, that.doctorId);
+                Objects.equals(doctorId, that.doctorId) &&
+                Objects.equals(leaIs, that.leaIs) &&
+                Objects.equals(leaReason, that.leaReason);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(leaId, regMark, leaDate, leaCause, doctorId);
+        return Objects.hash(leaId, regMark, leaDate, leaCause, doctorId, leaIs, leaReason);
     }
 }

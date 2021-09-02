@@ -126,11 +126,10 @@
     <!--执行医嘱查询-->
     <select id="execute" resultMap="EnMap">
         select * from doctor_enjoin e left join doctor_enjoins en on e.en_id = en.en_id
-        left join employee emp on  e.doctor_id = emp.emp_id
-        left join hospital_register h on e.reg_mark = h.reg_mark
 
         <where>
-            and e.en_end is null or e.en_end &gt;= current_timestamp
+           and e.reg_mark = #{regMark} and (e.en_end is null or e.en_end &gt;= current_timestamp)
+           and (en.ens_end is null or en.ens_end &gt;= current_timestamp)
 
         </where>
     </select>

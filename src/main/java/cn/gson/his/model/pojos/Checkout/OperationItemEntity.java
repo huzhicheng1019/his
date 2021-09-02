@@ -1,131 +1,102 @@
 package cn.gson.his.model.pojos.Checkout;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "OPERATION_ITEM", schema = "HIS", catalog = "")
 public class OperationItemEntity {
-    private int operationItemId;
-    private String operationItemName;
-    private Long operationItemPrice;
-    private String operationItemType;
-    private String operationItemDress;
-    private Integer depaId;
-    private String operationItemIndication;
-    private String operationItemAnaesthesia;
-    private String operationItemTaboo;
-    private String operationItemMatter;
-    private Integer operationItemDrugs;
+    private long operationId;
+    private String operationName;
+    private Long operationPrice;
+    private String operationType;
+    private String operationDress;
+    private String operationIndication;
+    private String operationTaboo;
+    private OperationRoomEntity room;
+    private Long operationZt;
+    private List<SurgeryDrugEntity> shuqiandrug;
+    private List<SurgeryConsumablesEntity> hczjb;
 
     @Id
-    @Column(name = "OPERATION_ITEM_ID")
-    public int getOperationItemId() {
-        return operationItemId;
+    @Column(name = "OPERATION_ID")
+    public long getOperationId() {
+        return operationId;
     }
 
-    public void setOperationItemId(int operationItemId) {
-        this.operationItemId = operationItemId;
-    }
-
-    @Basic
-    @Column(name = "OPERATION_ITEM_NAME")
-    public String getOperationItemName() {
-        return operationItemName;
-    }
-
-    public void setOperationItemName(String operationItemName) {
-        this.operationItemName = operationItemName;
+    public void setOperationId(long operationId) {
+        this.operationId = operationId;
     }
 
     @Basic
-    @Column(name = "OPERATION_ITEM_PRICE")
-    public Long getOperationItemPrice() {
-        return operationItemPrice;
+    @Column(name = "OPERATION_NAME")
+    public String getOperationName() {
+        return operationName;
     }
 
-    public void setOperationItemPrice(Long operationItemPrice) {
-        this.operationItemPrice = operationItemPrice;
-    }
-
-    @Basic
-    @Column(name = "OPERATION_ITEM_TYPE")
-    public String getOperationItemType() {
-        return operationItemType;
-    }
-
-    public void setOperationItemType(String operationItemType) {
-        this.operationItemType = operationItemType;
+    public void setOperationName(String operationName) {
+        this.operationName = operationName;
     }
 
     @Basic
-    @Column(name = "OPERATION_ITEM_DRESS")
-    public String getOperationItemDress() {
-        return operationItemDress;
+    @Column(name = "OPERATION_PRICE")
+    public Long getOperationPrice() {
+        return operationPrice;
     }
 
-    public void setOperationItemDress(String operationItemDress) {
-        this.operationItemDress = operationItemDress;
-    }
-
-    @Basic
-    @Column(name = "DEPA_ID")
-    public Integer getDepaId() {
-        return depaId;
-    }
-
-    public void setDepaId(Integer depaId) {
-        this.depaId = depaId;
+    public void setOperationPrice(Long operationPrice) {
+        this.operationPrice = operationPrice;
     }
 
     @Basic
-    @Column(name = "OPERATION_ITEM_INDICATION")
-    public String getOperationItemIndication() {
-        return operationItemIndication;
+    @Column(name = "OPERATION_TYPE")
+    public String getOperationType() {
+        return operationType;
     }
 
-    public void setOperationItemIndication(String operationItemIndication) {
-        this.operationItemIndication = operationItemIndication;
-    }
-
-    @Basic
-    @Column(name = "OPERATION_ITEM_ANAESTHESIA")
-    public String getOperationItemAnaesthesia() {
-        return operationItemAnaesthesia;
-    }
-
-    public void setOperationItemAnaesthesia(String operationItemAnaesthesia) {
-        this.operationItemAnaesthesia = operationItemAnaesthesia;
+    public void setOperationType(String operationType) {
+        this.operationType = operationType;
     }
 
     @Basic
-    @Column(name = "OPERATION_ITEM_TABOO")
-    public String getOperationItemTaboo() {
-        return operationItemTaboo;
+    @Column(name = "OPERATION_DRESS")
+    public String getOperationDress() {
+        return operationDress;
     }
 
-    public void setOperationItemTaboo(String operationItemTaboo) {
-        this.operationItemTaboo = operationItemTaboo;
-    }
-
-    @Basic
-    @Column(name = "OPERATION_ITEM_MATTER")
-    public String getOperationItemMatter() {
-        return operationItemMatter;
-    }
-
-    public void setOperationItemMatter(String operationItemMatter) {
-        this.operationItemMatter = operationItemMatter;
+    public void setOperationDress(String operationDress) {
+        this.operationDress = operationDress;
     }
 
     @Basic
-    @Column(name = "OPERATION_ITEM_DRUGS")
-    public Integer getOperationItemDrugs() {
-        return operationItemDrugs;
+    @Column(name = "OPERATION_INDICATION")
+    public String getOperationIndication() {
+        return operationIndication;
     }
 
-    public void setOperationItemDrugs(Integer operationItemDrugs) {
-        this.operationItemDrugs = operationItemDrugs;
+    public void setOperationIndication(String operationIndication) {
+        this.operationIndication = operationIndication;
+    }
+
+    @Basic
+    @Column(name = "OPERATION_ZT")
+    public long getOperationZt() {
+        return operationZt;
+    }
+
+    public void setOperationZt(long operationZt) {
+        this.operationZt = operationZt;
+    }
+
+    @Basic
+    @Column(name = "OPERATION_TABOO")
+    public String getOperationTaboo() {
+        return operationTaboo;
+    }
+
+    public void setOperationTaboo(String operationTaboo) {
+        this.operationTaboo = operationTaboo;
     }
 
     @Override
@@ -133,21 +104,39 @@ public class OperationItemEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OperationItemEntity that = (OperationItemEntity) o;
-        return operationItemId == that.operationItemId &&
-                Objects.equals(operationItemName, that.operationItemName) &&
-                Objects.equals(operationItemPrice, that.operationItemPrice) &&
-                Objects.equals(operationItemType, that.operationItemType) &&
-                Objects.equals(operationItemDress, that.operationItemDress) &&
-                Objects.equals(depaId, that.depaId) &&
-                Objects.equals(operationItemIndication, that.operationItemIndication) &&
-                Objects.equals(operationItemAnaesthesia, that.operationItemAnaesthesia) &&
-                Objects.equals(operationItemTaboo, that.operationItemTaboo) &&
-                Objects.equals(operationItemMatter, that.operationItemMatter) &&
-                Objects.equals(operationItemDrugs, that.operationItemDrugs);
+        return operationId == that.operationId && Objects.equals(operationName, that.operationName) && Objects.equals(operationPrice, that.operationPrice) && Objects.equals(operationType, that.operationType) && Objects.equals(operationDress, that.operationDress) && Objects.equals(operationIndication, that.operationIndication) && Objects.equals(operationTaboo, that.operationTaboo ) && Objects.equals(operationZt,that.operationZt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(operationItemId, operationItemName, operationItemPrice, operationItemType, operationItemDress, depaId, operationItemIndication, operationItemAnaesthesia, operationItemTaboo, operationItemMatter, operationItemDrugs);
+        return Objects.hash(operationId, operationName, operationPrice, operationType, operationDress, operationIndication, operationTaboo,operationZt);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ROOM_ID", referencedColumnName = "ROOM_ID")
+    public OperationRoomEntity getRoom() {
+        return room;
+    }
+
+    public void setRoom(OperationRoomEntity room) {
+        this.room = room;
+    }
+
+    @OneToMany(mappedBy = "opeation")
+    public List<SurgeryDrugEntity> getShuqiandrug() {
+        return shuqiandrug;
+    }
+
+    public void setShuqiandrug(List<SurgeryDrugEntity> shuqiandrug) {
+        this.shuqiandrug = shuqiandrug;
+    }
+
+    @OneToMany(mappedBy = "operationitems")
+    public List<SurgeryConsumablesEntity> getHczjb() {
+        return hczjb;
+    }
+
+    public void setHczjb(List<SurgeryConsumablesEntity> hczjb) {
+        this.hczjb = hczjb;
     }
 }

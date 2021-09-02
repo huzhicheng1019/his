@@ -43,4 +43,10 @@
         update beds set nurse_id=#{nurseId},nurse_name=#{nurseName}
         where beds_id = #{bedsId}
     </update>
+
+    <!--根据住院号查床位记录-->
+    <select id="selBeds" resultMap="bedsMap">
+        select * from beds where reg_mark = #{regMark} and beds_is = 0
+    </select>
+
 </mapper>

@@ -23,13 +23,11 @@ public class RoleController {
 
     /**
      * 分页查询所有角色
-     * @param pageNo
-     * @param size
      * @return
      */
     @RequestMapping("/allRole")
-    public Map<String, Object> allRole(Integer pageNo,Integer size){
-        return service.allRole(pageNo,size);
+    public List<RoleInfo> allRole(){
+        return service.allRole();
     }
 
     /**
