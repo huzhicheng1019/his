@@ -19,7 +19,7 @@
             <result column="lname" property="libraryName"></result>
         </association>
         <association property="employee" javaType="cn.gson.his.model.pojos.Power.Employee">
-            <id column="ZXR" property="empId"></id>
+            <id column="FYR" property="empId"></id>
             <result column="e_name" property="empName"></result>
         </association>
     </resultMap>
@@ -72,7 +72,7 @@
         <id column="CHINESE_NO" property="chineseNo"/>
         <result column="C_COUNT" property="cCount"/>
         <result column="C_PRICE" property="cPrice"/>
-        <result column="PRES_NO" property="presNo"/>
+        <result column="PRICE" property="price"/>
         <result column="W_SKIN" property="wSkin"/>
         <result column="W_SKINRESULT" property="wSkinresult"/>
         <result column="C_STATE" property="cState"/>
@@ -91,6 +91,29 @@
             <result column="EXPLAIN" property="explain"/>
             <result column="TOTAL_PRICE" property="totalPrice"/>
             <result column="MEDICINE_TYPE" property="medicineType"/>
+            <association property="recordId" javaType="cn.gson.his.model.pojos.Outpatient.DoctorrecordEntity">
+                <id column="RECORD_NO" property="recordNo"/>
+                <result column="RECORD_IDENTITY" property="recordIdentity"/>
+                <result column="RECORD_NAME" property="recordName"/>
+                <result column="RECORD_PHONE" property="recordPhone"/>
+                <result column="DOCTOR_NAME" property="doctorName"/>
+                <result column="RECORD_RECORD" property="recordRecord"/>
+            </association>
+            <association property="doctorName" javaType="cn.gson.his.model.pojos.Power.Employee">
+                <id property="empId" column="EMP_ID"></id>
+                <result property="empName" column="EMP_NAME"></result>
+            </association>
+            <!--    患者信息-->
+            <association property="patientNo" javaType="cn.gson.his.model.pojos.Outpatient.PatientdataEntity">
+                <id column="PATIENT_NO" property="patientNo"></id>
+                <result column="PATIENT_NAME" property="patientName"/>
+                <result column="PATIENT_SEX" property="patientSex"/>
+                <result column="PATIENT_AGE" property="patientAge"/>
+                <result column="PATIENT_PHONE" property="patientPhone"/>
+                <result column="PATIENT_INSU" property="patientInsu"/>
+                <result column="PATIENT_IDENTITY" property="patientIdentity"/>
+                <result column="PATIENT_PIRTH" property="patientPirth"/>
+            </association>
         </association>
     </resultMap>
     <select id="cfxqcx" resultMap="prescs">

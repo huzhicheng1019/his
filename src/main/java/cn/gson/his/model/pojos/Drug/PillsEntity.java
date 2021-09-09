@@ -65,7 +65,7 @@ public class PillsEntity {
         this.fylyFl = fylyFl;
     }
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "FYR", referencedColumnName = "EMP_ID")
     public Employee getEmployee() {
         return employee;

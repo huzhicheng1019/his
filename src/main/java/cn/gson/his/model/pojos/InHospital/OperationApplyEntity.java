@@ -1,5 +1,7 @@
 package cn.gson.his.model.pojos.InHospital;
 
+import cn.gson.his.model.pojos.Power.Employee;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
@@ -15,6 +17,17 @@ public class OperationApplyEntity {
     private String appText;
 
     private List<OperationApplysEntity> apps;
+
+    private Employee emp;
+
+    @ManyToOne
+    public Employee getEmp() {
+        return emp;
+    }
+
+    public void setEmp(Employee emp) {
+        this.emp = emp;
+    }
 
     @OneToMany
     public List<OperationApplysEntity> getApps() {
