@@ -28,48 +28,48 @@ public class ScheduService {
      * @param name
      * @return
      */
-    public List<Department> deptIdByDepaByTit(String name){
+    /*public List<Department> deptIdByDepaByTit(String name){
         Integer id=mapper.allDeptId(name);
         List<Department> depas= mapper.deptIdDepa(id);
         return depas;
     }
 
-    /**
+    *//**
      * 根据部门和科室查询员工
      * @param name
      * @param depa
      * @return
-     */
+     *//*
     public List<Employee> depaIdByEmp(String name,Integer depa){
         Integer id=mapper.allDeptId(name);
         List<Employee> emp=mapper.depaIdByEmp(id,depa);
         return emp;
     }
 
-    /**
+    *//**
      * 查询所有班次
      * @return
-     */
+     *//*
     public List<Shift> allShift(){
         return mapper.allShift();
     }
 
-    /**
+    *//**
      * 新增排班
      * @param list
      * @return
-     */
+     *//*
     public int addSchedu(List<Schedu> list){
         return mapper.addSchedu(list);
     }
 
-    /**
+    *//**
      * 查询排班
      * @param pageNo
      * @param size
      * @param dept
      * @return
-     */
+     *//*
     public Map<String, Object> allSche(Integer pageNo, Integer size, String dept) {
         Page<Object> p = PageHelper.startPage(pageNo,size);
         List<Map<String,Object>> list = mapper.allSche(dept);
@@ -77,5 +77,19 @@ public class ScheduService {
         map.put("rows",list);
         map.put("total",p.getTotal());
         return map;
+    }
+*/
+
+    /**
+     * 根据班次类型查询班次
+     * @param typeId
+     * @return
+     */
+    public List<Shift> allShiftById(Integer typeId) {
+        return mapper.allShiftById(typeId);
+    }
+
+    public List<Schedu> allScheEmp(){
+        return mapper.allScheEmp();
     }
 }

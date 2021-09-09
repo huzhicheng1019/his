@@ -1,6 +1,7 @@
 package cn.gson.his.model.service.Power;
 
 import cn.gson.his.model.dao.Power.TitleDao;
+import cn.gson.his.model.mappers.Power.TitleMapper;
 import cn.gson.his.model.pojos.Power.Title;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class TitleService {
     @Autowired
     TitleDao dao;
 
+    @Autowired
+    TitleMapper mapper;
+
     /**
      * 根据部门id查询该部门的职称
      * @param id
@@ -22,5 +26,9 @@ public class TitleService {
      */
     public List<Title> allDeptIdTitle(Integer id){
         return dao.findAllByDeptByTitDept_DeptId(id);
+    }
+
+    public List<Title> allTitByEmp(Integer deparId){
+        return mapper.allTitByEmp(deparId);
     }
 }

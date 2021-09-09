@@ -30,10 +30,10 @@ public class ScheduController {
      * @param name
      * @return
      */
-    @RequestMapping("/deptIdByDepaByTit")
+    /*@RequestMapping("/deptIdByDepaByTit")
     public List<Department> deptIdByDepaByTit(String name){
         return service.deptIdByDepaByTit(name);
-    }
+    }*/
 
     /**
      * 根据部门和科室查询员工
@@ -41,19 +41,19 @@ public class ScheduController {
      * @param depaId
      * @return
      */
-    @RequestMapping("/depaEmp")
+    /*@RequestMapping("/depaEmp")
     public List<Employee> depaEmp(@RequestParam("dept") String dept, @RequestParam("depaId") Integer depaId){
         return service.depaIdByEmp(dept,depaId);
-    }
+    }*/
 
     /**
      * 查询班次
      * @return
      */
-    @RequestMapping("/ScheShift")
+    /*@RequestMapping("/ScheShift")
     public List<Shift> ScheShift(){
         return service.allShift();
-    }
+    }*/
 
     /**
      * 新增排班
@@ -61,7 +61,7 @@ public class ScheduController {
      * @return
      * @throws ParseException
      */
-    @PostMapping("/addSchedu")
+    /*@PostMapping("/addSchedu")
     public ElMessage addSchedu(@RequestParam("grant") String grant) throws ParseException {
         JSONObject o= JSONObject.parseObject(grant);//转换Object
         List<String> date = JSONArray.parseArray(o.get("date").toString(), String.class);//转换数组
@@ -81,7 +81,7 @@ public class ScheduController {
             elm.setMessage("排班成功！");
         }
         return elm;
-    }
+    }*/
 
     /**
      * 遍历返回中间日期
@@ -105,8 +105,18 @@ public class ScheduController {
         return c.getTimeInMillis();
     }
 
-    @RequestMapping("/allSche")
+    /*@RequestMapping("/allSche")
     public Map<String,Object> allSche(Integer pageNo,Integer size,String dept){
         return service.allSche(pageNo,size,dept);
+    }*/
+
+    @RequestMapping("/allShiftById")
+    public List<Shift> allShiftById(@RequestParam("typeId") Integer typeId){
+        return service.allShiftById(typeId);
+    }
+
+    @RequestMapping("/allScheEmp")
+    public List<Schedu> allScheEmp(){
+        return service.allScheEmp();
     }
 }

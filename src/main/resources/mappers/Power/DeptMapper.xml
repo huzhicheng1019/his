@@ -17,6 +17,6 @@
                 (dept_create between #{startDate} and #{endDate})
             </if>
         </where>
-        order by dept_create desc
+        order by to_date(dept_create,'yyyy-mm-dd hh24:mi:ss') desc
     </select>
 </mapper>
