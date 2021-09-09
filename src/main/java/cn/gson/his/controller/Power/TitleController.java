@@ -25,4 +25,9 @@ public class TitleController {
     public List<Title> allDeptIdTitle(@RequestParam("id") Integer id){
         return service.allDeptIdTitle(id);
     }
+
+    @RequestMapping("/allTitByEmp")
+    public List<Title> allTitByEmp(@RequestParam("deparId") Integer deparId){
+        return service.allTitByEmp(deparId);
+    }
 }

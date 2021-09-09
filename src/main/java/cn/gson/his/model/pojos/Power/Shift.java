@@ -14,6 +14,7 @@ public class Shift {
     private String startTime;//开始时间
     private String stopTime;//结束时间
     private ShiftType shiftType;//类别
+    private Integer shiState;//状态
 
 
     @Id
@@ -66,6 +67,16 @@ public class Shift {
 
     public void setShiftType(ShiftType shiftType) {
         this.shiftType = shiftType;
+    }
+
+    @Basic
+    @Column(name = "SHI_STATE")
+    public Integer getShiState() {
+        return shiState;
+    }
+
+    public void setShiState(Integer shiState) {
+        this.shiState = shiState;
     }
 
     public Shift(String shiName, String startTime, String stopTime, ShiftType shiftType) {
