@@ -77,4 +77,15 @@ public class HospitalRegisterService {
         return hospitalRegisterMapper.selLeave(text,depaId);
     }
 
+
+    //转科后修改科室和主治医生
+    public int updateReg(HospitalRegisterEntity hospitalRegister){
+        return hospitalRegisterMapper.updateReg(hospitalRegister);
+    }
+    //根据住院号查病人
+    public HospitalRegisterEntity look(String regMark){
+        return hospitalRegisterMapper.look(regMark);
+    }
+
+
 }
