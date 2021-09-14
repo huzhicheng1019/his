@@ -11,6 +11,9 @@ import java.util.List;
 @Mapper
 public interface PrescriptionMapper {
 
+    //修改处方收费状态
+    public void upPres(int priveType,int presNo);
+
     //新增处方
     public int addPres(PrescriptionEntity presc);
 

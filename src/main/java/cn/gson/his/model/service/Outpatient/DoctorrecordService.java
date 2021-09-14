@@ -62,4 +62,9 @@ public class DoctorrecordService {
     public List<DoctorrecordEntity>alldoctor(DoctorrecordEntity doctorre){
         return  dm.alldoctor(doctorre);
     }
+
+    //修改就诊状态
+    public void upDoctorrecord(DoctorrecordEntity doctorre){
+        dm.upDoctorrecord(doctorre);
+    }
 }

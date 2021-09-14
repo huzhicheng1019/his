@@ -52,11 +52,14 @@ public class PrescriptionService {
 
     //查询处方
     public PrescriptionEntity allPres(PrescriptionEntity presc){
-
         return  pm.allPres(presc);
     }
 
      public List<SyEntity> allSy(String id){
             return pm.allSy(id);
+     }
+     //修改处方收费状态
+     public void upPres(int priveType,int presNo){
+        pm.upPres(priveType,presNo);
      }
 }

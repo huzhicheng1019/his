@@ -8,7 +8,7 @@ import java.util.Objects;
 public class PaypartEntity {
     private int paypartNo;
     private PayEntity payNo;
-    private Integer drugName;
+    private String drugName;
     private Integer drugQuantity;
     private Long drugPrice;
     private String checklistName;
@@ -38,11 +38,11 @@ public class PaypartEntity {
 
     @Basic
     @Column(name = "DRUG_NAME")
-    public Integer getDrugName() {
+    public String getDrugName() {
         return drugName;
     }
 
-    public void setDrugName(Integer drugName) {
+    public void setDrugName(String drugName) {
         this.drugName = drugName;
     }
 
@@ -87,7 +87,7 @@ public class PaypartEntity {
     }
 
     @Basic
-    @Column(name = "CHANGETEST_NAME")
+    @Column(name = "CHANGETEST_NAME ")
     public String getChangetestName() {
         return changetestName;
     }
