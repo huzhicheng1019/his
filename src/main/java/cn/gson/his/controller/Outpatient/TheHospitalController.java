@@ -1,8 +1,10 @@
 package cn.gson.his.controller.Outpatient;
 
 
+import cn.gson.his.model.pojos.Outpatient.DoctorrecordEntity;
 import cn.gson.his.model.pojos.Outpatient.PatientdataEntity;
 import cn.gson.his.model.pojos.Outpatient.TheHospitalEntity;
+import cn.gson.his.model.service.Outpatient.DoctorrecordService;
 import cn.gson.his.model.service.Outpatient.TheHospitalService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ import java.util.Map;
 public class TheHospitalController {
     @Autowired
     TheHospitalService theHospitalService;
+
+    @Autowired
+    DoctorrecordService doctorrecordService;
 
     //查询所有住院申请表
     @RequestMapping("/selHospital")
@@ -38,7 +43,24 @@ public class TheHospitalController {
             e.printStackTrace();
         }
     }
+    //直接新增住院申请表
+    @RequestMapping("/insertHospital")
+    public void insertHospital(Integer patient,Integer depaId,Integer recordNo){
+        TheHospitalEntity theHospitalEntity = new TheHospitalEntity();
+        theHospitalEntity.setDepaId(depaId);
 
+        theHospitalEntity.setPatientNo(patient);
+        System.out.println(recordNo);
+        DoctorrecordEntity doctor = new DoctorrecordEntity();
+        doctor.setAttState("已诊");
+
+        doctor.setRecordNo(recordNo);
+
+        doctorrecordService.upDoctorrecord(doctor);
+
+        theHospitalService.insertHospital(theHospitalEntity);
+
+    }
     //修改申请表状态
     @RequestMapping("/updateState")
     public void demo2(String hospitalNo){

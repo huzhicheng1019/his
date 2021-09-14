@@ -5,6 +5,6 @@
 
 <!--    新增缴费详情-->
     <insert id="addPayPart">
-        insert into PAYPART values (SEQ.nextval,883,'999感冒灵',1,20,null,null,null,null);
+        insert into PAYPART(PAYPART_NO,PAY_NO,DRUG_NAME,DRUG_QUANTITY,DRUG_PRICE) values (seq.nextval,#{payNo.payNo},#{drugName},#{drugQuantity},#{drugPrice})
     </insert>
 </mapper>

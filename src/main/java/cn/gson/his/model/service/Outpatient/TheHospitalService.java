@@ -38,7 +38,11 @@ public class TheHospitalService {
 
         theHospitalMapper.insertHospital(theHospitalEntity);
     }
+    //直接申请住院申请表
+    public void insertHospital(TheHospitalEntity theHospitalEntity){
 
+        theHospitalMapper.insertHospital(theHospitalEntity);
+    }
     //修改申请表状态
     public int updateState(String hospitalNo){
         return theHospitalMapper.updateState(hospitalNo);
