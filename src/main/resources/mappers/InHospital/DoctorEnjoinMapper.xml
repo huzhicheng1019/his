@@ -107,7 +107,11 @@
 
         where e.reg_mark = #{regMark}  order by en.ens_end desc
     </select>
-
+    <!--转科时根据住院号查医嘱-->
+    <select id="queryEn" resultMap="EnMap">
+        select * from doctor_enjoin e left join doctor_enjoins en on e.en_id = en.en_id
+        where e.reg_mark = #{regMark}
+    </select>
 
     <!--修改医嘱状态-->
     <update id="updateEn">
@@ -117,6 +121,12 @@
     <update id="updateEns">
         update doctor_enjoins set ens_end = current_timestamp where en_id = #{enId}
     </update>
+    <!--根据住院号取消医嘱-->
+    <update id="alterEn">
+        update doctor_enjoins set en_end = current_timestamp where regMark = #{regMark}
+    </update>
+
+
 
     <!--单独修改医嘱详表状态-->
     <update id="upEns">

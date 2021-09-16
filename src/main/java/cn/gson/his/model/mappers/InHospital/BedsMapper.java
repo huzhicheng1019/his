@@ -21,6 +21,10 @@ public interface BedsMapper {
     //修改床位护士
     public int updateNurse(BedsEntity beds);
 
-    //根据出院号 查床位记录
+    //根据住院号 查床位记录
     public BedsEntity selBeds(String regMark);
+
+    //转科后修改床位记录
+    public int alterBeds(String regMark);
+
 }
