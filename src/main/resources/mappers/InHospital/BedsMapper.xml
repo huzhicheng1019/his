@@ -49,4 +49,9 @@
         select * from beds where reg_mark = #{regMark} and beds_is = 0
     </select>
 
+    <!--转科后修改床位记录-->
+    <update id="alterBeds">
+        update beds set bed_id = 0,nurse_id = null,nurse_name = null,beds_start=null,beds_end=null where reg_mark=#{regMark} and beds_is = 0
+    </update>
+
 </mapper>

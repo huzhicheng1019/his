@@ -21,7 +21,7 @@ public class Employee {
     private Department departmentByEmpDepar;//科室
     private Title titles;//职称
     private UserInfo useres;//用户
-    private List<Schedu> schedus;//排班
+    private List<ScheEmp> schedus;//排班人员组
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -105,11 +105,11 @@ public class Employee {
     }
 
     @OneToMany(mappedBy = "emp")
-    public List<Schedu> getSchedus() {
+    public List<ScheEmp> getSchedus() {
         return schedus;
     }
 
-    public void setSchedus(List<Schedu> schedus) {
+    public void setSchedus(List<ScheEmp> schedus) {
         this.schedus = schedus;
     }
 
@@ -156,7 +156,7 @@ public class Employee {
         this.titles = titles;
     }
 
-    public Employee(String empName, String empPhone, String empCard, Timestamp empInduction, Timestamp empDeparture, Integer empState, Dept deptByEmpDept, Department departmentByEmpDepar, Title titles, UserInfo useres, List<Schedu> schedus) {
+    public Employee(String empName, String empPhone, String empCard, Timestamp empInduction, Timestamp empDeparture, Integer empState, Dept deptByEmpDept, Department departmentByEmpDepar, Title titles, UserInfo useres, List<ScheEmp> schedus) {
         this.empName = empName;
         this.empPhone = empPhone;
         this.empCard = empCard;

@@ -1,17 +1,27 @@
+/**
+ * 排班日期
+ */
 package cn.gson.his.model.pojos.Power;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Schedu {
     private Integer scheId;
-    private Employee emp;
     private String scheDate;
-    private String startTime;
-    private String stopTime;
+    private String scheWeek;
+    private List<ScheEmp> scheEmps;
 
+    @OneToMany(mappedBy = "scheduByScheId")
+    public List<ScheEmp> getScheEmps() {
+        return scheEmps;
+    }
+
+    public void setScheEmps(List<ScheEmp> scheEmps) {
+        this.scheEmps = scheEmps;
+    }
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -25,16 +35,6 @@ public class Schedu {
         this.scheId = scheId;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "EMP_ID", referencedColumnName = "EMP_ID")
-    public Employee getEmp() {
-        return emp;
-    }
-
-    public void setEmp(Employee emp) {
-        this.emp = emp;
-    }
-
     @Basic
     @Column(name = "SCHE_DATE")
     public String getScheDate() {
@@ -46,23 +46,13 @@ public class Schedu {
     }
 
     @Basic
-    @Column(name = "START_TIME")
-    public String getStartTime() {
-        return startTime;
+    @Column(name = "SCHE_WEEK")
+    public String getScheWeek() {
+        return scheWeek;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    @Basic
-    @Column(name = "STOP_TIME")
-    public String getStopTime() {
-        return stopTime;
-    }
-
-    public void setStopTime(String stopTime) {
-        this.stopTime = stopTime;
+    public void setScheWeek(String scheWeek) {
+        this.scheWeek = scheWeek;
     }
 
     @Override
@@ -70,31 +60,21 @@ public class Schedu {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Schedu schedu = (Schedu) o;
-        return Objects.equals(scheId, schedu.scheId) && Objects.equals(scheDate, schedu.scheDate);
+        return Objects.equals(scheId, schedu.scheId) && Objects.equals(scheDate, schedu.scheDate) && Objects.equals(scheWeek, schedu.scheWeek);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scheId, scheDate);
+        return Objects.hash(scheId, scheDate, scheWeek);
     }
 
-    public Schedu(Employee emp, String scheDate, String startTime, String stopTime) {
-        this.emp = emp;
+
+    public Schedu(Integer scheId, String scheDate, String scheWeek) {
+        this.scheId = scheId;
         this.scheDate = scheDate;
-        this.startTime = startTime;
-        this.stopTime = stopTime;
+        this.scheWeek = scheWeek;
     }
 
     public Schedu() {
-    }
-
-    @Override
-    public String toString() {
-        return "Schedu{" +
-                "scheId=" + scheId +
-                ", scheDate='" + scheDate + '\'' +
-                ", startTime='" + startTime + '\'' +
-                ", stopTime='" + stopTime + '\'' +
-                '}';
     }
 }

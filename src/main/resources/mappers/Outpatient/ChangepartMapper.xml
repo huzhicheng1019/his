@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--检验详情xml-->
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.ChangepartMapper">
+    <resultMap id="allChangepart" type="cn.gson.his.model.pojos.Outpatient.ChangepartEntity">
+        <id property="changepartNo" column="CHANGEPART_NO"/>
+        <result property="changetestNo" column="CHANGETEST_NO"/>
+        <result property="checkoutResult" column="CHECKOUT_RESULT"/>
+        <association property="checkoutNo" javaType="cn.gson.his.model.pojos.Outpatient.CheckoutEntity">
+            <id property="checkoutNo" column="CHECKOUT_NO"></id>
+            <result property="checkoutId" column="CHECKOUT_ID"></result>
+            <result property="checkoutCribe" column="CHECKOUT_CRIBE"></result>
+            <result property="checkoutPrice" column="CHECKOUT_PRICE"></result>
+            <result property="checkoutState" column="CHECKOUT_STATE"></result>
+        </association>
+    </resultMap>
+<!--    新增检验详情-->
+    <insert id="addChangepart">
+        insert  into CHANGEPART values (seq.nextval,#{changetestNo},#{checkoutNo.checkoutNo},#{checkoutResult})
+    </insert>
+<!--    查询-->
+    <select id="seleChangepart" resultMap="allChangepart">
+        select * from  CHECKOUT C inner join CHANGEPART C2 on C.CHECKOUT_NO = C2.CHECKOUT_NO
+        where CHECKOUT_ID = #{checkoutId}
+    </select>
+<!--    修改化验结果 -->
+    <update id="upChangepart">
+        update CHANGEPART C  set C.CHECKOUT_RESULT = #{result} where C.CHECKOUT_NO= (select C1.CHECKOUT_NO from CHECKOUT C1 where C1.CHECKOUT_ID = #{checkout} and C1.EXAMINE_STATE = 1)
+    </update>
+</mapper>

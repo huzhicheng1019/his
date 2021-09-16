@@ -35,6 +35,6 @@
                     (d.depa_create between #{startDate} and #{endDate})
                 </if>
             </where>
-            order by depa_create desc
+            order by to_date(depa_create,'yyyy-mm-dd hh24:mi:ss') desc
     </select>
 </mapper>

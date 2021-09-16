@@ -16,6 +16,45 @@ public class Department {
     private Dept dept;//部门
     private String depaAddress;//科室地址
 
+    private List<Employee> emps; //员工集合
+    private List<ScheEmp> scheEmps; // 排班人员
+    private Schedu schedu;//排班日期
+    private Title titles;//职称
+
+    @ManyToOne
+    public Title getTitles() {
+        return titles;
+    }
+
+    public void setTitles(Title titles) {
+        this.titles = titles;
+    }
+
+    @OneToMany
+    public List<Employee> getEmps() {
+        return emps;
+    }
+
+    public void setEmps(List<Employee> emps) {
+        this.emps = emps;
+    }
+    @OneToMany
+    public List<ScheEmp> getScheEmps() {
+        return scheEmps;
+    }
+
+    public void setScheEmps(List<ScheEmp> scheEmps) {
+        this.scheEmps = scheEmps;
+    }
+    @ManyToOne
+    public Schedu getSchedu() {
+        return schedu;
+    }
+
+    public void setSchedu(Schedu schedu) {
+        this.schedu = schedu;
+    }
+
     @Basic
     @Column(name = "DEPA_ADDRESS")
     public String getDepaAddress() {

@@ -2,4 +2,91 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.gson.his.model.mappers.InHospital.OperationApplyMapper">
+    <resultMap id="appMap" type="cn.gson.his.model.pojos.InHospital.OperationApplyEntity">
+        <id property="appId" column="app_id"></id>
+        <result property="doctorId" column="doctor_id"></result>
+        <result property="regMark" column="reg_mark"></result>
+        <result property="appDate" column="app_date"></result>
+        <result property="appText" column="app_text"></result>
+
+        <association property="emp" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id property="empId" column="emp_id"></id>
+            <result property="empName" column="emp_name"></result>
+            <result property="empPhone" column="emp_phone"></result>
+            <result property="empCard" column="emp_card"></result>
+            <result property="empInduction" column="emp_induction"></result>
+            <result property="empDeparture" column="emp_departure"></result>
+            <result property="empState" column="emp_state"></result>
+        </association>
+
+        <collection property="apps" ofType="cn.gson.his.model.pojos.InHospital.OperationApplysEntity">
+            <id property="appsId" column="apps_id"></id>
+            <result property="appId" column="app_id"></result>
+            <result property="opsId" column="ops_id"></result>
+            <result property="opsName" column="ops_name"></result>
+            <result property="opsPrice" column="ops_price"></result>
+            <result property="opsType" column="ops_type"></result>
+            <result property="opsDress" column="ops_dress"></result>
+            <result property="opsIndication" column="ops_indication"></result>
+            <result property="opsTaboo" column="ops_taboo"></result>
+            <result property="opsIs" column="ops_is"></result>
+        </collection>
+    </resultMap>
+
+    <!--取消手术申请表-->
+    <resultMap id="canMap" type="cn.gson.his.model.pojos.InHospital.CancelOperationEntity">
+        <id property="canId" column="can_id"></id>
+        <result property="canCause" column="can_cause"></result>
+        <result property="regMark" column="reg_mark"></result>
+        <result property="opsId" column="ops_id"></result>
+        <result property="doctorId" column="doctor_id"></result>
+        <result property="canDate" column="can_date"></result>
+    </resultMap>
+
+    <!--新增取消手术申请表-->
+    <insert id="insertCan">
+        insert into cancel_operation values (seq.nextval,#{canCause},#{regMark},#{opsId},#{doctorId},current_timestamp )
+    </insert>
+
+    <!--修改手术详表状态-->
+    <update id="updateCan">
+       update operation_applys set ops_is = 2 where apps_id=#{appsId}
+    </update>
+
+
+    <!--新增手术申请表-->
+    <insert id="insertApp">
+        <selectKey order="BEFORE" keyProperty="appId" resultType="_int"  >
+            select seq.nextval from dual
+        </selectKey>
+        insert into operation_apply values (#{appId},#{doctorId},#{regMark},#{appDate},#{appText})
+    </insert>
+
+    <!--新增手术申请详表-->
+    <insert id="insertApps" parameterType="java.util.List">
+        insert into operation_applys(apps_id,app_id,ops_id,ops_name,ops_price,ops_type,ops_dress,ops_indication,ops_taboo,ops_is)
+        select seq.nextval,app_id,ops_id,ops_name,ops_price,ops_type,ops_dress,ops_indication,ops_taboo,ops_is from
+        <foreach collection="Applys" item="e" index="i" separator=" " open="(" close=")">
+            <if test="i != Applys.size()-1">
+                select #{e.appId} as app_id, #{e.opsId} as ops_id,#{e.opsName} as ops_name,#{e.opsPrice} as ops_price,#{e.opsType} as ops_type,#{e.opsDress} as ops_dress,#{e.opsIndication} as ops_indication,#{e.opsTaboo} as ops_taboo,#{e.opsIs} as ops_is  from dual
+                union
+            </if>
+            <if test="i == Applys.size()-1">
+                select #{e.appId} as app_id, #{e.opsId} as ops_id,#{e.opsName} as ops_name,#{e.opsPrice} as ops_price,#{e.opsType} as ops_type,#{e.opsDress} as ops_dress,#{e.opsIndication} as ops_indication,#{e.opsTaboo} as ops_taboo,#{e.opsIs} as ops_is  from dual
+            </if>
+        </foreach>
+    </insert>
+
+    <!--查询手术申请表-->
+    <select id="selApp" resultMap="appMap">
+        SELECT * from OPERATION_APPLY app right join OPERATION_APPLYS apps on app.app_id = apps.app_id
+        left join OPERATION_ITEM i on apps.ops_id = i.operation_id
+        LEFT JOIN EMPLOYEE e on e.emp_id = app.doctor_id
+        where  app.reg_mark = #{regMark}
+
+      
+    </select>
+
+
+
 </mapper>

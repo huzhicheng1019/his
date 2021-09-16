@@ -190,4 +190,16 @@
         </where>
     </select>
 
+
+    <!--转科后修改病人的科室和主治医生-->
+    <update id="updateReg">
+        update hospital_register set depa_id=#{depaId},doctor_id=#{doctorId},doctor_name=#{doctorName} where reg_mark=#{regMark}
+    </update>
+    
+    <!--根据住院号查病人-->
+    <select id="look" resultMap="HopRegMap">
+        select * from hospital_register where reg_mark=#{regMark}
+    </select>
+
+
 </mapper>

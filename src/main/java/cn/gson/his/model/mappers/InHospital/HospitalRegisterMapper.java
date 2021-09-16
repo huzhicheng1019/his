@@ -34,4 +34,12 @@ public interface HospitalRegisterMapper {
     //出院登记查询
     public List<HospitalRegisterEntity> selLeave(@Param("text")String text, @Param("depaId") String depaId);
 
+
+    //转科后修改科室和主治医生
+    public int updateReg(HospitalRegisterEntity hospitalRegister);
+
+    //根据住院号查病人
+    public HospitalRegisterEntity look(String regMark);
+
+
 }
