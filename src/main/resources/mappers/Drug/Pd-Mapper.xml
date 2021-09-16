@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Drug.PdMapper">
+    <resultMap id="pdMap" type="cn.gson.his.model.pojos.Drug.ChecksEntity">
+        <id column="CHECK_ID" property="checkId"></id>
+        <result column="CHECK_DATE" property="checkDate"></result>
+        <result column="PDLX" property="pdlx"></result>
+        <result column="ZT" property="zt"></result>
+        <result column="BZ" property="bz"></result>
+        <association property="library" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
+            <id column="LIBRARY_ID" property="libraryId"></id>
+            <result column="lname" property="libraryName"></result>
+        </association>
+        <association property="employee" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id column="FZR" property="empId"></id>
+            <result column="e_name" property="empName"></result>
+        </association>
+    </resultMap>
+
+    <select id="pdcx" resultMap="pdMap">
+        select o.*,e.EMP_NAME e_name,l.library_name lname from CHECKS o left join EMPLOYEE e on o.FZR=e.EMP_ID LEFT JOIN LIBRARY_INFO l on o.LIBRARY_ID=l.LIBRARY_ID
+        <where>
+            <if test="nr!=null and nr!=''">
+                and CHECK_ID like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="pdxqMap" type="cn.gson.his.model.pojos.Drug.Checkxq">
+        <id column="CHECKXQ_ID" property="checkxqId"></id>
+        <result column="CHECK_ID" property="checkId"></result>
+        <result column="SJKC" property="sjkc"></result>
+        <result column="PDJG" property="pdjg"></result>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="PRODUCT_NAME" property="productName"></result>
+        <result column="PRODUCT_FL" property="productFl"></result>
+        <result column="KCS" property="kcs"></result>
+        <result column="PH" property="ph"></result>
+        <result column="SCDATE" property="scdate"></result>
+        <result column="GQDATE" property="gqdate"></result>
+        <result column="KSZT" property="kszt"></result>
+        <result column="GESL" property="gesl"></result>
+        <result column="SHDW" property="shdw"></result>
+        <result column="PRICE" property="price"></result>
+        <result column="SJPRICE" property="sjprice"></result>
+        <result column="GE" property="ge"></result>
+        <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
+    </resultMap>
+
+    <select id="pdxqcx" resultMap="pdxqMap">
+        select l.*,g.gys_name g_name from CHECKXQ l left join gys g on l.gys_id=g.gys_id
+        <where>
+            l.CHECK_ID=#{id}
+            <if test="nr!=null and nr!=''">
+                and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -4,6 +4,7 @@ import cn.gson.his.model.pojos.Drug.Allot;
 import cn.gson.his.model.pojos.Drug.Allotxq;
 import cn.gson.his.model.pojos.Drug.Destroy;
 import cn.gson.his.model.pojos.Drug.Destroyxq;
+import cn.gson.his.model.pojos.Power.Employee;
 import cn.gson.his.model.service.Drug.XhService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.annotation.After;
@@ -88,6 +89,46 @@ public class XhController {
         System.out.println(destroyId);
         try {
             xhService.xhdel(destroyId);
+            return "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+
+    @RequestMapping("xhckxqid")
+    public Map<String,Object> getdbckxqid(Integer id){
+        Map<String, Object> stringObjectMap = xhService.shxh(id);
+        return stringObjectMap;
+    }
+
+    @RequestMapping("xhbh")
+    public void xhbh(@RequestBody Destroy destroy){
+        System.out.println("开始：");
+        System.out.println(destroy);
+        xhService.bh(destroy);
+    }
+
+    @RequestMapping("add-xhrck")
+    public String xhrckxz(@RequestBody Map<String,Object> map){
+        System.out.println("开始：");
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println(1);
+        System.out.println(map.get("destroy"));
+        System.out.println(map.get("xqsj"));
+        System.out.println(map.get("spr"));
+        Destroy destroy = mapper.convertValue(map.get("destroy"), Destroy.class);
+        Employee spr = mapper.convertValue(map.get("spr"), Employee.class);
+        System.out.println(2);
+        List<Destroyxq> xqsj=new ArrayList<>();
+        List<Object> list = (List<Object>)map.get("xqsj");
+        for (Object i : list) {
+            System.out.println(i);
+            Destroyxq destroyxq = mapper.convertValue(i, Destroyxq.class);
+            xqsj.add(destroyxq);
+        }
+        try {
+            xhService.xzxhrck(destroy,spr,xqsj);
             return "ok";
         } catch (Exception e) {
             e.printStackTrace();

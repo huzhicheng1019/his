@@ -5,6 +5,8 @@ import cn.gson.his.model.mappers.Drug.CangkMapper;
 import cn.gson.his.model.mappers.Drug.TyMapper;
 import cn.gson.his.model.mappers.Drug.YfMapper;
 import cn.gson.his.model.pojos.Drug.*;
+import cn.gson.his.model.pojos.Outpatient.PrescriptionEntity;
+import cn.gson.his.model.pojos.Outpatient.PrescriptionsEntity;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,9 +81,23 @@ public class YfService {
     }
 
     public Map<String,Object> cfxq(Integer id){
+        PrescriptionEntity cfidcx = yfMapper.cfidcx(id);
+        System.out.println(cfidcx);
+        String pd="bcz";
+        if(cfidcx==null){
+            pd="bcz";
+        }else {
+            if(cfidcx.getPriveType().equals("1")){
+                pd="ok";
+            }else if(cfidcx.getPriveType().equals("0")){
+                pd="no";
+            }
+        }
+
         Map<String,Object> map = new HashMap<>();
         //分页查询
         map.put("cfxq",yfMapper.cfxqcx(id));
+        map.put("pd",pd);
         return map;
     }
 
@@ -130,14 +146,23 @@ public class YfService {
 
     public Map<String,Object> yfxqidcx(String id,String nr){
         List<Pillsxq> pillsxqList=yfMapper.yfxqcx(id,nr);
-        List<StojlEntity> stojlEntityList=tyMapper.stojllyid(id);
+        List<RefundEntity> refundEntityList=tyMapper.tycxid(id);
+        List<Refundxq> refundxqs=null;
+
+        for (RefundEntity refundEntity : refundEntityList) {
+            List<Refundxq> tyxqcx = tyMapper.tyxqcx(refundEntity.getRefundId(),"");
+            for (Refundxq refundxq : tyxqcx) {
+                refundxqs.add(refundxq);
+            }
+        }
+
         if(pillsxqList!=null){
             for (int i=0;i<pillsxqList.size();i++) {
-                if(stojlEntityList!=null){
-                    for(int j=0;j<stojlEntityList.size();j++){
-                        if(pillsxqList.get(i).getProductId().equals(stojlEntityList.get(j).getProductId()) && pillsxqList.get(i).getProductFl().equals(stojlEntityList.get(j).getProductFl()) &&
-                                pillsxqList.get(i).getPh().equals(stojlEntityList.get(j).getPh())){
-                            pillsxqList.get(i).setSl(pillsxqList.get(i).getSl()-stojlEntityList.get(j).getSl());
+                if(refundxqs!=null){
+                    for(int j=0;j<refundxqs.size();j++){
+                        if(pillsxqList.get(i).getProductId().equals(refundxqs.get(j).getProductId()) && pillsxqList.get(i).getProductFl().equals(refundxqs.get(j).getProductFl()) &&
+                                pillsxqList.get(i).getPh().equals(refundxqs.get(j).getPh())){
+                            pillsxqList.get(i).setSl(pillsxqList.get(i).getSl()-refundxqs.get(j).getSl());
                         }
                         if(pillsxqList.get(i).getSl()<=0){
                             pillsxqList.remove(pillsxqList.get(i));

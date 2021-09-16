@@ -26,6 +26,11 @@
         </where>
     </select>
 
+    <select id="tycxid" resultMap="tyMap">
+        SELECT a.*,e.emp_name e_name,l.library_name lname from REFUND a LEFT JOIN EMPLOYEE e ON a.tyr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID
+        where PILLS_ID=#{id}
+    </select>
+
     <resultMap id="tyxqMap" type="cn.gson.his.model.pojos.Drug.Refundxq">
         <id column="REFUNDXQ_ID" property="refundxqId"></id>
         <result column="PRODUCT_ID" property="productId"></result>
