@@ -6,10 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -118,5 +115,52 @@ public class ScheduController {
     @RequestMapping("/allScheEmp")
     public List<Schedu> allScheEmp(){
         return service.allScheEmp();
+    }
+
+    @RequestMapping("allScheByempId")
+    public List<Integer> allScheByempId(@RequestParam("deparId") Integer deparId,@RequestParam("scheId") Integer scheId,@RequestParam("shiId") Integer shiId){
+        return service.allScheByempId(deparId,scheId,shiId);
+    }
+
+    @PostMapping("addScheEmp")
+    public ElMessage addScheEmp(@RequestParam("scheEmp") String scheEmp){
+        JSONObject o = JSONObject.parseObject(scheEmp);
+        List<Integer> emp = JSONArray.parseArray(o.get("emp").toString(), Integer.TYPE);
+        Integer shiId = Integer.parseInt(o.get("shiId").toString());
+        Integer scheId = Integer.parseInt(o.get("scheId").toString());
+        //System.out.println("员工"+emp+",班次id"+shiId+",日期id"+scheId);
+        boolean is=true;
+        List<ScheEmp> list=new ArrayList<>();
+        if(emp.isEmpty()){
+            is=false;
+            ScheEmp scheEmp1=add(-1,shiId,scheId);
+            list.add(scheEmp1);
+        }else{
+            for (int i=0;i<emp.size();i++){
+                ScheEmp scheEmp1=add(emp.get(i),shiId,scheId);
+                list.add(scheEmp1);
+            }
+        }
+        int p = service.addScheEmp(is,list);
+            ElMessage elm = new ElMessage();
+            if (p > 0) {
+                elm.setMessage("已排班");
+                elm.setType("success");
+            }
+            return elm;
+    }
+
+    public ScheEmp add(Integer empId,Integer shiId,Integer scheId){
+        Employee employee=new Employee();
+        employee.setEmpId(empId);
+        Shift shift=new Shift();
+        shift.setShiId(shiId);
+        Schedu schedu=new Schedu();
+        schedu.setScheId(scheId);
+        ScheEmp scheEmp1=new ScheEmp();
+        scheEmp1.setEmp(employee);
+        scheEmp1.setShift(shift);
+        scheEmp1.setScheduByScheId(schedu);
+        return scheEmp1;
     }
 }

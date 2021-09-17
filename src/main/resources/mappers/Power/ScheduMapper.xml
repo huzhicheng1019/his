@@ -161,4 +161,27 @@
         ORDER BY TO_DATE(s.SCHE_DATE, 'yyyy/mm/dd')
     </select>
 
+
+    <select id="allScheByempId" resultType="_int">
+        SELECT * FROM EMPLOYEE e INNER JOIN SCHE_EMP c on e.EMP_ID=c.EMP_ID WHERE e.EMP_DEPAR=#{deparId} and c.SCHE_ID=#{scheId} and c.SHI_ID=#{shiId}
+    </select>
+
+    <insert id="addScheEmp" parameterType="java.util.List">
+        insert into sche_emp(SEMP_ID, EMP_ID, SHI_ID,SCHE_ID)
+        select seq.nextval, EMP_ID, SHI_ID,SCHE_ID from
+        <foreach collection="scheEmps" item="p" index="i" separator=" " open="(" close=")">
+            <if test="i != scheEmps.size()-1">
+                select #{p.emp.empId} as EMP_ID , #{p.shift.shiId} as SHI_ID,#{p.scheduByScheId.scheId} as SCHE_ID from dual
+                union
+            </if>
+            <if test="i == scheEmps.size()-1">
+                select #{p.emp.empId} as EMP_ID , #{p.shift.shiId} as SHI_ID,#{p.scheduByScheId.scheId} as SCHE_ID from dual
+            </if>
+        </foreach>
+    </insert>
+
+    <delete id="delScheEmp">
+        DELETE FROM SCHE_EMP WHERE SHI_ID=#{shiId} and SCHE_ID=#{scheId}
+    </delete>
+
 </mapper>

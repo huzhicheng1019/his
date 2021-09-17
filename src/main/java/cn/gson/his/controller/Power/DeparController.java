@@ -33,14 +33,13 @@ public class DeparController {
         String zhi=o.get("date")+"";
         Timestamp start=null;
         Timestamp end=null;
-        if(zhi!=null && !("".equals(zhi))){
+        if(zhi!=null && !("".equals(zhi)) && !("null".equals(zhi))){
             String date[] = zhi.split(",");
             start=new Timestamp(new Date(Date.parse(date[0])).getTime());
             end=new Timestamp(new Date(Date.parse(date[1])).getTime());
         }
-        Department depa=new Department();
-        depa.setDepaName(o.get("idOrnameOradd")+"");
-        return service.allDepar(pageNo,size,depa,start,end);
+        String name=o.get("idOrnameOradd")+"";
+        return service.allDepar(pageNo,size,name,start,end);
     }
 
     /**

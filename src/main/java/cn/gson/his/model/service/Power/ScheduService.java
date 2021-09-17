@@ -92,4 +92,19 @@ public class ScheduService {
     public List<Schedu> allScheEmp(){
         return mapper.allScheEmp();
     }
+
+    public List<Integer> allScheByempId(Integer deparId, Integer scheId, Integer shiId) {
+        return mapper.allScheByempId(deparId,scheId,shiId);
+    }
+
+    public int  addScheEmp(boolean is,List<ScheEmp> scheEmps) {
+        int p=mapper.delScheEmp(scheEmps.get(0).getShift().getShiId(),scheEmps.get(0).getScheduByScheId().getScheId());
+        int y=-1;
+        if(is){
+            y=mapper.addScheEmp(scheEmps);
+        }
+        //System.out.println("删除有效行"+p);
+        y=p>-1 ? 1:0;
+        return y>0 ? 1:0;
+    }
 }

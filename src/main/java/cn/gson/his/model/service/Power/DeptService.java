@@ -42,9 +42,9 @@ public class DeptService {
         return map;
     }*/
 
-    public Map<String, Object> allDept(Integer pageNo, Integer size, Dept dept, Timestamp startDate,Timestamp endDate){
+    public Map<String, Object> allDept(Integer pageNo, Integer size, String name, Timestamp startDate,Timestamp endDate){
         Page<Object> p = PageHelper.startPage(pageNo,size);
-        List<Map<String, Object>> list = mapper.allDept(dept,startDate,endDate);
+        List<Map<String, Object>> list = mapper.allDept(name,startDate,endDate);
         Map<String, Object> map = new HashMap<>();
         map.put("rows",list);
         map.put("total",p.getTotal());

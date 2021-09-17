@@ -32,9 +32,9 @@ public class DeparService {
      * @param size
      * @return
      */
-    public Map<String,Object> allDepar(Integer pageNo, Integer size,Department depa, Timestamp startDate, Timestamp endDate){
+    public Map<String,Object> allDepar(Integer pageNo, Integer size,String name, Timestamp startDate, Timestamp endDate){
         Page<Object> p = PageHelper.startPage(pageNo,size);
-        List<Map<String, Object>> list = mapper.pageDepar(depa,startDate,endDate);
+        List<Map<String, Object>> list = mapper.pageDepar(name,startDate,endDate);
         Map<String, Object> map = new HashMap<>();
         map.put("rows",list);
         map.put("total",p.getTotal());

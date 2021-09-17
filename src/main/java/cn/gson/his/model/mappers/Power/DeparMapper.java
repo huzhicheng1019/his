@@ -19,5 +19,5 @@ public interface DeparMapper {
      */
     public List<Department> allDepar();
 
-    public List<Map<String,Object>> pageDepar(@Param("depa") Department depa, @Param("startDate") Timestamp startDate, @Param("endDate")Timestamp endDate);
+    public List<Map<String,Object>> pageDepar(@Param("name") String name, @Param("startDate") Timestamp startDate, @Param("endDate")Timestamp endDate);
 }
