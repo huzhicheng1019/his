@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 public class Destroy {
-    private Integer destroyId;
+    private String destroyId;
     private Employee employee;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp destroyDate;
@@ -17,16 +17,15 @@ public class Destroy {
     private Timestamp sqdate;
     private Integer destroyZt;
     private String bz;
+    private Integer why;
 
     @Id
-    @GeneratedValue(generator = "SEQ")
-    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "DESTROY_ID", nullable = false, precision = 0)
-    public Integer getDestroyId() {
+    public String getDestroyId() {
         return destroyId;
     }
 
-    public void setDestroyId(Integer destroyId) {
+    public void setDestroyId(String destroyId) {
         this.destroyId = destroyId;
     }
 
@@ -80,17 +79,26 @@ public class Destroy {
         this.bz = bz;
     }
 
+    @Basic
+    @Column(name = "WHY")
+    public Integer getWhy() {
+        return why;
+    }
+
+    public void setWhy(Integer why) {
+        this.why = why;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Destroy destroy = (Destroy) o;
-        return Objects.equals(destroyId, destroy.destroyId) && Objects.equals(employee, destroy.employee) && Objects.equals(destroyDate, destroy.destroyDate) && Objects.equals(sqdate, destroy.sqdate) && Objects.equals(destroyZt, destroy.destroyZt) && Objects.equals(bz, destroy.bz);
+        return Objects.equals(destroyId, destroy.destroyId) && Objects.equals(employee, destroy.employee) && Objects.equals(destroyDate, destroy.destroyDate) && Objects.equals(sqdate, destroy.sqdate) && Objects.equals(destroyZt, destroy.destroyZt) && Objects.equals(bz, destroy.bz) && Objects.equals(why, destroy.why);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(destroyId, employee, destroyDate, sqdate, destroyZt, bz);
+        return Objects.hash(destroyId, employee, destroyDate, sqdate, destroyZt, bz, why);
     }
 }

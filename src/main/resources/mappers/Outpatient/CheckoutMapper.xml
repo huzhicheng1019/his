@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--化验主表-->
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.CheckoutMapper">
+<resultMap id="allCheck" type="cn.gson.his.model.pojos.Outpatient.CheckoutEntity">
+    <id property="checkoutNo" column="CHECKOUT_NO"></id>
+    <result property="checkoutId" column="CHECKOUT_ID"></result>
+    <result property="checkoutCribe" column="CHECKOUT_CRIBE"></result>
+    <result property="checkoutPrice" column="CHECKOUT_PRICE"></result>
+    <result property="checkoutState" column="CHECKOUT_STATE"></result>
+</resultMap>
+<!--    新增化验-->
+    <insert id="addCheck">
+        insert into CHECKOUT values (seq.nextval,#{checkoutId},#{checkoutCribe},#{checkoutPrice},#{checkoutState})
+        <selectKey order="AFTER" keyColumn="checkoutNo" resultType="_int">
+            select seq.currval from dual
+        </selectKey>
+    </insert>
+<!--    查询化验单-->
+    <select id="seleCheck" resultMap="allCheck">
+        select * from  CHECKOUT
+        where CHECKOUT_ID = #{checkoutId}
+    </select>
+<!--    修改化验单收费状态-->
+    <update id="upCheck">
+        update  CHECKOUT set EXAMINE_STATE = #{checkoutState}  where CHECKOUT_ID = #{checkoutId} and  EXAMINE_STATE = 0
+    </update>
+</mapper>

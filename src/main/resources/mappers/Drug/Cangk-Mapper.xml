@@ -53,6 +53,26 @@
         </where>
     </select>
 
+    <select id="ckhscx" resultMap="ckxqMap">
+        select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
+        where l.LIBRARY_ID=#{id} and l.kcs!=0
+    </select>
+
+    <select id="ckgqcx" resultMap="ckxqMap">
+        select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
+        where l.LIBRARY_ID=#{id} and SYSDATE>=l.GQDATE and l.kcs!=0
+    </select>
+
+    <select id="cklqcx" resultMap="ckxqMap">
+        select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
+        where l.LIBRARY_ID=#{id} <![CDATA[and l.gqdate<=ADD_MONTHS(SYSDATE,1) and l.gqdate>SYSDATE and l.kcs!=0]]>
+    </select>
+
+    <select id="ckxqcxid" resultMap="ckxqMap">
+        select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
+        where l.LIBRARY_ID=#{id} and l.PRODUCT_ID=#{pid} and l.PRODUCT_FL=#{fl} and l.PH=#{ph}
+    </select>
+
     <select id="dbckxqcx" resultMap="ckxqMap">
         select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
         <where>

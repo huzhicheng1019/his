@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.ExamineMapper">
+    <resultMap id="allExamine" type="cn.gson.his.model.pojos.Outpatient.ExamineEntity">
+        <id column="examineNo" property="EXAMINE_NO"/>
+        <result column="Record_id" property="CHECKOUT_ID"/>
+        <result column="checklistNo" property="CHECKLIST_NO"/>
+        <result column="examineDiagnose" property="EXAMINE_DIAGNOSE"/>
+        <result column="examineMethod" property="EXAMINE_METHOD"/>
+        <result column="examineLook" property="EXAMINE_LOOK"/>
+        <result column="examineState" property="EXAMINE_STATE"/>
+    </resultMap>
+<!--新增检查项目-->
+    <insert id="addExamine">
+        insert into EXAMINE values (SEQ.nextval,#{Record_id},#{checklistNo},#{examineDiagnose},#{examineMethod},#{examineLook},#{examineState})
+    </insert>
+<!--    查询检查项目-->
+    <select id="allExamine" resultMap="allExamine">
+        select  * from EXAMINE
+        <where>
+            <if test="Record_id != null">
+                CHECKOUT_ID = #{Record_id}
+            </if>
+        </where>
+    </select>
+<!--    修改检查项目收费状态-->
+    <update id="upExamine">
+        update EXAMINE 
+        <set>
+            <if test="examineDiagnose !=null">
+                EXAMINE_STATE = #{examineDiagnose}
+            </if>
+            <if test="examineState ！=null">
+                EXAMINE_DIAGNOSE = #{examineState}
+            </if>
+        </set>
+    </update>
+</mapper>

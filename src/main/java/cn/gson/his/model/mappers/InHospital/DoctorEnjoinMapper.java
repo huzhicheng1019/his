@@ -17,12 +17,18 @@ public interface DoctorEnjoinMapper {
 
     //根据住院号查医嘱
     public List<DoctorEnjoinEntity> selEn(String regMark);
+    //转科时根据住院号查医嘱
+    public List<DoctorEnjoinEntity> queryEn(String regMark);
 
 
     //修改医嘱状态
     public int updateEn(String enId);
     //修改医嘱详表状态
     public int updateEns(String enId);
+    //根据住院号取消医嘱
+    public int alterEn(String regMark);
+
+
 
     //单独修医嘱详表状态
     public int upEns(String ensId);

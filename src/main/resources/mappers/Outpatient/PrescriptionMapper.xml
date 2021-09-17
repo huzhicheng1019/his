@@ -70,15 +70,20 @@
             </if>
         </where>
     </select>
+<!--    修改处方状态-->
+    <update id="upPres">
+        update  PRESCRIPTION set  PRIVE_TYPE = #{priveType} where RECORD_ID = #{presNo}
+    </update>
 <!--    查询处方和所有的要缴费的东西-->
     <select id="allSy" resultMap="Sy">
         select * from(
-                         select P1.Record_id,P.CHINESE_NAME as name, p.C_COUNT as count,p.C_PRICE as price from PRESCRIPTIONS P inner join PRESCRIPTION P1 on p.PRES_ID = P1.PRES_NO
+                         select P1.Record_id,P.CHINESE_NAME as name, p.C_COUNT as count,p.C_PRICE as price,p1.PRIVE_TYPE as stata
+                         from PRESCRIPTIONS P inner join PRESCRIPTION P1 on p.PRES_ID = P1.PRES_NO
                          union all
-                         select C.CHECKOUT_ID,c.CHECKOUT_CRIBE as name,null,c.CHECKOUT_PRICE as price  from CHECKOUT C inner join changePart C1  on C.Checkout_no = C.Checkout_no
+                         select C.CHECKOUT_ID,c.CHECKOUT_CRIBE as name,null,c.CHECKOUT_PRICE as price ,C.CHECKOUT_STATE as state  from CHECKOUT C inner join changePart C1  on C.Checkout_no = C.Checkout_no
                          union all
-                         select CHECKOUT_ID, EXAMINE_METHOD as name,null,EXAMINE_LOOK as price from examine)rec
-        where rec.Record_id = #{Record_id}
+                         select CHECKOUT_ID, EXAMINE_METHOD as name,null,EXAMINE_LOOK as price ,EXAMINE_STATE as state from examine)rec
+        where rec.Record_id = #{Record_id} and rec.stata = 0
     </select>
 <!--    新增处方-->
 <insert id="addPres">

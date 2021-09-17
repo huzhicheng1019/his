@@ -25,25 +25,34 @@
                 <id property="titId" column="TIT_ID"/>
                 <result property="titName" column="TIT_NAME"/>
             </association>
-            <collection property="schedus" ofType="cn.gson.his.model.pojos.Power.Schedu">
-                <id property="scheId" column="SCHE_ID"/>
-                <result property="startTime" column="START_TIME"/>
-                <result property="stopTime" column="STOP_TIME"/>
-                <result property="startDate" column="START_DATE"/>
-                <result property="stopDate" column="STOP_DATE"/>
+            <collection property="schedus" ofType="cn.gson.his.model.pojos.Power.ScheEmp">
+                <id property="sempId" column="SEMP_ID"/>
+                <association property="shift" javaType="cn.gson.his.model.pojos.Power.Shift">
+                    <id property="shiId" column="SHI_ID"/>
+                    <result property="shiName" column="SHI_NAME"/>
+                    <result property="startTime" column="START_TIME"/>
+                    <result property="stopTime" column="STOP_TIME"/>
+                </association>
+                <association property="scheduByScheId" javaType="cn.gson.his.model.pojos.Power.Schedu">
+                    <id property="scheId" column="SCHE_ID"/>
+                    <result property="scheDate" column="SCHE_DATE"/>
+                    <result property="scheWeek" column="SCHE_WEEK"/>
+                </association>
             </collection>
         </association>
     </resultMap>
     <!--登录-->
     <select id="Login" resultMap="UserEmp">
         select * from USER_INFO u
-            LEFT JOIN EMPLOYEE e on u.USER_EMP=e.EMP_ID
-            LEFT JOIN DEPT d on e.EMP_DEPT=d.DEPT_ID
-            LEFT JOIN DEPARTMENT a on e.EMP_DEPAR=a.DEPA_ID
-            LEFT JOIN TITLE t on e.EMP_TIT=t.TIT_ID
-            LEFT JOIN SCHEDU s on s.EMP_ID=e.EMP_ID
-            where  u.USER_ACCOUNT=#{userAccount}
-            and u.USER_PASS=#{userPass}
+                          LEFT JOIN EMPLOYEE e on u.USER_EMP=e.EMP_ID
+                          LEFT JOIN DEPT d on e.EMP_DEPT=d.DEPT_ID
+                          LEFT JOIN DEPARTMENT a on e.EMP_DEPAR=a.DEPA_ID
+                          LEFT JOIN TITLE t on e.EMP_TIT=t.TIT_ID
+                          LEFT JOIN SCHE_EMP s on s.EMP_ID=e.EMP_ID
+                          LEFT JOIN SHIFT h on s.SHI_ID=h.SHI_ID
+                          LEFT JOIN SCHEDU c on s.SCHE_ID=c.SCHE_ID
+        where  u.USER_ACCOUNT=#{userAccount}
+        and u.USER_PASS=#{userPass}
     </select>
 
     <update id="resetUser" parameterType="com.alibaba.fastjson.JSONArray">

@@ -6,10 +6,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "CHANGEPART", schema = "HIS", catalog = "")
 public class ChangepartEntity {
-    private int changepartNo;
-    private String changetestNo;
-    private Integer checkoutNo;
-    private String checkoutResult;
+    private int changepartNo;//详情编号
+    private String changetestNo;//化验项目编号
+    private CheckoutEntity checkoutNo;//化验单外键
+    private String checkoutResult;//化验结果
 
     @Id
     @Column(name = "CHANGEPART_NO")
@@ -31,13 +31,13 @@ public class ChangepartEntity {
         this.changetestNo = changetestNo;
     }
 
-    @Basic
-    @Column(name = "CHECKOUT_NO")
-    public Integer getCheckoutNo() {
+    @OneToOne
+    @Column(name = "CHECKOUT_NO",nullable = false)
+    public CheckoutEntity getCheckoutNo() {
         return checkoutNo;
     }
 
-    public void setCheckoutNo(Integer checkoutNo) {
+    public void setCheckoutNo(CheckoutEntity checkoutNo) {
         this.checkoutNo = checkoutNo;
     }
 

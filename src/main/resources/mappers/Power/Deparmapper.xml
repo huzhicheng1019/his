@@ -28,13 +28,13 @@
     <select id="pageDepar" resultMap="DeparMap">
             select * from DEPARTMENT d left join DEPT e on d.DEPA_DEPT=e.DEPT_ID
             <where>
-                <if test="depa.depaName!=null and depa.depaName!=''">
-                    (d.depa_id like '%${depa.depaName}%' or d.depa_name like '%${depa.depaName}%' or d.depa_address like '%${depa.depaName}%' or e.dept_name like '%${depa.depaName}%')
+                <if test="name!=null and name!=''">
+                    and (d.depa_id like '%${name}%' or d.depa_name like '%${name}%' or d.depa_address like '%${name}%' or e.dept_name like '%${name}%' or to_char(d.DEPA_CREATE,'yyyy-mm-dd HH24:mi:ss:ff') like '%${name}%')
                 </if>
                 <if test="startDate!=null and endDate!=null">
-                    (d.depa_create between #{startDate} and #{endDate})
+                    and (d.depa_create between #{startDate} and #{endDate})
                 </if>
             </where>
-            order by depa_create desc
+            order by d.depa_create desc
     </select>
 </mapper>

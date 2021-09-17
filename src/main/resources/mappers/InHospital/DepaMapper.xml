@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.InHospital.DepaMapper">
+    <resultMap id="depasMap" type="cn.gson.his.model.pojos.Power.Department">
+        <id property="depaId" column="DEPA_ID"></id>
+        <result property="depaName" column="DEPA_NAME"></result>
+        <result property="depaCreate" column="DEPA_CREATE"></result>
+        <result property="depaAddress" column="depa_address"></result>
+        <!--部门-->
+        <association property="dept" javaType="cn.gson.his.model.pojos.Power.Dept">
+            <id property="deptId" column="dept_id"></id>
+            <result property="deptName" column="dept_name"></result>
+            <result property="deptCreate" column="dept_create"/>
+        </association>
+        <association property="titles" javaType="cn.gson.his.model.pojos.Power.Title">
+            <id property="titId" column="tit_id"></id>
+            <result property="titName" column="tit_name"></result>
+        </association>
+        <!--排班日期-->
+        <association property="schedu" javaType="cn.gson.his.model.pojos.Power.Schedu">
+            <id property="scheId" column="SCHE_ID"/>
+            <result property="scheDate" column="SCHE_DATE"/>
+            <result property="scheWeek" column="SCHE_WEEK"/>
+        </association>
+        <!--员工-->
+        <collection property="emps" ofType="cn.gson.his.model.pojos.Power.Employee">
+            <id property="empId" column="emp_id"></id>
+            <result property="empName" column="emp_name"></result>
+            <result property="empPhone" column="emp_phone"></result>
+            <result property="empCard" column="emp_card"></result>
+            <result property="empInduction" column="emp_induction"></result>
+            <result property="empDeparture" column="emp_departure"></result>
+            <result property="empState" column="emp_state"></result>
+        </collection>
+        <!--排班人员-->
+        <collection property="scheEmps" ofType="cn.gson.his.model.pojos.Power.ScheEmp">
+            <id property="sempId" column="SEMP_ID"/>
+        </collection>
+
+    </resultMap>
+
+
+    <!--查询某科室当天值班的医生-->
+    <select id="selDuty" resultMap="depasMap">
+        SELECT * FROM DEPARTMENT d LEFT JOIN EMPLOYEE e on d.DEPA_ID=e.EMP_DEPAR
+        LEFT JOIN SCHE_EMP m on e.EMP_ID=m.EMP_ID
+        LEFT JOIN SCHEDU s on m.SCHE_ID=s.SCHE_ID
+        LEFT JOIN title t on e.emp_tit = t.tit_id
+        WHERE TO_DATE(s.SCHE_DATE,'yyyy/mm/dd')=TO_DATE(TO_CHAR(sysdate,'yyyy/mm/dd'),'yyyy/mm/dd') and d.DEPA_ID=#{deparId} AND T.TIT_ID = 1
+    </select>
+    
+
+</mapper>

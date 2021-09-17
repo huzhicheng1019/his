@@ -4,6 +4,7 @@ import cn.gson.his.model.pojos.Drug.Allot;
 import cn.gson.his.model.pojos.Drug.Allotxq;
 import cn.gson.his.model.pojos.Drug.Destroy;
 import cn.gson.his.model.pojos.Drug.Destroyxq;
+import cn.gson.his.model.pojos.Power.Employee;
 import cn.gson.his.model.service.Drug.XhService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.annotation.After;
@@ -34,7 +35,7 @@ public class XhController {
     }
 
     @RequestMapping("xhxq")
-    public Map<String,Object> getxhxq(Integer pageNo, Integer size,Integer id,String nr){
+    public Map<String,Object> getxhxq(Integer pageNo, Integer size,String id,String nr){
         System.out.println(id);
         System.out.println(nr);
         Map<String, Object> stringObjectMap = xhService.xhxqselect(pageNo,size,id,nr);
@@ -77,17 +78,57 @@ public class XhController {
     }
 
     @RequestMapping("xhxx")
-    public Map<String,Object> getxhxx(Integer id){
+    public Map<String,Object> getxhxx(String id){
         System.out.println("开始：");
         Map<String, Object> stringObjectMap = xhService.xhcxid(id);
         return stringObjectMap;
     }
 
     @RequestMapping("del-xh")
-    public String delcg(Integer destroyId){
+    public String delcg(String destroyId){
         System.out.println(destroyId);
         try {
             xhService.xhdel(destroyId);
+            return "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+
+    @RequestMapping("xhckxqid")
+    public Map<String,Object> getdbckxqid(String id){
+        Map<String, Object> stringObjectMap = xhService.shxh(id);
+        return stringObjectMap;
+    }
+
+    @RequestMapping("xhbh")
+    public void xhbh(@RequestBody Destroy destroy){
+        System.out.println("开始：");
+        System.out.println(destroy);
+        xhService.bh(destroy);
+    }
+
+    @RequestMapping("add-xhrck")
+    public String xhrckxz(@RequestBody Map<String,Object> map){
+        System.out.println("开始：");
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println(1);
+        System.out.println(map.get("destroy"));
+        System.out.println(map.get("xqsj"));
+        System.out.println(map.get("spr"));
+        Destroy destroy = mapper.convertValue(map.get("destroy"), Destroy.class);
+        Employee spr = mapper.convertValue(map.get("spr"), Employee.class);
+        System.out.println(2);
+        List<Destroyxq> xqsj=new ArrayList<>();
+        List<Object> list = (List<Object>)map.get("xqsj");
+        for (Object i : list) {
+            System.out.println(i);
+            Destroyxq destroyxq = mapper.convertValue(i, Destroyxq.class);
+            xqsj.add(destroyxq);
+        }
+        try {
+            xhService.xzxhrck(destroy,spr,xqsj);
             return "ok";
         } catch (Exception e) {
             e.printStackTrace();

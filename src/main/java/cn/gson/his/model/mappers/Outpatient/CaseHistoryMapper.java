@@ -13,4 +13,7 @@ public interface CaseHistoryMapper{
     public List<CaseHistoryEntity>allCaseHistory(CaseHistoryEntity caseHistoryEntity);
     //新增
     public int addCaseHistory(CaseHistoryEntity caseHistoryEntity);
+
+    //跟据身份证查询
+    public CaseHistoryEntity IdentityCaseHistory(String caseHistoryEntity);
 }

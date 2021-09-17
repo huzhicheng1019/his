@@ -10,11 +10,11 @@
     <select id="allDept" resultMap="deptMap">
         select * from dept
         <where>
-            <if test="dept.deptName!=null and dept.deptName!=''">
-                (dept_id like '%${dept.deptName}%' or dept_name like '%${dept.deptName}%')
+            <if test="name!=null and name!=''">
+                and (dept_id like '%${name}%' or dept_name like '%${name}%' or to_char(DEPT_CREATE,'yyyy-mm-dd HH24:mi:ss:ff') like '%${name}%')
             </if>
             <if test="startDate!=null and endDate!=null">
-                (dept_create between #{startDate} and #{endDate})
+               and (dept_create between #{startDate} and #{endDate})
             </if>
         </where>
         order by dept_create desc

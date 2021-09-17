@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.gson.his.model.mappers.Power.ScheduMapper">
-    <select id="allDeptId" resultType="java.lang.Integer">
+    <!--<select id="allDeptId" resultType="java.lang.Integer">
         select dept_id from dept where dept_name=#{name}
-    </select>
+    </select>-->
 
     <!--映射科室-->
-    <resultMap id="depa" type="cn.gson.his.model.pojos.Power.Department">
+    <!--<resultMap id="depa" type="cn.gson.his.model.pojos.Power.Department">
         <id property="depaId" column="DEPA_ID"></id>
         <result property="depaName" column="DEPA_NAME"></result>
         <result property="depaCreate" column="DEPA_CREATE"></result>
@@ -16,7 +16,7 @@
         select * from DEPARTMENT where DEPA_DEPT=#{id}
     </select>
 
-    <!--映射职称-->
+    &lt;!&ndash;映射职称&ndash;&gt;
     <resultMap id="Tit" type="cn.gson.his.model.pojos.Power.Title">
         <id property="titId" column="TIT_ID"/>
         <result property="titName" column="TIT_NAME"/>
@@ -33,17 +33,17 @@
         <result property="empInduction" column="emp_induction"></result>
         <result property="empDeparture" column="emp_departure"></result>
         <result property="empState" column="emp_state"></result>
-        <!--部门-->
+        &lt;!&ndash;部门&ndash;&gt;
         <association property="deptByEmpDept" javaType="cn.gson.his.model.pojos.Power.Dept">
             <id property="deptId" column="dept_id"></id>
             <result property="deptName" column="dept_name"></result>
         </association>
-        <!--科室-->
+        &lt;!&ndash;科室&ndash;&gt;
         <association property="departmentByEmpDepar" javaType="cn.gson.his.model.pojos.Power.Department">
             <id property="depaId" column="depa_id"></id>
             <result property="depaName" column="depa_name"></result>
         </association>
-        <!--职称-->
+        &lt;!&ndash;职称&ndash;&gt;
         <association property="titles" javaType="cn.gson.his.model.pojos.Power.Title">
             <id property="titId" column="tit_id"></id>
             <result property="titName" column="tit_name"></result>
@@ -51,7 +51,7 @@
     </resultMap>
     <select id="depaIdByEmp" resultMap="EmpMap">
         SELECT * FROM EMPLOYEE e left join title t on e.emp_tit = t.tit_id where e.EMP_DEPT=#{dept} and e.EMP_DEPAR=#{depa}
-    </select>
+    </select>-->
 
     <resultMap id="Shift" type="cn.gson.his.model.pojos.Power.Shift">
         <id property="shiId" column="SHI_ID"/>
@@ -59,12 +59,12 @@
         <result property="startTime" column="START_TIME"/>
         <result property="stopTime" column="STOP_TIME"/>
     </resultMap>
-    <select id="allShift" resultMap="Shift">
+    <!--<select id="allShift" resultMap="Shift">
         SELECT * FROM SHIFT
     </select>
 
 
-    <!--批量新增排班-->
+    &lt;!&ndash;批量新增排班&ndash;&gt;
     <insert id="addSchedu" parameterType="java.util.List">
         insert into schedu(SCHE_ID, EMP_ID, SCHE_DATE,START_TIME,STOP_TIME)
         select seq.nextval, EMP_ID, SCHE_DATE,START_TIME,STOP_TIME from
@@ -103,5 +103,85 @@
     </resultMap>
     <select id="allSche" resultMap="Schedu">
         select * from schedu s left join employee e on s.emp_id=e.emp_id left join dept p on e.emp_dept=dept_id left join department d on e.emp_depar=d.depa_id left join title t on e.emp_tit=t.tit_id where p.dept_name=#{dept}
+    </select>-->
+
+    <select id="allShiftById" resultMap="Shift">
+        select * from shift where shi_type=#{typeId} order by START_TIME
     </select>
+
+    <!--查询本周星期-->
+    <resultMap id="scheEmp" type="cn.gson.his.model.pojos.Power.Schedu">
+        <id property="scheId" column="SCHE_ID"/>
+        <result property="scheDate" column="SCHE_DATE"/>
+        <result property="scheWeek" column="SCHE_WEEK"/>
+        <!--查询本周星期一下的员工组-->
+        <collection property="scheEmps" ofType="cn.gson.his.model.pojos.Power.ScheEmp">
+            <id property="sempId" column="SEMP_ID"/>
+            <!--员工-->
+            <association property="emp" javaType="cn.gson.his.model.pojos.Power.Employee">
+                <id property="empId" column="EMP_ID"/>
+                <result property="empName" column="EMP_NAME"/>
+                <result property="empPhone" column="EMP_PHONE"/>
+                <result property="empCard" column="EMP_CARD"/>
+                <!--部门-->
+                <association property="deptByEmpDept" javaType="cn.gson.his.model.pojos.Power.Dept">
+                    <id property="deptId" column="DEPT_ID"/>
+                    <result property="deptName" column="DEPT_NAME"/>
+                </association>
+                <!--科室-->
+                <association property="departmentByEmpDepar" javaType="cn.gson.his.model.pojos.Power.Department">
+                    <id property="depaId" column="DEPA_ID"/>
+                    <result property="depaName" column="DEPA_NAME"/>
+                </association>
+                <!--职称-->
+                <association property="titles" javaType="cn.gson.his.model.pojos.Power.Title">
+                    <id property="titId" column="TIT_ID"/>
+                    <result property="titName" column="TIT_NAME"/>
+                </association>
+            </association>
+            <!--班次-->
+            <association property="shift" javaType="cn.gson.his.model.pojos.Power.Shift">
+                <id property="shiId" column="SHI_ID"/>
+                <result property="shiName" column="SHI_NAME"/>
+                <result property="startTime" column="START_TIME"/>
+                <result property="stopTime" column="STOP_TIME"/>
+            </association>
+        </collection>
+    </resultMap>
+    <select id="allScheEmp" resultMap="scheEmp">
+        SELECT * FROM SCHEDU s
+        LEFT JOIN SCHE_EMP c on  s.SCHE_ID=c.SCHE_ID
+        LEFT JOIN SHIFT h on c.SHI_ID=h.SHI_ID
+        LEFT JOIN EMPLOYEE e on c.EMP_ID=e.EMP_ID
+        LEFT JOIN DEPT d on e.EMP_DEPT=d.DEPT_ID
+        LEFT JOIN DEPARTMENT p on e.EMP_DEPAR=p.DEPA_ID
+        LEFT JOIN TITLE t on e.EMP_TIT=t.TIT_ID
+        WHERE TO_DATE(s.SCHE_DATE, 'yyyy/mm/dd') >= TRUNC(NEXT_DAY(SYSDATE-8,1)+1)
+        AND TO_DATE(s.SCHE_DATE, 'yyyy/mm/dd') &lt; TRUNC(NEXT_DAY(SYSDATE-8,1)+7)+1
+        ORDER BY TO_DATE(s.SCHE_DATE, 'yyyy/mm/dd')
+    </select>
+
+
+    <select id="allScheByempId" resultType="_int">
+        SELECT * FROM EMPLOYEE e INNER JOIN SCHE_EMP c on e.EMP_ID=c.EMP_ID WHERE e.EMP_DEPAR=#{deparId} and c.SCHE_ID=#{scheId} and c.SHI_ID=#{shiId}
+    </select>
+
+    <insert id="addScheEmp" parameterType="java.util.List">
+        insert into sche_emp(SEMP_ID, EMP_ID, SHI_ID,SCHE_ID)
+        select seq.nextval, EMP_ID, SHI_ID,SCHE_ID from
+        <foreach collection="scheEmps" item="p" index="i" separator=" " open="(" close=")">
+            <if test="i != scheEmps.size()-1">
+                select #{p.emp.empId} as EMP_ID , #{p.shift.shiId} as SHI_ID,#{p.scheduByScheId.scheId} as SCHE_ID from dual
+                union
+            </if>
+            <if test="i == scheEmps.size()-1">
+                select #{p.emp.empId} as EMP_ID , #{p.shift.shiId} as SHI_ID,#{p.scheduByScheId.scheId} as SCHE_ID from dual
+            </if>
+        </foreach>
+    </insert>
+
+    <delete id="delScheEmp">
+        DELETE FROM SCHE_EMP WHERE SHI_ID=#{shiId} and SCHE_ID=#{scheId}
+    </delete>
+
 </mapper>

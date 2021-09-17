@@ -1,26 +1,31 @@
 package cn.gson.his.model.pojos.Drug;
 
+import cn.gson.his.model.pojos.Power.Employee;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "REFUND", schema = "HIS", catalog = "")
+@Table(name = "REFUND", schema = "HIS")
 public class RefundEntity {
-    private int refundId;
+    private String refundId;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp refundDate;
-    private Integer pillsId;
-    private Integer tyr;
+    private String pillsId;
+    private Employee employee;
     private Long zje;
-    private Integer libraryId;
+    private LibraryInfoEntity library;
+    private String tywhy;
 
     @Id
     @Column(name = "REFUND_ID")
-    public int getRefundId() {
+    public String getRefundId() {
         return refundId;
     }
 
-    public void setRefundId(int refundId) {
+    public void setRefundId(String refundId) {
         this.refundId = refundId;
     }
 
@@ -36,22 +41,22 @@ public class RefundEntity {
 
     @Basic
     @Column(name = "PILLS_ID")
-    public Integer getPillsId() {
+    public String getPillsId() {
         return pillsId;
     }
 
-    public void setPillsId(Integer pillsId) {
+    public void setPillsId(String pillsId) {
         this.pillsId = pillsId;
     }
 
-    @Basic
-    @Column(name = "TYR")
-    public Integer getTyr() {
-        return tyr;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "TYR", referencedColumnName = "EMP_ID")
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setTyr(Integer tyr) {
-        this.tyr = tyr;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Basic
@@ -64,14 +69,24 @@ public class RefundEntity {
         this.zje = zje;
     }
 
-    @Basic
-    @Column(name = "LIBRARY_ID")
-    public Integer getLibraryId() {
-        return libraryId;
+    @ManyToOne
+    @JoinColumn(name = "LIBRARY_ID", referencedColumnName = "LIBRARY_ID")
+    public LibraryInfoEntity getLibrary() {
+        return library;
     }
 
-    public void setLibraryId(Integer libraryId) {
-        this.libraryId = libraryId;
+    public void setLibrary(LibraryInfoEntity library) {
+        this.library = library;
+    }
+
+    @Basic
+    @Column(name = "TYWHY")
+    public String getTywhy() {
+        return tywhy;
+    }
+
+    public void setTywhy(String tywhy) {
+        this.tywhy = tywhy;
     }
 
     @Override
@@ -82,13 +97,14 @@ public class RefundEntity {
         return refundId == that.refundId &&
                 Objects.equals(refundDate, that.refundDate) &&
                 Objects.equals(pillsId, that.pillsId) &&
-                Objects.equals(tyr, that.tyr) &&
+                Objects.equals(employee, that.employee) &&
                 Objects.equals(zje, that.zje) &&
-                Objects.equals(libraryId, that.libraryId);
+                Objects.equals(tywhy, that.tywhy) &&
+                Objects.equals(library, that.library);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(refundId, refundDate, pillsId, tyr, zje, libraryId);
+        return Objects.hash(refundId, refundDate, pillsId, employee, zje, library,tywhy);
     }
 }

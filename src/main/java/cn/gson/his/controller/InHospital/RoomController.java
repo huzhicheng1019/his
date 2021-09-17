@@ -20,8 +20,7 @@ public class RoomController {
     //查询所有病房
     @RequestMapping("selRoom")
     public List<RoomEntity> demo(String text,String depasId){
-        System.out.println("========="+text);
-        System.out.println("========="+depasId);
+
         return roomService.selRoom(text,depasId);
     }
 
@@ -29,7 +28,7 @@ public class RoomController {
     @RequestMapping("insertRoom")
     public int demo1(String room){
         RoomEntity roomEntity = JSONObject.parseObject(room, RoomEntity.class);
-        System.out.println("111" +  roomEntity);
+
         int i = roomService.insertRoom(roomEntity);
         if(i>0){
             return 1;

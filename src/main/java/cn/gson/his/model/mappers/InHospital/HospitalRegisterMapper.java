@@ -24,7 +24,7 @@ public interface HospitalRegisterMapper {
     /**
      * 查询病人所有信息
      */
-    public List<HospitalRegisterEntity> selAll(String text);
+    public List<HospitalRegisterEntity> selAll(@Param("text")String text, @Param("depaId") String depaId);
 
 
     //查询执行医嘱
@@ -33,5 +33,13 @@ public interface HospitalRegisterMapper {
 
     //出院登记查询
     public List<HospitalRegisterEntity> selLeave(@Param("text")String text, @Param("depaId") String depaId);
+
+
+    //转科后修改科室和主治医生
+    public int updateReg(HospitalRegisterEntity hospitalRegister);
+
+    //根据住院号查病人
+    public HospitalRegisterEntity look(String regMark);
+
 
 }
