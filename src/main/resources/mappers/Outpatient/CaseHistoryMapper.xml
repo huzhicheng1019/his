@@ -7,7 +7,7 @@
     <result column="PATIENT_NAME" property="patientName"/>
     <result column="PATIENT_IDENTITY" property="patientIdentity"/>
 <!--患者信息 -->
-    <association property="patientNo" javaType="cn.gson.his.model.pojos.Outpatient.CaseHistoryPartiEntity">
+    <association property="patientNo" javaType="cn.gson.his.model.pojos.Outpatient.PatientdataEntity">
         <id column="PATIENT_NO" property="patientNo"></id>
         <result column="PATIENT_NAME" property="patientName"/>
         <result column="PATIENT_SEX" property="patientSex"/>
