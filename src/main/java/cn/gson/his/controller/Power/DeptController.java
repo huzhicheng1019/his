@@ -40,9 +40,8 @@ public class DeptController {
             start=new Timestamp(new Date(Date.parse(date[0])).getTime());
             end=new Timestamp(new Date(Date.parse(date[1])).getTime());
         }
-        Dept dept=new Dept();
-        dept.setDeptName(o.get("idOrname")+"");
-        return ser.allDept(pageNo,size,dept,start,end);
+        String name=o.get("idOrname")+"";
+        return ser.allDept(pageNo,size,name,start,end);
     }
 
     /**

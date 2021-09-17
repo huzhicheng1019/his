@@ -13,10 +13,10 @@ public interface DeptMapper {
 
     /**
      * 分页查询所有部门，带筛选
-     * @param dept
+     * @param name
      * @param startDate
      * @param endDate
      * @return
      */
-    List<Map<String,Object>> allDept(@Param("dept")Dept dept, @Param("startDate")Timestamp startDate,@Param("endDate")Timestamp endDate);
+    List<Map<String,Object>> allDept(@Param("name")String name, @Param("startDate")Timestamp startDate,@Param("endDate")Timestamp endDate);
 }

@@ -27,4 +27,10 @@ public interface ScheduMapper {
     List<Shift> allShiftById(Integer typeId);//根据班次类别查询所有班次
 
     List<Schedu> allScheEmp();
+
+    List<Integer> allScheByempId(@Param("deparId") Integer deparId,@Param("scheId") Integer scheId,@Param("shiId") Integer shiId);
+
+    int addScheEmp(List<ScheEmp> scheEmps);
+
+    int delScheEmp(@Param("shiId") Integer shiId,@Param("scheId") Integer scheId);
 }
