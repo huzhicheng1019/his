@@ -96,4 +96,15 @@ public class StoEntity {
     public int hashCode() {
         return Objects.hash(stoId, stoDate, library, why, employee, lyId);
     }
+
+    public StoEntity() {
+    }
+
+    public StoEntity(Timestamp stoDate, LibraryInfoEntity library, Integer why, Employee employee, String lyId) {
+        this.stoDate = stoDate;
+        this.library = library;
+        this.why = why;
+        this.employee = employee;
+        this.lyId = lyId;
+    }
 }

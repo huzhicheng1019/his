@@ -1,25 +1,31 @@
 package cn.gson.his.model.pojos.Drug;
 
+import cn.gson.his.model.pojos.Power.Employee;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "CHECKS", schema = "HIS", catalog = "")
+@Table(name = "CHECKS", schema = "HIS")
 public class ChecksEntity {
-    private int checkId;
+    private String checkId;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp checkDate;
-    private Integer libraryId;
-    private Integer fzr;
-    private Integer shr;
+    private LibraryInfoEntity library;
+    private Employee employee;
+    private String bz;
+    private Integer pdlx;
+    private Integer zt;
 
     @Id
     @Column(name = "CHECK_ID")
-    public int getCheckId() {
+    public String getCheckId() {
         return checkId;
     }
 
-    public void setCheckId(int checkId) {
+    public void setCheckId(String checkId) {
         this.checkId = checkId;
     }
 
@@ -33,34 +39,54 @@ public class ChecksEntity {
         this.checkDate = checkDate;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "LIBRARY_ID", referencedColumnName = "LIBRARY_ID")
+    public LibraryInfoEntity getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(LibraryInfoEntity library) {
+        this.library = library;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "FZR", referencedColumnName = "EMP_ID")
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
     @Basic
-    @Column(name = "LIBRARY_ID")
-    public Integer getLibraryId() {
-        return libraryId;
+    @Column(name = "BZ")
+    public String getBz() {
+        return bz;
     }
 
-    public void setLibraryId(Integer libraryId) {
-        this.libraryId = libraryId;
-    }
-
-    @Basic
-    @Column(name = "FZR")
-    public Integer getFzr() {
-        return fzr;
-    }
-
-    public void setFzr(Integer fzr) {
-        this.fzr = fzr;
+    public void setBz(String bz) {
+        this.bz = bz;
     }
 
     @Basic
-    @Column(name = "SHR")
-    public Integer getShr() {
-        return shr;
+    @Column(name = "PDLX")
+    public Integer getPdlx() {
+        return pdlx;
     }
 
-    public void setShr(Integer shr) {
-        this.shr = shr;
+    public void setPdlx(Integer pdlx) {
+        this.pdlx = pdlx;
+    }
+
+    @Basic
+    @Column(name = "ZT")
+    public Integer getZt() {
+        return zt;
+    }
+
+    public void setZt(Integer zt) {
+        this.zt = zt;
     }
 
     @Override
@@ -70,13 +96,15 @@ public class ChecksEntity {
         ChecksEntity that = (ChecksEntity) o;
         return checkId == that.checkId &&
                 Objects.equals(checkDate, that.checkDate) &&
-                Objects.equals(libraryId, that.libraryId) &&
-                Objects.equals(fzr, that.fzr) &&
-                Objects.equals(shr, that.shr);
+                Objects.equals(library, that.library) &&
+                Objects.equals(employee, that.employee) &&
+                Objects.equals(pdlx, that.pdlx) &&
+                Objects.equals(zt, that.zt) &&
+                Objects.equals(bz, that.bz);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(checkId, checkDate, libraryId, fzr, shr);
+        return Objects.hash(checkId, checkDate, library, employee, bz,zt,pdlx);
     }
 }

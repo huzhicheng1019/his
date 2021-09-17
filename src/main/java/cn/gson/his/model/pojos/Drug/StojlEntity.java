@@ -218,4 +218,26 @@ public class StojlEntity {
     public int hashCode() {
         return Objects.hash(stojlId, sto, productName, productId, productFl, sl, ph, bz,ge,gys,scdate,gqdate,price,kszt,gesl,shdw);
     }
+
+    public StojlEntity() {
+
+    }
+
+    public StojlEntity(StoEntity sto, String productName, Integer productId, String productFl, Integer sl, String ph, String bz, String ge, GysEntity gys, Long price, Timestamp scdate, Timestamp gqdate, String kszt, Integer gesl, String shdw) {
+        this.sto = sto;
+        this.productName = productName;
+        this.productId = productId;
+        this.productFl = productFl;
+        this.sl = sl;
+        this.ph = ph;
+        this.bz = bz;
+        this.ge = ge;
+        this.gys = gys;
+        this.price = price;
+        this.scdate = scdate;
+        this.gqdate = gqdate;
+        this.kszt = kszt;
+        this.gesl = gesl;
+        this.shdw = shdw;
+    }
 }

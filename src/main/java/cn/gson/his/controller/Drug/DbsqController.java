@@ -4,6 +4,7 @@ import cn.gson.his.model.pojos.Drug.Allot;
 import cn.gson.his.model.pojos.Drug.Allotxq;
 import cn.gson.his.model.pojos.Drug.OrdersEntity;
 import cn.gson.his.model.pojos.Drug.OrderxqEntity;
+import cn.gson.his.model.pojos.Power.Employee;
 import cn.gson.his.model.service.Drug.DbsqService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,5 +111,45 @@ public class DbsqController {
             e.printStackTrace();
             return "fail";
         }
+    }
+
+    @RequestMapping("dbckxqid")
+    public Map<String,Object> getdbckxqid(Integer id){
+        Map<String, Object> stringObjectMap = dbsqService.shdb(id);
+        return stringObjectMap;
+    }
+
+    @RequestMapping("add-dbrck")
+    public String dbrckxz(@RequestBody Map<String,Object> map){
+        System.out.println("开始：");
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println(1);
+        System.out.println(map.get("allot"));
+        System.out.println(map.get("xqsj"));
+        System.out.println(map.get("spr"));
+        Allot allot = mapper.convertValue(map.get("allot"), Allot.class);
+        Employee spr = mapper.convertValue(map.get("spr"), Employee.class);
+        System.out.println(2);
+        List<Allotxq> xqsj=new ArrayList<>();
+        List<Object> list = (List<Object>)map.get("xqsj");
+        for (Object i : list) {
+            System.out.println(i);
+            Allotxq allotxq = mapper.convertValue(i, Allotxq.class);
+            xqsj.add(allotxq);
+        }
+        try {
+            dbsqService.xzdbrck(allot,spr,xqsj);
+            return "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+
+    @RequestMapping("dbbh")
+    public void dbbh(@RequestBody Allot allot){
+        System.out.println("开始：");
+        System.out.println(allot);
+        dbsqService.bh(allot);
     }
 }

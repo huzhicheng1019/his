@@ -23,6 +23,7 @@ public class Department {
     private Title titles;//职称
 
     @ManyToOne
+    @Transient
     public Title getTitles() {
         return titles;
     }
@@ -32,6 +33,7 @@ public class Department {
     }
 
     @OneToMany
+    @Transient
     public List<Employee> getEmps() {
         return emps;
     }
@@ -40,6 +42,7 @@ public class Department {
         this.emps = emps;
     }
     @OneToMany
+    @Transient
     public List<ScheEmp> getScheEmps() {
         return scheEmps;
     }
@@ -48,6 +51,7 @@ public class Department {
         this.scheEmps = scheEmps;
     }
     @ManyToOne
+    @Transient
     public Schedu getSchedu() {
         return schedu;
     }

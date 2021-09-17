@@ -13,7 +13,7 @@ import java.util.List;
 public interface XhMapper {
     public List<Destroy> xhcx(String nr);
 
-    public List<Destroyxq> xhxqcx(@Param("id") Integer id, @Param("nr") String nr);
+    public List<Destroyxq> xhxqcx(@Param("id") String id, @Param("nr") String nr);
 
-    public List<Destroy> xhcxid(Integer id);
+    public List<Destroy> xhcxid(String id);
 }

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Drug.TyMapper">
+    <resultMap id="tyMap" type="cn.gson.his.model.pojos.Drug.RefundEntity">
+        <id column="REFUND_ID" property="refundId"></id>
+        <result column="REFUND_DATE" property="refundDate"></result>
+        <result column="PILLS_ID" property="pillsId"></result>
+        <result column="ZJE" property="zje"></result>
+        <association property="library" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
+            <id column="LIBRARY_ID" property="libraryId"></id>
+            <result column="lname" property="libraryName"></result>
+        </association>
+        <association property="employee" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id column="TYR" property="empId"></id>
+            <result column="e_name" property="empName"></result>
+        </association>
+    </resultMap>
+
+    <select id="tycx" resultMap="tyMap">
+        SELECT a.*,e.emp_name e_name,l.library_name lname from REFUND a LEFT JOIN EMPLOYEE e ON a.tyr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID
+        <where>
+            <if test="nr!=null and nr!=''">
+                and REFUND_ID like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="tycxid" resultMap="tyMap">
+        SELECT a.*,e.emp_name e_name,l.library_name lname from REFUND a LEFT JOIN EMPLOYEE e ON a.tyr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID
+        where PILLS_ID=#{id}
+    </select>
+
+    <resultMap id="tyxqMap" type="cn.gson.his.model.pojos.Drug.Refundxq">
+        <id column="REFUNDXQ_ID" property="refundxqId"></id>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="PRODUCT_NAME" property="productName"></result>
+        <result column="PRODUCT_FL" property="productFl"></result>
+        <result column="SL" property="sl"></result>
+        <result column="PH" property="ph"></result>
+        <result column="SCDATE" property="scdate"></result>
+        <result column="BZ" property="bz"></result>
+        <result column="DRUG_GE" property="drugGe"></result>
+        <result column="GQDATE" property="gqdate"></result>
+        <result column="DRUG_PRICE" property="drugPrice"></result>
+        <result column="PRICE" property="price"></result>
+        <result column="REFUND_ID" property="RefundId"></result>
+        <result column="KSZT" property="kszt"></result>
+        <result column="GESL" property="gesl"></result>
+        <result column="SHDW" property="shdw"></result>
+        <result column="DW" property="dw"></result>
+        <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
+    </resultMap>
+
+    <select id="tyxqcx" resultMap="tyxqMap">
+        select s.*,g.gys_name g_name from REFUNDXQ s left join gys g on s.gys_id=g.gys_id
+        <where>
+            REFUND_ID=#{id}
+            <if test="nr!=null and nr!=''">
+                and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="stojlMap" type="cn.gson.his.model.pojos.Drug.StojlEntity">
+        <id column="STOJL_ID" property="stojlId"></id>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="PRODUCT_NAME" property="productName"></result>
+        <result column="PRODUCT_FL" property="productFl"></result>
+        <result column="SL" property="sl"></result>
+        <result column="PH" property="ph"></result>
+        <result column="SCDATE" property="scdate"></result>
+        <result column="BZ" property="bz"></result>
+        <result column="GE" property="ge"></result>
+        <result column="GQDATE" property="gqdate"></result>
+        <result column="PRICE" property="price"></result>
+        <result column="KSZT" property="kszt"></result>
+        <result column="GESL" property="gesl"></result>
+        <result column="SHDW" property="shdw"></result>
+        <association property="sto" javaType="cn.gson.his.model.pojos.Drug.StoEntity">
+            <id column="STO_ID" property="stoId"></id>
+        </association>
+        <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
+    </resultMap>
+
+    <select id="stojllyid" resultMap="stojlMap">
+        select s.*,g.gys_name g_name from sto c LEFT JOIN stojl s on c.sto_id=s.sto_id LEFT JOIN gys g on s.gys_id=g.gys_id where c.ly_id=#{id} and c.why=2
+    </select>
+</mapper>

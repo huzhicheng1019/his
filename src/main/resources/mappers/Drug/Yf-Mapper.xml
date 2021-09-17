@@ -7,13 +7,6 @@
         <result column="PILLS_DATE" property="pillsDate"></result>
         <result column="FYLY_ID" property="fylyId"></result>
         <result column="FYLY_FL" property="fylyFl"></result>
-        <result column="ZJE" property="zje"></result>
-        <result column="FQZT" property="fqzt"></result>
-        <result column="ZT" property="zt"></result>
-        <result column="TQJE" property="tqje"></result>
-        <result column="BJJE" property="bjje"></result>
-        <result column="YFJE" property="yfje"></result>
-        <result column="SFJE" property="sfje"></result>
         <association property="library" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
             <id column="LIBRARY_ID" property="libraryId"></id>
             <result column="lname" property="libraryName"></result>
@@ -119,4 +112,59 @@
     <select id="cfxqcx" resultMap="prescs">
         select * from PRESCRIPTIONS where PRES_ID=#{id}
     </select>
+
+
+
+    <resultMap id="pres" type="cn.gson.his.model.pojos.Outpatient.PrescriptionEntity">
+        <id column="PRES_NO" property="presNo"/>
+        <result column="PRES_NAME" property="presName"/>
+        <result column="PRES_DATE" property="presDate"/>
+        <result column="NEW_SEE" property="newSee"/>
+        <result column="PRIVE_TYPE" property="priveType"/>
+        <result column="EXPLAIN" property="explain"/>
+        <result column="TOTAL_PRICE" property="totalPrice"/>
+        <result column="MEDICINE_TYPE" property="medicineType"/>
+        <association property="recordId" javaType="cn.gson.his.model.pojos.Outpatient.DoctorrecordEntity">
+            <id column="RECORD_NO" property="recordNo"/>
+            <result column="RECORD_IDENTITY" property="recordIdentity"/>
+            <result column="RECORD_NAME" property="recordName"/>
+            <result column="RECORD_PHONE" property="recordPhone"/>
+            <result column="DOCTOR_NAME" property="doctorName"/>
+            <result column="RECORD_RECORD" property="recordRecord"/>
+        </association>
+        <!--        就诊卡号-->
+        <association property="cardNo" javaType="cn.gson.his.model.pojos.Outpatient.CardEntity">
+            <id column="CARD_ID" property="cardId"/>
+            <result column="CARD_NO" property="cardNo"/>
+            <result column="CARD_PSWD" property="cardPswd"/>
+            <result column="CARD_PRICE" property="cardPrice"/>
+            <result column="CARD_PREPAY" property="cardPrepay"/>
+            <result column="PATIENT_NAME" property="patientName"/>
+            <result column="CARD_STATE" property="cardState"/>
+        </association>
+        <!--        主治医生-->
+        <association property="doctorName" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id property="empId" column="EMP_ID"></id>
+            <result property="empName" column="EMP_NAME"></result>
+        </association>
+        <!--    患者信息-->
+        <association property="patientNo" javaType="cn.gson.his.model.pojos.Outpatient.PatientdataEntity">
+            <id column="PATIENT_NO" property="patientNo"></id>
+            <result column="PATIENT_NAME" property="patientName"/>
+            <result column="PATIENT_SEX" property="patientSex"/>
+            <result column="PATIENT_AGE" property="patientAge"/>
+            <result column="PATIENT_PHONE" property="patientPhone"/>
+            <result column="PATIENT_INSU" property="patientInsu"/>
+            <result column="PATIENT_IDENTITY" property="patientIdentity"/>
+            <result column="PATIENT_PIRTH" property="patientPirth"/>
+        </association>
+    </resultMap>
+
+    <select id="cfidcx" resultMap="pres">
+        select  * from   PRESCRIPTION P
+        where P.PRES_NO=#{id}
+    </select>
+
+
+
 </mapper>

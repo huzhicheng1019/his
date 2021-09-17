@@ -1,9 +1,9 @@
 package cn.gson.his.model.dao.Drug;
 
-import cn.gson.his.model.pojos.Drug.Destroyxq;
+import cn.gson.his.model.pojos.Drug.ChecksEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface XhxqDao  extends CrudRepository<Destroyxq,Integer> {
+public interface PdDao extends CrudRepository<ChecksEntity,String> {
 }
