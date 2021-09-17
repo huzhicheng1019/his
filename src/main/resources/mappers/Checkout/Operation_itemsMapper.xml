@@ -59,7 +59,7 @@
                 sh.consumables_num,
                 sh.consumables_price
             FROM
-                Operation_room r,
+                Osperation_room r,
                 operation_item o,
                 Surgery_drug sd,
                 drug d,
