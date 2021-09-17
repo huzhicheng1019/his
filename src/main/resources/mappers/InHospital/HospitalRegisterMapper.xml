@@ -144,6 +144,7 @@
                 </if>
 
                 and h.reg_is = 0 and b.beds_is = 0
+                and h.depa_id = #{depaId}
             </where>
 
     </select>

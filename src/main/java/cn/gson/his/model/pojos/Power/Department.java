@@ -16,6 +16,7 @@ public class Department {
     private Dept dept;//部门
     private String depaAddress;//科室地址
 
+    
     private List<Employee> emps; //员工集合
     private List<ScheEmp> scheEmps; // 排班人员
     private Schedu schedu;//排班日期

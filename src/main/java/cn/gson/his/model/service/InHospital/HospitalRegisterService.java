@@ -39,8 +39,8 @@ public class HospitalRegisterService {
     /**
      * 查询病人所有信息
      */
-    public List<HospitalRegisterEntity> selAll(String text){
-        return hospitalRegisterMapper.selAll(text);
+    public List<HospitalRegisterEntity> selAll(String text,String depaId){
+        return hospitalRegisterMapper.selAll(text,depaId);
     };
 
     //查询执行医嘱

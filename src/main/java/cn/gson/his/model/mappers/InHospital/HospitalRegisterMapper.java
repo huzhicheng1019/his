@@ -24,7 +24,7 @@ public interface HospitalRegisterMapper {
     /**
      * 查询病人所有信息
      */
-    public List<HospitalRegisterEntity> selAll(String text);
+    public List<HospitalRegisterEntity> selAll(@Param("text")String text, @Param("depaId") String depaId);
 
 
     //查询执行医嘱

@@ -48,8 +48,8 @@ public class HospitalRegisterController {
      * 查询病人所有信息
      */
     @RequestMapping("/selAll")
-    public List<HospitalRegisterEntity> demo3(String text){
-        return reg.selAll(text);
+    public List<HospitalRegisterEntity> demo3(String text,String depaId){
+        return reg.selAll(text,depaId);
     };
 
     //查询执行医嘱
