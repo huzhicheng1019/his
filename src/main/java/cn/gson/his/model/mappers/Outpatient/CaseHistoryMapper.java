@@ -15,5 +15,5 @@ public interface CaseHistoryMapper{
     public int addCaseHistory(CaseHistoryEntity caseHistoryEntity);
 
     //跟据身份证查询
-    public CaseHistoryEntity IdentityCaseHistory(String caseHistoryEntity);
+    public List<CaseHistoryEntity> IdentityCaseHistory(CaseHistoryEntity caseHistoryEntity);
 }
