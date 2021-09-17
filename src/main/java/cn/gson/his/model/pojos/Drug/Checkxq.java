@@ -12,7 +12,7 @@ public class Checkxq {
     private Integer productId;
     private String productName;
     private String checkId;
-    private Integer productFl;
+    private String productFl;
     private Integer sjkc;
     private Integer pdjg;
     private Integer kcs;
@@ -73,11 +73,11 @@ public class Checkxq {
 
     @Basic
     @Column(name = "PRODUCT_FL", nullable = true, precision = 0)
-    public Integer getProductFl() {
+    public String getProductFl() {
         return productFl;
     }
 
-    public void setProductFl(Integer productFl) {
+    public void setProductFl(String productFl) {
         this.productFl = productFl;
     }
 

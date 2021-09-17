@@ -35,7 +35,7 @@ public class XhController {
     }
 
     @RequestMapping("xhxq")
-    public Map<String,Object> getxhxq(Integer pageNo, Integer size,Integer id,String nr){
+    public Map<String,Object> getxhxq(Integer pageNo, Integer size,String id,String nr){
         System.out.println(id);
         System.out.println(nr);
         Map<String, Object> stringObjectMap = xhService.xhxqselect(pageNo,size,id,nr);
@@ -78,14 +78,14 @@ public class XhController {
     }
 
     @RequestMapping("xhxx")
-    public Map<String,Object> getxhxx(Integer id){
+    public Map<String,Object> getxhxx(String id){
         System.out.println("开始：");
         Map<String, Object> stringObjectMap = xhService.xhcxid(id);
         return stringObjectMap;
     }
 
     @RequestMapping("del-xh")
-    public String delcg(Integer destroyId){
+    public String delcg(String destroyId){
         System.out.println(destroyId);
         try {
             xhService.xhdel(destroyId);
@@ -97,7 +97,7 @@ public class XhController {
     }
 
     @RequestMapping("xhckxqid")
-    public Map<String,Object> getdbckxqid(Integer id){
+    public Map<String,Object> getdbckxqid(String id){
         Map<String, Object> stringObjectMap = xhService.shxh(id);
         return stringObjectMap;
     }

@@ -1,6 +1,7 @@
 package cn.gson.his.model.pojos.Drug;
 
 import cn.gson.his.model.pojos.Power.Employee;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Table(name = "CHECKS", schema = "HIS")
 public class ChecksEntity {
     private String checkId;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp checkDate;
     private LibraryInfoEntity library;
     private Employee employee;

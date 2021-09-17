@@ -34,4 +34,6 @@ public interface CangkMapper {
 
     public List<LibraryxqEntity> cklqcx(@Param("id") Integer id);
 
+    public List<LibraryxqEntity> ckhscx(@Param("id") Integer id);
+
 }

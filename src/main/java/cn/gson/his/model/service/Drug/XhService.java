@@ -50,7 +50,7 @@ public class XhService {
         return map;
     }
 
-    public Map<String,Object> xhxqselect(int pageNo, int size,Integer id, String nr){
+    public Map<String,Object> xhxqselect(int pageNo, int size,String id, String nr){
         System.out.println(id);
         System.out.println(nr);
         Map<String,Object> map = new HashMap<>();
@@ -62,6 +62,7 @@ public class XhService {
     }
 
     public void xzxgxh(Destroy destroy, List<Destroyxq> destroyxqList, List<Destroyxq> delxq){
+        System.out.println("员工"+destroy.getEmployee().getEmpId());
         System.out.println("one");
         for (Destroyxq destroyxq : delxq) {
             xhxqDao.deleteById(destroyxq.getDestroyxqId());
@@ -75,14 +76,14 @@ public class XhService {
         System.out.println("three");
     }
 
-    public Map<String,Object> xhcxid(Integer id){
+    public Map<String,Object> xhcxid(String id){
         Map<String,Object> map = new HashMap<>();
         map.put("xh",xhMapper.xhcxid(id).get(0));
         map.put("xhxq",xhMapper.xhxqcx(id, ""));
         return map;
     }
 
-    public void xhdel(Integer id){
+    public void xhdel(String id){
         List<Destroyxq> xhxqcx = xhMapper.xhxqcx(id, "");
         for (Destroyxq destroyxq : xhxqcx) {
             xhxqDao.deleteById(destroyxq.getDestroyxqId());
@@ -90,7 +91,7 @@ public class XhService {
         xhDao.deleteById(id);
     }
 
-    public Map<String,Object> shxh(Integer id){
+    public Map<String,Object> shxh(String id){
         Map<String,Object> map = new HashMap<>();
         //销毁详情数据
         List<Destroyxq> xhxqcx = xhMapper.xhxqcx(id, "");
@@ -142,7 +143,7 @@ public class XhService {
         for (Integer integer : list) {
             LibraryInfoEntity libraryInfoEntity=new LibraryInfoEntity();
             libraryInfoEntity.setLibraryId(integer);
-            ChuEntity chuEntity=new ChuEntity(d,libraryInfoEntity,shr,2,String.valueOf(destroy.getDestroyId()));
+            ChuEntity chuEntity=new ChuEntity(d,libraryInfoEntity,shr,2,destroy.getDestroyId());
             chukDao.save(chuEntity);
             for (Destroyxq destroyxq : destroyxqList) {
                 if(integer==destroyxq.getLibrary().getLibraryId()){

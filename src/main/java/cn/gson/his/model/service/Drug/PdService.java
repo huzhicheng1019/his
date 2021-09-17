@@ -1,7 +1,6 @@
 package cn.gson.his.model.service.Drug;
 
-import cn.gson.his.model.dao.Drug.PdDao;
-import cn.gson.his.model.dao.Drug.PdxqDao;
+import cn.gson.his.model.dao.Drug.*;
 import cn.gson.his.model.mappers.Drug.CangkMapper;
 import cn.gson.his.model.mappers.Drug.PdMapper;
 import cn.gson.his.model.pojos.Drug.*;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,12 +31,23 @@ public class PdService {
     @Autowired
     PdMapper pdMapper;
 
+    @Autowired
+    XhDao xhDao;
+
+    @Autowired
+    XhxqDao xhxqDao;
+
+    @Autowired
+    CankxqDao cankxqDao;
+
     public Map<String,Object> ckpdcx(Integer id, Integer lx){
         System.out.println(id);
         Map<String,Object> map = new HashMap<>();
         List<LibraryxqEntity> ckxqcx = new ArrayList<>();
-        if(lx==0 || lx==1){
+        if(lx==0){
             ckxqcx=cangkMapper.ckxqcx(id, "");
+        }else if(lx==1){
+            ckxqcx=cangkMapper.ckhscx(id);
         }else if(lx==2){
             ckxqcx=cangkMapper.ckgqcx(id);
         }else{
@@ -81,5 +92,34 @@ public class PdService {
         Map<String,Object> map = new HashMap<>();
         map.put("rows",pdMapper.pdxqcx(id, ""));
         return map;
+    }
+
+    public void bh(ChecksEntity checksEntity){
+        checksEntity.setZt(2);
+        pdDao.save(checksEntity);
+    }
+
+    public void pdsh(ChecksEntity checksEntity,List<Checkxq> checkxqList,Destroy destroy,List<Destroyxq> destroyxq){
+        System.out.println(checksEntity.getPdlx());
+        System.out.println(destroy.getDestroyId());
+        checksEntity.setZt(1);
+        pdDao.save(checksEntity);
+        if(checksEntity.getPdlx()!=0){
+            if(!destroy.getDestroyId().equals("")){
+                Timestamp d = new Timestamp(System.currentTimeMillis());
+                destroy.setSqdate(d);
+                xhDao.save(destroy);
+                for (Destroyxq destroyxq1 : destroyxq) {
+                    destroyxq1.setDestroyId(destroy.getDestroyId());
+                    xhxqDao.save(destroyxq1);
+                }
+            }
+        }else{
+            for (Checkxq checkxq : checkxqList) {
+                LibraryxqEntity ckxqcxid = cangkMapper.ckxqcxid(checksEntity.getLibrary().getLibraryId(), checkxq.getProductId(), checkxq.getProductFl(), checkxq.getPh());
+                ckxqcxid.setKcs(checkxq.getSjkc());
+                cankxqDao.save(ckxqcxid);
+            }
+        }
     }
 }

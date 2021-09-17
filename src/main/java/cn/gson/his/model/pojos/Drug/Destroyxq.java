@@ -9,7 +9,7 @@ import java.util.Objects;
 @Entity
 public class Destroyxq {
     private Integer destroyxqId;
-    private Integer destroyId;
+    private String destroyId;
     private Integer productId;
     private String productName;
     private String productFl;
@@ -44,11 +44,11 @@ public class Destroyxq {
 
     @Basic
     @Column(name = "DESTROY_ID", nullable = true, precision = 0)
-    public Integer getDestroyId() {
+    public String getDestroyId() {
         return destroyId;
     }
 
-    public void setDestroyId(Integer destroyId) {
+    public void setDestroyId(String destroyId) {
         this.destroyId = destroyId;
     }
 

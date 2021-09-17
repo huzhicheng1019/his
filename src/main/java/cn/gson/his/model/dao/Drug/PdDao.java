@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PdDao extends CrudRepository<ChecksEntity,Integer> {
+public interface PdDao extends CrudRepository<ChecksEntity,String> {
 }

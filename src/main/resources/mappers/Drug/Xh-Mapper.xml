@@ -8,6 +8,7 @@
         <result column="SQDATE" property="sqdate"></result>
         <result column="DESTROY_ZT" property="destroyZt"></result>
         <result column="BZ" property="bz"></result>
+        <result column="WHY" property="why"></result>
         <association property="employee" javaType="cn.gson.his.model.pojos.Power.Employee">
             <id column="ZXR" property="empId"></id>
             <result column="e_name" property="empName"></result>

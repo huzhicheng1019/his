@@ -53,6 +53,11 @@
         </where>
     </select>
 
+    <select id="ckhscx" resultMap="ckxqMap">
+        select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
+        where l.LIBRARY_ID=#{id} and l.kcs!=0
+    </select>
+
     <select id="ckgqcx" resultMap="ckxqMap">
         select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
         where l.LIBRARY_ID=#{id} and SYSDATE>=l.GQDATE and l.kcs!=0
