@@ -49,25 +49,8 @@
 
         <!--查询所有手术项目、以及手术项目的耗材，药品等-->
         <select id="selectitems" resultMap="itemsMap">
-            select
-                o.*,
-                r.Room_name,
-                d.drug_name,
-                sd.d_num,
-                sd.d_price,
-                hc.con_name,
-                sh.consumables_num,
-                sh.consumables_price
-            FROM
-                Osperation_room r,
-                operation_item o,
-                Surgery_drug sd,
-                drug d,
-                con hc,
-                Surgery_consumables sh
-            WHERE
-                o.ROOM_ID = r.room_id and sd.OPERATION_ID = o.OPERATION_ID and sd.DRUG_ID = d.DRUG_ID and sh.OPERATION_ID = o.OPERATION_ID
-              and sh.CON_ID = hc.con_id
+            select o.*,r.Room_name from operation_item o left join Operation_room r on o.Room_id=r.Room_id
+            order by operation_id desc
         </select>
 
         <!--根据删除所有-->

@@ -3,6 +3,15 @@ package cn.gson.his.model.service.Checkout;
 public class PageNo {
     private  Integer no;
     private  Integer size;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Integer getNo() {
         return no;

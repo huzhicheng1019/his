@@ -14,7 +14,7 @@
     <!--查询所有手术室-->
     <select id="selectroom" resultMap="roomMap">
         select * from Operation_room
-        order by Room_id desc
+        WHERE ROOM_NAME like '%${name}%' order by Room_id desc
     </select>
 
     <!--新增手术室-->
@@ -22,8 +22,17 @@
         insert into Operation_room values(seq.nextval,#{roomName},#{roomDress},#{roomScale},#{roomPhone},#{roomState})
     </insert>
 
-    <!--根据id删除手术室-->
-    <delete id="delroom">
-        delete Operation_room where Room_id =#{id}
-    </delete>
+    <!--根据id编辑手术室状态-->
+    <update id="delroom">
+        UPDATE Operation_room SET ROOM_STATE = 0 WHERE Room_id =#{id}
+    </update>
+
+    <update id="updatezt">
+        UPDATE Operation_room SET ROOM_STATE = 1 WHERE Room_id =#{id}
+    </update>
+
+    <!--根据id编辑手术室-->
+    <update id="updateroom">
+        update Operation_room set ROOM_NAME = #{roomName},ROOM_DRESS=#{roomDress},ROOM_SCALE=#{roomScale},ROOM_PHONE=#{roomPhone},ROOM_STATE=#{roomState} where Room_id =#{roomId}
+    </update>
 </mapper>
