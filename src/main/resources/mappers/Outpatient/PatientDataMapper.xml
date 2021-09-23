@@ -85,4 +85,10 @@
         delete from PATIENTDATA where PATIENT_NO = #{patientNo}
     </delete>
 
+    <!--根据身份证查病人资料表-->
+    <select id="selID" resultMap="Patient">
+        select * from PATIENTDATA where patient_identity = #{patientIdentity}
+    </select>
+
+
 </mapper>

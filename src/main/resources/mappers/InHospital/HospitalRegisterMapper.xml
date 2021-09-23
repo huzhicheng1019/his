@@ -202,5 +202,10 @@
         select * from hospital_register where reg_mark=#{regMark}
     </select>
 
+    <!--根据身份证查病人是否已经住院-->
+    <select id="selIdentity" resultMap="HopRegMap">
+        select * from hospital_register h left join patientdata p on h.patient_no = p.patient_no
+        where  p.PATIENT_IDENTITY = #{patientIdentity} and h.reg_is = 0
+    </select>
 
 </mapper>

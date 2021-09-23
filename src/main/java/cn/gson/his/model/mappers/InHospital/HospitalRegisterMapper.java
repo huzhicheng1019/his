@@ -41,5 +41,7 @@ public interface HospitalRegisterMapper {
     //根据住院号查病人
     public HospitalRegisterEntity look(String regMark);
 
+    //根据身份证查病人是否已经住院
+    public HospitalRegisterEntity selIdentity(String patientIdentity);
 
 }

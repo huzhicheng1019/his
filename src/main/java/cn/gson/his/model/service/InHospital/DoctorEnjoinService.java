@@ -108,11 +108,6 @@ public class DoctorEnjoinService {
         //创建执行记录对象
         DoctorExecuteEntity execute = new DoctorExecuteEntity();
 
-        //new 一个押金表对象
-        PrepayEntity prepayEntity = new PrepayEntity();
-
-        //接受所有金额
-        double price = 0;
 
         //根据住院号查所有医嘱详表
         List<DoctorEnjoinEntity> enjoin = doctorEnjoinMapper.execute(regMark);
@@ -138,19 +133,12 @@ public class DoctorEnjoinService {
                     execute.setDrugCount(ds.getEnsCount());
                     execute.setDrugPrice(ds.getDrugPrice());
 
-                    price += ds.getDrugPrice()*ds.getEnsCount();
 
                     //新增执行记录
                     exe.insertExe(execute);
                 }
             }
         }
-
-        prepayEntity.setPreBalance(new Double(price).longValue());
-        prepayEntity.setRegMark(regMark);
-        //修改余额
-        prepay.updateMoney(prepayEntity);
-
 
         return  "";
     };

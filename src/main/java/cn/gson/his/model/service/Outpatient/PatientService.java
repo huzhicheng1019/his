@@ -41,4 +41,9 @@ public class PatientService {
     public int delPatient(String patientNo){
         return pm.delPatient(patientNo);
     };
+
+    //根据身份证查病人资料表
+    public PatientdataEntity selID(String patientIdentity){
+        return pm.selID(patientIdentity);
+    }
 }
