@@ -12,9 +12,14 @@ import java.util.List;
 public interface CgjhMapper {
     public List<PlanInfoEntity> cgjhcx(String nr);
 
-    public List<ProductEntity> cgjhxqcx(@Param("id") Integer id, @Param("nr") String nr);
+    public List<ProductEntity> cgjhxqcx(@Param("id") String id, @Param("nr") String nr);
 
-    public List<PlanInfoEntity> cgjhcxid(Integer id);
+    public List<PlanInfoEntity> cgjhcxid(String id);
 
-    public List<OrdersEntity> cgcx(Integer id);
+    public List<OrdersEntity> cgcx(String id);
+
+    public List<PlanInfoEntity> cgjhdd(String nr);
+
+    public List<ProductEntity> cgjhddxq(@Param("id") String id, @Param("gid") Integer gid);
+
 }

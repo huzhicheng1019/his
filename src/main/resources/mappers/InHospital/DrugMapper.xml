@@ -17,7 +17,6 @@
         <result column="GESL" property="gesl"></result>
         <result column="SHDW" property="shdw"></result>
 
-
         <association property="lb" javaType="cn.gson.his.model.pojos.Drug.LbEntity">
             <id column="lb_id" property="lbId"></id>
             <result column="lb_name" property="lbName"></result>

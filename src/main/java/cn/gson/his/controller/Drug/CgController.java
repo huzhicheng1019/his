@@ -108,4 +108,10 @@ public class CgController {
             return "fail";
         }
     }
+
+    @RequestMapping("gysxs")
+    public Map<String,Object> getgysxs(){
+        Map<String, Object> stringObjectMap = cgService.gyscx();
+        return stringObjectMap;
+    }
 }

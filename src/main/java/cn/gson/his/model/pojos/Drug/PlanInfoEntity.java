@@ -11,24 +11,24 @@ import java.util.Objects;
 @Entity
 @Table(name = "PLAN_INFO", schema = "HIS")
 public class PlanInfoEntity {
-    private int planId;
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
+    private String planId;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="Asia/Shanghai")
     private Timestamp planDate;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp planCgdate;
     private Employee employee;
     private String zje;
     private String bz;
+    private Integer zt;
+    private Employee shr;
 
     @Id
-    @GeneratedValue(generator = "SEQ")
-    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "PLAN_ID")
-    public int getPlanId() {
+    public String getPlanId() {
         return planId;
     }
 
-    public void setPlanId(int planId) {
+    public void setPlanId(String planId) {
         this.planId = planId;
     }
 
@@ -82,6 +82,26 @@ public class PlanInfoEntity {
         this.bz = bz;
     }
 
+    @Basic
+    @Column(name = "ZT")
+    public Integer getZt() {
+        return zt;
+    }
+
+    public void setZt(Integer zt) {
+        this.zt = zt;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "SHR", referencedColumnName = "EMP_ID")
+    public Employee getShr() {
+        return shr;
+    }
+
+    public void setShr(Employee shr) {
+        this.shr = shr;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,11 +112,13 @@ public class PlanInfoEntity {
                 Objects.equals(planCgdate, that.planCgdate) &&
                 Objects.equals(employee, that.employee) &&
                 Objects.equals(zje, that.zje) &&
+                Objects.equals(zt, that.zt) &&
+                Objects.equals(shr, that.shr) &&
                 Objects.equals(bz, that.bz);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(planId, planDate, planCgdate, employee, zje, bz);
+        return Objects.hash(planId, planDate, planCgdate, employee, zje, bz,zt,shr);
     }
 }

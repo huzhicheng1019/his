@@ -4,6 +4,8 @@ import cn.gson.his.model.dao.Drug.CgDao;
 import cn.gson.his.model.dao.Drug.CgxqDao;
 import cn.gson.his.model.mappers.Drug.CgMapper;
 import cn.gson.his.model.mappers.Drug.CgjhMapper;
+import cn.gson.his.model.mappers.Drug.GysMapper;
+import cn.gson.his.model.mappers.Drug.YpMapper;
 import cn.gson.his.model.pojos.Drug.*;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -29,6 +31,9 @@ public class CgService {
 
     @Autowired
     CgxqDao cgxqDao;
+
+    @Autowired
+    YpMapper ypMapper;
 
     public Map<String,Object> cgcx(int pageNo, int size,String nr){
         Map<String,Object> map = new HashMap<>();
@@ -97,5 +102,11 @@ public class CgService {
             cgDao.deleteById(id);
             return "ok";
         }
+    }
+
+    public Map<String,Object> gyscx(){
+        Map<String,Object> map = new HashMap<>();
+        map.put("gys",ypMapper.selectgys());
+        return map;
     }
 }

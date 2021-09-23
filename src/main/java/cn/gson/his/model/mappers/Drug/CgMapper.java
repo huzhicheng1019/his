@@ -20,4 +20,6 @@ public interface CgMapper {
     public List<Employee> empcx();
 
     public List<StoEntity> stocx(String id);
+
+    public List<OrdersEntity> xzcgddcx(@Param("id") String id, @Param("gid") Integer gid);
 }
