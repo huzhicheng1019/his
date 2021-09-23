@@ -33,14 +33,14 @@ public class CgjhController {
     }
 
     @RequestMapping("cgjhxq")
-    public Map<String,Object> getcgjhxq(Integer id,String nr){
+    public Map<String,Object> getcgjhxq(String id,String nr){
         System.out.println("开始：");
         Map<String, Object> stringObjectMap = cgjhService.cgjhxqcx(id,nr);
         return stringObjectMap;
     }
 
     @RequestMapping("cgjhxx")
-    public Map<String,Object> getcgjhxx(Integer id,String nr){
+    public Map<String,Object> getcgjhxx(String id,String nr){
         System.out.println("开始：");
         Map<String, Object> stringObjectMap = cgjhService.xzcgjhxx(id, nr);
         return stringObjectMap;
@@ -81,7 +81,7 @@ public class CgjhController {
     }
 
     @RequestMapping("delxg-pd")
-    public String delxgpd(Integer planId){
+    public String delxgpd(String planId){
         System.out.println(planId);
         try {
             return cgjhService.scxgpd(planId);
@@ -92,7 +92,7 @@ public class CgjhController {
     }
 
     @RequestMapping("del-cgjh")
-    public String delcgjh(Integer planId){
+    public String delcgjh(String planId){
         System.out.println(planId);
         try {
             return cgjhService.cgjhdel(planId);
@@ -100,5 +100,29 @@ public class CgjhController {
             e.printStackTrace();
             return "fail";
         }
+    }
+
+    @RequestMapping("cgjh-sh")
+    public String cgjhsh(@RequestBody PlanInfoEntity plan){
+        System.out.println(plan.getPlanId());
+        try {
+            cgjhService.sh(plan);
+            return "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+
+    @RequestMapping("cgjhdd")
+    public Map<String,Object> getcgjhdd(String nr){
+        Map<String, Object> stringObjectMap = cgjhService.cgjhdd(nr);
+        return stringObjectMap;
+    }
+
+    @RequestMapping("cgjhddxq")
+    public Map<String,Object> getcgjhdd(String id,Integer gid){
+        Map<String, Object> stringObjectMap = cgjhService.cgjhddxq(id, gid);
+        return stringObjectMap;
     }
 }

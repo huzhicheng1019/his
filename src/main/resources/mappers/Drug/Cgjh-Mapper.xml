@@ -9,6 +9,11 @@
         <result column="PLAN_CGDATE" property="planCgdate"></result>
         <result column="ZJE" property="zje"></result>
         <result column="BZ" property="bz"></result>
+        <result column="ZT" property="zt"></result>
+        <association property="shr" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id column="SHR" property="empId"></id>
+            <result column="m_name" property="empName"></result>
+        </association>
         <association property="employee" javaType="cn.gson.his.model.pojos.Power.Employee">
             <id column="ZDR" property="empId"></id>
             <result column="e_name" property="empName"></result>
@@ -16,8 +21,18 @@
     </resultMap>
 
     <select id="cgjhcx" resultMap="cgjhMap">
-        select p.*,e.EMP_NAME e_name from PLAN_INFO p left join EMPLOYEE e on p.ZDR=e.EMP_ID
+        select p.*,e.EMP_NAME e_name,m.EMP_NAME m_name from PLAN_INFO p left join EMPLOYEE e on p.ZDR=e.EMP_ID left join EMPLOYEE m on p.SHR=m.EMP_ID
         <where>
+            <if test="nr!=null and nr!=''">
+                and PLAN_ID like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="cgjhdd" resultMap="cgjhMap">
+        select p.*,e.EMP_NAME e_name,m.EMP_NAME m_name from PLAN_INFO p left join EMPLOYEE e on p.ZDR=e.EMP_ID left join EMPLOYEE m on p.SHR=m.EMP_ID
+        <where>
+            p.zt=1
             <if test="nr!=null and nr!=''">
                 and PLAN_ID like concat(concat('%',#{nr}),'%')
             </if>
@@ -50,6 +65,10 @@
                 and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
             </if>
         </where>
+    </select>
+
+    <select id="cgjhddxq" resultMap="cgjhxqMap">
+        select p.*,g.gys_name g_name from PRODUCT p left join gys g on p.gys_id=g.gys_id where PLAN_ID=#{id} and g.gys_id=#{gid}
     </select>
 
     <select id="cgjhcxid" resultMap="cgjhMap">

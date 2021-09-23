@@ -8,6 +8,10 @@
         <result column="PLAN_ID" property="planId"></result>
         <result column="ZJE" property="zje"></result>
         <result column="BZ" property="bz"></result>
+        <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
+            <id column="gys_id" property="gysId"></id>
+            <result column="g_name" property="gysName"></result>
+        </association>
         <association property="employee" javaType="cn.gson.his.model.pojos.Power.Employee">
             <id column="cgr" property="empId"></id>
             <result column="e_name" property="empName"></result>
@@ -15,7 +19,7 @@
     </resultMap>
 
     <select id="cgcx" resultMap="cgMap">
-        select o.*,e.EMP_NAME e_name from orders o left join EMPLOYEE e on o.cgr=e.EMP_ID
+        select o.*,e.EMP_NAME e_name,g.GYS_NAME g_name from orders o left join EMPLOYEE e on o.cgr=e.EMP_ID LEFT JOIN GYS g on o.GYS_ID=g.GYS_ID
         <where>
             <if test="nr!=null and nr!=''">
                 and ORDER_ID like concat(concat('%',#{nr}),'%')
@@ -62,7 +66,7 @@
     </select>
 
     <select id="cgcxid" resultMap="cgMap">
-        select o.*,e.EMP_NAME e_name from orders o left join EMPLOYEE e on o.cgr=e.EMP_ID where ORDER_ID=#{id}
+        select o.*,e.EMP_NAME e_name,g.GYS_NAME g_name from orders o left join EMPLOYEE e on o.cgr=e.EMP_ID LEFT JOIN GYS g on o.GYS_ID=g.GYS_ID where ORDER_ID=#{id}
     </select>
 
     <select id="empcx" resultType="cn.gson.his.model.pojos.Power.Employee">
@@ -71,5 +75,9 @@
 
     <select id="stocx" resultType="cn.gson.his.model.pojos.Drug.StoEntity">
         select * from sto where LY_ID=#{id} and why=0
+    </select>
+
+    <select id="xzcgddcx" resultMap="cgMap">
+        select o.*,e.EMP_NAME e_name,g.GYS_NAME g_name from orders o left join EMPLOYEE e on o.cgr=e.EMP_ID LEFT JOIN GYS g on o.GYS_ID=g.GYS_ID where o.PLAN_ID=#{id} and o.gys_id=#{gid}
     </select>
 </mapper>

@@ -22,6 +22,9 @@ public class DrugEntity {
     private Integer gesl;
     private String shdw;
 
+
+    private LibraryxqEntity libraryxqEntity;
+
     @Id
     @GeneratedValue(generator = "SEQ")
     @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
@@ -154,6 +157,15 @@ public class DrugEntity {
 
     public void setShdw(String shdw) {
         this.shdw = shdw;
+    }
+
+    @Transient
+    public LibraryxqEntity getLibraryxqEntity() {
+        return libraryxqEntity;
+    }
+
+    public void setLibraryxqEntity(LibraryxqEntity libraryxqEntity) {
+        this.libraryxqEntity = libraryxqEntity;
     }
 
     @Override

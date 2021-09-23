@@ -10,7 +10,7 @@ public class ProductEntity {
     private Integer productId;
     private String productName;
     private String productFl;
-    private Integer planId;
+    private String planId;
     private Long price;
     private Integer sl;
     private String ge;
@@ -64,11 +64,11 @@ public class ProductEntity {
 
     @Basic
     @Column(name = "PLAN_ID")
-    public Integer getPlanId() {
+    public String getPlanId() {
         return planId;
     }
 
-    public void setPlanId(Integer planId) {
+    public void setPlanId(String planId) {
         this.planId = planId;
     }
 
