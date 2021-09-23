@@ -7,4 +7,8 @@
     <insert id="addPayPart">
         insert into PAYPART(PAYPART_NO,PAY_NO,DRUG_NAME,DRUG_QUANTITY,DRUG_PRICE) values (seq.nextval,#{payNo.payNo},#{drugName},#{drugQuantity},#{drugPrice})
     </insert>
+<!--    查询缴费记录-->
+    <select id="allPayPart">
+        select * from PAYPART P inner join PAY P2  on P.PAY_NO = P2.PAY_NO
+    </select>
 </mapper>
