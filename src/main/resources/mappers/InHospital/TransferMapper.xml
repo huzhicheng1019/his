@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.InHospital.TransferMapper">
+    <resultMap id="trMap" type="cn.gson.his.model.pojos.InHospital.TransferEntity">
+        <id property="trId" column="tr_id"></id>
+        <result property="trCause" column="tr_cause"></result>
+        <result property="regMark" column="reg_mark"></result>
+        <result property="oldDepa" column="old_depa"></result>
+        <result property="newDepa" column="new_depa"></result>
+        <result property="trIs" column="tr_is"></result>
+        <result property="trDate" column="tr_date"></result>
+        <result property="oldDoctorId" column="old_doctor_id"></result>
+        <result property="oldDoctorName" column="old_doctor_name"></result>
+        <result property="newDoctorId" column="new_doctor_id"></result>
+        <result property="newDoctorName" column="new_doctor_name"></result>
+
+    </resultMap>
+
+
+    <!--新增转科记录-->
+    <insert id="insertTr">
+        insert into transfer values (seq.nextval,#{trCause},#{regMark},#{oldDepa},#{newDepa},#{trIs},current_timestamp,#{oldDoctorId},#{oldDoctorName},#{newDoctorId},#{newDoctorName} )
+    </insert>
+
+</mapper>

@@ -6,11 +6,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "CHECKOUT", schema = "HIS", catalog = "")
 public class CheckoutEntity {
-    private int checkoutNo;
-    private Integer checkoutId;
-    private String checkoutCribe;
-    private Long checkoutPrice;
-    private Integer checkoutState;
+    private int checkoutNo;//化验编号
+    private Integer checkoutId;//住院号，就诊号
+    private String checkoutCribe;//描述
+    private Long checkoutPrice;//总价
+    private Integer checkoutState;//收费状态
 
     @Id
     @Column(name = "CHECKOUT_NO")

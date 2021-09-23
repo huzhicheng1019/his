@@ -9,6 +9,7 @@ public class SetMealEntity {
     private int mealId;
     private String mealName;
     private Long mealMoney;
+    private MealtypeEntity mealtype;
 
     @Id
     @Column(name = "MEAL_ID")
@@ -45,13 +46,21 @@ public class SetMealEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SetMealEntity that = (SetMealEntity) o;
-        return mealId == that.mealId &&
-                Objects.equals(mealName, that.mealName) &&
-                Objects.equals(mealMoney, that.mealMoney);
+        return mealId == that.mealId && Objects.equals(mealName, that.mealName) && Objects.equals(mealMoney, that.mealMoney);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(mealId, mealName, mealMoney);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "MEALTYPE_ID", referencedColumnName = "MEALTYPE_ID")
+    public MealtypeEntity getMealtype() {
+        return mealtype;
+    }
+
+    public void setMealtype(MealtypeEntity mealtype) {
+        this.mealtype = mealtype;
     }
 }

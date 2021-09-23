@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Checkout.TestsMapper">
+    <resultMap id="testsMap" type="cn.gson.his.model.pojos.Checkout.TestsEntity">
+        <id property="testId" column="Test_id"></id>
+        <result property="testName" column="Test_name"></result>
+
+        <!--类别-->
+        <association property="type" javaType="cn.gson.his.model.pojos.Checkout.TestTypeEntity">
+            <id property="typeId" column="Type_id"></id>
+            <result property="typeName" column="Type_name"></result>
+        </association>
+
+        <!--科室-->
+        <association property="keshi" javaType="cn.gson.his.model.pojos.Checkout.KeshiEntity">
+            <result property="depaId" column="depa_id"></result>
+            <result property="depaName" column="depa_name"></result>
+        </association>
+
+        <!--项目详情-->
+        <collection property="details" ofType="cn.gson.his.model.pojos.Checkout.TestDetailsEntity">
+            <id property="detailsId" column="Details_id"></id>
+            <result property="detailsSymbol" column="Details_Symbol"></result>
+            <result property="detailsName" column="Details_name"></result>
+            <result property="detailsCompany" column="Details_Company"></result>
+            <result property="detailsValues" column="Details_values"></result>
+            <result property="detailsPrice" column="Details_price"></result>
+            <result property="detailsShuoming" column="Details_shuoming"></result>
+        </collection>
+    </resultMap>
+    
+    <!--查询所有项目-->
+    <select id="selecttests" resultMap="testsMap">
+        select * from tests
+        left join test_type on   test_type.TYPE_ID=tests.TYPE_ID
+        left join department on   tests.DEPT_ID=department.DEPA_ID
+    </select>
+
+    <!--根据id查询项目详情-->
+    <select id="selectdetails" resultMap="testsMap">
+        select * from test_details where Test_id=#{id}
+    </select>
+    
+    <!--根据id查询项目详情中的内容说明-->
+    <select id="selectshuoming" resultMap="testsMap">
+        select * from test_details where Details_id=#{id}
+    </select>
+
+    <!--根据id删除检验项目-->
+    <delete id="deltests">
+        delete tests where Test_id=#{id}
+    </delete>
+    <delete id="deldetails">
+        delete test_details where Test_id=#{id}
+    </delete>
+    
+    <!--新增检验项目-->
+    <insert id="inserttest" parameterType="cn.gson.his.model.pojos.Checkout.TestsEntity">
+        insert into tests values(seq.nextval,#{testName},#{type.typeId},#{keshi.depaId})
+    </insert>
+
+    <!--新增检验项目详情-->
+    <insert id="insertdetails">
+        insert into test_details values(seq.nextval,#{Details_Symbol},#{Details_name},#{Details_Company},#{Details_values},#{Details_price},#{Details_shuoming},#{ttests.testId})
+    </insert>
+</mapper>

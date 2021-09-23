@@ -7,7 +7,7 @@
     <result column="PATIENT_NAME" property="patientName"/>
     <result column="PATIENT_IDENTITY" property="patientIdentity"/>
 <!--患者信息 -->
-    <association property="patientNo" javaType="cn.gson.his.model.pojos.Outpatient.CaseHistoryPartiEntity">
+    <association property="patientNo" javaType="cn.gson.his.model.pojos.Outpatient.PatientdataEntity">
         <id column="PATIENT_NO" property="patientNo"></id>
         <result column="PATIENT_NAME" property="patientName"/>
         <result column="PATIENT_SEX" property="patientSex"/>
@@ -28,5 +28,8 @@
 <!-- 查询-->
     <select id="allCaseHistory" resultMap="CaseHistory">
         select * from CASE_HISTORY c inner join PATIENTDATA P on c.PATIENT_NO = P.PATIENT_NO
+    </select>
+    <select id="IdentityCaseHistory" resultMap="CaseHistory">
+        select * from CASE_HISTORY  where  PATIENT_IDENTITY = #{patientIdentity}
     </select>
 </mapper>

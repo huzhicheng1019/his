@@ -8,6 +8,7 @@
         <result column="SQDATE" property="sqdate"></result>
         <result column="DESTROY_ZT" property="destroyZt"></result>
         <result column="BZ" property="bz"></result>
+        <result column="WHY" property="why"></result>
         <association property="employee" javaType="cn.gson.his.model.pojos.Power.Employee">
             <id column="ZXR" property="empId"></id>
             <result column="e_name" property="empName"></result>
@@ -44,7 +45,7 @@
         <result column="GESL" property="gesl"></result>
         <result column="SHDW" property="shdw"></result>
         <association property="library" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
-            <id column="LIBRARYTO_ID" property="libraryId"></id>
+            <id column="LIBRARY_ID" property="libraryId"></id>
             <result column="ltoname" property="libraryName"></result>
         </association>
         <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">

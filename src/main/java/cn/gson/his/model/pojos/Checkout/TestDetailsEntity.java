@@ -6,21 +6,36 @@ import java.util.Objects;
 @Entity
 @Table(name = "TEST_DETAILS", schema = "HIS", catalog = "")
 public class TestDetailsEntity {
-    private int detailsId;
+    private long detailsId;
     private String detailsSymbol;
+
+    @Override
+    public String toString() {
+        return "TestDetailsEntity{" +
+                "detailsId=" + detailsId +
+                ", detailsSymbol='" + detailsSymbol + '\'' +
+                ", detailsName='" + detailsName + '\'' +
+                ", detailsCompany='" + detailsCompany + '\'' +
+                ", detailsValues='" + detailsValues + '\'' +
+                ", detailsPrice=" + detailsPrice +
+                ", detailsShuoming='" + detailsShuoming + '\'' +
+                '}';
+    }
+
     private String detailsName;
     private String detailsCompany;
     private String detailsValues;
     private Long detailsPrice;
-    private String 内容说明;
+    private String detailsShuoming;
+    private TestsEntity ttests;
 
     @Id
     @Column(name = "DETAILS_ID")
-    public int getDetailsId() {
+    public long getDetailsId() {
         return detailsId;
     }
 
-    public void setDetailsId(int detailsId) {
+    public void setDetailsId(long detailsId) {
         this.detailsId = detailsId;
     }
 
@@ -75,13 +90,13 @@ public class TestDetailsEntity {
     }
 
     @Basic
-    @Column(name = "内容说明")
-    public String get内容说明() {
-        return 内容说明;
+    @Column(name = "DETAILS_SHUOMING")
+    public String getDetailsShuoming() {
+        return detailsShuoming;
     }
 
-    public void set内容说明(String 内容说明) {
-        this.内容说明 = 内容说明;
+    public void setDetailsShuoming(String detailsShuoming) {
+        this.detailsShuoming = detailsShuoming;
     }
 
     @Override
@@ -89,17 +104,21 @@ public class TestDetailsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TestDetailsEntity that = (TestDetailsEntity) o;
-        return detailsId == that.detailsId &&
-                Objects.equals(detailsSymbol, that.detailsSymbol) &&
-                Objects.equals(detailsName, that.detailsName) &&
-                Objects.equals(detailsCompany, that.detailsCompany) &&
-                Objects.equals(detailsValues, that.detailsValues) &&
-                Objects.equals(detailsPrice, that.detailsPrice) &&
-                Objects.equals(内容说明, that.内容说明);
+        return detailsId == that.detailsId && Objects.equals(detailsSymbol, that.detailsSymbol) && Objects.equals(detailsName, that.detailsName) && Objects.equals(detailsCompany, that.detailsCompany) && Objects.equals(detailsValues, that.detailsValues) && Objects.equals(detailsPrice, that.detailsPrice) && Objects.equals(detailsShuoming, that.detailsShuoming);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(detailsId, detailsSymbol, detailsName, detailsCompany, detailsValues, detailsPrice, 内容说明);
+        return Objects.hash(detailsId, detailsSymbol, detailsName, detailsCompany, detailsValues, detailsPrice, detailsShuoming);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "TEST_ID", referencedColumnName = "TEST_ID")
+    public TestsEntity getTtests() {
+        return ttests;
+    }
+
+    public void setTtests(TestsEntity ttests) {
+        this.ttests = ttests;
     }
 }

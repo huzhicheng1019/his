@@ -30,18 +30,23 @@ public class PrescriptionController{
 //    新增处方和详情
     @RequestMapping("prescr")
     public int addPrescr(@RequestBody Map<String,Object> data){
-       //try {
+
+       try {
             //处方
             LinkedHashMap prescription = (LinkedHashMap)data.get("prescription");
             String json1 = JSONObject.toJSONString(prescription);
             PrescriptionEntity prescriptionEntity = JSONObject.parseObject(json1,PrescriptionEntity.class);
+
             //新增生成处方时间
             prescriptionEntity.setPresDate(new Timestamp(new Date().getTime()));
+            //收费状态变成0
+            prescriptionEntity.setPriveType("0");
             System.out.println(prescriptionEntity);
             //处方详情
             System.out.println(data.get("drug"));
             String json = JSONObject.toJSONString(data.get("drug"));
             List<PrescriptionsEntity> prescriptionsEntities = JSONObject.parseArray(json,PrescriptionsEntity.class);
+            System.out.println(prescriptionsEntities.get(0).getpType());
             //修改就诊的状态
             String state =(String)data.get("state");
             DoctorrecordEntity doctorr = new DoctorrecordEntity();
@@ -49,10 +54,10 @@ public class PrescriptionController{
             doctorr.setRecordNo(prescriptionEntity.getRecordId().getRecordNo());
             prescriptionService.addPres(prescriptionEntity,prescriptionsEntities,doctorr);
             return 1;
-//        }catch (Exception e){
-//            System.out.println(e.fillInStackTrace());
-//            return 2;
-//        }
+        }catch (Exception e){
+            System.out.println(e.fillInStackTrace());
+            return 2;
+        }
 
 
     }

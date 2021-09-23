@@ -40,7 +40,20 @@
     <class>cn.gson.his.model.pojos.Drug.Destroyxq</class>
     <class>cn.gson.his.model.pojos.Drug.PillsEntity</class>
     <class>cn.gson.his.model.pojos.Drug.Pillsxq</class>
-      <class>cn.gson.his.model.pojos.Power.ScheEmp</class>
+
+      <class>cn.gson.his.model.pojos.Checkout.TestsEntity</class>
+      <class>cn.gson.his.model.pojos.Checkout.TestTypeEntity</class>
+      <class>cn.gson.his.model.pojos.Checkout.KeshiEntity</class>
+      <class>cn.gson.his.model.pojos.Checkout.TestDetailsEntity</class>
+      <class>cn.gson.his.model.pojos.Checkout.MealtypeEntity</class>
+      <class>cn.gson.his.model.pojos.Checkout.SetMealEntity</class>
+
+    <class>cn.gson.his.model.pojos.Power.ScheEmp</class>
+    <class>cn.gson.his.model.pojos.Drug.RefundEntity</class>
+    <class>cn.gson.his.model.pojos.Drug.Refundxq</class>
+    <class>cn.gson.his.model.pojos.Drug.ChecksEntity</class>
+    <class>cn.gson.his.model.pojos.Drug.Checkxq</class>
+
 
       <properties>
       <property name="hibernate.archive.autodetection" value="class"/>

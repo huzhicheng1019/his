@@ -6,13 +6,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "EXAMINE", schema = "HIS", catalog = "")
 public class ExamineEntity {
-    private int examineNo;
-    private Integer examineId;
-    private Integer checklistNo;
-    private String examineDiagnose;
-    private String examineMethod;
-    private String examineLook;
-    private String examineState;
+    private int examineNo;//检查编号
+    private Integer Record_id;//住院号患者就诊号
+    private Integer checklistNo;//检查项目编号
+    private String examineDiagnose;//临床诊断
+    private String examineMethod;//检查方法
+    private String examineLook;//检查费用
+    private String examineState;//收费状态
 
     @Id
     @Column(name = "EXAMINE_NO")
@@ -25,13 +25,13 @@ public class ExamineEntity {
     }
 
     @Basic
-    @Column(name = "EXAMINE_ID")
+    @Column(name = "CHECKOUT_ID")
     public Integer getExamineId() {
-        return examineId;
+        return Record_id;
     }
 
-    public void setExamineId(Integer examineId) {
-        this.examineId = examineId;
+    public void setExamineId(Integer Record_id) {
+        this.Record_id = Record_id;
     }
 
     @Basic
@@ -90,7 +90,7 @@ public class ExamineEntity {
         if (o == null || getClass() != o.getClass()) return false;
         ExamineEntity that = (ExamineEntity) o;
         return examineNo == that.examineNo &&
-                Objects.equals(examineId, that.examineId) &&
+                Objects.equals(Record_id, that.Record_id) &&
                 Objects.equals(checklistNo, that.checklistNo) &&
                 Objects.equals(examineDiagnose, that.examineDiagnose) &&
                 Objects.equals(examineMethod, that.examineMethod) &&
@@ -100,6 +100,6 @@ public class ExamineEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(examineNo, examineId, checklistNo, examineDiagnose, examineMethod, examineLook, examineState);
+        return Objects.hash(examineNo, Record_id, checklistNo, examineDiagnose, examineMethod, examineLook, examineState);
     }
 }

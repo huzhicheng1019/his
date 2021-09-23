@@ -39,8 +39,8 @@ public class HospitalRegisterService {
     /**
      * 查询病人所有信息
      */
-    public List<HospitalRegisterEntity> selAll(String text){
-        return hospitalRegisterMapper.selAll(text);
+    public List<HospitalRegisterEntity> selAll(String text,String depaId){
+        return hospitalRegisterMapper.selAll(text,depaId);
     };
 
     //查询执行医嘱
@@ -76,5 +76,16 @@ public class HospitalRegisterService {
     public List<HospitalRegisterEntity> selLeave(String text,String depaId){
         return hospitalRegisterMapper.selLeave(text,depaId);
     }
+
+
+    //转科后修改科室和主治医生
+    public int updateReg(HospitalRegisterEntity hospitalRegister){
+        return hospitalRegisterMapper.updateReg(hospitalRegister);
+    }
+    //根据住院号查病人
+    public HospitalRegisterEntity look(String regMark){
+        return hospitalRegisterMapper.look(regMark);
+    }
+
 
 }
