@@ -75,6 +75,20 @@ public class Schedu {
         this.scheWeek = scheWeek;
     }
 
+    public Schedu(String scheDate, String scheWeek) {
+        this.scheDate = scheDate;
+        this.scheWeek = scheWeek;
+    }
+
     public Schedu() {
+    }
+
+    @Override
+    public String toString() {
+        return "Schedu{" +
+                "scheId=" + scheId +
+                ", scheDate='" + scheDate + '\'' +
+                ", scheWeek='" + scheWeek + '\'' +
+                '}';
     }
 }

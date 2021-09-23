@@ -156,8 +156,8 @@
         LEFT JOIN DEPT d on e.EMP_DEPT=d.DEPT_ID
         LEFT JOIN DEPARTMENT p on e.EMP_DEPAR=p.DEPA_ID
         LEFT JOIN TITLE t on e.EMP_TIT=t.TIT_ID
-        WHERE TO_DATE(s.SCHE_DATE, 'yyyy/mm/dd') >= TRUNC(NEXT_DAY(SYSDATE-8,1)+1)
-        AND TO_DATE(s.SCHE_DATE, 'yyyy/mm/dd') &lt; TRUNC(NEXT_DAY(SYSDATE-8,1)+7)+1
+        WHERE TO_DATE(s.SCHE_DATE, 'yyyy/mm/dd') >= TRUNC(NEXT_DAY(SYSDATE-8,1)+(1+#{date}))
+        AND TO_DATE(s.SCHE_DATE, 'yyyy/mm/dd') &lt; TRUNC(NEXT_DAY(SYSDATE-8,1)+(7+#{date}))+1
         ORDER BY TO_DATE(s.SCHE_DATE, 'yyyy/mm/dd')
     </select>
 
@@ -183,5 +183,19 @@
     <delete id="delScheEmp">
         DELETE FROM SCHE_EMP WHERE SHI_ID=#{shiId} and SCHE_ID=#{scheId}
     </delete>
+
+    <insert id="addSchedu" parameterType="java.util.List">
+        insert into schedu(SCHE_ID, SCHE_DATE, SCHE_WEEK)
+        select seq.nextval, SCHE_DATE, SCHE_WEEK from
+        <foreach collection="list" item="p" index="i" separator=" " open="(" close=")">
+            <if test="i != list.size()-1">
+                select #{p.scheDate} as SCHE_DATE , #{p.scheWeek} as SCHE_WEEK from dual
+                union
+            </if>
+            <if test="i == list.size()-1">
+                select #{p.scheDate} as SCHE_DATE , #{p.scheWeek} as SCHE_WEEK from dual
+            </if>
+        </foreach>
+    </insert>
 
 </mapper>
