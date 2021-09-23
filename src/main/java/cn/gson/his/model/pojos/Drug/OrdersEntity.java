@@ -12,7 +12,7 @@ import java.util.Objects;
 public class OrdersEntity {
     private String orderId;
     private Employee employee;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp orderDate;
     private String planId;
     private Long zje;

@@ -18,7 +18,7 @@ public class ProductEntity {
     private String kszt;
     private Integer gesl;
     private String shdw;
-
+    private String dw;
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -144,6 +144,16 @@ public class ProductEntity {
         this.shdw = shdw;
     }
 
+    @Basic
+    @Column(name = "DW")
+    public String getDw() {
+        return dw;
+    }
+
+    public void setDw(String dw) {
+        this.dw = dw;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -160,11 +170,12 @@ public class ProductEntity {
                 Objects.equals(kszt, that.kszt) &&
                 Objects.equals(gesl, that.gesl) &&
                 Objects.equals(shdw, that.shdw) &&
+                Objects.equals(dw, that.dw) &&
                 Objects.equals(ge, that.ge);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(planxqId, productId, productName, productFl, planId, price, sl, ge,gys,kszt,gesl,shdw);
+        return Objects.hash(planxqId, productId, productName, productFl, planId, price, sl, ge,gys,kszt,gesl,shdw,dw);
     }
 }

@@ -12,7 +12,7 @@ public class Allot {
     private Integer allotId;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp allotDate;
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="Asia/Shanghai")
     private Timestamp sqdate;
     private Employee employee;
     private LibraryInfoEntity library;//调入仓库

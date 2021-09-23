@@ -26,6 +26,7 @@ public class OrderthxqEntity {
     private String kszt;
     private Integer gesl;
     private String shdw;
+    private String dw;
 
 
     @Id
@@ -181,6 +182,16 @@ public class OrderthxqEntity {
         this.shdw = shdw;
     }
 
+    @Basic
+    @Column(name = "DW")
+    public String getDw() {
+        return dw;
+    }
+
+    public void setDw(String dw) {
+        this.dw = dw;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -200,12 +211,13 @@ public class OrderthxqEntity {
                 Objects.equals(kszt, that.kszt) &&
                 Objects.equals(gesl, that.gesl) &&
                 Objects.equals(shdw, that.shdw) &&
+                Objects.equals(dw, that.dw) &&
                 Objects.equals(gqdate, that.gqdate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderthxqId, productId, productName, productFl, orderthId, sl, ph, mfg, price, ge,gys,gqdate,kszt,gesl,shdw);
+        return Objects.hash(orderthxqId, productId, productName, productFl, orderthId, sl, ph, mfg, price, ge,gys,gqdate,kszt,gesl,shdw,dw);
     }
 
     @Override
