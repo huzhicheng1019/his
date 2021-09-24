@@ -66,4 +66,8 @@
     <select id="rkcxid" resultMap="stoMap">
         select s.*,l.library_name lname,e.EMP_NAME e_name from sto s LEFT JOIN LIBRARY_INFO l on s.library_id=l.library_id LEFT JOIN EMPLOYEE e on s.shr=e.EMP_ID where STO_ID=#{id}
     </select>
+
+    <select id="cgrkxs" resultMap="stoMap">
+        select s.*,l.library_name lname,e.EMP_NAME e_name from sto s LEFT JOIN LIBRARY_INFO l on s.library_id=l.library_id LEFT JOIN EMPLOYEE e on s.shr=e.EMP_ID where s.LY_ID=#{id} and s.why=0
+    </select>
 </mapper>
