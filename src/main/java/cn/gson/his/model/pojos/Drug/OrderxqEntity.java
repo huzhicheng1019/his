@@ -21,6 +21,7 @@ public class OrderxqEntity {
     private String kszt;
     private Integer gesl;
     private String shdw;
+    private String dw;
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -137,13 +138,23 @@ public class OrderxqEntity {
     }
 
     @Basic
-    @Column(name = "Shdw")
+    @Column(name = "SHDW")
     public String getShdw() {
         return shdw;
     }
 
     public void setShdw(String shdw) {
         this.shdw = shdw;
+    }
+
+    @Basic
+    @Column(name = "DW")
+    public String getDw() {
+        return dw;
+    }
+
+    public void setDw(String dw) {
+        this.dw = dw;
     }
 
     @Override
@@ -162,11 +173,12 @@ public class OrderxqEntity {
                 Objects.equals(kszt, that.kszt) &&
                 Objects.equals(gesl, that.gesl) &&
                 Objects.equals(shdw, that.shdw) &&
+                Objects.equals(dw, that.dw) &&
                 Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderxqId, productId, productName, productFl, orderId, sl, price,ge,gys,kszt,gesl,shdw);
+        return Objects.hash(orderxqId, productId, productName, productFl, orderId, sl, price,ge,gys,kszt,gesl,shdw,dw);
     }
 }
