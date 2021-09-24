@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +84,35 @@ public class RkService {
 
     public Map<String,Object> cgxqcx(String id,String fl){
         Map<String,Object> map = new HashMap<>();
-        map.put("cgxq",cgMapper.cgxqfl(id,fl));
+        List<OrderxqEntity> cgxq=new ArrayList<>();
+
+        List<StoEntity> cgrkxs = rkMapper.cgrkxs(id);
+
+        if(fl.equals("0")){
+            cgxq = cgMapper.cgxqfl(id, fl);
+        }else if(fl.equals("1")){
+            cgxq = cgMapper.cgxqfl(id, fl);
+        }else if(fl.equals("2")){
+            cgxq = cgMapper.cgxqcx(id,"");
+        }
+
+        for (OrderxqEntity orderxqEntity : cgxq) {
+            for (StoEntity cgrkx : cgrkxs) {
+                List<StojlEntity> stojlcx = rkMapper.stojlcx(cgrkx.getStoId(), "");
+                for (StojlEntity stojlEntity : stojlcx) {
+                    if(orderxqEntity.getProductId().equals(stojlEntity.getProductId()) && orderxqEntity.getProductFl().equals(stojlEntity.getProductFl())){
+                        orderxqEntity.setSl(orderxqEntity.getSl()-stojlEntity.getSl());
+                    }
+                }
+            }
+        }
+        for (int i=0;i<cgxq.size();i++){
+            if(cgxq.get(i).getSl()<=0){
+                cgxq.remove(cgxq.get(i));
+                i--;
+            }
+        }
+        map.put("cgxq",cgxq);
         return map;
     }
 
@@ -107,32 +136,29 @@ public class RkService {
                     ckxqcx.get(j).setKcs(ckxqcx.get(j).getKcs()+stojlEntityList.get(i).getSl());
                     cankxqDao.save(ckxqcx.get(j));
                 }
-                if(j==ckxqcx.size()-1){
-                    if(e==0){
-                        System.out.println(e);
-                        System.out.println("这里");
-                        Long price=0l;
-                        Long sjprice=0l;
-                        GysEntity gysEntity=new GysEntity();
-
-                        if(stojlEntityList.get(i).getProductFl().equals("0")){
-                            DrugEntity ypcxid = ypMapper.ypcxid(stojlEntityList.get(i).getProductId());
-                            price=ypcxid.getDrugPfprice();
-                            sjprice=ypcxid.getDrugPrice();
-                            gysEntity=ypcxid.getGys();
-                        }else if (stojlEntityList.get(i).getProductFl().equals("1")){
-                            ConEntity concxid = conMapper.concxid(stojlEntityList.get(i).getProductId());
-                            price=concxid.getDrugPfprice();
-                            sjprice=concxid.getConPrice();
-                            gysEntity=concxid.getGys();
-                        }
-                        LibraryxqEntity libraryxqEntity=new LibraryxqEntity(stojlEntityList.get(i).getProductId(),stojlEntityList.get(i).getProductName(),stojlEntityList.get(i).getProductFl(),stojlEntityList.get(i).getSl(),stojlEntityList.get(i).getPh(),stojlEntityList.get(i).getScdate(),stojlEntityList.get(i).getGqdate(),stoEntity.getLibrary(),price,stojlEntityList.get(i).getGe(),0,gysEntity,sjprice,stojlEntityList.get(i).getKszt(),stojlEntityList.get(i).getGesl(),stojlEntityList.get(i).getShdw());
-                        cankxqDao.save(libraryxqEntity);
-                    }else{
-                        e=0;
-                    }
-                }
             }
+            if(e==0){
+                System.out.println(e);
+                System.out.println("这里");
+                Long price=0l;
+                Long sjprice=0l;
+                GysEntity gysEntity=new GysEntity();
+
+                if(stojlEntityList.get(i).getProductFl().equals("0")){
+                    DrugEntity ypcxid = ypMapper.ypcxid(stojlEntityList.get(i).getProductId());
+                    price=ypcxid.getDrugPfprice();
+                    sjprice=ypcxid.getDrugPrice();
+                    gysEntity=ypcxid.getGys();
+                }else if (stojlEntityList.get(i).getProductFl().equals("1")){
+                    ConEntity concxid = conMapper.concxid(stojlEntityList.get(i).getProductId());
+                    price=concxid.getDrugPfprice();
+                    sjprice=concxid.getConPrice();
+                    gysEntity=concxid.getGys();
+                }
+                LibraryxqEntity libraryxqEntity=new LibraryxqEntity(stojlEntityList.get(i).getProductId(),stojlEntityList.get(i).getProductName(),stojlEntityList.get(i).getProductFl(),stojlEntityList.get(i).getSl(),stojlEntityList.get(i).getPh(),stojlEntityList.get(i).getScdate(),stojlEntityList.get(i).getGqdate(),stoEntity.getLibrary(),price,stojlEntityList.get(i).getGe(),0,gysEntity,sjprice,stojlEntityList.get(i).getKszt(),stojlEntityList.get(i).getGesl(),stojlEntityList.get(i).getShdw());
+                cankxqDao.save(libraryxqEntity);
+            }
+            e=0;
         }
 
     }

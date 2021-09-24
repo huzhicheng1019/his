@@ -119,9 +119,9 @@ public class CkService {
 
         List<LibraryxqEntity> ckxqcx = cangkMapper.ckxqcx(chuEntity.getLibrary().getLibraryId(), "");
 
-        for (LibraryxqEntity libraryxqEntity : ckxqcx) {
-            for (ChujlEntity chujlEntity : chujlEntityList) {
-                if(chujlEntity.getProductId()==libraryxqEntity.getProductId() && chujlEntity.getProductFl().equals(libraryxqEntity.getProductFl()) &&
+        for (ChujlEntity chujlEntity : chujlEntityList) {
+            for (LibraryxqEntity libraryxqEntity : ckxqcx) {
+                if(chujlEntity.getProductId().equals(libraryxqEntity.getProductId()) && chujlEntity.getProductFl().equals(libraryxqEntity.getProductFl()) &&
                         chujlEntity.getPh().equals(libraryxqEntity.getPh())){
                     System.out.println(1333);
                     System.out.println(chujlEntity);

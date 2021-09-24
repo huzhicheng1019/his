@@ -14,4 +14,6 @@ public interface RkMapper {
     public List<StojlEntity> stojlcx(@Param("id") Integer id, @Param("nr") String nr);
 
     public List<StoEntity> rkcxid(Integer id);
+
+    public List<StoEntity> cgrkxs(@Param("id") String id);
 }
