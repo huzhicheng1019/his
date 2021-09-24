@@ -18,17 +18,17 @@ public class TestsService {
     TestsMapper testsMapper;
 
     //查询所有检验项目
-    public PageInfo selecttests(Integer no,Integer size){
+    public PageInfo selecttests(Integer no,Integer size,String name){
         PageHelper.startPage(no,size);
-        List<TestsEntity> list = testsMapper.selecttests();
+        List<TestsEntity> list = testsMapper.selecttests(name);
         PageInfo<TestsEntity> info = new PageInfo<>(list);
         return info;
     }
 
     //根据id查询项目详情
-    public PageInfo selectdetails(Integer id,Integer no,Integer size){
+    public PageInfo selectdetails(Integer id,Integer no,Integer size,String name){
         PageHelper.startPage(no,size);
-        List<TestDetailsEntity> list = testsMapper.selectdetails(id);
+        List<TestDetailsEntity> list = testsMapper.selectdetails(id,name);
         PageInfo<TestDetailsEntity> info = new PageInfo<>(list);
         return info;
     }
