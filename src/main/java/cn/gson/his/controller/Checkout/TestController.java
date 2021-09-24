@@ -23,16 +23,20 @@ public class TestController {
      */
     @PostMapping("all")
     public PageInfo selecttests(@RequestBody PageNo pageNo){
-        System.out.println("yundddd");
-        return testsService.selecttests(pageNo.getNo(), pageNo.getSize());
+
+        return testsService.selecttests(pageNo.getNo(), pageNo.getSize(), pageNo.getName());
     }
 
     //根据id查询项目详情
     @PostMapping("selectdetails")
     public  PageInfo selectdetails(@RequestParam(value = "no")Integer no,
                                    @RequestParam(value = "size")Integer size,
-                                   @RequestParam(value = "id")Integer id){
-        return testsService.selectdetails(id,no, size);
+                                   @RequestParam(value = "id")Integer id,
+                                   @RequestParam(value = "name")String name
+                                   ){
+
+        System.out.println("查询出来的分页"+testsService.selectdetails(id,no, size,name));
+        return testsService.selectdetails(id,no, size,name);
     }
 
     //根据id删除检验项目
@@ -75,6 +79,7 @@ public class TestController {
     //新增检验项目详情
     @PostMapping("insertdetails")
     public Integer insertdetails(@RequestBody TestDetailsEntity form){
+        System.out.println("222222222222");
         System.out.println(form.toString());
         int i = testsService.insertdetails(form);
         if(i>0){

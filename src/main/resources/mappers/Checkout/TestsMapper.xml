@@ -35,11 +35,15 @@
         select * from tests
         left join test_type on   test_type.TYPE_ID=tests.TYPE_ID
         left join department on   tests.DEPT_ID=department.DEPA_ID
+          WHERE Test_name like '%${name}%'
     </select>
 
     <!--根据id查询项目详情-->
     <select id="selectdetails" resultMap="testsMap">
         select * from test_details where Test_id=#{id}
+        <if test="name!='' and name!=null">
+            and Details_name like '%${name}%'
+        </if>
     </select>
     
     <!--根据id查询项目详情中的内容说明-->
@@ -61,7 +65,9 @@
     </insert>
 
     <!--新增检验项目详情-->
-    <insert id="insertdetails">
-        insert into test_details values(seq.nextval,#{Details_Symbol},#{Details_name},#{Details_Company},#{Details_values},#{Details_price},#{Details_shuoming},#{ttests.testId})
+    <insert id="insertdetails" parameterType="cn.gson.his.model.pojos.Checkout.TestDetailsEntity">
+        insert into test_details values(seq.nextval,#{detailsSymbol},#{detailsName},
+                                        #{detailsCompany},#{detailsValues},#{detailsPrice},
+                                        #{detailsShuoming},#{ids})
     </insert>
 </mapper>

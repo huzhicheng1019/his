@@ -3,16 +3,17 @@ package cn.gson.his.model.mappers.Checkout;
 import cn.gson.his.model.pojos.Checkout.TestDetailsEntity;
 import cn.gson.his.model.pojos.Checkout.TestsEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 @Mapper
 public interface TestsMapper {
     //查询所有检验项目
-    public List<TestsEntity> selecttests();
+    public List<TestsEntity> selecttests(String name);
 
     //根据id查询项目详情
-    public List<TestDetailsEntity> selectdetails(Integer id);
+    public List<TestDetailsEntity> selectdetails(@Param("id") Integer id,@Param("name") String name);
 
     //根据id查询项目详情中的内容说明
     public List<TestDetailsEntity> selectshuoming(Integer id);

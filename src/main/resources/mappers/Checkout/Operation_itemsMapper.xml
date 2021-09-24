@@ -88,4 +88,12 @@
         <insert id="insertcon" >
             insert into Surgery_consumables values(seq.nextval,#{a},#{b},#{consumablesNum},#{consumablesPrice})
         </insert>
+
+        <!--根据项目id查询所有药品-->
+<!--        <select id="seldrugByhc">-->
+
+<!--        </select>-->
+
+        <!--根据项目id查询所有耗材-->
+
 </mapper>

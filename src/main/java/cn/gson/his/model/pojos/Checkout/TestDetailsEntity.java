@@ -8,6 +8,23 @@ import java.util.Objects;
 public class TestDetailsEntity {
     private long detailsId;
     private String detailsSymbol;
+    private String detailsName;
+    private String detailsCompany;
+    private String detailsValues;
+    private Long detailsPrice;
+    private String detailsShuoming;
+    private TestsEntity ttests;
+
+    @Transient
+    private Integer ids;
+
+    public Integer getIds() {
+        return ids;
+    }
+
+    public void setIds(Integer ids) {
+        this.ids = ids;
+    }
 
     @Override
     public String toString() {
@@ -21,13 +38,6 @@ public class TestDetailsEntity {
                 ", detailsShuoming='" + detailsShuoming + '\'' +
                 '}';
     }
-
-    private String detailsName;
-    private String detailsCompany;
-    private String detailsValues;
-    private Long detailsPrice;
-    private String detailsShuoming;
-    private TestsEntity ttests;
 
     @Id
     @Column(name = "DETAILS_ID")
