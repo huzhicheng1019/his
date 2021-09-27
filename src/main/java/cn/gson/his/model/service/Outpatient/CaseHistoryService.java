@@ -21,6 +21,7 @@ public class CaseHistoryService {
         }
         @Transactional
         public int addCaseHistory(CaseHistoryEntity caseHistoryEntity){
+                caseHistoryEntity.setCaseState(0);
                 chm.addCaseHistory(caseHistoryEntity);
                 //返回病历主键
                 return caseHistoryEntity.getCaseHissstory();

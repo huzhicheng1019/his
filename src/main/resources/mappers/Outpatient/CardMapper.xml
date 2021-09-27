@@ -27,6 +27,16 @@
     <insert id="addCard">
         insert into CARD values(seq.nextval,#{cardNo},#{cardPswd},#{cardPrice},#{cardPrepay},#{patientName},#{patientNo},#{cardState})
     </insert>
+<!--  修改就诊卡卡号 -->
+    <update id="upCardID">
+        update  CARD
+        <set>
+            <if test="cardNo !=null">
+                CARD_NO = #{cardNo}
+            </if>
+        </set>
+        where  CARD_PSWD = #{cardPswd}
+    </update>
 <!--修改就诊卡-->
     <update id="upCard">
         update CARD

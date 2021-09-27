@@ -6,6 +6,7 @@
     <id column="CASE_HISSSTORY" property="caseHissstory"/>
     <result column="PATIENT_NAME" property="patientName"/>
     <result column="PATIENT_IDENTITY" property="patientIdentity"/>
+    <result column="CASE_STATE" property="caseState"/>
 <!--患者信息 -->
     <association property="patientNo" javaType="cn.gson.his.model.pojos.Outpatient.PatientdataEntity">
         <id column="PATIENT_NO" property="patientNo"></id>
@@ -20,7 +21,7 @@
 </resultMap>
 <!--    新增病历-->
     <insert id="addCaseHistory">
-        insert into CASE_HISTORY values (SEQ.nextval,#{patientName},#{patientIdentity},#{patientNo.patientNo})
+        insert into CASE_HISTORY values (SEQ.nextval,#{patientName},#{patientIdentity},#{caseState},#{patientNo.patientNo})
         <selectKey order="AFTER" keyProperty="caseHissstory" resultType="_int">
             select seq.currval from dual
         </selectKey>

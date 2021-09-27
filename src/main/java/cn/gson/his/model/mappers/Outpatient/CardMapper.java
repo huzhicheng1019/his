@@ -21,5 +21,7 @@ public interface CardMapper {
     public void addCard(CardEntity card);
     //修改就诊卡
     public int upCard(CardEntity card);
+    //修改的卡号,补办
+    public int upCardID(String cardNo,String cardPswd);
 
 }
