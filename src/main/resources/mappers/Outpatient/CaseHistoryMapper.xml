@@ -21,7 +21,7 @@
 </resultMap>
 <!--    新增病历-->
     <insert id="addCaseHistory">
-        insert into CASE_HISTORY values (SEQ.nextval,#{patientName},#{patientIdentity},#{caseState},#{patientNo.patientNo})
+        insert into CASE_HISTORY values (SEQ.nextval,#{patientName},#{patientIdentity},#{patientNo.patientNo},#{caseState})
         <selectKey order="AFTER" keyProperty="caseHissstory" resultType="_int">
             select seq.currval from dual
         </selectKey>
