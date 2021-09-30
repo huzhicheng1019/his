@@ -9,7 +9,7 @@ public class CaseHistoryEntity {
     private int caseHissstory;//病历编号
     private String patientName;//患者姓名
     private String patientIdentity;//患者身份证
-
+    private Integer caseState;//区分当前还是过往
 
 
     private PatientdataEntity patientNo;//患者外建
@@ -53,6 +53,11 @@ public class CaseHistoryEntity {
         this.patientIdentity = patientIdentity;
     }
 
+    @Basic
+    @Column(name = "CASE_STATE")
+    public Integer getCaseState(){ return caseState; }
+
+    public void setCaseState(Integer caseState){ this.caseState = caseState; }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

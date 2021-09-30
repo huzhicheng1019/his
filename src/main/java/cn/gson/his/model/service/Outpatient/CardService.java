@@ -62,4 +62,8 @@ public class CardService {
         cm.upCard(card);
         return "OK";
     }
+    @Transactional
+    public void upCardID(String cardID,String cardPswd){
+        cm.upCardID(cardID,cardPswd);
+    }
 }

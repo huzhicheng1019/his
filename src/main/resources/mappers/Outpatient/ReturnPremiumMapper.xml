@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.ReturnPremiumMapper">
+<!--    新增退费表-->
+    <insert id="insertReturn">
+        insert PREMIUM values (SQL.nextval,#{returnData},#{returnPatie},#{returnName},#{returnPrice},#{patientIdentity})
+    </insert>
+<!--    查询就诊卡-->
+    <resultMap id="Rrturn" type="cn.gson.his.model.pojos.Outpatient.ReturnPremiumEntity">
+        <id property="returnPremiumId" column="RETURN_PREMIUM_ID"/>
+        <result property="returnData" column="RETURN_DATA"/>
+        <result property="returnPatie" column="RETURN_PATIE"/>
+        <result property="returnName" column="RETURN_NAME"/>
+        <result property="returnPrice" column="RETURN_PRICE"/>
+        <result property="patientIdentity" column="PATIENT_IDENTITY"/>
+        <result property="premiumId" column="PREMIUM_ID"/>
+    </resultMap>
+    <select id="seleReturn" resultMap="Rrturn">
+        select * from  PREMIUM
+        <where>
+            <if test="returnData !=null">
+                RETURN_DATA = #{returnData}
+            </if>
+            <if test="patientIdentity !=null">
+                PATIENT_IDENTITY = #{PATIENT_IDENTITY}
+            </if>
+            <if test="returnName !=null">
+                RETURN_NAME = #{returnName}
+            </if>
+        </where>
+    </select>
+</mapper>
