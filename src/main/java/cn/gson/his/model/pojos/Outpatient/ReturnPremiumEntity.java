@@ -4,9 +4,9 @@ package cn.gson.his.model.pojos.Outpatient;
 
 public class ReturnPremiumEntity {
 
-  private String returnPremiumId;
+  private int returnPremiumId;
   private java.sql.Date returnData;
-  private String returnPatie;
+  private int returnPatie;
   private String returnName;
   private Integer returnPrice;
   private String patientIdentity;
@@ -20,11 +20,11 @@ public class ReturnPremiumEntity {
     this.premiumId = premiumId;
   }
 
-  public String getReturnPremiumId() {
+  public int getReturnPremiumId() {
     return returnPremiumId;
   }
 
-  public void setReturnPremiumId(String returnPremiumId) {
+  public void setReturnPremiumId(int returnPremiumId) {
     this.returnPremiumId = returnPremiumId;
   }
 
@@ -38,11 +38,11 @@ public class ReturnPremiumEntity {
   }
 
 
-  public String getReturnPatie() {
+  public int getReturnPatie() {
     return returnPatie;
   }
 
-  public void setReturnPatie(String returnPatie) {
+  public void setReturnPatie(int returnPatie) {
     this.returnPatie = returnPatie;
   }
 

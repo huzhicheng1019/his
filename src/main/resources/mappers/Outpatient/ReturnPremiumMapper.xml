@@ -6,6 +6,7 @@
     <insert id="insertReturn">
         insert PREMIUM values (SQL.nextval,#{returnData},#{returnPatie},#{returnName},#{returnPrice},#{patientIdentity})
     </insert>
+<!--    查询就诊卡-->
     <resultMap id="Rrturn" type="cn.gson.his.model.pojos.Outpatient.ReturnPremiumEntity">
         <id property="returnPremiumId" column="RETURN_PREMIUM_ID"/>
         <result property="returnData" column="RETURN_DATA"/>

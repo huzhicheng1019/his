@@ -80,7 +80,6 @@ public class DoctorrecordController {
     //新增就诊记录和病历
     @RequestMapping("addDoctorrecord")
     public int addDoctorrecord(@RequestBody Map<String,Object> date){
-        System.out.println(date);
         //获取病历
         LinkedHashMap caseHis = (LinkedHashMap)date.get("caseNo");
         String caseHistory = JSONObject.toJSONString(caseHis);
@@ -94,7 +93,9 @@ public class DoctorrecordController {
         //获取就诊记录对象
         LinkedHashMap docto  = (LinkedHashMap)date.get("form");
         String doctorrecord = JSONObject.toJSONString(docto);
-        DoctorrecordEntity doctorrecordEntity = JSONObject.parseObject(doctorrecord, DoctorrecordEntity.class);
+        System.out.println(doctorrecord);
+        DoctorrecordEntity doctorrecordEntity = JSONObject.parseObject(doctorrecord,DoctorrecordEntity.class);
+
         doctorrecordEntity.setAttState("就诊");
         //修改挂号状态根据编号
         Integer state =(int)date.get("state");
