@@ -23,6 +23,11 @@
             <result column="lb_fl" property="lbFl"></result>
         </association>
 
+        <association property="libraryxqEntity" javaType="cn.gson.his.model.pojos.Drug.LibraryxqEntity">
+            <id property="libraryxqId" column="libraryxq_Id"></id>
+            <result property="kcs" column="kcs"></result>
+
+        </association>
 
 
     </resultMap>
@@ -31,7 +36,7 @@
     <select id="selDrug" resultMap="drugMap">
         select * from (
                 select d.DRUG_ID,d.DRUG_NAME,d.DRUG_GE,d.GYS_ID,d.LB_ID,d.DRUG_SM,d.BZQ,d.DRUG_PFPRICE,d.DRUG_PRICE,d.DW,d.YF,d.ZDKCS
-                ,d.KSZT,null,d.SHDW,l.lb_name,l.lb_fl,li.kcs
+                ,d.KSZT,d.GESL,d.SHDW,l.lb_name,l.lb_fl,li.kcs
                 from DRUG d
                 LEFT JOIN lb l on d.lb_id = l.lb_id
                 LEFT JOIN LIBRARYXQ li on d.DRUG_ID = li.product_id

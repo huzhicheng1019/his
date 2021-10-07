@@ -1,6 +1,7 @@
 package cn.gson.his.model.mappers.InHospital;
 
 import cn.gson.his.model.pojos.Drug.DrugEntity;
+import cn.gson.his.model.pojos.InHospital.DoctorExecuteEntity;
 import cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -28,7 +29,8 @@ public interface HospitalRegisterMapper {
 
 
     //查询执行医嘱
-    public List<HospitalRegisterEntity> query();
+    public List<HospitalRegisterEntity> query(@Param("text")String text,@Param("depaId") String depaId);
+
 
 
     //出院登记查询

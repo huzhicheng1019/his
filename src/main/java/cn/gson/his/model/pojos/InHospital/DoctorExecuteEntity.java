@@ -1,10 +1,14 @@
 package cn.gson.his.model.pojos.InHospital;
 
+import cn.gson.his.model.pojos.Power.Department;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@Data
 @Table(name = "DOCTOR_EXECUTE", schema = "HIS", catalog = "")
 public class DoctorExecuteEntity {
     private int exeId;
@@ -19,6 +23,13 @@ public class DoctorExecuteEntity {
     private String drugDw;
     private Integer drugCount;
     private Long drugPrice;
+
+    //主要登记表对象
+    private HospitalRegisterEntity hospitalRegister;
+    //科室对象
+    private Department department;
+
+
 
     @Id
     @Column(name = "EXE_ID")

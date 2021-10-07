@@ -79,6 +79,25 @@
             <result property="enState" column="en_state"></result>
             <result property="enContent" column="en_content"></result>
         </collection>
+        <!--医嘱详表-->
+        <collection property="doctorEnjoins" ofType="cn.gson.his.model.pojos.InHospital.DoctorEnjoinsEntity">
+            <id property="ensId" column="ens_id"></id>
+            <result property="enId" column="en_id"></result>
+            <result property="drugId" column="drug_id"></result>
+            <result property="drugName" column="drug_name"></result>
+            <result property="drugType" column="drug_type"></result>
+            <result property="drugGe" column="drug_ge"></result>
+            <result property="drugDw" column="drug_dw"></result>
+            <result property="drugYf" column="drug_yf"></result>
+            <result property="ensStart" column="ens_start"></result>
+            <result property="ensEnd" column="ens_end"></result>
+            <result property="drugDosage" column="drug_dosage"></result>
+            <result property="ensAmount" column="ens_amount"></result>
+            <result property="drugPrice" column="drug_price"></result>
+            <result property="ensState" column="ens_state"></result>
+            <result property="ensType" column="ens_type"></result>
+            <result property="ensCount" column="ens_count"></result>
+        </collection>
         <!--医嘱执行记录-->
         <collection property="doctorExecute" ofType="cn.gson.his.model.pojos.InHospital.DoctorExecuteEntity">
             <id column="exe_id" property="exeId"></id>
@@ -153,18 +172,31 @@
         select * from hospital_register h left join beds b on h.reg_mark = b.reg_mark
           left join department d on h.depa_id = d.depa_id
           left join bed be on b.bed_id = be.bed_id
-          left join patientdata p on h.patient_no = p.patient_no
-          left join prepay pr on h.reg_mark = pr.reg_mark
           left join doctor_enjoin en on h.reg_mark = en.reg_mark
           left join doctor_execute ex on h.reg_mark = ex.reg_mark
-
+          left join doctor_enjoins ens on en.en_id = ens.en_id
         <where>
-
+            <if test="depaId != '' and depaId != null and depaId != 0 " >
+                and d.depa_id= #{depaId}
+            </if>
+            <if test="text !='' and text != null " >
+                and (h.reg_name like '%${text}%' or h.doctor_name like '%${text}%' or
+                b.nurse_name like '%${text}%' or be.bed_name like '%${text}%')
+            </if>
 
             and h.reg_is = 0 and b.beds_is = 0
+
+            and ens.ens_id not in ( SELECT ex.ens_id from doctor_execute ex where to_char(ex.exe_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd'))
+            and ens.ens_end is null
+
+            and en.en_id is not null
+            and to_char(sysdate,'yyyy-mm-dd')  &gt;=  to_char(ens.ens_start,'yyyy-mm-dd')
+
         </where>
 
     </select>
+
+
 
 
     <!--出院登记查询-->
@@ -192,11 +224,13 @@
     </select>
 
 
+
+
     <!--转科后修改病人的科室和主治医生-->
     <update id="updateReg">
         update hospital_register set depa_id=#{depaId},doctor_id=#{doctorId},doctor_name=#{doctorName} where reg_mark=#{regMark}
     </update>
-    
+
     <!--根据住院号查病人-->
     <select id="look" resultMap="HopRegMap">
         select * from hospital_register where reg_mark=#{regMark}

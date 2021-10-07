@@ -15,6 +15,26 @@
         <result column="drug_dw" property="drugDw"></result>
         <result column="drug_count" property="drugCount"></result>
         <result column="drug_price" property="drugPrice"></result>
+
+        <association property="hospitalRegister" javaType="cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity" >
+            <id property="regId" column="reg_id"></id>
+            <result property="regMark" column="reg_mark"></result>
+            <result property="regDate" column="reg_date"></result>
+            <result property="patientNo" column="patient_no"></result>
+            <result property="regName" column="reg_name"></result>
+            <result property="depaId" column="depa_id"></result>
+            <result property="doctorId" column="doctor_id"></result>
+            <result property="doctorName" column="doctor_name"></result>
+            <result property="regIs" column="reg_is"></result>
+            <result property="diagnoseResult" column="diagnose_result"></result>
+        </association>
+
+        <association property="department" javaType="cn.gson.his.model.pojos.Power.Department">
+            <id property="depaId" column="depa_id"></id>
+            <result property="depaName" column="depa_name"></result>
+        </association>
+
+        
     </resultMap>
 
     <!--新增医嘱执行记录-->
@@ -22,6 +42,23 @@
         insert into doctor_execute values (seq.nextval,current_timestamp,#{ensId},#{nurseId},#{nurseName},#{regMark},
         #{drugId},#{drugName},#{drugGe},#{drugDw},#{drugCount},#{drugPrice})
     </insert>
+
+    <!--查询当天的医嘱执行记录-->
+    <select id="queryRecord" resultMap="exeMap">
+        select * from doctor_execute ex left join hospital_register h on ex.reg_mark = h.reg_mark
+        left join department d on h.depa_id = d.depa_id
+        <where>
+            <if test="depaId != '' and depaId != null and depaId != 0 " >
+                and d.depa_id= #{depaId}
+            </if>
+            <if test="text !='' and text != null " >
+                and (h.reg_name like '%${text}%' or h.doctor_name like '%${text}%'
+                )
+            </if>
+
+            and to_char(ex.exe_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd')
+        </where>
+    </select>
 
 
 </mapper>

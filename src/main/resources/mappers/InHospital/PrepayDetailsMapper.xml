@@ -9,16 +9,17 @@
         <result property="itemId" column="item_id"></result>
         <result property="presType" column="pres_type"></result>
         <result property="preId" column="pre_id"></result>
+        <result property="preText" column="pre_text"></result>
     </resultMap>
 
     <!--根据缴费表编号查缴费详情表-->
     <select id="selPreDet" resultMap="PreDetMap">
-        select * from prepay_details where pre_id = #{preId}
+        select * from prepay_details where pre_id = #{preId}  order by pres_date desc
     </select>
 
     <!--新增缴费详情表-->
     <insert id="insertPreDet">
-        insert into prepay_details values (seq.nextval,current_timestamp ,#{presPrice},#{itemId},#{presType},#{preId})
+        insert into prepay_details values (seq.nextval,current_timestamp ,#{presPrice},#{itemId},#{presType},#{preId},#{preText})
     </insert>
 
 </mapper>

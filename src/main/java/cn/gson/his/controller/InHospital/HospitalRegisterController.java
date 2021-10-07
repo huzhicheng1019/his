@@ -2,6 +2,7 @@ package cn.gson.his.controller.InHospital;
 
 
 import cn.gson.his.model.pojos.Drug.DrugEntity;
+import cn.gson.his.model.pojos.InHospital.DoctorExecuteEntity;
 import cn.gson.his.model.pojos.InHospital.DoctorLeaveEntity;
 import cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity;
 import cn.gson.his.model.service.InHospital.HospitalRegisterService;
@@ -54,9 +55,10 @@ public class HospitalRegisterController {
 
     //查询执行医嘱
     @RequestMapping("/query")
-    public List<HospitalRegisterEntity> demo4(){
-        return reg.query();
+    public List<HospitalRegisterEntity> demo4(String text,String depaId){
+        return reg.query(text,depaId);
     };
+
 
 
     //新增出院申请

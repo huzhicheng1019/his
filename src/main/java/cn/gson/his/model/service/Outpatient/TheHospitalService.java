@@ -57,19 +57,28 @@ public class TheHospitalService {
         if(entity == null){
             theHospitalMapper.insertPatient(patientdataEntity);
 
-            theHospitalEntity.setPatientNo(patientdataEntity.getPatientNo());
 
+            theHospitalEntity.setPatientNo(patientdataEntity.getPatientNo());
             theHospitalMapper.insertHospital(theHospitalEntity);
         }else{
-            //修改病人资料
-            entity.setPatientAge(patientdataEntity.getPatientAge());
-            entity.setPatientName(patientdataEntity.getPatientName());
-            entity.setPatientPhone(patientdataEntity.getPatientPhone());
-            entity.setPatientSex(patientdataEntity.getPatientSex());
-            entity.setPatientPirth(patientdataEntity.getPatientPirth());
-            patientMapper.UpdatePatient(entity);
+
+            //先新增 再删除
+            PatientdataEntity br = new PatientdataEntity();
+            br.setPatientName(patientdataEntity.getPatientName());
+            br.setPatientSex(patientdataEntity.getPatientSex());
+            br.setPatientAge(patientdataEntity.getPatientAge());
+            br.setPatientPhone(patientdataEntity.getPatientPhone());
+            br.setPatientInsu(patientdataEntity.getPatientInsu());
+            br.setPatientIdentity(patientdataEntity.getPatientIdentity());
+            br.setPatientPirth(patientdataEntity.getPatientPirth());
+            theHospitalMapper.insertPatient(br);
+
+
+            //删除原来的
+            patientMapper.delPatient(entity.getPatientNo()+"");
+
             //新增住院申请
-            theHospitalEntity.setPatientNo(entity.getPatientNo());
+            theHospitalEntity.setPatientNo(br.getPatientNo());
             theHospitalMapper.insertHospital(theHospitalEntity);
         }
 

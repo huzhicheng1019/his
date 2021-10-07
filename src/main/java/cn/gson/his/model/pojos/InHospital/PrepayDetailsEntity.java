@@ -9,10 +9,20 @@ import java.util.Objects;
 public class PrepayDetailsEntity {
     private int presId;
     private Timestamp presDate;
-    private Long presPrice;
+    private Double presPrice;
     private Integer itemId;
     private Integer presType;
     private Integer preId;
+    private String preText;
+
+
+    public String getPreText() {
+        return preText;
+    }
+
+    public void setPreText(String preText) {
+        this.preText = preText;
+    }
 
     @Id
     @Column(name = "PRES_ID")
@@ -36,11 +46,11 @@ public class PrepayDetailsEntity {
 
     @Basic
     @Column(name = "PRES_PRICE")
-    public Long getPresPrice() {
+    public Double getPresPrice() {
         return presPrice;
     }
 
-    public void setPresPrice(Long presPrice) {
+    public void setPresPrice(Double presPrice) {
         this.presPrice = presPrice;
     }
 
