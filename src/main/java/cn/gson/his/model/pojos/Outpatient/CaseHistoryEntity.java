@@ -1,6 +1,7 @@
 package cn.gson.his.model.pojos.Outpatient;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +14,18 @@ public class CaseHistoryEntity {
 
 
     private PatientdataEntity patientNo;//患者外建
+
+    private List<CaseHistoryPartiEntity> partiEntities;//病例详情集合
+
+    @OneToMany
+    public List<CaseHistoryPartiEntity> getPartiEntities() {
+        return partiEntities;
+    }
+
+    public void setPartiEntities(List<CaseHistoryPartiEntity> partiEntities) {
+        this.partiEntities = partiEntities;
+    }
+
     @OneToOne
     @JoinColumn(name = "PATIENT_NO",nullable = false)
     public PatientdataEntity getPatientNo() {

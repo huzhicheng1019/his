@@ -18,6 +18,15 @@
         <result column="PATIENT_IDENTITY" property="patientIdentity"/>
         <result column="PATIENT_PIRTH" property="patientPirth"/>
         </association>
+    <collection property="partiEntities" ofType="cn.gson.his.model.pojos.Outpatient.CaseHistoryPartiEntity">
+        <id column="PARTI_NO" property="partiNo"/>
+        <result column="CHIEF" property="chief"/>
+        <result column="PRESENTS" property="presents"/>
+        <result column="PREVIOUSS" property="previouss"/>
+        <result column="CHECKUP" property="checkup"/>
+        <result column="SUGGESTION" property="suggestion"/>
+        <result column="DOCTOR_NAME" property="doctorName"/>
+    </collection>
 </resultMap>
 <!--    新增病历-->
     <insert id="addCaseHistory">
@@ -31,6 +40,13 @@
         select * from CASE_HISTORY c inner join PATIENTDATA P on c.PATIENT_NO = P.PATIENT_NO
     </select>
     <select id="IdentityCaseHistory" resultMap="CaseHistory">
-        select * from CASE_HISTORY  where  PATIENT_IDENTITY = #{patientIdentity}
+        select * from CASE_HISTORY_PARTI c right join CASE_HISTORY c1 on c.CASE_NO = c1.CASE_HISSSTORY
+            where c1.PATIENT_IDENTITY = #{patientIdentity}
     </select>
+<!--    根据状态查询-->
+    <select id="IdentityCaseHistoryState" resultMap="CaseHistory">
+        select * from CASE_HISTORY_PARTI c right join CASE_HISTORY c1 on c.CASE_NO = c1.CASE_HISSSTORY
+        where c1.PATIENT_IDENTITY = #{patientIdentity} and c1.CASE_STATE = 1
+    </select>
+
 </mapper>
