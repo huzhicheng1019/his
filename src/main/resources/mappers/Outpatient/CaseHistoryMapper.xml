@@ -41,7 +41,7 @@
     </select>
     <select id="IdentityCaseHistory" resultMap="CaseHistory">
         select * from CASE_HISTORY_PARTI c right join CASE_HISTORY c1 on c.CASE_NO = c1.CASE_HISSSTORY
-            where c1.PATIENT_IDENTITY = #{patientIdentity}
+            where c1.PATIENT_IDENTITY = #{patientIdentity} and c1.CASE_STATE = 0
     </select>
 <!--    根据状态查询-->
     <select id="IdentityCaseHistoryState" resultMap="CaseHistory">
