@@ -18,6 +18,7 @@ public class ChecksEntity {
     private String bz;
     private Integer pdlx;
     private Integer zt;
+    private Employee shr;
 
     @Id
     @Column(name = "CHECK_ID")
@@ -89,6 +90,17 @@ public class ChecksEntity {
         this.zt = zt;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "SHR", referencedColumnName = "EMP_ID")
+    public Employee getShr() {
+        return shr;
+    }
+
+    public void setShr(Employee shr) {
+        this.shr = shr;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -100,11 +112,12 @@ public class ChecksEntity {
                 Objects.equals(employee, that.employee) &&
                 Objects.equals(pdlx, that.pdlx) &&
                 Objects.equals(zt, that.zt) &&
-                Objects.equals(bz, that.bz);
+                Objects.equals(bz, that.bz) &&
+                Objects.equals(shr, that.shr);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(checkId, checkDate, library, employee, bz,zt,pdlx);
+        return Objects.hash(checkId, checkDate, library, employee, bz,zt,pdlx,shr);
     }
 }

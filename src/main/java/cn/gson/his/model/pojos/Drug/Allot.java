@@ -17,6 +17,7 @@ public class Allot {
     private Employee employee;
     private LibraryInfoEntity library;//调入仓库
     private Integer zt;
+    private Employee shr;
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -70,6 +71,16 @@ public class Allot {
         this.library = library;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "SHR", referencedColumnName = "EMP_ID")
+    public Employee getShr() {
+        return shr;
+    }
+
+    public void setShr(Employee shr) {
+        this.shr = shr;
+    }
+
     @Basic
     @Column(name = "ZT")
     public Integer getZt() {
@@ -85,11 +96,11 @@ public class Allot {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Allot allot = (Allot) o;
-        return Objects.equals(allotId, allot.allotId) && Objects.equals(allotDate, allot.allotDate) && Objects.equals(sqdate, allot.sqdate) && Objects.equals(zt, allot.zt) && Objects.equals(library, allot.library);
+        return Objects.equals(allotId, allot.allotId) && Objects.equals(allotDate, allot.allotDate) && Objects.equals(sqdate, allot.sqdate) && Objects.equals(zt, allot.zt) && Objects.equals(library, allot.library) && Objects.equals(shr, allot.shr);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(allotId, allotDate, sqdate, employee, library,zt);
+        return Objects.hash(allotId, allotDate, sqdate, employee, library,zt,shr);
     }
 }

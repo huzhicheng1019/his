@@ -12,7 +12,7 @@ public class DrugEntity {
     private GysEntity gys;
     private LbEntity lb;
     private String drugSm;
-    private String bzq;
+    private Integer bzq;
     private Long drugPfprice;
     private Long drugPrice;
     private String dw;
@@ -70,11 +70,11 @@ public class DrugEntity {
 
     @Basic
     @Column(name = "BZQ")
-    public String getBzq() {
+    public Integer getBzq() {
         return bzq;
     }
 
-    public void setBzq(String bzq) {
+    public void setBzq(Integer bzq) {
         this.bzq = bzq;
     }
 

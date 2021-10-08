@@ -16,10 +16,14 @@
             <id column="FZR" property="empId"></id>
             <result column="e_name" property="empName"></result>
         </association>
+        <association property="shr" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id column="SHR" property="empId"></id>
+            <result column="s_name" property="empName"></result>
+        </association>
     </resultMap>
 
     <select id="pdcx" resultMap="pdMap">
-        select o.*,e.EMP_NAME e_name,l.library_name lname from CHECKS o left join EMPLOYEE e on o.FZR=e.EMP_ID LEFT JOIN LIBRARY_INFO l on o.LIBRARY_ID=l.LIBRARY_ID
+        select o.*,e.EMP_NAME e_name,l.library_name lname,s.emp_name s_name from CHECKS o left join EMPLOYEE e on o.FZR=e.EMP_ID LEFT JOIN LIBRARY_INFO l on o.LIBRARY_ID=l.LIBRARY_ID LEFT JOIN EMPLOYEE s ON o.shr = s.EMP_ID
         <where>
             <if test="nr!=null and nr!=''">
                 and CHECK_ID like concat(concat('%',#{nr}),'%')

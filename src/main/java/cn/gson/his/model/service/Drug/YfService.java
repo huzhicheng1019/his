@@ -96,6 +96,7 @@ public class YfService {
 
         Map<String,Object> map = new HashMap<>();
         //分页查询
+        map.put("cf",cfidcx);
         map.put("cfxq",yfMapper.cfxqcx(id));
         map.put("pd",pd);
         return map;

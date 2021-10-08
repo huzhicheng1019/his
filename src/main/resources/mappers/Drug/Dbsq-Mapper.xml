@@ -15,10 +15,14 @@
             <id column="ZXR" property="empId"></id>
             <result column="e_name" property="empName"></result>
         </association>
+        <association property="shr" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id column="SHR" property="empId"></id>
+            <result column="s_name" property="empName"></result>
+        </association>
     </resultMap>
 
     <select id="dbcx" resultMap="dbMap">
-        SELECT a.*,e.emp_name e_name,l.library_name lname from ALLOT a LEFT JOIN EMPLOYEE e ON a.zxr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID
+        SELECT a.*,e.emp_name e_name,l.library_name lname,s.emp_name s_name from ALLOT a LEFT JOIN EMPLOYEE e ON a.zxr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID LEFT JOIN EMPLOYEE s ON a.shr = s.EMP_ID
         <where>
             <if test="nr!=null and nr!=''">
                 and ALLOT_ID like concat(concat('%',#{nr}),'%')
@@ -63,7 +67,8 @@
     </select>
 
     <select id="dbxx" resultMap="dbMap">
-        SELECT a.*,e.emp_name e_name,l.library_name lname from ALLOT a LEFT JOIN EMPLOYEE e ON a.zxr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID where a.allot_id=#{id}
+        SELECT a.*,e.emp_name e_name,l.library_name lname,s.emp_name s_name from ALLOT a LEFT JOIN EMPLOYEE e ON a.zxr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID LEFT JOIN EMPLOYEE s ON a.shr = s.EMP_ID
+        where a.allot_id=#{id}
     </select>
 
     <select id="stocx" resultType="cn.gson.his.model.pojos.Drug.StoEntity">

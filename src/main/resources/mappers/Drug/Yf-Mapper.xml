@@ -20,6 +20,7 @@
     <select id="yfcx" resultMap="yfMap">
         SELECT a.*,e.emp_name e_name,l.library_name lname from PILLS a LEFT JOIN EMPLOYEE e ON a.fyr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID
         <where>
+            a.fyly_fl=0
             <if test="nr!=null and nr!=''">
                 and PILLS_ID like concat(concat('%',#{nr}),'%')
             </if>
@@ -115,6 +116,9 @@
 
 
 
+
+
+    <!--处方的结果集映射-->
     <resultMap id="pres" type="cn.gson.his.model.pojos.Outpatient.PrescriptionEntity">
         <id column="PRES_NO" property="presNo"/>
         <result column="PRES_NAME" property="presName"/>
@@ -159,12 +163,104 @@
             <result column="PATIENT_PIRTH" property="patientPirth"/>
         </association>
     </resultMap>
-
+    <!--    查询处方-->
     <select id="cfidcx" resultMap="pres">
-        select  * from   PRESCRIPTION P
-        where P.PRES_NO=#{id}
+        select  * from   PRESCRIPTION P inner join DOCTORRECORD D  on P.RECORD_ID = D.RECORD_NO
+        inner join CARD C2 on P.CARD_NO = C2.CARD_ID
+        inner join PATIENTDATA P2 on P.PATIENT_NO = P2.PATIENT_NO
+        inner join EMPLOYEE E on e.EMP_ID = p.DOCTOR_NAME where P.PRES_NO = #{id}
     </select>
 
 
+    <!--    医嘱发药查询-->
+    <resultMap id="yzyfMap" type="cn.gson.his.model.pojos.Drug.PillsYz">
+        <id column="PILLS_ID" property="pillsId"></id>
+        <result column="PILLS_DATE" property="pillsDate"></result>
+        <result column="FYLY_FL" property="fylyFl"></result>
+        <association property="library" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
+            <id column="LIBRARY_ID" property="libraryId"></id>
+            <result column="lname" property="libraryName"></result>
+        </association>
+        <association property="employee" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id column="FYR" property="empId"></id>
+            <result column="e_name" property="empName"></result>
+        </association>
+        <association property="fylyId" javaType="cn.gson.his.model.pojos.Power.Department">
+            <id column="FYLY_ID" property="DEPA_ID"></id>
+            <result column="DEPA_NAME" property="depaName"></result>
+        </association>
+    </resultMap>
+
+    <select id="yzyfcx" resultMap="yzyfMap">
+        SELECT a.*,e.emp_name e_name,l.library_name lname,DEPA_NAME from PILLS a LEFT JOIN EMPLOYEE e ON a.fyr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID LEFT JOIN DEPARTMENT d on a.FYLY_ID=d.DEPA_ID
+        <where>
+            a.fyly_fl=1
+            <if test="nr!=null and nr!=''">
+                and PILLS_ID like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="EnMap" type="cn.gson.his.model.pojos.InHospital.DoctorEnjoinEntity">
+        <id property="enId" column="en_id"></id>
+        <result property="enDate" column="en_date"></result>
+        <result property="enStart" column="en_start"></result>
+        <result property="enEnd" column="en_end"></result>
+        <result property="regMark" column="reg_mark"></result>
+        <result property="doctorId" column="doctor_id"></result>
+        <result property="enType" column="en_type"></result>
+        <result property="enState" column="en_state"></result>
+        <result property="enContent" column="en_content"></result>
+
+        <association property="emp" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id property="empId" column="emp_id"></id>
+            <result property="empName" column="emp_name"></result>
+            <result property="empPhone" column="emp_phone"></result>
+            <result property="empCard" column="emp_card"></result>
+            <result property="empInduction" column="emp_induction"></result>
+            <result property="empDeparture" column="emp_departure"></result>
+            <result property="empState" column="emp_state"></result>
+        </association>
+
+        <association property="hospitalRegisterEntity" javaType="cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity">
+            <id property="regId" column="reg_id"></id>
+            <result property="regMark" column="reg_mark"></result>
+            <result property="regDate" column="reg_date"></result>
+            <result property="patientNo" column="patient_no"></result>
+            <result property="regName" column="reg_name"></result>
+            <result property="depaId" column="depa_id"></result>
+            <result property="doctorId" column="doctor_id"></result>
+            <result property="doctorName" column="doctor_name"></result>
+            <result property="regIs" column="reg_is"></result>
+            <result property="diagnoseResult" column="diagnose_result"></result>
+        </association>
+
+        <collection property="advice" ofType="cn.gson.his.model.pojos.InHospital.DoctorEnjoinsEntity">
+            <id property="ensId" column="ens_id"></id>
+            <result property="enId" column="en_id"></result>
+            <result property="drugId" column="drug_id"></result>
+            <result property="drugName" column="drug_name"></result>
+            <result property="drugType" column="drug_type"></result>
+            <result property="drugGe" column="drug_ge"></result>
+            <result property="drugDw" column="drug_dw"></result>
+            <result property="drugYf" column="drug_yf"></result>
+            <result property="ensStart" column="ens_start"></result>
+            <result property="ensEnd" column="ens_end"></result>
+            <result property="drugDosage" column="drug_dosage"></result>
+            <result property="ensAmount" column="ens_amount"></result>
+            <result property="drugPrice" column="drug_price"></result>
+            <result property="ensState" column="ens_state"></result>
+            <result property="ensType" column="ens_type"></result>
+            <result property="ensCount" column="ens_count"></result>
+        </collection>
+
+    </resultMap>
+
+    <select id="lsyzcx" resultMap="EnMap">
+        select * from doctor_enjoin e left join doctor_enjoins en on e.en_id = en.en_id
+                                      left join employee emp on  e.doctor_id = emp.emp_id
+
+        where e.en_id = #{id}  order by en.ens_end desc
+    </select>
 
 </mapper>

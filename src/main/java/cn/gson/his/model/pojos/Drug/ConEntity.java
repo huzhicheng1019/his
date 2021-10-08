@@ -9,7 +9,7 @@ public class ConEntity {
     private int conId;
     private String conName;
     private String conGe;
-    private String bzq;
+    private Integer bzq;
     private GysEntity gys;
     private Long conPrice;
     private String dw;
@@ -55,11 +55,11 @@ public class ConEntity {
 
     @Basic
     @Column(name = "BZQ")
-    public String getBzq() {
+    public Integer getBzq() {
         return bzq;
     }
 
-    public void setBzq(String bzq) {
+    public void setBzq(Integer bzq) {
         this.bzq = bzq;
     }
 
