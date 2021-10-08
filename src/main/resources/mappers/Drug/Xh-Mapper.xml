@@ -13,10 +13,14 @@
             <id column="ZXR" property="empId"></id>
             <result column="e_name" property="empName"></result>
         </association>
+        <association property="shr" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id column="SHR" property="empId"></id>
+            <result column="s_name" property="empName"></result>
+        </association>
     </resultMap>
 
     <select id="xhcx" resultMap="xhMap">
-        SELECT a.*,e.emp_name e_name from DESTROY a LEFT JOIN EMPLOYEE e ON a.zxr = e.EMP_ID
+        SELECT a.*,e.emp_name e_name,s.emp_name s_name from DESTROY a LEFT JOIN EMPLOYEE e ON a.zxr = e.EMP_ID LEFT JOIN EMPLOYEE s ON a.shr = s.EMP_ID
         <where>
             <if test="nr!=null and nr!=''">
                 and DESTROY_ID like concat(concat('%',#{nr}),'%')
@@ -25,7 +29,8 @@
     </select>
 
     <select id="xhcxid" resultMap="xhMap">
-        SELECT a.*,e.emp_name e_name from DESTROY a LEFT JOIN EMPLOYEE e ON a.zxr = e.EMP_ID where DESTROY_ID=#{id}
+        SELECT a.*,e.emp_name e_name,s.emp_name s_name from DESTROY a LEFT JOIN EMPLOYEE e ON a.zxr = e.EMP_ID LEFT JOIN EMPLOYEE s ON a.shr = s.EMP_ID
+        where DESTROY_ID=#{id}
     </select>
 
     <resultMap id="xhxqMap" type="cn.gson.his.model.pojos.Drug.Destroyxq">

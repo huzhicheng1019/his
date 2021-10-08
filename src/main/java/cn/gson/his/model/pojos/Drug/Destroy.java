@@ -18,6 +18,7 @@ public class Destroy {
     private Integer destroyZt;
     private String bz;
     private Integer why;
+    private Employee shr;
 
     @Id
     @Column(name = "DESTROY_ID", nullable = false, precision = 0)
@@ -37,6 +38,18 @@ public class Destroy {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "SHR", referencedColumnName = "EMP_ID")
+    public Employee getShr() {
+        return shr;
+    }
+
+    public void setShr(Employee shr) {
+        this.shr = shr;
     }
 
     @Basic
@@ -94,11 +107,11 @@ public class Destroy {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Destroy destroy = (Destroy) o;
-        return Objects.equals(destroyId, destroy.destroyId) && Objects.equals(employee, destroy.employee) && Objects.equals(destroyDate, destroy.destroyDate) && Objects.equals(sqdate, destroy.sqdate) && Objects.equals(destroyZt, destroy.destroyZt) && Objects.equals(bz, destroy.bz) && Objects.equals(why, destroy.why);
+        return Objects.equals(destroyId, destroy.destroyId) && Objects.equals(employee, destroy.employee) && Objects.equals(destroyDate, destroy.destroyDate) && Objects.equals(sqdate, destroy.sqdate) && Objects.equals(destroyZt, destroy.destroyZt) && Objects.equals(bz, destroy.bz) && Objects.equals(why, destroy.why) && Objects.equals(shr, destroy.shr);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(destroyId, employee, destroyDate, sqdate, destroyZt, bz, why);
+        return Objects.hash(destroyId, employee, destroyDate, sqdate, destroyZt, bz, why,shr);
     }
 }
