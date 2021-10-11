@@ -1,9 +1,6 @@
 package cn.gson.his.controller.Drug;
 
-import cn.gson.his.model.pojos.Drug.Allot;
-import cn.gson.his.model.pojos.Drug.Allotxq;
-import cn.gson.his.model.pojos.Drug.Destroy;
-import cn.gson.his.model.pojos.Drug.Destroyxq;
+import cn.gson.his.model.pojos.Drug.*;
 import cn.gson.his.model.pojos.Power.Employee;
 import cn.gson.his.model.service.Drug.XhService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -103,10 +100,15 @@ public class XhController {
     }
 
     @RequestMapping("xhbh")
-    public void xhbh(@RequestBody Destroy destroy){
+    public void xhbh(@RequestBody Map<String,Object> map){
+        ObjectMapper mapper = new ObjectMapper();
+        Destroy destroy = mapper.convertValue(map.get("destroy"), Destroy.class);
+        AuditInfo auditInfo=mapper.convertValue(map.get("auditInfo"),AuditInfo.class);
+        Timestamp d = new Timestamp(System.currentTimeMillis());
+        auditInfo.setApprovalDate(d);
         System.out.println("开始：");
         System.out.println(destroy);
-        xhService.bh(destroy);
+        xhService.bh(destroy,auditInfo);
     }
 
     @RequestMapping("add-xhrck")
@@ -119,6 +121,9 @@ public class XhController {
         System.out.println(map.get("spr"));
         Destroy destroy = mapper.convertValue(map.get("destroy"), Destroy.class);
         Employee spr = mapper.convertValue(map.get("spr"), Employee.class);
+        AuditInfo auditInfo=mapper.convertValue(map.get("auditInfo"),AuditInfo.class);
+        Timestamp d = new Timestamp(System.currentTimeMillis());
+        auditInfo.setApprovalDate(d);
         System.out.println(2);
         List<Destroyxq> xqsj=new ArrayList<>();
         List<Object> list = (List<Object>)map.get("xqsj");
@@ -128,11 +133,17 @@ public class XhController {
             xqsj.add(destroyxq);
         }
         try {
-            xhService.xzxhrck(destroy,spr,xqsj);
+            xhService.xzxhrck(destroy,spr,xqsj,auditInfo);
             return "ok";
         } catch (Exception e) {
             e.printStackTrace();
             return "fail";
         }
+    }
+
+    @RequestMapping("xhtjsh")
+    public void xhtjsh(@RequestBody Destroy destroy){
+        System.out.println("开始：");
+        xhService.xhtjsh(destroy);
     }
 }

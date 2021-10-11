@@ -57,6 +57,7 @@
     <class>cn.gson.his.model.pojos.Drug.Premium</class>
     <class>cn.gson.his.model.pojos.Drug.Premiums</class>
     <class>cn.gson.his.model.pojos.Outpatient.PatientdataEntity</class>
+    <class>cn.gson.his.model.pojos.Drug.AuditInfo</class>
 
 
     <properties>

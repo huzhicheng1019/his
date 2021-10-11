@@ -40,6 +40,9 @@ public class PdService {
     @Autowired
     CankxqDao cankxqDao;
 
+    @Autowired
+    AuditInfoDao auditInfoDao;
+
     public Map<String,Object> ckpdcx(Integer id, Integer lx){
         System.out.println(id);
         Map<String,Object> map = new HashMap<>();
@@ -94,12 +97,13 @@ public class PdService {
         return map;
     }
 
-    public void bh(ChecksEntity checksEntity){
+    public void bh(ChecksEntity checksEntity,AuditInfo auditInfo){
         checksEntity.setZt(2);
+        auditInfoDao.save(auditInfo);
         pdDao.save(checksEntity);
     }
 
-    public void pdsh(ChecksEntity checksEntity,List<Checkxq> checkxqList,Destroy destroy,List<Destroyxq> destroyxq){
+    public void pdsh(ChecksEntity checksEntity,List<Checkxq> checkxqList,Destroy destroy,List<Destroyxq> destroyxq,AuditInfo auditInfo){
         System.out.println(checksEntity.getPdlx());
         System.out.println(destroy.getDestroyId());
         checksEntity.setZt(1);
@@ -121,5 +125,6 @@ public class PdService {
                 cankxqDao.save(ckxqcxid);
             }
         }
+        auditInfoDao.save(auditInfo);
     }
 }

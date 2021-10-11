@@ -1,9 +1,6 @@
 package cn.gson.his.controller.Drug;
 
-import cn.gson.his.model.pojos.Drug.ChecksEntity;
-import cn.gson.his.model.pojos.Drug.Checkxq;
-import cn.gson.his.model.pojos.Drug.Destroy;
-import cn.gson.his.model.pojos.Drug.Destroyxq;
+import cn.gson.his.model.pojos.Drug.*;
 import cn.gson.his.model.pojos.Power.Employee;
 import cn.gson.his.model.service.Drug.PdService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -85,10 +82,15 @@ public class PdController {
     }
 
     @RequestMapping("pdbh")
-    public void pdbh(@RequestBody ChecksEntity checks){
+    public void pdbh(@RequestBody Map<String,Object> map){
         System.out.println("开始：");
+        ObjectMapper mapper = new ObjectMapper();
+        ChecksEntity checks = mapper.convertValue(map.get("checks"), ChecksEntity.class);
+        AuditInfo auditInfo=mapper.convertValue(map.get("auditInfo"),AuditInfo.class);
+        Timestamp d = new Timestamp(System.currentTimeMillis());
+        auditInfo.setApprovalDate(d);
         System.out.println(checks);
-        pdService.bh(checks);
+        pdService.bh(checks,auditInfo);
     }
 
     @RequestMapping("pdsh")
@@ -117,8 +119,11 @@ public class PdController {
             Checkxq checkxq1 = mapper.convertValue(o, Checkxq.class);
             checkxq.add(checkxq1);
         }
+        AuditInfo auditInfo=mapper.convertValue(map.get("auditInfo"),AuditInfo.class);
+        Timestamp d = new Timestamp(System.currentTimeMillis());
+        auditInfo.setApprovalDate(d);
         try {
-            pdService.pdsh(checks,checkxq,destroy,xqsj);
+            pdService.pdsh(checks,checkxq,destroy,xqsj,auditInfo);
             return "ok";
         } catch (Exception e) {
             e.printStackTrace();

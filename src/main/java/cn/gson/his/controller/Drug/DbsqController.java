@@ -1,9 +1,6 @@
 package cn.gson.his.controller.Drug;
 
-import cn.gson.his.model.pojos.Drug.Allot;
-import cn.gson.his.model.pojos.Drug.Allotxq;
-import cn.gson.his.model.pojos.Drug.OrdersEntity;
-import cn.gson.his.model.pojos.Drug.OrderxqEntity;
+import cn.gson.his.model.pojos.Drug.*;
 import cn.gson.his.model.pojos.Power.Employee;
 import cn.gson.his.model.service.Drug.DbsqService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -129,6 +126,9 @@ public class DbsqController {
         System.out.println(map.get("spr"));
         Allot allot = mapper.convertValue(map.get("allot"), Allot.class);
         Employee spr = mapper.convertValue(map.get("spr"), Employee.class);
+        AuditInfo auditInfo=mapper.convertValue(map.get("auditInfo"),AuditInfo.class);
+        Timestamp d = new Timestamp(System.currentTimeMillis());
+        auditInfo.setApprovalDate(d);
         System.out.println(2);
         List<Allotxq> xqsj=new ArrayList<>();
         List<Object> list = (List<Object>)map.get("xqsj");
@@ -138,7 +138,7 @@ public class DbsqController {
             xqsj.add(allotxq);
         }
         try {
-            dbsqService.xzdbrck(allot,spr,xqsj);
+            dbsqService.xzdbrck(allot,spr,xqsj,auditInfo);
             return "ok";
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,9 +147,19 @@ public class DbsqController {
     }
 
     @RequestMapping("dbbh")
-    public void dbbh(@RequestBody Allot allot){
+    public void dbbh(@RequestBody Map<String,Object> map){
         System.out.println("开始：");
-        System.out.println(allot);
-        dbsqService.bh(allot);
+        ObjectMapper mapper = new ObjectMapper();
+        Allot allot = mapper.convertValue(map.get("allot"), Allot.class);
+        AuditInfo auditInfo=mapper.convertValue(map.get("auditInfo"),AuditInfo.class);
+        Timestamp d = new Timestamp(System.currentTimeMillis());
+        auditInfo.setApprovalDate(d);
+        dbsqService.bh(allot,auditInfo);
+    }
+
+    @RequestMapping("dbtjsh")
+    public void dbtjsh(@RequestBody Allot allot){
+        System.out.println("开始：");
+        dbsqService.tjsh(allot);
     }
 }

@@ -108,4 +108,32 @@ public class YfController {
         Map<String, Object> stringObjectMap = yfService.yfxqidcx(id,"");
         return stringObjectMap;
     }
+
+    @RequestMapping("lsyzcx")
+    public Map<String,Object> getlsyz(Integer id){
+        System.out.println("nr:"+id);
+        Map<String, Object> stringObjectMap = yfService.lsyzselect(id);
+        return stringObjectMap;
+    }
+
+    @RequestMapping("kscx")
+    public Map<String,Object> getkscx(){
+        Map<String, Object> stringObjectMap = yfService.kscx();
+        return stringObjectMap;
+    }
+
+    @RequestMapping("yzcx")
+    public Map<String,Object> getyz(Integer id){
+        System.out.println("nr:"+id);
+        Map<String, Object> stringObjectMap = yfService.yzcx(id);
+        return stringObjectMap;
+    }
+
+    @RequestMapping("zyyfgl")
+    public Map<String,Object> getztyf(Integer pageNo, Integer size,Integer fl, String nr){
+        System.out.println("nr:"+nr);
+        Map<String, Object> stringObjectMap = yfService.yflyselect(pageNo,size, fl, nr);
+        System.out.println(stringObjectMap.get("total"));
+        return stringObjectMap;
+    }
 }

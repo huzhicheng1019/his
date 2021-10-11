@@ -5,8 +5,10 @@ import cn.gson.his.model.mappers.Drug.CangkMapper;
 import cn.gson.his.model.mappers.Drug.TyMapper;
 import cn.gson.his.model.mappers.Drug.YfMapper;
 import cn.gson.his.model.pojos.Drug.*;
+import cn.gson.his.model.pojos.InHospital.DoctorEnjoinEntity;
 import cn.gson.his.model.pojos.Outpatient.PrescriptionEntity;
 import cn.gson.his.model.pojos.Outpatient.PrescriptionsEntity;
+import cn.gson.his.model.pojos.Power.Department;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,7 +122,7 @@ public class YfService {
 
         for (ChujlEntity chujlEntity : chujlEntityList) {
             for (LibraryxqEntity libraryxqEntity : ckxqcx) {
-                if(chujlEntity.getProductId()==libraryxqEntity.getProductId() && chujlEntity.getProductFl().equals(libraryxqEntity.getProductFl()) &&
+                if(chujlEntity.getProductId().equals(libraryxqEntity.getProductId()) && chujlEntity.getProductFl().equals(libraryxqEntity.getProductFl()) &&
                         chujlEntity.getPh().equals(libraryxqEntity.getPh())){
                     libraryxqEntity.setKcs(libraryxqEntity.getKcs()-chujlEntity.getSl());
                 }
@@ -175,6 +177,42 @@ public class YfService {
         }
         Map<String,Object> map = new HashMap<>();
         map.put("rows",pillsxqList);
+        return map;
+    }
+
+    public Map<String,Object> lsyzselect(Integer id){
+        Map<String,Object> map = new HashMap<>();
+        DoctorEnjoinEntity lsyzcx = yfMapper.lsyzcx(id);
+        String pd="bcz";
+        if(lsyzcx==null){
+            pd="bcz";
+        }else {
+            pd="ok";
+        }
+        map.put("rows",yfMapper.lsyzcx(id));
+        map.put("pd",pd);
+        return map;
+    }
+
+    public Map<String,Object> kscx(){
+        Map<String,Object> map = new HashMap<>();
+        List<Department> kscx = yfMapper.kscx();
+        map.put("rows",yfMapper.kscx());
+        return map;
+    }
+
+    public Map<String,Object> yzcx(Integer id){
+        Map<String,Object> map = new HashMap<>();
+        map.put("rows",yfMapper.yzcx(id));
+        return map;
+    }
+
+    public Map<String,Object> yflyselect(int pageNo, int size, Integer fl, String nr){
+        Map<String,Object> map = new HashMap<>();
+        //分页查询
+        Page<Object> page= PageHelper.startPage(pageNo,size);
+        map.put("rows",yfMapper.yflycx(fl, nr));
+        map.put("total",page.getTotal());
         return map;
     }
 }

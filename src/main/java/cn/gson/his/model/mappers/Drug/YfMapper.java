@@ -3,8 +3,11 @@ package cn.gson.his.model.mappers.Drug;
 import cn.gson.his.model.pojos.Drug.PillsEntity;
 import cn.gson.his.model.pojos.Drug.PillsYz;
 import cn.gson.his.model.pojos.Drug.Pillsxq;
+import cn.gson.his.model.pojos.InHospital.DoctorEnjoinEntity;
+import cn.gson.his.model.pojos.InHospital.DoctorEnjoinsEntity;
 import cn.gson.his.model.pojos.Outpatient.PrescriptionEntity;
 import cn.gson.his.model.pojos.Outpatient.PrescriptionsEntity;
+import cn.gson.his.model.pojos.Power.Department;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,4 +24,12 @@ public interface YfMapper {
     public PrescriptionEntity cfidcx(@Param("id") Integer id);
 
     public List<PillsYz> yzyfcx(String nr);
+
+    public DoctorEnjoinEntity lsyzcx(Integer id);
+
+    public List<Department>  kscx();
+
+    public List<DoctorEnjoinsEntity> yzcx(Integer id);
+
+    public List<PillsEntity> yflycx(@Param("fl") Integer fl,@Param("nr") String nr);
 }

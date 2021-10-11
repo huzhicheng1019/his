@@ -1,10 +1,7 @@
 package cn.gson.his.controller.Drug;
 
 import cn.gson.his.model.mappers.Drug.CgjhMapper;
-import cn.gson.his.model.pojos.Drug.LibraryInfoEntity;
-import cn.gson.his.model.pojos.Drug.LibraryxqEntity;
-import cn.gson.his.model.pojos.Drug.PlanInfoEntity;
-import cn.gson.his.model.pojos.Drug.ProductEntity;
+import cn.gson.his.model.pojos.Drug.*;
 import cn.gson.his.model.service.Drug.CgjhService;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -103,10 +100,27 @@ public class CgjhController {
     }
 
     @RequestMapping("cgjh-sh")
-    public String cgjhsh(@RequestBody PlanInfoEntity plan){
+    public String cgjhsh(@RequestBody Map<String,Object> map){
+        ObjectMapper mapper = new ObjectMapper();
+        PlanInfoEntity plan = mapper.convertValue(map.get("plan"), PlanInfoEntity.class);
+        System.out.println(map.get("auditInfo"));
+        AuditInfo auditInfo=mapper.convertValue(map.get("auditInfo"),AuditInfo.class);
+        Timestamp d = new Timestamp(System.currentTimeMillis());
+        auditInfo.setApprovalDate(d);
+        try {
+            cgjhService.sh(plan,auditInfo);
+            return "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+
+    @RequestMapping("cgjh-tjsh")
+    public String cgjhtjsh(@RequestBody PlanInfoEntity plan){
         System.out.println(plan.getPlanId());
         try {
-            cgjhService.sh(plan);
+            cgjhService.tjsh(plan);
             return "ok";
         } catch (Exception e) {
             e.printStackTrace();

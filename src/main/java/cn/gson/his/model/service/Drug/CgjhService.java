@@ -1,13 +1,11 @@
 package cn.gson.his.model.service.Drug;
 
+import cn.gson.his.model.dao.Drug.AuditInfoDao;
 import cn.gson.his.model.dao.Drug.CgjhDao;
 import cn.gson.his.model.dao.Drug.CgjhxqDao;
 import cn.gson.his.model.mappers.Drug.CgMapper;
 import cn.gson.his.model.mappers.Drug.CgjhMapper;
-import cn.gson.his.model.pojos.Drug.OrdersEntity;
-import cn.gson.his.model.pojos.Drug.OrderxqEntity;
-import cn.gson.his.model.pojos.Drug.PlanInfoEntity;
-import cn.gson.his.model.pojos.Drug.ProductEntity;
+import cn.gson.his.model.pojos.Drug.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +29,9 @@ public class CgjhService {
 
     @Autowired
     CgMapper cgMapper;
+
+    @Autowired
+    AuditInfoDao auditInfoDao;
 
     public Map<String,Object> cgjhcx(String nr){
         Map<String,Object> map = new HashMap<>();
@@ -85,9 +86,15 @@ public class CgjhService {
         }
     }
 
-    public void sh(PlanInfoEntity planInfoEntity){
+    public void sh(PlanInfoEntity planInfoEntity, AuditInfo auditInfo){
+        cgjhDao.save(planInfoEntity);
+        auditInfoDao.save(auditInfo);
+    }
+
+    public void tjsh(PlanInfoEntity planInfoEntity){
         cgjhDao.save(planInfoEntity);
     }
+
 
     public Map<String,Object> cgjhdd(String nr){
         Map<String,Object> map = new HashMap<>();
