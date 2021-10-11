@@ -26,8 +26,18 @@ public class RoleController {
      * @return
      */
     @RequestMapping("/allRole")
-    public List<RoleInfo> allRole(){
-        return service.allRole();
+    public List<RoleInfo> allRole(@RequestParam("li") String li){
+        JSONObject o= JSONObject.parseObject(li);//转换Object
+        String zhi=o.get("date")+"";
+        Timestamp start=null;
+        Timestamp end=null;
+        if(zhi!=null && !("".equals(zhi))){
+            String date[] = zhi.split(",");
+            start=new Timestamp(new Date(Date.parse(date[0])).getTime());
+            end=new Timestamp(new Date(Date.parse(date[1])).getTime());
+        }
+        String name=o.get("fuzzy")+"";
+        return service.allRole(name,start,end);
     }
 
     /**
@@ -56,38 +66,13 @@ public class RoleController {
      */
     @PostMapping("/addRole")
     public ElMessage addRole(@RequestBody RoleInfo roleInfo){
+        System.out.println("角色"+roleInfo);
+        System.out.println("父级角色"+roleInfo.getRoleinfoByRoleParent());
         //创建时间
         if(roleInfo.getRoleCreate()==null){
             roleInfo.setRoleCreate(new Timestamp(new Date().getTime()));
         }
-        int id=-1;//接收角色id
-        boolean is=false;//判断修改还是新增：false为新增，true为修改
-        ElMessage elm=new ElMessage();
-        if(roleInfo.getRoleId()!=null && !roleInfo.getRoleId().equals("")){//如果前端传过来的id不为空，则是修改
-            id=roleInfo.getRoleId();//获取角色id
-            is=true;//改变状态
-            elm.setMessage("角色修改成功！");
-        }else{
-            //新增通过查询序列来赋值角色id
-            id=service.allSeq();
-            roleInfo.setRoleId(id);
-            elm.setMessage("角色新增成功！");
-        }
-        //新增集合，用于批量新增角色、部门中间表
-        List<RoleDeptPK> list=new ArrayList<>();
-        for (int i = 0; i<roleInfo.getDepts().size(); i++){
-            list.add(new RoleDeptPK(id,roleInfo.getDepts().get(i).getDeptId()));
-        }
-        //新增角色表、批量新增角色和部门中间表
-        int p=service.addRole(roleInfo,list,is);
-        //返回结果信息
-        if(p>0){
-            elm.setType("success");
-        }else{
-            elm.setType("error");
-            elm.setMessage("更新数据失败");
-        }
-        return elm;
+        return service.addRole(roleInfo);
     }
 
     //级联删除角色

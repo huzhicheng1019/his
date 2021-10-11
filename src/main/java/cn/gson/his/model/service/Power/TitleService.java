@@ -3,6 +3,7 @@ package cn.gson.his.model.service.Power;
 import cn.gson.his.model.dao.Power.TitleDao;
 import cn.gson.his.model.mappers.Power.TitleMapper;
 import cn.gson.his.model.pojos.Power.Title;
+import cn.gson.his.model.pojos.Power.vo.Titvo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +29,7 @@ public class TitleService {
         return dao.findAllByDeptByTitDept_DeptId(id);
     }
 
-    public List<Title> allTitByEmp(Integer deparId){
+    public List<Titvo> allTitByEmp(Integer deparId){
         return mapper.allTitByEmp(deparId);
     }
 }

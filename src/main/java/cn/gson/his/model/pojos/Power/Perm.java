@@ -17,7 +17,7 @@ public class Perm {
     private Integer permState;//是否可用:0:是1:否
     private Integer permLevel;//权限等级
     private String permMata;//注释
-    private List<Perm> permByPermParent;//上级权限
+    private List<Perm> permByPermParent;//子级权限
     private List<RoleInfo> roleinfos;//角色
 
     @Basic

@@ -2,7 +2,6 @@ package cn.gson.his.model.mappers.Power;
 
 import cn.gson.his.model.pojos.Power.Dept;
 import cn.gson.his.model.pojos.Power.Perm;
-import cn.gson.his.model.pojos.Power.RoleDeptPK;
 import cn.gson.his.model.pojos.Power.RoleInfo;
 import com.alibaba.fastjson.JSONArray;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,7 +9,6 @@ import org.apache.ibatis.annotations.Param;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface RoleMapper {
@@ -19,7 +17,7 @@ public interface RoleMapper {
      * 分页查询所有角色
      * @return
      */
-    public List<RoleInfo> allRole();
+    public List<RoleInfo> allRole(@Param("name") String name,@Param("start") Timestamp start,@Param("end") Timestamp end);
 
     /**
      * 查询角色、部门中间表，根据中间表的角色id查询所有部门
@@ -37,27 +35,19 @@ public interface RoleMapper {
     //查询序列
     public Integer allSeq();
 
-    //新增角色表
-    public int addRole(@Param("roleid") Integer roleid,@Param("name") String name,@Param("create") Timestamp create, @Param("id") Integer id);
-
-    //新增角色部门中间表
-    public int addRoleDept(List<RoleDeptPK> list);
-
     /**
-     * 级联删除角色
+     * 删除角色
      * @param choose
      * @return
      */
     public int delRole(@Param("choose") JSONArray choose);
 
-    /**
-     * 修改角色
-     * @param roleId
-     * @param roleName
-     * @param id
-     * @return
-     */
-    public int updateRole(@Param("roleId") Integer roleId,@Param("roleName") String roleName,@Param("id") Integer id);
+    public int delEmpRole(@Param("choose") JSONArray choose);
+
+    public int delRolePerm(@Param("choose") JSONArray choose);
+
+
+    public int updateRole(RoleInfo roleInfo);
 
     /**
      * 根据角色id删除角色、部门中间表

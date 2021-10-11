@@ -3,10 +3,7 @@ package cn.gson.his.model.service.Power;
 import cn.gson.his.model.dao.Power.PermDao;
 import cn.gson.his.model.dao.Power.RoleDao;
 import cn.gson.his.model.mappers.Power.RoleMapper;
-import cn.gson.his.model.pojos.Power.Dept;
-import cn.gson.his.model.pojos.Power.Perm;
-import cn.gson.his.model.pojos.Power.RoleDeptPK;
-import cn.gson.his.model.pojos.Power.RoleInfo;
+import cn.gson.his.model.pojos.Power.*;
 import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -37,8 +34,8 @@ public class RoleService {
      * 分页查询所有
      * @return
      */
-    public List<RoleInfo> allRole(){
-        return mapper.allRole();
+    public List<RoleInfo> allRole(String name,Timestamp start, Timestamp end){
+        return mapper.allRole(name,start,end);
     }
 
     /**
@@ -69,42 +66,36 @@ public class RoleService {
     /**
      * 新增、修改角色
      * @param roleInfo
-     * @param list
-     * @param is
      * @return
      */
-    public int addRole(RoleInfo roleInfo, List<RoleDeptPK> list,boolean is){
-        int p=-1;//判断新增、修改是否成功
-        if(is){
-            p=mapper.updateRole(roleInfo.getRoleId(),roleInfo.getRoleName(),roleInfo.getRoleinfoByRoleParent().getRoleId());//修改
-            /*int t=mapper.delRoleDept(roleInfo.getRoleId());
-            if(t<0){
-                new RuntimeException("修改数据失败");
-            }*/
+    public ElMessage addRole(RoleInfo roleInfo){
+        ElMessage elm=new ElMessage();
+        elm.setType("success");
+        int p=-1;
+        System.out.println("Service角色"+roleInfo);
+        System.out.println("Service父级角色"+roleInfo.getRoleinfoByRoleParent());
+        if(roleInfo.getRoleId()==null){
+            p=mapper.addRolenoParent(roleInfo);
+            elm.setMessage("角色新增成功！");
         }else{
-            //新增角色
-            if(roleInfo.getRoleinfoByRoleParent().getRoleId()==null){
-                p=mapper.addRolenoParent(roleInfo);
-            }else {
-                p = mapper.addRole(roleInfo.getRoleId(), roleInfo.getRoleName(), roleInfo.getRoleCreate(), roleInfo.getRoleinfoByRoleParent().getRoleId());
-            }
+            p=mapper.updateRole(roleInfo);
+            elm.setMessage("角色修改成功！");
         }
-        //批量新增角色和部门中间表，可以不新增
-        int k=0;
-        if(list.isEmpty()){
-            k=1;
-        }else{
-            k=mapper.addRoleDept(list);
+
+        if(p<0){
+            elm=new ElMessage("更新数据失败","error");
         }
-        return p>0 && k>0 ? 1:0;
+        return elm;
     }
 
     /**
-     * 级联删除角色
+     * 删除角色
      * @param choose
      * @return
      */
     public int delRole(JSONArray choose){
+        mapper.delEmpRole(choose);
+        mapper.delRolePerm(choose);
         return mapper.delRole(choose);
     }
 

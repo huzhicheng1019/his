@@ -6,6 +6,7 @@ import cn.gson.his.model.dao.Power.UserDao;
 import cn.gson.his.model.mappers.Power.EmployeeMapper;
 import cn.gson.his.model.mappers.Power.RoleMapper;
 import cn.gson.his.model.pojos.Power.*;
+import cn.gson.his.model.pojos.Power.vo.ScreeningVo;
 import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,9 +55,9 @@ public class EmployeeService {
      * @param size
      * @return
      */
-    public Map<String, Object> allEmp(Integer pageNo,Integer size){
+    public Map<String, Object> allEmp(Integer pageNo, Integer size, Timestamp start,Timestamp end,Integer state,List<Integer> screening,String fuzzy){
         Page<Object> p = PageHelper.startPage(pageNo,size);
-        List<Map<String,Object>> list = empMapper.allEmp();
+        List<Map<String,Object>> list = empMapper.allEmp(start,end,state,screening,fuzzy);
         Map<String,Object> map = new HashMap<>();
         map.put("rows",list);
         map.put("total",p.getTotal());
@@ -68,6 +70,9 @@ public class EmployeeService {
      * @return
      */
     public int addEmp(Employee emp){
+        if(emp.getDepartmentByEmpDepar().getDepaId()==null){
+            emp.setDepartmentByEmpDepar(null);
+        }
         emp.getUseres().setEmployeeByUserEmp(emp);
         Employee s = dao.save(emp);
         UserInfo u = userDao.save(emp.getUseres());
@@ -118,19 +123,36 @@ public class EmployeeService {
      * @return
      */
     public List<RoleInfo> allRole() {
-        List<RoleInfo> firstFuns = empMapper.allRole();
-        return firstFuns;
+        List<RoleInfo> roleInfos = empMapper.allRole();
+        for (RoleInfo r : roleInfos) {
+            r.setRoleInfoList(childrenRole(r.getRoleId()));
+        }
+        return roleInfos;
     }
 
-    /*public List<RoleInfo> childrenFuns(Integer parentId){
-        List<RoleInfo> childrenFuns = empMapper.childrenFuns(parentId);
-        for (RoleInfo cFun : childrenFuns) {
-            cFun.setPermByPermParent(childrenFuns(cFun.getPermId()));
+    public List<RoleInfo> childrenRole(Integer roleId){
+        List<RoleInfo> childrenRoles = empMapper.childrenRole(roleId);
+        for (RoleInfo cFun : childrenRoles) {
+            cFun.setRoleInfoList(childrenRole(cFun.getRoleId()));
         }
-        return childrenFuns;
-    };*/
+        return childrenRoles;
+    };
 
     public List<Perm> homeMenu(Integer userId){
         return empMapper.homeMenu(userId);
     }
+
+    public List<ScreeningVo> allTitle() {
+        return empMapper.allTitle();
+    }
+
+    public List<ScreeningVo> allDept() {
+        System.out.println("部门"+empMapper.allDept());
+        return empMapper.allDept();
+    }
+
+    public List<ScreeningVo> allDepa() {
+        return empMapper.allDepa();
+    }
+
 }

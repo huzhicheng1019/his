@@ -12,16 +12,6 @@ public class Title {
     private Integer titId;//id
     private String titName;//职称
     private Dept deptByTitDept;//部门
-    private List<Employee> employees;
-
-    @OneToMany(mappedBy = "titles")
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
 
     @Id
     @GeneratedValue(generator = "SEQ")

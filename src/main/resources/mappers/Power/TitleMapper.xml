@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.gson.his.model.mappers.Power.TitleMapper">
-    <resultMap id="titEmpMap" type="cn.gson.his.model.pojos.Power.Title">
-        <id property="titId" column="tit_id"></id>
-        <result property="titName" column="tit_name"></result>
-        <collection property="employees" ofType="cn.gson.his.model.pojos.Power.Employee">
-            <id property="empId" column="emp_id"></id>
-            <result property="empName" column="emp_name"></result>
+    <resultMap id="titEmpMap" type="cn.gson.his.model.pojos.Power.vo.Titvo">
+        <id property="id" column="tit_id"></id>
+        <result property="name" column="tit_name"></result>
+        <collection property="emp" ofType="cn.gson.his.model.pojos.Power.vo.Empvo">
+            <id property="id" column="emp_id"></id>
+            <result property="name" column="emp_name"></result>
         </collection>
     </resultMap>
     <select id="allTitByEmp" resultMap="titEmpMap">

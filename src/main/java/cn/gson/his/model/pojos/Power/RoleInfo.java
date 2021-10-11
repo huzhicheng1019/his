@@ -12,9 +12,18 @@ public class RoleInfo {
     private String roleName;//角色名
     private Timestamp roleCreate;//创建时间
     private RoleInfo roleinfoByRoleParent;//父级角色
-    private List<Dept> depts;//部门
     private List<Perm> perms;//权限
     private List<UserInfo> useres;//用户
+    private List<RoleInfo> roleInfoList;//子级角色
+
+    @OneToMany
+    public List<RoleInfo> getRoleInfoList() {
+        return roleInfoList;
+    }
+
+    public void setRoleInfoList(List<RoleInfo> roleInfoList) {
+        this.roleInfoList = roleInfoList;
+    }
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -46,23 +55,6 @@ public class RoleInfo {
 
     public void setRoleCreate(Timestamp roleCreate) {
         this.roleCreate = roleCreate;
-    }
-
-    @ManyToMany
-    @JoinTable(name = "ROLE_DEPT",
-            joinColumns = {
-                    @JoinColumn(name = "ROLE_ID"),
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "DEPT_ID"),
-            }
-    )
-    public List<Dept> getDepts() {
-        return depts;
-    }
-
-    public void setDepts(List<Dept> depts) {
-        this.depts = depts;
     }
 
     @ManyToMany
@@ -99,11 +91,10 @@ public class RoleInfo {
         this.useres = useres;
     }
 
-    public RoleInfo(String roleName, Timestamp roleCreate, RoleInfo roleinfoByRoleParent, List<Dept> depts, List<Perm> perms, List<UserInfo> useres) {
+    public RoleInfo(String roleName, Timestamp roleCreate, RoleInfo roleinfoByRoleParent, List<Perm> perms, List<UserInfo> useres) {
         this.roleName = roleName;
         this.roleCreate = roleCreate;
         this.roleinfoByRoleParent = roleinfoByRoleParent;
-        this.depts = depts;
         this.perms = perms;
         this.useres = useres;
     }
