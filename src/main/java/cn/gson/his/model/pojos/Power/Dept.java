@@ -13,7 +13,6 @@ public class Dept {
     private Integer deptId;//id
     private String deptName;//部门名
     private Timestamp deptCreate;//创建时间
-    private List<RoleInfo> roleDepts;//角色
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -47,30 +46,11 @@ public class Dept {
         this.deptCreate = deptCreate;
     }
 
-    @Transient
-    @ManyToMany
-    @JoinTable(name = "ROLE_DEPT",
-            joinColumns = {
-                    @JoinColumn(name = "DEPT_ID"),
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "ROLE_ID"),
-            }
-    )
-    public List<RoleInfo> getRoleDepts() {
-        return roleDepts;
-    }
-
-    public void setRoleDepts(List<RoleInfo> roleDepts) {
-        this.roleDepts = roleDepts;
-    }
 
 
-
-    public Dept(String deptName, Timestamp deptCreate, List<RoleInfo> roleDepts) {
+    public Dept(String deptName, Timestamp deptCreate) {
         this.deptName = deptName;
         this.deptCreate = deptCreate;
-        this.roleDepts = roleDepts;
     }
 
     public Dept() {

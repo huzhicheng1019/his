@@ -79,6 +79,32 @@
 
     <select id="allEmp" resultMap="EmpAll">
         select * from employee e left join user_info u on e.emp_id=u.user_emp left join title t on e.EMP_TIT=t.tit_id left join DEPARTMENT a on e.EMP_DEPAR=a.depa_id LEFT JOIN DEPT d on e.EMP_DEPT=d.dept_id
+        <where>
+            <if test="start!=null and end!=null">
+                and (e.EMP_INDUCTION between #{start} and #{end} or e.EMP_DEPARTURE between #{start} and #{end})
+            </if>
+            <if test="state!=null and state!=''">
+                and (e.EMP_STATE=#{state})
+            </if>
+            <if test="screening!=null and screening!=''">
+                and (e.EMP_DEPT in
+                <foreach collection="screening" item="p" open="(" index="i" separator="," close=")">
+                    #{p}
+                </foreach>
+                    or e.EMP_DEPAR in
+                <foreach collection="screening" item="p" open="(" index="i" separator="," close=")">
+                    #{p}
+                </foreach>
+                    or e.EMP_TIT in
+                <foreach collection="screening" item="p" open="(" index="i" separator="," close=")">
+                    #{p}
+                </foreach>
+                    )
+            </if>
+            <if test="fuzzy!=null and fuzzy!=''">
+                and (e.EMP_ID like '%${fuzzy}%' or e.EMP_NAME like '%${fuzzy}%' or e.EMP_PHONE like '%${fuzzy}%' or e.EMP_CARD like '%${fuzzy}%' or to_char(e.EMP_INDUCTION,'yyyy-mm-dd HH24:mi:ss:ff') like '%${fuzzy}%' or to_char(e.EMP_DEPARTURE,'yyyy-mm-dd HH24:mi:ss:ff') like '%${fuzzy}%' or d.DEPT_NAME like '%${fuzzy}%' or a.DEPA_NAME like '%${fuzzy}%' or t.TIT_NAME like '%${fuzzy}%' or u.USER_ACCOUNT like '%${fuzzy}%')
+            </if>
+        </where>
     </select>
 
 
@@ -105,9 +131,9 @@
         select * from ROLE_INFO
     </select>
 
-    <!--<select id="childrenFuns" resultMap="Role">
-        select f.* from ROLE_INFO f where f.role_parent = #{parentId}
-    </select>-->
+    <select id="childrenRole" resultMap="Role">
+        select f.* from ROLE_INFO f where f.role_parent = #{roleId}
+    </select>
 
     <resultMap id="Perm" type="cn.gson.his.model.pojos.Power.Perm">
         <id column="parent_id" property="permId"/>
@@ -139,6 +165,34 @@
                INNER JOIN ROLE_PERM rp on e.perm_id=rp.perm_id
                INNER JOIN EMP_ROLE er on rp.role_id=er.role_id
         where er.user_id=#{userId} and p.perm_state=0
+    </select>
+
+    <resultMap id="title" type="cn.gson.his.model.pojos.Power.vo.ScreeningVo">
+        <id property="value" column="TIT_ID"/>
+        <result property="label" column="TIT_NAME"/>
+    </resultMap>
+
+    <resultMap id="dept" type="cn.gson.his.model.pojos.Power.vo.ScreeningVo">
+        <id property="value" column="DEPT_ID"/>
+        <result property="label" column="DEPT_NAME"/>
+    </resultMap>
+
+
+    <resultMap id="depa" type="cn.gson.his.model.pojos.Power.vo.ScreeningVo">
+        <id property="value" column="DEPA_ID"/>
+        <result property="label" column="DEPA_NAME"/>
+    </resultMap>
+
+    <select id="allTitle" resultMap="title">
+        select * from title
+    </select>
+
+    <select id="allDept" resultMap="dept">
+        select * from dept
+    </select>
+
+    <select id="allDepa" resultMap="depa">
+        select * from department
     </select>
 
 </mapper>

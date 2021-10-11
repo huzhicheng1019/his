@@ -45,4 +45,10 @@ public class UserController {
         }
         return elm;
     }
+
+    @RequestMapping("/userAccountIs")
+    public int userAccountIs(String userAccount){
+        return service.userAccountIs(userAccount);
+    }
+
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class UserService {
@@ -26,5 +28,13 @@ public class UserService {
     public int resetUser(JSONArray choose, String s) {
         int p=mapper.resetUser(choose,s);
         return p;
+    }
+
+    public int userAccountIs(String userAccount) {
+        List<UserInfo> list= mapper.userAccountIs(userAccount);
+        if(list.isEmpty()){
+            return 1;
+        }
+        return 0;
     }
 }
