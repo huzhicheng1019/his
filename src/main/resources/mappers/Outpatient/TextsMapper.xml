@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.TextsMappper">
+
+    <resultMap id="allTest" type="cn.gson.his.model.pojos.Checkout.TestsEntity">
+        <id property="testId" column="Test_id"></id>
+        <result property="testName" column="Test_name"></result>
+
+        <!--类别-->
+        <association property="type" javaType="cn.gson.his.model.pojos.Checkout.TestTypeEntity">
+            <id property="typeId" column="Type_id"></id>
+            <result property="typeName" column="Type_name"></result>
+        </association>
+
+        <!--科室-->
+        <association property="keshi" javaType="cn.gson.his.model.pojos.Checkout.KeshiEntity">
+            <result property="depaId" column="depa_id"></result>
+            <result property="depaName" column="depa_name"></result>
+        </association>
+
+        <!--项目详情-->
+        <collection property="details" ofType="cn.gson.his.model.pojos.Checkout.TestDetailsEntity">
+            <id property="detailsId" column="Details_id"></id>
+            <result property="detailsSymbol" column="Details_Symbol"></result>
+            <result property="detailsName" column="Details_name"></result>
+            <result property="detailsCompany" column="Details_Company"></result>
+            <result property="detailsValues" column="Details_values"></result>
+            <result property="detailsPrice" column="Details_price"></result>
+            <result property="detailsShuoming" column="Details_shuoming"></result>
+        </collection>
+    </resultMap>
+<!--查询所有项目-->
+<select id="selectTest" resultMap="allTest">
+    select * FROM TESTS T LEFT JOIN TEST_TYPE  T1 on T.TYPE_ID = T1.TYPE_ID LEFT JOIN TEST_DETAILS T2 ON T.TEST_ID = T2.TEXT_ID
+    <where>
+        <if test="typeName">
+                T1.TEST_NAME = #{typeName}
+        </if>
+    </where>
+</select>
+</mapper>

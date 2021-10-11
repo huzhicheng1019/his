@@ -55,6 +55,8 @@
     <select id="selePatient" resultMap="Patient">
         select * from PATIENTDATA
         <where>
+
+            1=1
             <if test="patientInsu !=''">
                 or PATIENT_INSU = #{patientInsu}
             </if>
