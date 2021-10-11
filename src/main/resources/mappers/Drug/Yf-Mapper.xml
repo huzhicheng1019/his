@@ -253,14 +253,42 @@
             <result property="ensType" column="ens_type"></result>
             <result property="ensCount" column="ens_count"></result>
         </collection>
-
     </resultMap>
 
     <select id="lsyzcx" resultMap="EnMap">
         select * from doctor_enjoin e left join doctor_enjoins en on e.en_id = en.en_id
                                       left join employee emp on  e.doctor_id = emp.emp_id
 
-        where e.en_id = #{id}  order by en.ens_end desc
+        where e.en_id = #{id}
     </select>
 
+    <resultMap id="yzMap" type="cn.gson.his.model.pojos.InHospital.DoctorEnjoinsEntity">
+        <result property="drugId" column="DRUG_ID"></result>
+        <result property="drugName" column="DRUG_NAME"></result>
+        <result property="drugType" column="DRUG_TYPE"></result>
+        <result property="drugGe" column="DRUG_GE"></result>
+        <result property="drugDw" column="DRUG_DW"></result>
+        <result property="drugPrice" column="DRUG_PRICE"></result>
+        <result property="ensCount" column="sl"></result>
+    </resultMap>
+    <select id="yzcx" resultMap="yzMap">
+        select DRUG_ID,sum(ENS_COUNT) sl,DRUG_NAME,DRUG_TYPE,DRUG_PRICE,DRUG_GE,DRUG_DW from doctor_enjoin e left join doctor_enjoins en on e.en_id = en.en_id
+                                                                                                          left join employee emp on  e.doctor_id = emp.emp_id
+                                                                                                          INNER JOIN HOSPITAL_REGISTER h on h.REG_MARK=e.REG_MARK
+        where h.DEPA_ID = #{id} GROUP BY DRUG_ID,DRUG_NAME,DRUG_TYPE,DRUG_PRICE,DRUG_GE,DRUG_DW
+    </select>
+
+    <select id="kscx" resultType="cn.gson.his.model.pojos.Power.Department">
+        select * from DEPARTMENT
+    </select>
+
+    <select id="yflycx" resultMap="yfMap">
+        SELECT a.*,e.emp_name e_name,l.library_name lname from PILLS a LEFT JOIN EMPLOYEE e ON a.fyr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID
+        <where>
+            a.fyly_fl=#{fl}
+            <if test="nr!=null and nr!=''">
+                and PILLS_ID like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
 </mapper>

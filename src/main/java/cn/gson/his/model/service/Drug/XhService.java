@@ -41,6 +41,9 @@ public class XhService {
     @Autowired
     CankxqDao cankxqDao;
 
+    @Autowired
+    AuditInfoDao auditInfoDao;
+
     public Map<String,Object> xhselect(int pageNo, int size, String nr){
         Map<String,Object> map = new HashMap<>();
         //分页查询
@@ -117,12 +120,13 @@ public class XhService {
         return map;
     }
 
-    public void bh(Destroy destroy){
+    public void bh(Destroy destroy,AuditInfo auditInfo){
         destroy.setDestroyZt(2);
         xhDao.save(destroy);
+        auditInfoDao.save(auditInfo);
     }
 
-    public void xzxhrck(Destroy destroy, Employee shr, List<Destroyxq> destroyxqList){
+    public void xzxhrck(Destroy destroy, Employee shr, List<Destroyxq> destroyxqList,AuditInfo auditInfo){
         Timestamp d = new Timestamp(System.currentTimeMillis());
         List<Integer> list=new ArrayList<>();
         int a=0;
@@ -157,6 +161,12 @@ public class XhService {
         }
 
         destroy.setDestroyZt(1);
+        xhDao.save(destroy);
+        auditInfoDao.save(auditInfo);
+    }
+
+    public void xhtjsh(Destroy destroy){
+        destroy.setDestroyZt(3);
         xhDao.save(destroy);
     }
 }

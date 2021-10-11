@@ -53,6 +53,9 @@ public class DbsqService {
     @Autowired
     ConMapper conMapper;
 
+    @Autowired
+    AuditInfoDao auditInfoDao;
+
     public Map<String,Object> dbselect(int pageNo, int size, String nr){
         Map<String,Object> map = new HashMap<>();
         //分页查询
@@ -148,7 +151,7 @@ public class DbsqService {
         return map;
     }
 
-    public void xzdbrck(Allot allot, Employee shr, List<Allotxq> allotxqList){
+    public void xzdbrck(Allot allot, Employee shr, List<Allotxq> allotxqList,AuditInfo auditInfo){
         Timestamp d = new Timestamp(System.currentTimeMillis());
         List<Integer> list=new ArrayList<>();
         int a=0;
@@ -208,10 +211,17 @@ public class DbsqService {
 
         allot.setZt(1);
         dbDao.save(allot);
+        auditInfoDao.save(auditInfo);
     }
 
-    public void bh(Allot allot){
+    public void bh(Allot allot,AuditInfo auditInfo){
         allot.setZt(2);
+        dbDao.save(allot);
+        auditInfoDao.save(auditInfo);
+    }
+
+    public void tjsh(Allot allot){
+        allot.setZt(3);
         dbDao.save(allot);
     }
 }
