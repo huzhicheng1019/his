@@ -19,4 +19,7 @@ public interface CaseHistoryMapper{
 
     //根据状态查询
     public CaseHistoryEntity IdentityCaseHistoryState(String patientIdentity);
+
+    //修改病历状态
+    public int updateCase(String caseHissstory);
 }

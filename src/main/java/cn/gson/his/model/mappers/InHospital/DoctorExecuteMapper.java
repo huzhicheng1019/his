@@ -15,4 +15,7 @@ public interface DoctorExecuteMapper {
 
     //查询当天的医嘱执行记录
     public List<DoctorExecuteEntity> queryRecord(@Param("text")String text, @Param("depaId") String depaId);
+
+    //根据住院号查医嘱执行记录
+    public List<DoctorExecuteEntity> regSel(String regMark);
 }

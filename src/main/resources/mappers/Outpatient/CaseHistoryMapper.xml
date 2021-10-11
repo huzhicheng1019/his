@@ -41,12 +41,17 @@
     </select>
     <select id="IdentityCaseHistory" resultMap="CaseHistory">
         select * from CASE_HISTORY_PARTI c right join CASE_HISTORY c1 on c.CASE_NO = c1.CASE_HISSSTORY
-            where c1.PATIENT_IDENTITY = #{patientIdentity} and c1.CASE_STATE = 0
+            where c1.PATIENT_IDENTITY = #{patientIdentity} and c1.CASE_STATE = 0  order by c.PARTI_NO desc
     </select>
 <!--    根据状态查询-->
     <select id="IdentityCaseHistoryState" resultMap="CaseHistory">
         select * from CASE_HISTORY_PARTI c right join CASE_HISTORY c1 on c.CASE_NO = c1.CASE_HISSSTORY
-        where c1.PATIENT_IDENTITY = #{patientIdentity} and c1.CASE_STATE = 1
+        where c1.PATIENT_IDENTITY = #{patientIdentity} and c1.CASE_STATE = 1 order by c.PARTI_NO desc 
     </select>
+
+    <!--修改病历状态-->
+    <update id="updateCase">
+        update CASE_HISTORY set CASE_STATE = 0 where CASE_HISSSTORY = #{caseHissstory}
+    </update>
 
 </mapper>

@@ -146,6 +146,8 @@ public class DoctorEnjoinService {
                     price += ds.getDrugPrice()*ds.getEnsCount();
 
                     //新增执行记录
+                    System.out.println("执行记录");
+                    System.out.println(execute);
                     exe.insertExe(execute);
                 }
             }
@@ -168,5 +170,12 @@ public class DoctorEnjoinService {
         }
         return 0;
     };
+
+
+    //根据住院号查医嘱执行记录
+    public List<DoctorExecuteEntity> regSel(String regMark){
+        return exe.regSel(regMark);
+    }
+
 
 }

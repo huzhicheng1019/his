@@ -76,6 +76,9 @@ public class DepaSerivce {
         CaseHistoryEntity state = caseHistory.IdentityCaseHistoryState(caseHistoryEntity.getPatientIdentity());
         if(state == null){
             //为空就新增主表
+            PatientdataEntity patientdataEntity = new PatientdataEntity();
+            caseHistoryEntity.setPatientNo(patientdataEntity);
+
              caseHistory.addCaseHistory(caseHistoryEntity);
              //然后再添加详表
             caseHistoryPartiEntity.setCaseNo(caseHistoryEntity);
@@ -146,6 +149,10 @@ public class DepaSerivce {
             caseHistoryPart2.setCheckup("无");
 
             caseHistoryParti.addCaseHistory(caseHistoryPart2);
+
+            //修改当前病历为过往病历
+            caseHistory.updateCase(caseHistoryEntity.getCaseHissstory()+"");
+
         }
 
 

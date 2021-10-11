@@ -61,9 +61,14 @@ public class DoctorEnjoinController {
     //确认执行医嘱  新增执行记录 并扣费
     @RequestMapping("/carryout")
     public int demo5(String regMark){
-        System.out.println("住院号" + regMark);
         return service.carryout(regMark);
     }
 
+
+    //根据住院号查医嘱执行记录
+    @RequestMapping("/regSel")
+    public List<DoctorExecuteEntity> regSel(String regMark){
+        return service.regSel(regMark);
+    }
 
 }

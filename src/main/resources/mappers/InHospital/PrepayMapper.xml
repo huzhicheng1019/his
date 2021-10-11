@@ -72,6 +72,9 @@
                  or pa.patient_phone like '%${content}%' or pa.patient_identity like '%${content}%'
                  or p.pre_balance like '%${content}%')
             </if>
+
+            and h.reg_is = 0
+
         </where>
 
     </select>

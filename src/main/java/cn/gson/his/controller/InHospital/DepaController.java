@@ -1,10 +1,13 @@
 package cn.gson.his.controller.InHospital;
 
+import cn.gson.his.model.pojos.InHospital.PrepayEntity;
 import cn.gson.his.model.pojos.InHospital.TransferEntity;
 import cn.gson.his.model.pojos.Outpatient.CaseHistoryEntity;
 import cn.gson.his.model.pojos.Outpatient.CaseHistoryPartiEntity;
 import cn.gson.his.model.pojos.Power.Department;
 import cn.gson.his.model.service.InHospital.DepaSerivce;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,9 +45,18 @@ public class DepaController {
 
     //确定新增病历
     @RequestMapping("/insertCaseHistory")
-    public int insertCaseHistory(CaseHistoryEntity caseHistoryEntity, CaseHistoryPartiEntity caseHistoryPartiEntity){
-        serivce.insertCaseHistory(caseHistoryEntity,caseHistoryPartiEntity);
-        return 0;
+    public void insertCaseHistory(String caseHistory, String caseHistoryParti){
+
+        CaseHistoryEntity entity = JSONObject.parseObject(caseHistory, CaseHistoryEntity.class);
+        CaseHistoryPartiEntity entity1 = JSONObject.parseObject(caseHistoryParti, CaseHistoryPartiEntity.class);
+
+        try {
+            serivce.insertCaseHistory(entity,entity1);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
 

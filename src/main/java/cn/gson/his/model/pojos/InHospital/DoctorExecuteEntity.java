@@ -174,4 +174,24 @@ public class DoctorExecuteEntity {
     public int hashCode() {
         return Objects.hash(exeId, exeDate, ensId, nurseId, nurseName, regMark, drugId, drugName, drugGe, drugDw, drugCount, drugPrice);
     }
+
+    @Override
+    public String toString() {
+        return "DoctorExecuteEntity{" +
+                "exeId=" + exeId +
+                ", exeDate=" + exeDate +
+                ", ensId=" + ensId +
+                ", nurseId=" + nurseId +
+                ", nurseName='" + nurseName + '\'' +
+                ", regMark='" + regMark + '\'' +
+                ", drugId=" + drugId +
+                ", drugName='" + drugName + '\'' +
+                ", drugGe='" + drugGe + '\'' +
+                ", drugDw='" + drugDw + '\'' +
+                ", drugCount=" + drugCount +
+                ", drugPrice=" + drugPrice +
+                ", hospitalRegister=" + hospitalRegister +
+                ", department=" + department +
+                '}';
+    }
 }

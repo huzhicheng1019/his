@@ -60,5 +60,9 @@
         </where>
     </select>
 
+    <!--根据住院号查医嘱执行记录-->
+    <select id="regSel" resultMap="exeMap">
+        select * from doctor_execute where reg_mark = #{regMark} order by exe_date desc
+    </select>
 
 </mapper>

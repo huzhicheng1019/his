@@ -86,4 +86,17 @@ public class CaseHistoryEntity {
     public int hashCode() {
         return Objects.hash(caseHissstory, patientName, patientIdentity, patientNo);
     }
+
+
+    @Override
+    public String toString() {
+        return "CaseHistoryEntity{" +
+                "caseHissstory=" + caseHissstory +
+                ", patientName='" + patientName + '\'' +
+                ", patientIdentity='" + patientIdentity + '\'' +
+                ", caseState=" + caseState +
+                ", patientNo=" + patientNo +
+                ", partiEntities=" + partiEntities +
+                '}';
+    }
 }
