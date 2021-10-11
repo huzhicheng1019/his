@@ -1,14 +1,15 @@
 package cn.gson.his.model.pojos.Outpatient;
 
 
+import java.sql.Timestamp;
 
 public class ReturnPremiumEntity {
 
   private int returnPremiumId;
-  private java.sql.Date returnData;
+  private Timestamp returnData;
   private int returnPatie;
   private String returnName;
-  private Integer returnPrice;
+  private Long returnPrice;
   private String patientIdentity;
   private Integer premiumId;
 
@@ -29,11 +30,11 @@ public class ReturnPremiumEntity {
   }
 
 
-  public java.sql.Date getReturnData() {
+  public Timestamp getReturnData() {
     return returnData;
   }
 
-  public void setReturnData(java.sql.Date returnData) {
+  public void setReturnData(Timestamp returnData) {
     this.returnData = returnData;
   }
 
@@ -56,11 +57,11 @@ public class ReturnPremiumEntity {
   }
 
 
-  public Integer getReturnPrice() {
+  public Long getReturnPrice() {
     return returnPrice;
   }
 
-  public void setReturnPrice(Integer returnPrice) {
+  public void setReturnPrice(Long returnPrice) {
     this.returnPrice = returnPrice;
   }
 

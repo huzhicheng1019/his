@@ -1,6 +1,7 @@
 package cn.gson.his.model.pojos.Drug;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +14,16 @@ public class Premiums {
     private Long count;
     private String fl;
 
+    private Premium premium;
+
+    @OneToOne
+    public Premium getPremium() {
+        return premium;
+    }
+
+    public void setPremium(Premium premium){
+        this.premium = premium;
+    }
 
     @Id
     @GeneratedValue(generator = "SEQ")

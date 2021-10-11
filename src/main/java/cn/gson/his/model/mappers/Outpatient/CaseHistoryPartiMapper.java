@@ -11,5 +11,5 @@ public interface CaseHistoryPartiMapper {
 //    查询
     public List<CaseHistoryPartiEntity>allCaseHistoryX(CaseHistoryPartiEntity caseHistoryPartiEntity);
 //    新增
-    public void  addCaseHistory(CaseHistoryPartiEntity caseHistoryPartiEntity);
+    public void addCaseHistory(CaseHistoryPartiEntity caseHistoryPartiEntity);
 }
