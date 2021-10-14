@@ -163,7 +163,7 @@
 
 
     <select id="allScheByempId" resultType="_int">
-        SELECT * FROM EMPLOYEE e INNER JOIN SCHE_EMP c on e.EMP_ID=c.EMP_ID WHERE e.EMP_DEPAR=#{deparId} and c.SCHE_ID=#{scheId} and c.SHI_ID=#{shiId}
+        SELECT e.emp_id FROM EMPLOYEE e INNER JOIN SCHE_EMP c on e.EMP_ID=c.EMP_ID WHERE e.EMP_DEPT=#{deptId} and e.EMP_DEPAR=#{deparId} and c.SCHE_ID=#{scheId} and c.SHI_ID=#{shiId}
     </select>
 
     <insert id="addScheEmp" parameterType="java.util.List">
@@ -197,5 +197,23 @@
             </if>
         </foreach>
     </insert>
+
+    <resultMap id="dept" type="cn.gson.his.model.pojos.Power.Dept">
+        <id column="DEPT_ID" property="deptId"/>
+        <result column="DEPT_NAME" property="deptName"/>
+    </resultMap>
+
+    <select id="getdepts" resultMap="dept">
+        select * from dept
+    </select>
+
+    <resultMap id="depa" type="cn.gson.his.model.pojos.Power.Department">
+        <id column="DEPA_ID" property="depaId"/>
+        <result column="DEPA_NAME" property="depaName"/>
+    </resultMap>
+
+    <select id="getdepar" resultMap="depa">
+        select * from department where depa_dept=#{deptId}
+    </select>
 
 </mapper>

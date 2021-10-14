@@ -93,8 +93,8 @@ public class ScheduService {
         return mapper.allScheEmp();
     }*/
 
-    public List<Integer> allScheByempId(Integer deparId, Integer scheId, Integer shiId) {
-        return mapper.allScheByempId(deparId,scheId,shiId);
+    public List<Integer> allScheByempId(Integer deptId,Integer deparId, Integer scheId, Integer shiId) {
+        return mapper.allScheByempId(deptId,deparId,scheId,shiId);
     }
 
     public int  addScheEmp(boolean is,List<ScheEmp> scheEmps) {
@@ -201,5 +201,13 @@ public class ScheduService {
         if (w < 0)
             w = 0;
         return weekDays[w];
+    }
+
+    public List<Dept> getdepts() {
+        return mapper.getdepts();
+    }
+
+    public List<Department> getdepar(Integer deptId) {
+        return mapper.getdepar(deptId);
     }
 }
