@@ -29,7 +29,7 @@ public class TitleService {
         return dao.findAllByDeptByTitDept_DeptId(id);
     }
 
-    public List<Titvo> allTitByEmp(Integer deparId){
-        return mapper.allTitByEmp(deparId);
+    public List<Titvo> allTitByEmp(Integer deptId,Integer deparId){
+        return mapper.allTitByEmp(deptId,deparId);
     }
 }

@@ -115,8 +115,8 @@ public class ScheduController {
     }*/
 
     @RequestMapping("allScheByempId")
-    public List<Integer> allScheByempId(@RequestParam("deparId") Integer deparId,@RequestParam("scheId") Integer scheId,@RequestParam("shiId") Integer shiId){
-        return service.allScheByempId(deparId,scheId,shiId);
+    public List<Integer> allScheByempId(@RequestParam("deptId")Integer deptId,@RequestParam("deparId") Integer deparId,@RequestParam("scheId") Integer scheId,@RequestParam("shiId") Integer shiId){
+        return service.allScheByempId(deptId,deparId,scheId,shiId);
     }
 
     @PostMapping("addScheEmp")
@@ -164,5 +164,15 @@ public class ScheduController {
         scheEmp1.setShift(shift);
         scheEmp1.setScheduByScheId(schedu);
         return scheEmp1;
+    }
+
+    @RequestMapping("/getdepts")
+    public List<Dept> getdepts(){
+        return service.getdepts();
+    }
+
+    @RequestMapping("/getdepar")
+    public List<Department> getdepar(Integer deptId){
+        return service.getdepar(deptId);
     }
 }

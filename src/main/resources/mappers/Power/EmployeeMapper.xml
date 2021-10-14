@@ -119,7 +119,7 @@
     </update>
 
     <select id="allEmpRole" resultType="_int">
-        SELECT r.ROLE_ID FROM ROLE_INFO r INNER JOIN EMP_ROLE e on r.ROLE_ID=e.ROLE_ID where e.user_id=#{userId} and r.ROLE_PARENT is not null
+        SELECT r.ROLE_ID FROM ROLE_INFO r INNER JOIN EMP_ROLE e on r.ROLE_ID=e.ROLE_ID where e.user_id=#{userId}
     </select>
 
     <resultMap id="Role" type="cn.gson.his.model.pojos.Power.RoleInfo">

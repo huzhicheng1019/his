@@ -58,9 +58,9 @@ public class EmployeeController {
         List<Integer> screening=new ArrayList<>();
         if(s!=null && !("".equals(s)) && !("null".equals(s))){
             String[] d= s.split(",");
-            System.out.println("长度"+d.length);
+            //System.out.println("长度"+d.length);
             for(int i=0;i<d.length;i++){
-                System.out.println("遍历数组值"+d[i]);
+                //System.out.println("遍历数组值"+d[i]);
                 screening.add(Integer.parseInt(d[i]));
             }
         }

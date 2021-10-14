@@ -11,6 +11,6 @@
         </collection>
     </resultMap>
     <select id="allTitByEmp" resultMap="titEmpMap">
-        SELECT * FROM TITLE t LEFT JOIN EMPLOYEE e on t.TIT_ID=e.EMP_TIT WHERE e.EMP_DEPAR=#{deparId}
+        SELECT * FROM TITLE t LEFT JOIN EMPLOYEE e on t.TIT_ID=e.EMP_TIT WHERE e.EMP_DEPT=#{deptId} and e.EMP_DEPAR=#{deparId}
     </select>
 </mapper>
