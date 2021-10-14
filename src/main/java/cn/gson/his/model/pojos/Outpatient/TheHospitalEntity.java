@@ -3,6 +3,7 @@ package cn.gson.his.model.pojos.Outpatient;
 import cn.gson.his.model.pojos.Power.Department;
 import lombok.Data;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
@@ -24,6 +25,16 @@ public class TheHospitalEntity {
 
     //病人对象
     private PatientdataEntity patientdataEntity;
+
+
+    //开始时间
+    private Date beginTime;
+    //结束时间
+    private Date endTime;
+    //搜索内容
+    private String content;
+
+
 
 
 }

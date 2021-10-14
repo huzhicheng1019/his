@@ -9,9 +9,11 @@ import cn.gson.his.model.service.Outpatient.TheHospitalService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
@@ -26,8 +28,10 @@ public class TheHospitalController {
 
     //查询所有住院申请表
     @RequestMapping("/selHospital")
-    public Map<String,Object> demo(Integer pageNo, Integer pageSize,String content){
-        return theHospitalService.selHospital(pageNo,pageSize,content);
+    public List<TheHospitalEntity> demo(String hospitalEntity){
+        TheHospitalEntity theHospitalEntity = JSONObject.parseObject(hospitalEntity, TheHospitalEntity.class);
+
+        return theHospitalService.selHospital(theHospitalEntity);
     }
 
     //新增病人资料表,新增住院申请表

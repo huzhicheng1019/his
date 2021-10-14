@@ -83,6 +83,10 @@
     <update id="updatePre">
         update prepay set pre_balance = (pre_balance+#{preBalance}) where pre_id =  #{preId}
     </update>
+    <!--修改押金表余额-->
+    <update id="updatePre1">
+        update prepay set pre_balance = (pre_balance-#{preBalance}) where pre_id =  #{preId}
+    </update>
 
     <!--根据住院号修改余额-->
     <update id="updateMoney">

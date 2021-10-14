@@ -26,4 +26,7 @@
     <update id="updateLea">
         update doctor_leave set lea_reason=#{leaReason},lea_is = 1 where lea_id = #{leaId}
     </update>
+
+
+
 </mapper>

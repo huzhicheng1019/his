@@ -37,7 +37,15 @@
             <result property="roomId" column="room_id"></result>
             <result property="bedIs" column="bed_is"></result>
         </association>
-
+        <!--病房-->
+        <association property="roomEntity" javaType="cn.gson.his.model.pojos.InHospital.RoomEntity">
+            <id property="roomId" column="room_id"></id>
+            <result property="roomName" column="room_name"></result>
+            <result property="roomSite" column="room_site"></result>
+            <result property="depaId" column="depa_id"></result>
+            <result property="roomIs" column="room_is"></result>
+            <result property="roomCost" column="room_cost"></result>
+        </association>
         <!--床位使用记录-->
         <association property="beds" javaType="cn.gson.his.model.pojos.InHospital.BedsEntity">
             <id property="bedsId" column="beds_id"></id>
@@ -125,11 +133,22 @@
     <select id="selReg" resultMap="HopRegMap">
         select * from hospital_register h left join patientdata p on h.patient_no = p.patient_no
         left join department d on h.depa_id = d.depa_id
+        left join beds bs on h.reg_mark = bs.reg_mark
+        left join bed b on b.bed_id = bs.bed_id
+        left join room r on b.room_id = r.room_id
         <where>
-            <if test="text != '' ">
-                and  (h.reg_mark like '%${text}%' or h.reg_name like '%${text}%' or h.doctor_name like '%${text}%')
+            <if test="depaId != '' and depaId != null and depaId != 0 " >
+                and h.depa_id= #{depaId}
             </if>
-            and h.reg_is = 0
+            <if test="beginTime != '' and beginTime != null and endTime != '' and endTime != null">
+                and (to_char(h.reg_date,'yyyy-mm-dd') between #{beginTime} and  #{endTime})
+            </if>
+            <if test="content != '' ">
+                and  (h.reg_mark like '%${content}%' or h.reg_name like '%${content}%' or h.doctor_name like '%${content}%'
+                 or r.room_name like '%${content}%' or b.bed_name like '%${content}%' or p.patient_sex like '%${content}%'
+                 or p.patient_age like '%${content}%' or p.patient_phone like '%${content}%' or p.patient_pirth like '%${content}%')
+            </if>
+            and h.reg_is = 0 and bs.beds_is=0 order by h.reg_date desc
         </where>
     </select>
 
@@ -199,7 +218,7 @@
 
 
 
-    <!--出院登记查询-->
+    <!--住院登记查询-->
     <select id="selLeave" resultMap="HopRegMap">
         select * from hospital_register h left join beds b on h.reg_mark = b.reg_mark
         left join department d on h.depa_id = d.depa_id
@@ -240,6 +259,21 @@
     <select id="selIdentity" resultMap="HopRegMap">
         select * from hospital_register h left join patientdata p on h.patient_no = p.patient_no
         where  p.PATIENT_IDENTITY = #{patientIdentity} and h.reg_is = 0
+    </select>
+
+    <!--查询所有出院申请-->
+    <select id="leaSel" resultMap="HopRegMap">
+        select * from hospital_register h left join beds b on h.reg_mark = b.reg_mark
+        left join department d on h.depa_id = d.depa_id
+        left join bed be on b.bed_id = be.bed_id
+        left join patientdata p on h.patient_no = p.patient_no
+        left join prepay pr on h.reg_mark = pr.reg_mark
+        left join doctor_enjoin en on h.reg_mark = en.reg_mark
+        left join doctor_leave le on h.reg_mark = le.reg_mark
+
+        <where>
+            and h.reg_is = 0  and le.lea_is = 0
+        </where>
     </select>
 
 </mapper>

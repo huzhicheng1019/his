@@ -33,8 +33,9 @@ public class HospitalRegisterController {
 
     //查询所有住院登记表
     @RequestMapping("/selReg")
-    public List<HospitalRegisterEntity> demo1(String text){
-        return reg.selReg(text);
+    public List<HospitalRegisterEntity> demo1(String hospitalRegisterEntity){
+        HospitalRegisterEntity hospitalRegisterEntity1 = JSONObject.parseObject(hospitalRegisterEntity, HospitalRegisterEntity.class);
+        return reg.selReg(hospitalRegisterEntity1);
     }
 
 
@@ -90,5 +91,9 @@ public class HospitalRegisterController {
     };
 
 
-
+    //查询所有出院申请
+    @RequestMapping("/leaSel")
+    public List<HospitalRegisterEntity> leaSel(){
+        return reg.leaSel();
+    }
 }

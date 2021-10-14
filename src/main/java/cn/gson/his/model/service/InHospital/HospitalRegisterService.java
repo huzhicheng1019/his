@@ -2,15 +2,18 @@ package cn.gson.his.model.service.InHospital;
 
 import cn.gson.his.model.mappers.InHospital.DoctorLeaveMapper;
 import cn.gson.his.model.mappers.InHospital.HospitalRegisterMapper;
+import cn.gson.his.model.mappers.InHospital.PrepayDetailsMapper;
 import cn.gson.his.model.pojos.Drug.DrugEntity;
 import cn.gson.his.model.pojos.InHospital.DoctorExecuteEntity;
 import cn.gson.his.model.pojos.InHospital.DoctorLeaveEntity;
 import cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity;
+import cn.gson.his.model.pojos.InHospital.PrepayDetailsEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Service
@@ -22,14 +25,28 @@ public class HospitalRegisterService {
     DoctorLeaveMapper doctorLeaveMapper;
 
 
+
     //新增住院登记
     public int insertReg(HospitalRegisterEntity hospitalRegisterEntity){
         return  hospitalRegisterMapper.insertReg(hospitalRegisterEntity);
     }
 
     //查询所有住院登记表
-    public List<HospitalRegisterEntity> selReg(String text){
-        return hospitalRegisterMapper.selReg(text);
+    public List<HospitalRegisterEntity> selReg(HospitalRegisterEntity hospitalRegisterEntity){
+        String beginTime = null;
+        String endTime = null;
+        String depaId = "";
+        if (hospitalRegisterEntity.getBeginTime() != null && hospitalRegisterEntity.getEndTime() != null ) {
+            SimpleDateFormat sf = new SimpleDateFormat("yyy-MM-dd");
+            beginTime = sf.format(hospitalRegisterEntity.getBeginTime());
+            endTime = sf.format(hospitalRegisterEntity.getEndTime());
+        }
+
+        if(hospitalRegisterEntity.getDepaId() != null){
+            depaId = hospitalRegisterEntity.getDepaId()+"";
+        }
+
+        return hospitalRegisterMapper.selReg(depaId,beginTime,endTime,hospitalRegisterEntity.getContent());
     };
 
     //查询所有住院登记表 和 床位记录表
@@ -87,6 +104,13 @@ public class HospitalRegisterService {
     public HospitalRegisterEntity look(String regMark){
         return hospitalRegisterMapper.look(regMark);
     }
+
+    //查询所有出院申请
+    public List<HospitalRegisterEntity> leaSel(){
+        return hospitalRegisterMapper.leaSel();
+    }
+
+
 
 
 }

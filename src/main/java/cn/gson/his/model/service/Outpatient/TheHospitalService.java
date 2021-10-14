@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,13 +34,23 @@ public class TheHospitalService {
     HospitalRegisterMapper hospitalRegisterMapper;
 
     //查询所有住院申请表
-    public Map<String,Object> selHospital(int page, int size,String content){
-        Page<Object> p = PageHelper.startPage(page,size);
-        List<Map<String,Object>> list = theHospitalMapper.selHospital(content);
-        Map<String,Object> map = new HashMap<>();
-        map.put("rows",list);
-        map.put("total",p.getTotal());
-        return map;
+    public List<TheHospitalEntity> selHospital(TheHospitalEntity hospitalEntity){
+        String beginTime = null;
+        String endTime = null;
+        String depaId = "";
+        if (hospitalEntity.getBeginTime() != null && hospitalEntity.getEndTime() != null ) {
+            SimpleDateFormat sf = new SimpleDateFormat("yyy-MM-dd");
+            beginTime = sf.format(hospitalEntity.getBeginTime());
+            endTime = sf.format(hospitalEntity.getEndTime());
+        }
+
+        if(hospitalEntity.getDepaId() != null){
+            depaId = hospitalEntity.getDepaId()+"";
+        }
+
+
+        return  theHospitalMapper.selHospital(depaId,beginTime,endTime,hospitalEntity.getContent());
+
     }
 
     //新增病人资料表,新增住院申请表

@@ -15,7 +15,7 @@ public interface HospitalRegisterMapper {
     public int insertReg(HospitalRegisterEntity hospitalRegisterEntity);
 
     //查询所有住院登记表
-    public List<HospitalRegisterEntity> selReg(String text);
+    public List<HospitalRegisterEntity> selReg(@Param("depaId")String depaId,@Param("beginTime")String beginTime,@Param("endTime")String endTime,@Param("content")String content);
 
 
     //查询所有住院登记表 和 床位记录表
@@ -45,5 +45,8 @@ public interface HospitalRegisterMapper {
 
     //根据身份证查病人是否已经住院
     public HospitalRegisterEntity selIdentity(String patientIdentity);
+
+    //查询所有出院申请
+    public List<HospitalRegisterEntity> leaSel();
 
 }
