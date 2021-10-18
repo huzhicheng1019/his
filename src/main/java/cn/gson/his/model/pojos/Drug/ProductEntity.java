@@ -178,4 +178,21 @@ public class ProductEntity {
     public int hashCode() {
         return Objects.hash(planxqId, productId, productName, productFl, planId, price, sl, ge,gys,kszt,gesl,shdw,dw);
     }
+
+    public ProductEntity() {
+    }
+
+    public ProductEntity(Integer productId, String productName, String productFl, Long price, Integer sl, String ge, GysEntity gys, String kszt, Integer gesl, String shdw, String dw) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productFl = productFl;
+        this.price = price;
+        this.sl = sl;
+        this.ge = ge;
+        this.gys = gys;
+        this.kszt = kszt;
+        this.gesl = gesl;
+        this.shdw = shdw;
+        this.dw = dw;
+    }
 }

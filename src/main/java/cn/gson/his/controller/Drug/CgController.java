@@ -24,6 +24,7 @@ public class CgController {
     @Autowired
     CgService cgService;
 
+    //采购订单查询（采购订单界面）
     @RequestMapping("cggl")
     public Map<String,Object> getcg(Integer pageNo, Integer size, String nr){
         System.out.println("nr:"+nr);
@@ -32,6 +33,7 @@ public class CgController {
         return stringObjectMap;
     }
 
+//    采购订单详情查询（采购订单详情界面）
     @RequestMapping("cgxq")
     public Map<String,Object> getcgxq(Integer pageNo, Integer size,String id,String nr){
         System.out.println(id);
@@ -41,6 +43,7 @@ public class CgController {
         return stringObjectMap;
     }
 
+    // 采购信息查询（修改界面）
     @RequestMapping("cgxx")
     public Map<String,Object> getcgxx(String id,String nr){
         System.out.println("开始：");
@@ -48,6 +51,7 @@ public class CgController {
         return stringObjectMap;
     }
 
+//    员工查询
     @RequestMapping("cgemp")
     public Map<String,Object> getemp(){
         System.out.println("开始：");
@@ -55,6 +59,7 @@ public class CgController {
         return stringObjectMap;
     }
 
+//    新增修改采购订单
     @RequestMapping("add-cg")
     public String cgjhxz(@RequestBody Map<String,Object> map){
         System.out.println("开始：");
@@ -87,6 +92,7 @@ public class CgController {
         }
     }
 
+//    删除修改采购订单判断
     @RequestMapping("delxg-cgpd")
     public String delxgcgpd(String orderId){
         System.out.println(orderId);
@@ -98,6 +104,7 @@ public class CgController {
         }
     }
 
+//    删除采购订单
     @RequestMapping("del-cg")
     public String delcg(String orderId){
         System.out.println(orderId);
@@ -109,6 +116,7 @@ public class CgController {
         }
     }
 
+//    供应商显示
     @RequestMapping("gysxs")
     public Map<String,Object> getgysxs(){
         Map<String, Object> stringObjectMap = cgService.gyscx();

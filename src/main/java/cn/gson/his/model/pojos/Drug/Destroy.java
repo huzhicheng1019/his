@@ -13,7 +13,7 @@ public class Destroy {
     private Employee employee;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp destroyDate;
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="Asia/Shanghai")
     private Timestamp sqdate;
     private Integer destroyZt;
     private String bz;

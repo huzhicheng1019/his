@@ -169,4 +169,19 @@ public class XhService {
         destroy.setDestroyZt(3);
         xhDao.save(destroy);
     }
+
+    public Map<String,Object> xhckxqcx(String why,String nr){
+        System.out.println(why);
+        Map<String,Object> map = new HashMap<>();
+        List<LibraryxqEntity> libraryxqEntityList=new ArrayList<>();
+        if(why.equals("0")){
+            libraryxqEntityList=cangkMapper.xhhscx(nr);
+        }else if(why.equals("1")){
+            libraryxqEntityList=cangkMapper.xhgqcx(nr);
+        }else if(why.equals("2")){
+            libraryxqEntityList=cangkMapper.xhlqcx(nr);
+        }
+        map.put("rows",libraryxqEntityList);
+        return map;
+    }
 }

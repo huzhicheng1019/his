@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,8 +59,13 @@ public class CangkService {
 
     public Map<String,Object> ckxxselect(Integer id, String nr){
         Map<String,Object> map = new HashMap<>();
+        List<LibraryxqEntity> ckxqcx = cangkMapper.ckxqcx(id, nr);
+        System.out.println("这里：");
+        for (LibraryxqEntity libraryxqEntity : ckxqcx) {
+            System.out.println(libraryxqEntity);
+        }
         map.put("ck",cangkMapper.ckcxid(id).get(0));
-        map.put("ckxq",cangkMapper.ckxqcx(id,nr));
+        map.put("ckxq",ckxqcx);
         return map;
     }
 
@@ -105,9 +112,18 @@ public class CangkService {
         System.out.println(librarysave.getLibraryId());
 
         for (LibraryxqEntity libraryxqEntity : libraryxqList) {
-            LibraryInfoEntity libraryInfoEntity = new LibraryInfoEntity();
-            libraryInfoEntity.setLibraryId(librarysave.getLibraryId());
-            libraryxqEntity.setLibrary(libraryInfoEntity);
+            Calendar c=Calendar.getInstance();
+            c.setTimeInMillis(libraryxqEntity.getScdate().getTime());
+            if(libraryxqEntity.getProductFl().equals("0")){
+                DrugEntity ypcxid = ypMapper.ypcxid(libraryxqEntity.getProductId());
+                c.add(Calendar.MONTH,ypcxid.getBzq());
+            }else if (libraryxqEntity.getProductFl().equals("1")){
+                ConEntity concxid = conMapper.concxid(libraryxqEntity.getProductId());
+                c.add(Calendar.MONTH,concxid.getBzq());
+            }
+            Timestamp timestamp = new Timestamp(c.getTimeInMillis());
+            libraryxqEntity.setGqdate(timestamp);
+            libraryxqEntity.setLibrary(librarysave);
             cankxqDao.save(libraryxqEntity);
         }
     }

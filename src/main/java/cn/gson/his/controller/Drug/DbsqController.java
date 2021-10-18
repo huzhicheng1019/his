@@ -31,7 +31,7 @@ public class DbsqController {
     }
 
     @RequestMapping("dbxq")
-    public Map<String,Object> getckxq(Integer pageNo, Integer size,Integer id,String nr){
+    public Map<String,Object> getckxq(Integer pageNo, Integer size,String id,String nr){
         System.out.println(id);
         System.out.println(nr);
         Map<String, Object> stringObjectMap = dbsqService.dbxqselect(pageNo,size,id,nr);
@@ -40,10 +40,11 @@ public class DbsqController {
     }
 
     @RequestMapping("dbckxq")
-    public Map<String,Object> getdbckxq(Integer id,String nr,Integer ckid){
+    public Map<String,Object> getdbckxq(Integer id,String nr,Integer ckid,Integer ckdj){
         System.out.println(id);
         System.out.println(nr);
-        Map<String, Object> stringObjectMap = dbsqService.dbckxqcx(id,nr,ckid);
+        System.out.println("仓库等级："+ckdj);
+        Map<String, Object> stringObjectMap = dbsqService.dbckxqcx(id,nr,ckid,ckdj);
         return stringObjectMap;
     }
 
@@ -82,14 +83,14 @@ public class DbsqController {
     }
 
     @RequestMapping("dbxx")
-    public Map<String,Object> getcgxx(Integer id){
+    public Map<String,Object> getcgxx(String id){
         System.out.println("开始：");
         Map<String, Object> stringObjectMap = dbsqService.dbcxid(id);
         return stringObjectMap;
     }
 
     @RequestMapping("delxg-dbpd")
-    public String delxgcgpd(Integer allotId){
+    public String delxgcgpd(String allotId){
         System.out.println(allotId);
         try {
             return dbsqService.scxgpd(allotId);
@@ -100,7 +101,7 @@ public class DbsqController {
     }
 
     @RequestMapping("del-db")
-    public String delcg(Integer allotId){
+    public String delcg(String allotId){
         System.out.println(allotId);
         try {
             return dbsqService.dbdel(allotId);
@@ -111,7 +112,7 @@ public class DbsqController {
     }
 
     @RequestMapping("dbckxqid")
-    public Map<String,Object> getdbckxqid(Integer id){
+    public Map<String,Object> getdbckxqid(String id){
         Map<String, Object> stringObjectMap = dbsqService.shdb(id);
         return stringObjectMap;
     }

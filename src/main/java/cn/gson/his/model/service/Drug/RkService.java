@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 @Transactional
@@ -101,7 +101,7 @@ public class RkService {
                 List<StojlEntity> stojlcx = rkMapper.stojlcx(cgrkx.getStoId(), "");
                 for (StojlEntity stojlEntity : stojlcx) {
                     if(orderxqEntity.getProductId().equals(stojlEntity.getProductId()) && orderxqEntity.getProductFl().equals(stojlEntity.getProductFl())){
-                        orderxqEntity.setSl(orderxqEntity.getSl()-stojlEntity.getSl());
+                        orderxqEntity.setSl(orderxqEntity.getSl()-stojlEntity.getSl()/stojlEntity.getGesl());
                     }
                 }
             }
@@ -120,6 +120,19 @@ public class RkService {
         rkDao.save(stoEntity);
         for (StojlEntity stojlEntity : stojlEntityList) {
             stojlEntity.setSto(stoEntity);
+            Calendar c=Calendar.getInstance();
+            c.setTimeInMillis(stojlEntity.getScdate().getTime());
+            if(stojlEntity.getProductFl().equals("0")){
+                DrugEntity ypcxid = ypMapper.ypcxid(stojlEntity.getProductId());
+                c.add(Calendar.MONTH,ypcxid.getBzq());
+            }else if (stojlEntity.getProductFl().equals("1")){
+                ConEntity concxid = conMapper.concxid(stojlEntity.getProductId());
+                c.add(Calendar.MONTH,concxid.getBzq());
+            }
+            Timestamp timestamp = new Timestamp(c.getTimeInMillis());
+            stojlEntity.setGqdate(timestamp);
+            System.out.println(stojlEntity.getGqdate());
+
             rkxqDao.save(stojlEntity);
         }
         List<LibraryxqEntity> ckxqcx = cangkMapper.ckxqcx(stoEntity.getLibrary().getLibraryId(), "");

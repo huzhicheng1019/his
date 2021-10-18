@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 public class Allot {
-    private Integer allotId;
+    private String allotId;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
     private Timestamp allotDate;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="Asia/Shanghai")
@@ -20,14 +20,12 @@ public class Allot {
     private Employee shr;
 
     @Id
-    @GeneratedValue(generator = "SEQ")
-    @SequenceGenerator(name = "SEQ",sequenceName = "seq",initialValue = 1,allocationSize = 1)
     @Column(name = "ALLOT_ID", nullable = false, precision = 0)
-    public Integer getAllotId() {
+    public String getAllotId() {
         return allotId;
     }
 
-    public void setAllotId(Integer allotId) {
+    public void setAllotId(String allotId) {
         this.allotId = allotId;
     }
 

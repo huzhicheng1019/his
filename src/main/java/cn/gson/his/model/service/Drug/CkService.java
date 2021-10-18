@@ -71,11 +71,12 @@ public class CkService {
         //该退货单已出库的集合
         List<ChujlEntity> chujllyid = ckMapper.chujllyid(id);
         for (int i=0;i<cgthxqcx.size();i++) {
+            cgthxqcx.get(i).setSl(cgthxqcx.get(i).getSl()*cgthxqcx.get(i).getGesl());
             for (int j=0;j<chujllyid.size();j++) {
                 if(chujllyid.get(j)!=null){
                     if(cgthxqcx.get(i).getProductId().equals(chujllyid.get(j).getProductId()) && cgthxqcx.get(i).getProductFl().equals(chujllyid.get(j).getProductFl()) &&
                             cgthxqcx.get(i).getPh().equals(chujllyid.get(j).getPh())){
-                        cgthxqcx.get(i).setSl(cgthxqcx.get(i).getSl()*cgthxqcx.get(i).getGesl()-chujllyid.get(j).getSl());
+                        cgthxqcx.get(i).setSl(cgthxqcx.get(i).getSl()-chujllyid.get(j).getSl());
                     }
                     if (cgthxqcx.get(i).getSl()<=0){
                         cgthxqcx.remove(cgthxqcx.get(i));
@@ -103,6 +104,9 @@ public class CkService {
                     }
                 }
             }
+        }
+        for (OrderthxqEntity orderthxqEntity : thxq) {
+
         }
         System.out.println("大小："+thxq.size());
         Map<String,Object> map = new HashMap<>();

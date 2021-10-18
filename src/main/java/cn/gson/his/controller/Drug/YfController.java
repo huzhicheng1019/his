@@ -45,8 +45,8 @@ public class YfController {
     }
 
     @RequestMapping("yfcfxq")
-    public Map<String,Object> getcfxq(Integer id){
-        Map<String, Object> stringObjectMap = yfService.cfxq(id);
+    public Map<String,Object> getcfxq(Integer id,String fl){
+        Map<String, Object> stringObjectMap = yfService.cfxq(id,fl);
         return stringObjectMap;
     }
 
@@ -110,9 +110,9 @@ public class YfController {
     }
 
     @RequestMapping("lsyzcx")
-    public Map<String,Object> getlsyz(Integer id){
+    public Map<String,Object> getlsyz(Integer id,String fl){
         System.out.println("nr:"+id);
-        Map<String, Object> stringObjectMap = yfService.lsyzselect(id);
+        Map<String, Object> stringObjectMap = yfService.lsyzselect(id,fl);
         return stringObjectMap;
     }
 
@@ -123,9 +123,9 @@ public class YfController {
     }
 
     @RequestMapping("yzcx")
-    public Map<String,Object> getyz(Integer id){
+    public Map<String,Object> getyz(Integer id,String fl){
         System.out.println("nr:"+id);
-        Map<String, Object> stringObjectMap = yfService.yzcx(id);
+        Map<String, Object> stringObjectMap = yfService.yzcx(id,fl);
         return stringObjectMap;
     }
 

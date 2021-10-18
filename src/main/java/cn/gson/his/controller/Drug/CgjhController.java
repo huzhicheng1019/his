@@ -23,12 +23,14 @@ public class CgjhController {
     @Autowired
     CgjhService cgjhService;
 
+//    查询采购计划
     @RequestMapping("cgjh")
-    public Map<String,Object> getcgjh(String nr){
-        Map<String, Object> stringObjectMap = cgjhService.cgjhcx(nr);
+    public Map<String,Object> getcgjh(Integer pageNo, Integer size,String nr){
+        Map<String, Object> stringObjectMap = cgjhService.cgjhcx(pageNo,size,nr);
         return stringObjectMap;
     }
 
+//    查询采购计划详情
     @RequestMapping("cgjhxq")
     public Map<String,Object> getcgjhxq(String id,String nr){
         System.out.println("开始：");
@@ -36,6 +38,7 @@ public class CgjhController {
         return stringObjectMap;
     }
 
+//    查询采购计划信息
     @RequestMapping("cgjhxx")
     public Map<String,Object> getcgjhxx(String id,String nr){
         System.out.println("开始：");
@@ -43,6 +46,7 @@ public class CgjhController {
         return stringObjectMap;
     }
 
+//    新增修改采购计划
     @RequestMapping("add-cgjh")
     public String cgjhxz(@RequestBody Map<String,Object> map){
         System.out.println("开始：");
@@ -77,6 +81,7 @@ public class CgjhController {
         }
     }
 
+//    删除修改采购计划判断
     @RequestMapping("delxg-pd")
     public String delxgpd(String planId){
         System.out.println(planId);
@@ -88,6 +93,7 @@ public class CgjhController {
         }
     }
 
+//    删除采购计划
     @RequestMapping("del-cgjh")
     public String delcgjh(String planId){
         System.out.println(planId);
@@ -99,6 +105,7 @@ public class CgjhController {
         }
     }
 
+//    采购计划审核（新增审核记录，修改采购计划审核状态）
     @RequestMapping("cgjh-sh")
     public String cgjhsh(@RequestBody Map<String,Object> map){
         ObjectMapper mapper = new ObjectMapper();
@@ -116,6 +123,7 @@ public class CgjhController {
         }
     }
 
+//    提交审核
     @RequestMapping("cgjh-tjsh")
     public String cgjhtjsh(@RequestBody PlanInfoEntity plan){
         System.out.println(plan.getPlanId());
@@ -128,12 +136,14 @@ public class CgjhController {
         }
     }
 
+//    采购订单查询采购计划
     @RequestMapping("cgjhdd")
     public Map<String,Object> getcgjhdd(String nr){
         Map<String, Object> stringObjectMap = cgjhService.cgjhdd(nr);
         return stringObjectMap;
     }
 
+//    采购订单查询计划详情
     @RequestMapping("cgjhddxq")
     public Map<String,Object> getcgjhdd(String id,Integer gid){
         Map<String, Object> stringObjectMap = cgjhService.cgjhddxq(id, gid);
