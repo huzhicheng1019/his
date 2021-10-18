@@ -15,7 +15,7 @@ import java.util.Objects;
 public class PrepayEntity {
     private int preId;
     private String regMark;
-    private Long preBalance;
+    private Double preBalance;
     private Long preArrearage;
 
     //押金详表
@@ -76,11 +76,11 @@ public class PrepayEntity {
 
     @Basic
     @Column(name = "PRE_BALANCE")
-    public Long getPreBalance() {
+    public Double getPreBalance() {
         return preBalance;
     }
 
-    public void setPreBalance(Long preBalance) {
+    public void setPreBalance(Double preBalance) {
         this.preBalance = preBalance;
     }
 

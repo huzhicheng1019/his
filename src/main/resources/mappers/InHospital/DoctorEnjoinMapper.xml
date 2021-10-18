@@ -138,9 +138,12 @@
         select * from doctor_enjoin e left join doctor_enjoins en on e.en_id = en.en_id
 
         <where>
-           and e.reg_mark = #{regMark} and (e.en_end is null or e.en_end &gt;= current_timestamp)
-           and (en.ens_end is null or en.ens_end &gt;= current_timestamp)
+           and e.reg_mark = #{regMark}
+           and en.ens_id not in ( SELECT ex.ens_id from doctor_execute ex where to_char(ex.exe_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd'))
+           and en.ens_end is null
+           and en.en_id is not null
 
+           and to_char(sysdate,'yyyy-mm-dd')  &gt;=  to_char(en.ens_start,'yyyy-mm-dd')
         </where>
     </select>
     

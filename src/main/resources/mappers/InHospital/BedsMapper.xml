@@ -27,7 +27,10 @@
 
     <!--修改床位记录-->
     <update id="updateBeds">
-        update beds set bed_id=#{bedId},reg_mark=#{regMark},beds_name=#{bedsName},nurse_id=#{nurseId},
+        update beds set bed_id=#{bedId},reg_mark=#{regMark},beds_name=#{bedsName},
+        <if test="nurseId != null and nurseId != ''">
+            nurse_id=#{nurseId},
+        </if>
         <if test="nurseName != null and nurseName != ''">
             nurse_name=#{nurseName},
         </if>

@@ -15,5 +15,11 @@ public interface CaseHistoryMapper{
     public int addCaseHistory(CaseHistoryEntity caseHistoryEntity);
 
     //跟据身份证查询
-    public CaseHistoryEntity IdentityCaseHistory(String caseHistoryEntity);
+    public List<CaseHistoryEntity> IdentityCaseHistory(String patientIdentity);
+
+    //根据状态查询
+    public CaseHistoryEntity IdentityCaseHistoryState(String patientIdentity);
+
+    //修改病历状态
+    public int updateCase(String caseHissstory);
 }

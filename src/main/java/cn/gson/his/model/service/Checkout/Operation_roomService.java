@@ -22,9 +22,9 @@ public class Operation_roomService {
 //    Operation_roomDao operation_roomDao;
 
     //查询所有手术室 带分页
-    public PageInfo selectroom(Integer no, Integer size){
+    public PageInfo selectroom(Integer no, Integer size,String name){
         PageHelper.startPage(no, size);
-        List<OperationRoomEntity> list = Operation_roomMapper.selectroom();
+        List<OperationRoomEntity> list = Operation_roomMapper.selectroom(name);
         PageInfo<OperationRoomEntity> info=new PageInfo<>(list);
         return info;
     }
@@ -39,8 +39,18 @@ public class Operation_roomService {
 ////        operation_roomDao.deleteById(id);
 //    }
 
-    //根据id删除手术室
+    //根据id禁用手术室
     public Integer delroom(Integer id){
         return Operation_roomMapper.delroom(id);
+    }
+
+    //根据id启用手术室
+    public Integer updatezt(Integer id){
+        return Operation_roomMapper.updatezt(id);
+    }
+
+    //根据Id编辑手术室
+    public Integer updateroom(OperationRoomEntity operationRoomEntity){
+        return Operation_roomMapper.updateroom(operationRoomEntity);
     }
 }

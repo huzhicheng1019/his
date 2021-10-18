@@ -129,4 +129,19 @@ public class CaseHistoryPartiEntity {
     public int hashCode() {
         return Objects.hash(partiNo, chief, presents, previouss, checkup, suggestion, doctorName, doctorId, caseNo);
     }
+
+    @Override
+    public String toString() {
+        return "CaseHistoryPartiEntity{" +
+                "partiNo=" + partiNo +
+                ", chief='" + chief + '\'' +
+                ", presents='" + presents + '\'' +
+                ", previouss='" + previouss + '\'' +
+                ", checkup='" + checkup + '\'' +
+                ", suggestion='" + suggestion + '\'' +
+                ", doctorName='" + doctorName + '\'' +
+                ", doctorId=" + doctorId +
+                ", caseNo=" + caseNo +
+                '}';
+    }
 }

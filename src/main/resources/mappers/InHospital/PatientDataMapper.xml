@@ -18,5 +18,9 @@
         select * from patientData where patient_no = #{patientNo}
     </select>
 
+    <!--根据编号删除病人资料表-->
+    <delete id="delPat">
+        delete from patientData patient_no = #{patientNo}
+    </delete>
 
 </mapper>

@@ -2,6 +2,7 @@ package cn.gson.his.controller.InHospital;
 
 import cn.gson.his.model.pojos.InHospital.DoctorEnjoinEntity;
 import cn.gson.his.model.pojos.InHospital.DoctorEnjoinsEntity;
+import cn.gson.his.model.pojos.InHospital.DoctorExecuteEntity;
 import cn.gson.his.model.service.InHospital.DoctorEnjoinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -51,14 +52,23 @@ public class DoctorEnjoinController {
     public List<DoctorEnjoinEntity> demo4(String regMark){
         return service.execute(regMark);
     }
-
+    //查询当天的医嘱执行记录
+    @RequestMapping("/queryRecord")
+    public List<DoctorExecuteEntity> demo9(String text, String depaId){
+        return service.queryRecord(text, depaId);
+    }
 
     //确认执行医嘱  新增执行记录 并扣费
     @RequestMapping("/carryout")
-    public String demo5(String regMark){
-        System.out.println("住院号" + regMark);
+    public int demo5(String regMark){
         return service.carryout(regMark);
     }
 
+
+    //根据住院号查医嘱执行记录
+    @RequestMapping("/regSel")
+    public List<DoctorExecuteEntity> regSel(String regMark){
+        return service.regSel(regMark);
+    }
 
 }

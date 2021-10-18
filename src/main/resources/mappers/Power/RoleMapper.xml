@@ -15,9 +15,18 @@
     <!--查询所有角色自连接-->
     <select id="allRole" resultMap="selectROle">
         select r.role_id roleid,r.role_name rolename,r.role_create,f.role_id rolesid,f.role_name rolesname from role_info r left join role_info f on r.role_parent=f.role_id
+        <where>
+            <if test="name!=null and name!=''">
+                and (r.role_id like '%${name}%' or r.role_name like '%${name}%' or to_char(r.role_create,'yyyy-mm-dd HH24:mi:ss:ff') like '%${name}%' or f.role_name like '%${name}%')
+            </if>
+            <if test="start!=null and end!=null">
+                and (r.role_create between #{start} and #{end})
+            </if>
+        </where>
+        order by r.role_create desc
     </select>
 
-    <!--部门、角色多对多映射-->
+    <!--&lt;!&ndash;部门、角色多对多映射&ndash;&gt;
     <resultMap id="RoleDept" type="cn.gson.his.model.pojos.Power.Dept">
         <id property="deptId" column="DEPT_ID"/>
         <result property="deptName" column="DEPT_NAME"/>
@@ -25,10 +34,10 @@
             <id property="roleId" column="ROLE_ID"/>
         </collection>
     </resultMap>
-    <!--角色、部门多对多查询-->
+    &lt;!&ndash;角色、部门多对多查询&ndash;&gt;
     <select id="allRoleDept" resultMap="RoleDept">
         select * from dept d left join role_dept r on d.dept_id=r.dept_id LEFT JOIN ROLE_INFO e on r.role_id=e.role_id where r.role_id=#{id}
-    </select>
+    </select>-->
 
     <!--角色映射-->
     <resultMap id="selectRoleMy" type="cn.gson.his.model.pojos.Power.RoleInfo">
@@ -52,11 +61,11 @@
 
     <!--新增角色-->
     <insert id="addRolenoParent">
-        insert into role_info(role_id,role_name,role_create) values(#{roleId},#{roleName},#{roleCreate})
+        insert into role_info(role_id,role_name,role_create<if test="roleinfoByRoleParent.roleId!=null">,role_parent</if>) values(seq.nextval,#{roleName},#{roleCreate}<if test="roleinfoByRoleParent.roleId!=null">,#{roleinfoByRoleParent.roleId}</if>)
     </insert>
 
     <!--批量新增部门、角色中间表-->
-    <insert id="addRoleDept" parameterType="java.util.List">
+    <!--<insert id="addRoleDept" parameterType="java.util.List">
         INSERT all INTO role_dept(role_id,dept_id)
         <foreach collection="list" item="RoleDeptPK" index="i" separator=" ">
             <if test="i != list.size()-1">
@@ -66,7 +75,7 @@
                 select #{RoleDeptPK.roleId},#{RoleDeptPK.deptId} from dual
             </if>
         </foreach>
-    </insert>
+    </insert>-->
 
     <!--批量删除角色-->
     <delete id="delRole" parameterType="com.alibaba.fastjson.JSONArray">
@@ -79,15 +88,36 @@
         </where>
     </delete>
 
+    <delete id="delEmpRole" parameterType="com.alibaba.fastjson.JSONArray">
+        delete from EMP_ROLE
+        <where>
+            ROLE_ID in
+            <foreach collection="choose" item="p" open="(" index="i" separator="," close=")">
+                #{p}
+            </foreach>
+        </where>
+    </delete>
+
+    <delete id="delRolePerm" parameterType="com.alibaba.fastjson.JSONArray">
+        delete from ROLE_PERM
+        <where>
+            ROLE_ID in
+            <foreach collection="choose" item="p" open="(" index="i" separator="," close=")">
+                #{p}
+            </foreach>
+        </where>
+    </delete>
+
+
     <!--修改角色-->
     <update id="updateRole">
-        update role_info set role_name=#{roleName},role_parent=#{id} where role_id=#{roleId}
+        update role_info set role_name=#{roleName},role_parent=#{roleinfoByRoleParent.roleId} where role_id=#{roleId}
     </update>
 
     <!--根据角色id删除部门、角色中间表-->
-    <delete id="delRoleDept">
+    <!--<delete id="delRoleDept">
         delete from role_dept where role_id=#{roleId}
-    </delete>
+    </delete>-->
 
     <!--根据角色id查询角色、权限中间表的权限id-->
     <select id="allRoleIdPermId" resultType="_int">

@@ -64,4 +64,12 @@ public class PatientController {
             e.printStackTrace();
         }
     }
+
+    //根据身份证查病人资料表
+    @RequestMapping("/selID")
+    public PatientdataEntity selID(String patientIdentity){
+        return ps.selID(patientIdentity);
+    }
+
+
 }

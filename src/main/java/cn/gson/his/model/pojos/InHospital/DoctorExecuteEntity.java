@@ -1,10 +1,14 @@
 package cn.gson.his.model.pojos.InHospital;
 
+import cn.gson.his.model.pojos.Power.Department;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@Data
 @Table(name = "DOCTOR_EXECUTE", schema = "HIS", catalog = "")
 public class DoctorExecuteEntity {
     private int exeId;
@@ -19,6 +23,13 @@ public class DoctorExecuteEntity {
     private String drugDw;
     private Integer drugCount;
     private Long drugPrice;
+
+    //主要登记表对象
+    private HospitalRegisterEntity hospitalRegister;
+    //科室对象
+    private Department department;
+
+
 
     @Id
     @Column(name = "EXE_ID")
@@ -162,5 +173,25 @@ public class DoctorExecuteEntity {
     @Override
     public int hashCode() {
         return Objects.hash(exeId, exeDate, ensId, nurseId, nurseName, regMark, drugId, drugName, drugGe, drugDw, drugCount, drugPrice);
+    }
+
+    @Override
+    public String toString() {
+        return "DoctorExecuteEntity{" +
+                "exeId=" + exeId +
+                ", exeDate=" + exeDate +
+                ", ensId=" + ensId +
+                ", nurseId=" + nurseId +
+                ", nurseName='" + nurseName + '\'' +
+                ", regMark='" + regMark + '\'' +
+                ", drugId=" + drugId +
+                ", drugName='" + drugName + '\'' +
+                ", drugGe='" + drugGe + '\'' +
+                ", drugDw='" + drugDw + '\'' +
+                ", drugCount=" + drugCount +
+                ", drugPrice=" + drugPrice +
+                ", hospitalRegister=" + hospitalRegister +
+                ", department=" + department +
+                '}';
     }
 }

@@ -1,13 +1,13 @@
 package cn.gson.his.model.mappers.Power;
 
 
-import cn.gson.his.model.pojos.Power.Employee;
-import cn.gson.his.model.pojos.Power.Perm;
-import cn.gson.his.model.pojos.Power.RoleInfo;
+import cn.gson.his.model.pojos.Power.*;
+import cn.gson.his.model.pojos.Power.vo.ScreeningVo;
 import com.alibaba.fastjson.JSONArray;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +23,7 @@ public interface EmployeeMapper {
      * 分页查询所有
      * @return
      */
-    public List<Map<String,Object>> allEmp();
+    public List<Map<String,Object>> allEmp(@Param("start") Timestamp start,@Param("end") Timestamp end,@Param("state") Integer state,@Param("screening") List<Integer> screening,@Param("fuzzy") String fuzzy);
 
     /**
      * 离职员工
@@ -48,5 +48,11 @@ public interface EmployeeMapper {
 
     public List<Perm> homeMenu(Integer userId);
 
-    //public List<RoleInfo> childrenFuns(Integer parentId);
+    List<ScreeningVo> allTitle();
+
+    List<ScreeningVo> allDept();
+
+    List<ScreeningVo> allDepa();
+
+    public List<RoleInfo> childrenRole(Integer roleId);
 }

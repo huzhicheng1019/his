@@ -7,7 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "OPERATION_ROOM", schema = "HIS", catalog = "")
 public class OperationRoomEntity {
-    private int roomId;
+    private Integer roomId;
     private String roomName;
     private String roomDress;
     private String roomScale;
@@ -15,13 +15,15 @@ public class OperationRoomEntity {
     private Integer roomState;
     private List<OperationItemEntity> items;
 
+
+
     @Id
     @Column(name = "ROOM_ID")
-    public int getRoomId() {
+    public Integer getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(int roomId) {
+    public void setRoomId(Integer roomId) {
         this.roomId = roomId;
     }
 

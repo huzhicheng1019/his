@@ -5,6 +5,7 @@ import cn.gson.his.model.mappers.InHospital.DoctorEnjoinMapper;
 import cn.gson.his.model.mappers.InHospital.DoctorExecuteMapper;
 import cn.gson.his.model.mappers.InHospital.PrepayMapper;
 import cn.gson.his.model.pojos.InHospital.*;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -99,17 +100,21 @@ public class DoctorEnjoinService {
         return  doctorEnjoinMapper.execute(regMark);
     };
 
+    //查询当天的医嘱执行记录
+    public List<DoctorExecuteEntity> queryRecord(@Param("text")String text, @Param("depaId") String depaId){
+        return exe.queryRecord(text,depaId);
+    }
 
     //确认执行医嘱  新增执行记录 并扣费
-    public String carryout(String regMark){
+    public int carryout(String regMark){
         //根据住院号查床位记录
         BedsEntity bedsEntity = beds.selBeds(regMark);
 
         //创建执行记录对象
         DoctorExecuteEntity execute = new DoctorExecuteEntity();
 
-        //new 一个押金表对象
-        PrepayEntity prepayEntity = new PrepayEntity();
+        //根据住院号押金表对象
+        PrepayEntity prepayEntity = prepay.selectPre(regMark);
 
         //接受所有金额
         double price = 0;
@@ -141,18 +146,36 @@ public class DoctorEnjoinService {
                     price += ds.getDrugPrice()*ds.getEnsCount();
 
                     //新增执行记录
+                    System.out.println("执行记录");
+                    System.out.println(execute);
                     exe.insertExe(execute);
                 }
             }
         }
 
-        prepayEntity.setPreBalance(new Double(price).longValue());
-        prepayEntity.setRegMark(regMark);
+        prepayEntity.setPreBalance(price);
         //修改余额
         prepay.updateMoney(prepayEntity);
+        //新增扣费记录
+        PrepayDetailsEntity prepays = new PrepayDetailsEntity();
+        prepays.setPresPrice(price);
+        prepays.setItemId(0);
+        prepays.setPresType(1);
+        prepays.setPreId(prepayEntity.getPreId());
+        prepays.setPreText("医嘱扣费");
+        int i = prepay.insertPres(prepays);
 
-
-        return  "";
+        if(i >0 ){
+            return 1;
+        }
+        return 0;
     };
+
+
+    //根据住院号查医嘱执行记录
+    public List<DoctorExecuteEntity> regSel(String regMark){
+        return exe.regSel(regMark);
+    }
+
 
 }

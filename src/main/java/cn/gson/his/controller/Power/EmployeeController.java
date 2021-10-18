@@ -1,10 +1,8 @@
 package cn.gson.his.controller.Power;
 
 
-import cn.gson.his.model.pojos.Power.ElMessage;
-import cn.gson.his.model.pojos.Power.Employee;
-import cn.gson.his.model.pojos.Power.Perm;
-import cn.gson.his.model.pojos.Power.RoleInfo;
+import cn.gson.his.model.pojos.Power.*;
+import cn.gson.his.model.pojos.Power.vo.ScreeningVo;
 import cn.gson.his.model.service.Power.EmployeeService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -12,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -41,15 +42,45 @@ public class EmployeeController {
      * @return
      */
     @RequestMapping("/allEmp")
-    public Map<String,Object> allEmp(Integer pageNo, Integer size){
-        //System.out.println("员工："+empService.allEmp(pageNo, size).get("rows"));
-        return empService.allEmp(pageNo,size);
+    public Map<String, Object> allEmp(Integer pageNo, Integer size, @RequestParam("li")String li){
+        System.out.println("筛选"+li);
+        JSONObject o= JSONObject.parseObject(li);//转换Object
+        String zhi=o.get("date")+"";
+        Timestamp start=null;
+        Timestamp end=null;
+        if(zhi!=null && !("".equals(zhi)) && !("null".equals(zhi))){
+            String date[] = zhi.split(",");
+            start=new Timestamp(new Date(Date.parse(date[0])).getTime());
+            end=new Timestamp(new Date(Date.parse(date[1])).getTime());
+        }
+        Integer state = Integer.parseInt(o.get("state")+"")==-1 ? null:Integer.parseInt(o.get("state")+"");
+        String s=o.get("screening")+"";
+        List<Integer> screening=new ArrayList<>();
+        if(s!=null && !("".equals(s)) && !("null".equals(s))){
+            String[] d= s.split(",");
+            System.out.println("长度"+d.length);
+            for(int i=0;i<d.length;i++){
+                System.out.println("遍历数组值"+d[i]);
+                screening.add(Integer.parseInt(d[i]));
+            }
+        }
+        if(screening.isEmpty()){
+            screening=null;
+        }
+        System.out.println("集合"+screening);
+        String fuzzy=o.get("fuzzy")+"";
+        return empService.allEmp(pageNo,size,start,end,state,screening,fuzzy);
     }
 
     @PostMapping("/addEmp")
     public ElMessage addEmp(@RequestBody Employee emp){
-        System.out.println("科室"+emp.getDepartmentByEmpDepar());
+        //System.out.println("科室"+emp.getDepartmentByEmpDepar());
+        //生成当前时间
+        if(emp.getEmpInduction()==null){
+            emp.setEmpInduction(new Timestamp(new Date().getTime()));
+        }
         boolean is=emp.getEmpId()==null ? true:false;
+        System.out.println("科室"+emp.getDepartmentByEmpDepar());
         int p=empService.addEmp(emp);
         ElMessage elm=new ElMessage();
         if(p>0){
@@ -111,6 +142,21 @@ public class EmployeeController {
     @RequestMapping("/home-menus")
     public List<Perm> home_menus(Integer userId, HttpSession session){
         return empService.homeMenu(userId);
+    }
+
+    @RequestMapping("/allTitle")
+    public List<ScreeningVo> allTitle(){
+        return empService.allTitle();
+    }
+
+    @RequestMapping("/allDepts")
+    public List<ScreeningVo> allDept(){
+        return empService.allDept();
+    }
+
+    @RequestMapping("/allDepa")
+    public List<ScreeningVo> allDepa(){
+        return empService.allDepa();
     }
 
 }

@@ -7,4 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface PatientDataMapper {
     //根据id查病人资料
     public PatientdataEntity selPat(String patientNo);
+
+    //根据编号删除病人资料表
+    public int delPat(String patientNo);
 }

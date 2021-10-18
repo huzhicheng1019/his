@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/lxj")
@@ -108,14 +105,14 @@ public class ScheduController {
     }*/
 
     @RequestMapping("/allShiftById")
-    public List<Shift> allShiftById(@RequestParam("typeId") Integer typeId){
+    public List<Shift> allShiftById(@RequestParam("typeId") Integer typeId) throws ParseException {
         return service.allShiftById(typeId);
     }
 
-    @RequestMapping("/allScheEmp")
+    /*@RequestMapping("/allScheEmp")
     public List<Schedu> allScheEmp(){
         return service.allScheEmp();
-    }
+    }*/
 
     @RequestMapping("allScheByempId")
     public List<Integer> allScheByempId(@RequestParam("deparId") Integer deparId,@RequestParam("scheId") Integer scheId,@RequestParam("shiId") Integer shiId){
@@ -148,6 +145,11 @@ public class ScheduController {
                 elm.setType("success");
             }
             return elm;
+    }
+
+    @RequestMapping("/allORaddSchedu")
+    public List<Schedu> allORaddSchedu(Integer date) throws ParseException {
+        return service.allORaddSchedu(date);
     }
 
     public ScheEmp add(Integer empId,Integer shiId,Integer scheId){

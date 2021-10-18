@@ -1,6 +1,7 @@
 package cn.gson.his.controller.Power;
 
 import cn.gson.his.model.pojos.Power.Title;
+import cn.gson.his.model.pojos.Power.vo.Titvo;
 import cn.gson.his.model.service.Power.TitleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ public class TitleController {
     }
 
     @RequestMapping("/allTitByEmp")
-    public List<Title> allTitByEmp(@RequestParam("deparId") Integer deparId){
+    public List<Titvo> allTitByEmp(@RequestParam("deparId") Integer deparId){
         return service.allTitByEmp(deparId);
     }
 }

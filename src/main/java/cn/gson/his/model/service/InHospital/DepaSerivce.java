@@ -62,6 +62,36 @@ public class DepaSerivce {
         return  mapper.selDuty(deparId);
     }
 
+    //根据身份证查病人的病历
+    public List<CaseHistoryEntity> IdentityCaseHistory(String patientIdentity){
+        return caseHistory.IdentityCaseHistory(patientIdentity);
+    }
+    //根据身份证查当前使用的病历
+    public CaseHistoryEntity IdentityCaseHistoryState(String patientIdentity){
+        return caseHistory.IdentityCaseHistoryState(patientIdentity);
+    }
+    //新增病历
+    public void insertCaseHistory(CaseHistoryEntity caseHistoryEntity,CaseHistoryPartiEntity caseHistoryPartiEntity){
+        //先判断是否有当前病历
+        CaseHistoryEntity state = caseHistory.IdentityCaseHistoryState(caseHistoryEntity.getPatientIdentity());
+        if(state == null){
+            //为空就新增主表
+            PatientdataEntity patientdataEntity = new PatientdataEntity();
+            caseHistoryEntity.setPatientNo(patientdataEntity);
+
+             caseHistory.addCaseHistory(caseHistoryEntity);
+             //然后再添加详表
+            caseHistoryPartiEntity.setCaseNo(caseHistoryEntity);
+            caseHistoryParti.addCaseHistory(caseHistoryPartiEntity);
+        }else{
+            //不为空就增详表
+            caseHistoryPartiEntity.setCaseNo(state);
+            caseHistoryParti.addCaseHistory(caseHistoryPartiEntity);
+        }
+
+    }
+
+
 
     //新增转科记录    修改住院登记表
     public int insertTr(TransferEntity transfer){
@@ -74,13 +104,14 @@ public class DepaSerivce {
         //根据病人资料id查病人信息
         PatientdataEntity patientdataEntity = patientData.selPat(look.getPatientNo() + "");
         //转科后新增病历 判断是否有病历 有就增加详表 没有就主表详表一起新增
-        CaseHistoryEntity caseHistoryEntity = caseHistory.IdentityCaseHistory(patientdataEntity.getPatientIdentity());
+        CaseHistoryEntity caseHistoryEntity = caseHistory.IdentityCaseHistoryState(patientdataEntity.getPatientIdentity());
         if(caseHistoryEntity == null){
             //新增病历主表
             CaseHistoryEntity caseHis = new  CaseHistoryEntity();
             caseHis.setPatientName(patientdataEntity.getPatientName());
             caseHis.setPatientIdentity(patientdataEntity.getPatientIdentity());
             caseHis.setPatientNo(patientdataEntity);
+            caseHis.setCaseState(0);
             caseHistory.addCaseHistory(caseHis);
             //新增详表
             CaseHistoryPartiEntity caseHistoryPart1 = new CaseHistoryPartiEntity();
@@ -118,6 +149,10 @@ public class DepaSerivce {
             caseHistoryPart2.setCheckup("无");
 
             caseHistoryParti.addCaseHistory(caseHistoryPart2);
+
+            //修改当前病历为过往病历
+            caseHistory.updateCase(caseHistoryEntity.getCaseHissstory()+"");
+
         }
 
 

@@ -6,6 +6,7 @@
     <id column="CASE_HISSSTORY" property="caseHissstory"/>
     <result column="PATIENT_NAME" property="patientName"/>
     <result column="PATIENT_IDENTITY" property="patientIdentity"/>
+    <result column="CASE_STATE" property="caseState"/>
 <!--患者信息 -->
     <association property="patientNo" javaType="cn.gson.his.model.pojos.Outpatient.PatientdataEntity">
         <id column="PATIENT_NO" property="patientNo"></id>
@@ -17,10 +18,19 @@
         <result column="PATIENT_IDENTITY" property="patientIdentity"/>
         <result column="PATIENT_PIRTH" property="patientPirth"/>
         </association>
+    <collection property="partiEntities" ofType="cn.gson.his.model.pojos.Outpatient.CaseHistoryPartiEntity">
+        <id column="PARTI_NO" property="partiNo"/>
+        <result column="CHIEF" property="chief"/>
+        <result column="PRESENTS" property="presents"/>
+        <result column="PREVIOUSS" property="previouss"/>
+        <result column="CHECKUP" property="checkup"/>
+        <result column="SUGGESTION" property="suggestion"/>
+        <result column="DOCTOR_NAME" property="doctorName"/>
+    </collection>
 </resultMap>
 <!--    新增病历-->
     <insert id="addCaseHistory">
-        insert into CASE_HISTORY values (SEQ.nextval,#{patientName},#{patientIdentity},#{patientNo.patientNo})
+        insert into CASE_HISTORY values (SEQ.nextval,#{patientName},#{patientIdentity},#{patientNo.patientNo},#{caseState})
         <selectKey order="AFTER" keyProperty="caseHissstory" resultType="_int">
             select seq.currval from dual
         </selectKey>
@@ -30,6 +40,18 @@
         select * from CASE_HISTORY c inner join PATIENTDATA P on c.PATIENT_NO = P.PATIENT_NO
     </select>
     <select id="IdentityCaseHistory" resultMap="CaseHistory">
-        select * from CASE_HISTORY  where  PATIENT_IDENTITY = #{patientIdentity}
+        select * from CASE_HISTORY_PARTI c right join CASE_HISTORY c1 on c.CASE_NO = c1.CASE_HISSSTORY
+            where c1.PATIENT_IDENTITY = #{patientIdentity} and c1.CASE_STATE = 0  order by c.PARTI_NO desc
     </select>
+<!--    根据状态查询-->
+    <select id="IdentityCaseHistoryState" resultMap="CaseHistory">
+        select * from CASE_HISTORY_PARTI c right join CASE_HISTORY c1 on c.CASE_NO = c1.CASE_HISSSTORY
+        where c1.PATIENT_IDENTITY = #{patientIdentity} and c1.CASE_STATE = 1 order by c.PARTI_NO desc 
+    </select>
+
+    <!--修改病历状态-->
+    <update id="updateCase">
+        update CASE_HISTORY set CASE_STATE = 0 where CASE_HISSSTORY = #{caseHissstory}
+    </update>
+
 </mapper>

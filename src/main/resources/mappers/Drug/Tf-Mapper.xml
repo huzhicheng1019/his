@@ -36,4 +36,35 @@
             </if>
         </where>
     </select>
+<!--    查询退费申请-->
+    <select id="selectPremium" resultMap="tfsqMap">
+        select * from PREMIUM  inner join PREMIUMS P on PREMIUM.PREMIUM_ID = P.PREMIUM_ID
+        <where>
+            <if test="proporesName !=null">
+                P.PROPORES_NAME = #{proporesName}
+            </if>
+            <if test="doctorName !=null">
+                p.DOCTOR_NAME = #{doctorName}
+            </if>
+            <if test="premiumDate !=null">
+                p.PREMIUM_DATE = #{premiumDate}
+            </if>
+            <if test="patientIdentity !=null">
+                and  to_char(p.PATIENT_IDENTITY,'yyyy-mm-dd') = to_char(#{patientIdentity},'yyyy-mm-dd')
+            </if>
+        </where>
+    </select>
+    <resultMap id="Premiums" type="cn.gson.his.model.pojos.Drug.Premiums">
+        <result column="PREMIUMS_ID" property="premiumsId"/>
+        <result column="DRUG_ID" property="drugId"/>
+        <result column="DRUG_NAME" property="drugName"/>
+        <result column="DRUG_PRICE" property="drugPrice"/>
+        <result column="PREMIUM_ID" property="premiumId"/>
+        <result column="COUNT" property="count"/>
+        <result column="FL" property="fl"/>
+    </resultMap>
+<!--    查询退费详情-->
+    <select id="selectPremiums" resultMap="Premiums">
+        select * from premiums where PREMIUM_ID=#{id}
+    </select>
 </mapper>

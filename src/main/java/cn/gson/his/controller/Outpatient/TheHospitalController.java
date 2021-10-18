@@ -32,16 +32,14 @@ public class TheHospitalController {
 
     //新增病人资料表,新增住院申请表
     @RequestMapping("/insert")
-    public void demo1( String patient, Integer depaId){
-        try {
+    public int demo1( String patient, Integer depaId){
+
             PatientdataEntity patientdataEntity1 = JSONObject.parseObject(patient, PatientdataEntity.class);
 
             TheHospitalEntity theHospitalEntity = new TheHospitalEntity();
             theHospitalEntity.setDepaId(depaId);
-            theHospitalService.insertPatient(patientdataEntity1,theHospitalEntity);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+
+            return theHospitalService.insertPatient(patientdataEntity1,theHospitalEntity);
     }
     //直接新增住院申请表
     @RequestMapping("/insertHospital")
