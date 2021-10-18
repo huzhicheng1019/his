@@ -47,7 +47,7 @@
         LEFT JOIN SCHE_EMP m on e.EMP_ID=m.EMP_ID
         LEFT JOIN SCHEDU s on m.SCHE_ID=s.SCHE_ID
         LEFT JOIN title t on e.emp_tit = t.tit_id
-        WHERE TO_DATE(s.SCHE_DATE,'yyyy/mm/dd')=TO_DATE(TO_CHAR(sysdate,'yyyy/mm/dd'),'yyyy/mm/dd') and d.DEPA_ID=#{deparId} AND T.TIT_ID = 1
+        WHERE TO_DATE(s.SCHE_DATE,'yyyy/mm/dd')=TO_DATE(TO_CHAR(sysdate,'yyyy/mm/dd'),'yyyy/mm/dd') and d.DEPA_ID=#{deparId} AND T.TIT_ID = 9
     </select>
     
 

@@ -103,4 +103,17 @@ public class DoctorCheckEntity {
     public int hashCode() {
         return Objects.hash(cheId, cheDate, regMark, cheName, cheDay, bedId, depaId);
     }
+
+    @Override
+    public String toString() {
+        return "DoctorCheckEntity{" +
+                "cheId=" + cheId +
+                ", cheDate=" + cheDate +
+                ", regMark='" + regMark + '\'' +
+                ", cheName='" + cheName + '\'' +
+                ", cheDay=" + cheDay +
+                ", bedId=" + bedId +
+                ", depaId=" + depaId +
+                '}';
+    }
 }

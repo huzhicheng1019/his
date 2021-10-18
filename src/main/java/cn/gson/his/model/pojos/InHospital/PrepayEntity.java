@@ -109,4 +109,17 @@ public class PrepayEntity {
     public int hashCode() {
         return Objects.hash(preId, regMark, preBalance, preArrearage);
     }
+
+    @Override
+    public String toString() {
+        return "PrepayEntity{" +
+                "preId=" + preId +
+                ", regMark='" + regMark + '\'' +
+                ", preBalance=" + preBalance +
+                ", preArrearage=" + preArrearage +
+                ", prepayDetails=" + prepayDetails +
+                ", patientdata=" + patientdata +
+                ", hospitalRegisterEntity=" + hospitalRegisterEntity +
+                '}';
+    }
 }

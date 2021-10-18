@@ -5,6 +5,7 @@ import cn.gson.his.model.service.InHospital.BedsService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,9 +17,10 @@ public class BedsController {
     BedsService bedsService;
 
     //新增床位使用记录
-    @RequestMapping("insertBeds")
+    @RequestMapping("/insertBeds")
     public int demo(String bedsEntity){
         BedsEntity bedsEntity1 = JSONObject.parseObject(bedsEntity, BedsEntity.class);
+
         int i = bedsService.insertBeds(bedsEntity1);
         if(i>0){
             return 1;

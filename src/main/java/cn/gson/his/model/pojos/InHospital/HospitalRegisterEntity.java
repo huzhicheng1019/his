@@ -61,6 +61,9 @@ public class HospitalRegisterEntity {
     //出院申请
     private DoctorLeaveEntity doctorLeave;
 
+    //出院登记
+    private DoctorCheckEntity doctorCheck;
+
     //病房
     private RoomEntity roomEntity;
 

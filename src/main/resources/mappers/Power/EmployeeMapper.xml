@@ -38,11 +38,11 @@
         </select>
     <!--查询住院部的护士-->
     <select id="selNurse" resultMap="EmpMap">
-            select * from employee e left join dept d on e.emp_dept = d.dept_id
-            left join department de on e.emp_depar = de.depa_id
-            left join title t on e.emp_tit = t.tit_id
-
-            where e.emp_dept = 55  and e.emp_tit = 2 and e.emp_depar = #{depaId}
+               SELECT * FROM DEPARTMENT d right JOIN EMPLOYEE e on d.DEPA_ID=e.EMP_DEPAR
+                LEFT JOIN SCHE_EMP m on e.EMP_ID=m.EMP_ID
+                LEFT JOIN SCHEDU s on m.SCHE_ID=s.SCHE_ID
+                LEFT JOIN title t on e.emp_tit = t.tit_id
+                WHERE TO_DATE(s.SCHE_DATE,'yyyy/mm/dd')=TO_DATE(TO_CHAR(sysdate,'yyyy/mm/dd'),'yyyy/mm/dd') and e.emp_depar = #{depaId} AND T.TIT_ID = 2
 
         </select>
     <resultMap id="EmpAll" type="cn.gson.his.model.pojos.Power.Employee">

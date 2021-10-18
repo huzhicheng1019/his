@@ -7,6 +7,7 @@ import cn.gson.his.model.service.InHospital.PrepayService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,9 +21,9 @@ public class PrepayController {
         PrepayService prepayService;
 
     //新增押金缴费表
-    @RequestMapping("insertPre")
+    @RequestMapping("/insertPre")
     public void demo(String prepay,String prepayDetail){
-        PrepayEntity prepayEntity = JSONObject.parseObject(prepay, PrepayEntity.class);
+        PrepayEntity prepayEntity = JSONObject.parseObject(prepay,PrepayEntity.class);
         PrepayDetailsEntity prepayDetailsEntity = JSONObject.parseObject(prepayDetail, PrepayDetailsEntity.class);
 
         try{

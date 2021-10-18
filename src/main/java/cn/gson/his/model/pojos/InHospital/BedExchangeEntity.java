@@ -1,10 +1,14 @@
 package cn.gson.his.model.pojos.InHospital;
 
+import cn.gson.his.model.pojos.Power.Department;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
-@Entity
+@Data
 @Table(name = "BED_EXCHANGE", schema = "HIS", catalog = "")
 public class BedExchangeEntity {
     private int excId;
@@ -13,70 +17,20 @@ public class BedExchangeEntity {
     private String regMark;
     private Timestamp excDate;
 
-    @Id
-    @Column(name = "EXC_ID")
-    public int getExcId() {
-        return excId;
-    }
 
-    public void setExcId(int excId) {
-        this.excId = excId;
-    }
 
-    @Basic
-    @Column(name = "FORMER_BER")
-    public Integer getFormerBer() {
-        return formerBer;
-    }
 
-    public void setFormerBer(Integer formerBer) {
-        this.formerBer = formerBer;
-    }
+    //搜索条件
+    private Date beginTime;
+    private Date endTime;
+    private String content;
+    private Integer depaId;
 
-    @Basic
-    @Column(name = "NOW_BED")
-    public Integer getNowBed() {
-        return nowBed;
-    }
+    //病床对象
+    private BedEntity bed;
+    //住院登记信息
+    private HospitalRegisterEntity hospitalRegister;
+    //科室
+    private Department depa;
 
-    public void setNowBed(Integer nowBed) {
-        this.nowBed = nowBed;
-    }
-
-    @Basic
-    @Column(name = "REG_MARK")
-    public String getRegMark() {
-        return regMark;
-    }
-
-    public void setRegMark(String regMark) {
-        this.regMark = regMark;
-    }
-
-    @Basic
-    @Column(name = "EXC_DATE")
-    public Timestamp getExcDate() {
-        return excDate;
-    }
-
-    public void setExcDate(Timestamp excDate) {
-        this.excDate = excDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BedExchangeEntity that = (BedExchangeEntity) o;
-        return excId == that.excId &&
-                Objects.equals(formerBer, that.formerBer) &&
-                Objects.equals(nowBed, that.nowBed) &&
-                Objects.equals(regMark, that.regMark) &&
-                Objects.equals(excDate, that.excDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(excId, formerBer, nowBed, regMark, excDate);
-    }
 }

@@ -75,6 +75,16 @@
             <result property="leaIs" column="lea_is"></result>
             <result property="leaReason" column="lea_reason"></result>
         </association>
+        <!--出院登记-->
+        <association property="doctorCheck" javaType="cn.gson.his.model.pojos.InHospital.DoctorCheckEntity">
+            <id property="cheId" column="che_Id"></id>
+            <result property="cheDate" column="che_Date"></result>
+            <result property="regMark" column="reg_Mark"></result>
+            <result property="cheName" column="che_Name"></result>
+            <result property="cheDay" column="che_Day"></result>
+            <result property="bedId" column="bed_Id"></result>
+            <result property="depaId" column="depa_Id"></result>
+        </association>
         <!--医嘱-->
         <collection property="doctorEnjoin" ofType="cn.gson.his.model.pojos.InHospital.DoctorEnjoinEntity">
             <id property="enId" column="en_id"></id>
@@ -136,6 +146,7 @@
         left join beds bs on h.reg_mark = bs.reg_mark
         left join bed b on b.bed_id = bs.bed_id
         left join room r on b.room_id = r.room_id
+        left join prepay pr on h.reg_mark = pr.reg_mark
         <where>
             <if test="depaId != '' and depaId != null and depaId != 0 " >
                 and h.depa_id= #{depaId}
@@ -158,12 +169,19 @@
           left join department d on h.depa_id = d.depa_id
           left join bed be on b.bed_id = be.bed_id
         <where>
-<!--            <if test="text != '' ">-->
-<!--                and  (h.reg_mark like '%${text}%' or h.reg_name like '%${text}%' or h.doctor_name like '%${text}%')-->
-<!--            </if>-->
-            and h.reg_is = 0 and b.beds_is = 0
+            <if test="depaId != '' and depaId != null and depaId != 0 " >
+                and h.depa_id= #{depaId}
+            </if>
+            <if test="beginTime != '' and beginTime != null and endTime != '' and endTime != null">
+                and (to_char(b.beds_start,'yyyy-mm-dd') between #{beginTime} and  #{endTime})
+            </if>
+            <if test="content != '' ">
+                and  (h.reg_mark like '%${content}%' or h.reg_name like '%${content}%' or h.doctor_name like '%${content}%'
+                or be.bed_name like '%${content}%' or b.nurse_name like '%${content}%'
+                )
+            </if>
+            and h.reg_is = 0 and b.beds_is = 0  order by  b.beds_start desc
         </where>
-        order by h.depa_id
     </select>
 
     <!--住院医生工作站 病人的所有信息  只查科室的病人-->
@@ -270,10 +288,31 @@
         left join prepay pr on h.reg_mark = pr.reg_mark
         left join doctor_enjoin en on h.reg_mark = en.reg_mark
         left join doctor_leave le on h.reg_mark = le.reg_mark
-
+        left join room r on be.room_id = r.room_id
         <where>
-            and h.reg_is = 0  and le.lea_is = 0
+            <if test="depaId != '' and depaId != null and depaId != 0 " >
+                and h.depa_id= #{depaId}
+            </if>
+            <if test="beginTime != '' and beginTime != null and endTime != '' and endTime != null">
+                and (to_char(b.beds_start,'yyyy-mm-dd') between #{beginTime} and  #{endTime})
+            </if>
+            <if test="content != '' ">
+                and  (h.reg_mark like '%${content}%' or h.reg_name like '%${content}%' or h.doctor_name like '%${content}%'
+                or be.bed_name like '%${content}%' or b.nurse_name like '%${content}%'
+                )
+            </if>
+            and h.reg_is = 0  and le.lea_is = 0 order by le.lea_date desc
         </where>
     </select>
+
+    <!--新增出院登记-->
+    <insert id="insertCheck" >
+        insert into doctor_check values (seq.nextval,current_timestamp ,#{regMark},#{cheName},#{cheDay},#{bedId},#{depaId})
+    </insert>
+
+    <!--根据住院号修改住院登记表状态-->
+    <update id="updateRegister">
+        update hospital_register set reg_is = 1 where reg_mark = #{regMark}
+    </update>
 
 </mapper>
