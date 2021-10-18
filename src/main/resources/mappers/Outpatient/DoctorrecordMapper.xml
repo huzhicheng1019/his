@@ -115,5 +115,9 @@
         </where>
             order  by D.RECORD_NO
     </select>
-
+<!--    根据就诊号查询就诊记录里面的患者-->
+    <select id="allPatien" resultMap="Doctorrecord">
+        select * from DOCTORRECORD d inner join PATIENTDATA P on d.PATIENT_NO = P.PATIENT_NO
+        where D.RECORD_NO = #{recordNo}
+    </select>
 </mapper>

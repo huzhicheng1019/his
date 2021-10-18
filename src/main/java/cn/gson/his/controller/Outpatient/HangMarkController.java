@@ -78,7 +78,7 @@ public class HangMarkController {
     @RequestMapping(value = "HangCard")
     public List<CardEntity> allCard(@RequestBody String patientNo){
         //用病人编号查询有没有就诊卡
-        patientNo = patientNo.substring(0, patientNo.length()-1);
+            patientNo = patientNo.substring(0, patientNo.length()-1);
         CardEntity cardEntity = new CardEntity();
         cardEntity.setPati(new PatientdataEntity());
         cardEntity.getPati().setPatientNo(Integer.valueOf(patientNo));

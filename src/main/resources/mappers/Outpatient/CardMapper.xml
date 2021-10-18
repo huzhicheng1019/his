@@ -87,4 +87,8 @@
             </where>
             order by CARD_ID desc
     </select>
+<!--    根据患者编号查询就诊卡-->
+    <select id="allPate" resultMap="card">
+        select * from CARD c inner join PATIENTDATA p on  c.PATIENT_NO = p.PATIENT_NO where p.PATIENT_NO = #{patient}
+    </select>
 </mapper>

@@ -3,13 +3,46 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--缴费mapper.xml-->
 <mapper namespace="cn.gson.his.model.mappers.Outpatient.PayMapper">
-
-
 <!--    新增缴费表-->
     <insert id="addPay">
         insert into PAY values(seq.nextval,#{recordNo},#{payDate},#{payName},#{payProtect},#{payType},#{payPrice},#{payTotal})
+
         <selectKey order="AFTER" keyProperty="payNo" resultType="_int">
             select seq.currval from dual
         </selectKey>
     </insert>
+<resultMap id="allPayMap" type="cn.gson.his.model.pojos.Outpatient.PayEntity">
+    <id column="PAY_NO" property="payNo"/>
+    <result column="RECORD_NO" property="recordNo"/>
+    <result column="PAY_DATE" property="payDate"/>
+    <result column="PAY_NAME" property="payName"/>
+    <result column="PAY_PROTECT" property="payProtect"/>
+    <result column="PAY_TYPE" property="payType"/>
+    <result column="PAY_PRICE" property="payPrice"/>
+    <result column="PAY_TOTAL" property="payTotal"/>
+    <collection property="paypartEntities" ofType="cn.gson.his.model.pojos.Outpatient.PaypartEntity">
+        <id column="PAYPART_NO" property="paypartNo"/>
+        <result column="PAY_NO" property="payNo.payNo"/>
+        <result column="DRUG_NAME" property="drugName"/>
+        <result column="DRUG_QUANTITY" property="drugQuantity"/>
+        <result column="DRUG_PRICE" property="drugPrice"/>
+    </collection>
+</resultMap>
+    <select id="allPay" resultMap="allPayMap">
+        select * from PAY P  left JOIN PAYPART P1 ON P.PAY_NO = P1.PAY_NO
+        <where>
+            1=1
+            <if test="payDate !=''">
+                <if test="payDate !=null">
+                    and to_char(P.PAY_DATE,'yyyy-mm-dd') = #{payDate}
+                </if>
+            </if>
+            <if test="payName !=''">
+               and P.PAY_NAME = #{payName}
+            </if>
+            <if test="recordNo !=''">
+                and  P.RECORD_NO = #{recordNo}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Outpatient.OperationApplyMZMapper">
+    <resultMap id="appMap" type="cn.gson.his.model.pojos.InHospital.OperationApplyEntity">
+        <id property="appId" column="app_id"></id>
+        <result property="doctorId" column="doctor_id"></result>
+        <result property="regMark" column="reg_mark"></result>
+        <result property="appDate" column="app_date"></result>
+        <result property="appText" column="app_text"></result>
+
+        <association property="emp" javaType="cn.gson.his.model.pojos.Power.Employee">
+            <id property="empId" column="emp_id"></id>
+            <result property="empName" column="emp_name"></result>
+            <result property="empPhone" column="emp_phone"></result>
+            <result property="empCard" column="emp_card"></result>
+            <result property="empInduction" column="emp_induction"></result>
+            <result property="empDeparture" column="emp_departure"></result>
+            <result property="empState" column="emp_state"></result>
+        </association>
+
+        <collection property="apps" ofType="cn.gson.his.model.pojos.InHospital.OperationApplysEntity">
+            <id property="appsId" column="apps_id"></id>
+            <result property="appId" column="app_id"></result>
+            <result property="opsId" column="ops_id"></result>
+            <result property="opsName" column="ops_name"></result>
+            <result property="opsPrice" column="ops_price"></result>
+            <result property="opsType" column="ops_type"></result>
+            <result property="opsDress" column="ops_dress"></result>
+            <result property="opsIndication" column="ops_indication"></result>
+            <result property="opsTaboo" column="ops_taboo"></result>
+            <result property="opsIs" column="ops_is"></result>
+        </collection>
+    </resultMap>
+
+
+    <!--查询手术申请表-->
+    <select id="selApp" resultMap="appMap">
+        SELECT * from OPERATION_APPLY app right join OPERATION_APPLYS apps on app.app_id = apps.app_id
+                      left join OPERATION_ITEM i on apps.ops_id = i.operation_id
+                      LEFT JOIN EMPLOYEE e on e.emp_id = app.doctor_id
+        where  app.reg_mark = #{regMark} and apps.OPS_IS = #{opsLs}
+
+
+    </select>
+<!--    //修改是否缴费还有填没填结果-->
+    <update id="upApply">
+        UPDATE  OPERATION_APPLYS SET OPS_IS = #{opsLs} WHERE OPS_IS = 0 and APP_ID =  #{regMark}
+    </update>
+<!--    //填写手术结果-->
+    <update id="upApplyJG">
+        UPDATE  OPERATION_APPLYS SET OPS_IS = #{opsLs},OPS_INDICATION = #{indication} WHERE APP_ID = (SELECT APP_ID FROM OPERATION_APPLY WHERE REG_MARK = #{RegMark})
+    </update>
+
+</mapper>

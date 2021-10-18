@@ -76,14 +76,23 @@
     </update>
 <!--    查询处方和所有的要缴费的东西-->
     <select id="allSy" resultMap="Sy">
-        select * from(
-                         select P1.Record_id,P.CHINESE_NAME as name, p.C_COUNT as count,p.C_PRICE as price,p1.PRIVE_TYPE as stata
-                         from PRESCRIPTIONS P inner join PRESCRIPTION P1 on p.PRES_ID = P1.PRES_NO
-                         union all
-                         select C.CHECKOUT_ID,c.CHECKOUT_CRIBE as name,null,c.CHECKOUT_PRICE as price ,C.CHECKOUT_STATE as state  from CHECKOUT C inner join changePart C1  on C.Checkout_no = C.Checkout_no
-                         union all
-                         select CHECKOUT_ID, EXAMINE_METHOD as name,null,EXAMINE_LOOK as price ,EXAMINE_STATE as state from examine)rec
-        where rec.Record_id = #{Record_id} and rec.stata = 0
+        select * from(select P1.Record_id,P.CHINESE_NAME as name, p.C_COUNT as count,p.C_PRICE as price,p1.PRIVE_TYPE as stata
+                        from PRESCRIPTIONS P inner join PRESCRIPTION P1 on p.PRES_ID = P1.PRES_NO)rec
+                        where rec.Record_id = #{record_id} and rec.stata = 0
+    </select>
+<!--    //检查检验-->
+    <select id="allJC" resultMap="Sy">
+        select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c.CHECKOUT_PRICE as price ,C.CHECKOUT_STATE as state  from CHECKOUT C
+                      inner join changePart C1  on C.Checkout_no = C.Checkout_no
+                      union all
+                      select CHECKOUT_ID as RECORD_ID , EXAMINE_METHOD as name,EXAMINE_LOOK as price ,EXAMINE_STATE as state from examine)rec
+
+        WHERE rec.RECORD_ID= #{record_id} and rec.state = 0
+    </select>
+<!--   未缴费的手术项目-->
+    <select id="allOperall" resultMap="Sy">
+        SELECT app.REG_MARK as RECORD_ID,apps.OPS_NAME as name,app.APP_ID AS COUNT ,apps.OPS_PRICE as PRICE from OPERATION_APPLY app right join OPERATION_APPLYS apps on app.app_id = apps.app_id                                                                     LEFT JOIN EMPLOYEE e on e.emp_id = app.doctor_id
+        where  app.reg_mark = #{record_id}  and apps.OPS_IS = 0
     </select>
 <!--    新增处方-->
 <insert id="addPres">

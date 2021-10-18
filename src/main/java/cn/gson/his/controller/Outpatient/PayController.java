@@ -63,9 +63,16 @@ public class PayController {
         paypart.forEach(d->{
             System.out.println(d.getDrugName());
         });
-
-        pat.addPay(payEntity,paypart);
+        //判断他修改的是处方还是检查检验
+        String type = (String)data.get("type");
+        pat.addPay(payEntity,paypart,type);
         return 1;
     }
+    //查询缴费
+    @RequestMapping("allPay")
+    public List<PayEntity> allPay(String payDate, String payName,String recordNo){
+        return pat.allPay(payDate,payName,recordNo);
+
+    };
 
 }
