@@ -39,7 +39,7 @@
         SELECT * from OPERATION_APPLY app right join OPERATION_APPLYS apps on app.app_id = apps.app_id
                       left join OPERATION_ITEM i on apps.ops_id = i.operation_id
                       LEFT JOIN EMPLOYEE e on e.emp_id = app.doctor_id
-        where  app.reg_mark = #{regMark} and apps.OPS_IS = #{opsLs}
+        where  app.reg_mark = #{regMark}
 
 
     </select>

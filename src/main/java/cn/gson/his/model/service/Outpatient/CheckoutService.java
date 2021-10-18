@@ -21,13 +21,25 @@ public class CheckoutService {
     //新增化验单
     @Transactional
     public void addCheck(CheckoutEntity checkoutEntity, List<ChangepartEntity> change){
-            //新增主表
-            checkoutMapper.addCheck(checkoutEntity);
-            // 新增详情
-             change.forEach(d->{
-                 d.setCheckoutNo(checkoutEntity.getCheckoutNo());
-                 changepartMapper.addChangepart(d);
-             });
+            //判断有没有主表
+            List<CheckoutEntity> ChangepartEntity = checkoutMapper.seleCheck(checkoutEntity.getCheckoutId());
+
+            if(ChangepartEntity.isEmpty()){
+                //新增主表
+                checkoutMapper.addCheck(checkoutEntity);
+                // 新增详情
+                change.forEach(d->{
+                    d.setCheckoutNo(checkoutEntity.getCheckoutNo());
+                    changepartMapper.addChangepart(d);
+                });
+            }else{
+                // 新增详情
+                change.forEach(d->{
+                    d.setCheckoutNo(ChangepartEntity.get(0).getCheckoutNo());
+                    changepartMapper.addChangepart(d);
+                });
+            }
+
     }
     //修改化验收费状态
     public void upCheck(Integer checkoutState,Integer checkoutId){

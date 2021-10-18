@@ -54,6 +54,7 @@
         <result column="NAME" property="name"></result>
         <result column="COUNT" property="count"></result>
         <result column="PRICE" property="price"></result>
+        <result column="STATE" property="state"/>
     </resultMap>
 <!--    查询处方-->
     <select id="allPres" resultMap="pres">
@@ -102,5 +103,12 @@
         select seq.currval from dual
     </selectKey>
 </insert>
+<!--    查询所有检验化验项目-->
+    <select id="sllSYEexamineChange" resultMap="Sy">
+        select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c.CHECKOUT_PRICE as price ,C.CHECKOUT_STATE as state  from CHECKOUT C                                                                                                                             inner join changePart C1  on C.Checkout_no = C.Checkout_no
+                      union all
+                      select CHECKOUT_ID as RECORD_ID , EXAMINE_METHOD as name,EXAMINE_LOOK as price ,EXAMINE_STATE as state from examine)rec
+                      WHERE rec.RECORD_ID= #{record_id}
+    </select>
 
 </mapper>

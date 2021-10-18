@@ -71,4 +71,8 @@ public class PrescriptionService {
     public List<SyEntity> allOperall(String record_id){
        return pm.allOperall(record_id);
     }
+    //查询这个患者所有的化验检查
+    public List<SyEntity>sllSYEexamineChange(String record_id){
+        return pm.sllSYEexamineChange(record_id);
+    }
 }
