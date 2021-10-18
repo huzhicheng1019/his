@@ -13,4 +13,12 @@
     <select id="allTitByEmp" resultMap="titEmpMap">
         SELECT * FROM TITLE t LEFT JOIN EMPLOYEE e on t.TIT_ID=e.EMP_TIT WHERE e.EMP_DEPT=#{deptId} and e.EMP_DEPAR=#{deparId}
     </select>
+
+    <resultMap id="tit" type="cn.gson.his.model.pojos.Power.Title">
+        <id property="titId" column="TIT_ID"/>
+        <result property="titName" column="TIT_NAME"/>
+    </resultMap>
+    <select id="allTit" resultMap="tit">
+        select * from title
+    </select>
 </mapper>

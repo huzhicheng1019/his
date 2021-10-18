@@ -11,8 +11,7 @@ public interface TitleDao extends CrudRepository<Title,Integer> {
 
     /**
      * 根据部门id查询该部门的职称
-     * @param id
      * @return
      */
-    public List<Title> findAllByDeptByTitDept_DeptId(Integer id);
+    public List<Title> findAllBy();
 }

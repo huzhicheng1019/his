@@ -27,11 +27,10 @@ public interface EmployeeMapper {
 
     /**
      * 离职员工
-     * @param state
      * @param choose
      * @return
      */
-    public int quitEmp(@Param("state") Integer state,@Param("choose") JSONArray choose);
+    public int quitEmp(@Param("choose") JSONArray choose);
 
     /**
      * 根据用户id查询角色id

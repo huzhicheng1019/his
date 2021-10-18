@@ -74,7 +74,7 @@ public class EmployeeController {
 
     @PostMapping("/addEmp")
     public ElMessage addEmp(@RequestBody Employee emp){
-        //System.out.println("科室"+emp.getDepartmentByEmpDepar());
+        System.out.println("科室"+emp.getDepartmentByEmpDepar());
         //生成当前时间
         if(emp.getEmpInduction()==null){
             emp.setEmpInduction(new Timestamp(new Date().getTime()));
@@ -97,7 +97,7 @@ public class EmployeeController {
 
     @PostMapping("/quitEmp")
     public ElMessage quitEmp(@RequestBody JSONArray choose) {
-        int p = empService.quitEmp(choose,1);
+        int p = empService.quitEmp(choose);
         ElMessage elm=new ElMessage();
         if(p>0){
             elm.setType("success");
