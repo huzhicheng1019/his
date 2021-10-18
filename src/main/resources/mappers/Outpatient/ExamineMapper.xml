@@ -4,7 +4,7 @@
 <mapper namespace="cn.gson.his.model.mappers.Outpatient.ExamineMapper">
     <resultMap id="allExamine" type="cn.gson.his.model.pojos.Outpatient.ExamineEntity">
         <id column="examineNo" property="EXAMINE_NO"/>
-        <result column="Record_id" property="CHECKOUT_ID"/>
+        <result column="record_id" property="CHECKOUT_ID"/>
         <result column="checklistNo" property="CHECKLIST_NO"/>
         <result column="examineDiagnose" property="EXAMINE_DIAGNOSE"/>
         <result column="examineMethod" property="EXAMINE_METHOD"/>
@@ -13,27 +13,61 @@
     </resultMap>
 <!--新增检查项目-->
     <insert id="addExamine">
-        insert into EXAMINE values (SEQ.nextval,#{Record_id},#{checklistNo},#{examineDiagnose},#{examineMethod},#{examineLook},#{examineState})
+        insert into EXAMINE values (SEQ.nextval,#{record_id},#{checklistNo},#{examineDiagnose},#{examineMethod},#{examineLook},#{examineState})
     </insert>
 <!--    查询检查项目-->
     <select id="allExamine" resultMap="allExamine">
         select  * from EXAMINE
         <where>
-            <if test="Record_id != null">
-                CHECKOUT_ID = #{Record_id}
+            <if test="record_id != null">
+                CHECKOUT_ID = #{record_id}
             </if>
         </where>
+    </select>
+    <resultMap id="allExamineJF" type="cn.gson.his.model.pojos.Outpatient.ExamineEntity">
+        <id property="examineNo" column="EXAMINE_NO"/>
+        <result property="record_id" column="CHECKOUT_ID"/>
+        <result property="checklistNo" column="CHECKLIST_NO"/>
+        <result property="examineDiagnose" column="EXAMINE_DIAGNOSE"/>
+        <result property="examineMethod" column="EXAMINE_METHOD"/>
+        <result property="examineLook" column="EXAMINE_LOOK"/>
+        <result property="examineState" column="EXAMINE_STATE"/>
+        <association property="testsEntity" javaType="cn.gson.his.model.pojos.Checkout.TestsEntity">
+            <id property="testId" column="Test_id"></id>
+            <result property="testName" column="Test_name"></result>
+            <!--项目详情-->
+            <collection property="details" ofType="cn.gson.his.model.pojos.Checkout.TestDetailsEntity">
+                <id property="detailsId" column="Details_id"></id>
+                <result property="detailsSymbol" column="Details_Symbol"></result>
+                <result property="detailsName" column="Details_name"></result>
+                <result property="detailsCompany" column="Details_Company"></result>
+                <result property="detailsValues" column="Details_values"></result>
+                <result property="detailsPrice" column="Details_price"></result>
+                <result property="detailsShuoming" column="Details_shuoming"></result>
+            </collection>
+        </association>
+    </resultMap>
+    <select id="allExamineJF" resultMap="allExamineJF">
+        select  * from EXAMINE E INNER JOIN TESTS T ON E.CHECKLIST_NO = T.TEST_ID LEFT JOIN TEST_DETAILS T2 ON T.TEST_ID = T2.TEXT_ID WHERE  E.CHECKOUT_ID = #{record_id} and E.EXAMINE_STATE = #{state}
     </select>
 <!--    修改检查项目收费状态-->
     <update id="upExamine">
         update EXAMINE 
         <set>
-            <if test="examineDiagnose !=null">
-                EXAMINE_STATE = #{examineDiagnose}
-            </if>
-            <if test="examineState ！=null">
-                EXAMINE_DIAGNOSE = #{examineState}
+            <if test="examineState !=null">
+                EXAMINE_STATE = #{examineState}
             </if>
         </set>
+        where CHECKOUT_ID = #{record_id}
+    </update>
+<!--    根据编号修改检查的状态为2就是结果出来了-->
+    <update id="upExamineID">
+        update EXAMINE
+        <set>
+            <if test="examineState !=null">
+                EXAMINE_STATE = #{examineState}
+            </if>
+        </set>
+        where EXAMINE_NO = #{examineNo}
     </update>
 </mapper>

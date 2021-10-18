@@ -104,4 +104,9 @@ public class DoctorrecordController {
         //先新增病历详情
         return 1;
     }
+    @RequestMapping("allPatien")
+    public List<DoctorrecordEntity>allPatien(@RequestBody Map<String,Object> data){
+        String no = (String) data.get("recordNo");
+        return ds.allPatien(no);
+    }
 }

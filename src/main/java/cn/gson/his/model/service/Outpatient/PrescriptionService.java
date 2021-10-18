@@ -29,21 +29,22 @@ public class PrescriptionService {
     //详情一起新增
     @Transactional
     public int addPres(PrescriptionEntity presc, List<PrescriptionsEntity> list, DoctorrecordEntity doctorr){
-//         try {
+         try {
              pm.addPres(presc);
 
              list.forEach(d->{
                  d.setPresId(new PrescriptionEntity());
                  d.getPresId().setPresNo(presc.getPresNo());
+                 System.out.println("=========================================================="+presc.getPresNo());
                  pps.addprescs(d);
              });
              //修改状态
              doct.upDoctorrecord(doctorr);
              return 1;
-//         }catch (Exception e){
-//             System.out.println(e.fillInStackTrace());
-//             return 2;
-//         }
+         }catch (Exception e){
+             System.out.println(e.fillInStackTrace());
+             return 2;
+         }
 
 
 
@@ -54,12 +55,20 @@ public class PrescriptionService {
     public PrescriptionEntity allPres(PrescriptionEntity presc){
         return  pm.allPres(presc);
     }
-
+    //查询所有要缴费的药品
      public List<SyEntity> allSy(String id){
             return pm.allSy(id);
+     }
+     //查询所有要缴费的检查检验
+     public List<SyEntity> allJC(String id){
+         return pm.allJC(id);
      }
      //修改处方收费状态
      public void upPres(int priveType,int presNo){
         pm.upPres(priveType,presNo);
      }
+    //查询需要缴费的手术
+    public List<SyEntity> allOperall(String record_id){
+       return pm.allOperall(record_id);
+    }
 }

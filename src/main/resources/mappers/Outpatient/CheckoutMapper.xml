@@ -13,7 +13,7 @@
 <!--    新增化验-->
     <insert id="addCheck">
         insert into CHECKOUT values (seq.nextval,#{checkoutId},#{checkoutCribe},#{checkoutPrice},#{checkoutState})
-        <selectKey order="AFTER" keyColumn="checkoutNo" resultType="_int">
+        <selectKey order="AFTER" keyProperty="checkoutNo" resultType="_int">
             select seq.currval from dual
         </selectKey>
     </insert>
@@ -22,8 +22,9 @@
         select * from  CHECKOUT
         where CHECKOUT_ID = #{checkoutId}
     </select>
+
 <!--    修改化验单收费状态-->
     <update id="upCheck">
-        update  CHECKOUT set EXAMINE_STATE = #{checkoutState}  where CHECKOUT_ID = #{checkoutId} and  EXAMINE_STATE = 0
+        update  CHECKOUT set CHECKOUT_STATE = #{checkoutState}  where CHECKOUT_ID = #{checkoutId} and  CHECKOUT_STATE = 0
     </update>
 </mapper>

@@ -15,4 +15,6 @@ public interface DoctorrecordMapper {
     public int upDoctorrecord(DoctorrecordEntity doctorre);
 // 科室主治医生
     public List<DoctorrecordEntity> alldoctor(DoctorrecordEntity doctorre);
+//    根据就诊号查询就诊记录的患者
+    public List<DoctorrecordEntity> allPatien(String recordNo);
 }

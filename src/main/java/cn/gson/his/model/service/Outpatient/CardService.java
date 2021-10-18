@@ -40,7 +40,6 @@ public class CardService {
         //try {
             //修改就诊卡的值
             int i = cm.upCard(card);
-            System.out.println(i);
             if (i != 0){
                 //查询就诊卡的id给就诊卡记录用
                 List<CardEntity> cardEntities = cm.allCard(card);
@@ -56,6 +55,16 @@ public class CardService {
 //            System.out.println(e.fillInStackTrace());
 //            return "NO";
 //        }
+    }
+    //检验化验生成的缴费单
+    public int addCardJl(CardrecordEntity cardrecord,CardEntity cardEntity){
+        int i = cm.upCard(cardEntity);
+        if(i != 0){
+            crm.addCardecord(cardrecord);
+            return 1 ;
+        }else {
+            return 2 ;
+        }
     }
     @Transactional
     public String upState(CardEntity card){

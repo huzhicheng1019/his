@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 
-@CrossOrigin
 @RestController
 public class CardController<SJSONObject> {
 
@@ -74,8 +73,8 @@ public class CardController<SJSONObject> {
     }
     //修改本身的金额， 加一条就诊卡充值记录
     @RequestMapping("upCard")
-    public String upCard(String card,String name){
-        try {
+    public String upCard(String card,String name,String EmpName){
+//        try {
             System.out.println(card+"----"+name);
             //充值卡
             CardEntity cardEntity = JSONObject.parseObject(card, CardEntity.class);
@@ -89,12 +88,41 @@ public class CardController<SJSONObject> {
             Timestamp time2= new Timestamp(new Date().getTime());
             cardrecord.setRecordDate(time2);
             //充值还是缴费
-            cardrecord.setRecordWay("充值");
+            cardrecord.setRecordWay("0");
+            //原因
+            cardrecord.setRecordCause("充值");
             //操作的人
-            cardrecord.setCollectPrice(1);
+            cardrecord.setCollectPrice(EmpName);
             //调用修改方法
             System.out.println("-"+cardrecord.getCollectPrice());
             int s = cs.UpCard(cardEntity, cardrecord);
+            if (s == 1){
+                return "OK";
+            }else {
+                return "NO";
+            }
+//        }catch (Exception e){
+//            System.out.println(e.fillInStackTrace());
+//            return "NO";
+//        }
+    }
+    //缴费新增就诊卡充值记录
+    @RequestMapping("addCardJl")
+    public String addCardJl(String cardRecor,String card,String type){
+
+        try {
+            //充值记录表
+            CardrecordEntity cardrecord = JSONObject.parseObject(cardRecor, CardrecordEntity.class);
+            //就诊卡
+            CardEntity cardEntity = JSONObject.parseObject(card,CardEntity.class);
+            //充值时间
+            Timestamp time2= new Timestamp(new Date().getTime());
+            cardrecord.setRecordDate(time2);
+            //充值还是缴费
+            cardrecord.setRecordWay("1");
+            cardrecord.setRecordCause(type);
+            //调用修改方法
+            int s = cs.addCardJl(cardrecord,cardEntity);
             if (s == 1){
                 return "OK";
             }else {
@@ -113,5 +141,6 @@ public class CardController<SJSONObject> {
         cs.upState(cardEntity);
         return "OK";
     }
+
 
 }
