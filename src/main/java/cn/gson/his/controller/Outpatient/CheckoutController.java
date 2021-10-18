@@ -1,6 +1,7 @@
 package cn.gson.his.controller.Outpatient;
 
 import cn.gson.his.model.pojos.Outpatient.ChangepartEntity;
+import cn.gson.his.model.pojos.Outpatient.SeleExamineCheckoutEntity;
 import cn.gson.his.model.service.Outpatient.ChangepartService;
 import cn.gson.his.model.service.Outpatient.CheckoutService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,10 @@ public class CheckoutController {
     @RequestMapping("seleCheckJG")
     public List<ChangepartEntity> seleCheckJG(String checkoutId){
         return changepartService.allChangepartJG(checkoutId);
+    }
+    //查询所有有结果的检查化验
+    @RequestMapping("ExamineCheckout")
+    public List<SeleExamineCheckoutEntity> seleExamineCheckout(String checkoutId){
+        return checkoutService.seleExamineCheckout(checkoutId);
     }
 }

@@ -28,4 +28,8 @@ public class HangMarkService {
     public int upState(HangmarkEntity hang){
         return hmm.upState(hang);
     }
+//模糊搜索
+    public List<HangmarkEntity> seleHang(String hangDate,String hangDate1,String hang){
+        return  hmm.seleHang(hangDate,hangDate1,hang);
+    }
 }

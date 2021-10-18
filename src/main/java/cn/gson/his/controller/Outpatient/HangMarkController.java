@@ -160,10 +160,13 @@ public class HangMarkController {
     //单独查询挂号记录
     @RequestMapping("DHangMark")
     public List<HangmarkEntity> DHangMark(@RequestBody Map<String,Object> datas){
-        System.out.println("前端------------"+ datas.get("value"));
-        HangmarkEntity hangmarkEntity = new HangmarkEntity();
-        List<HangmarkEntity> hangMark = hms.seleHangMark(hangmarkEntity);
-        return hms.seleHangMark(hangmarkEntity);
+
+        String date  =  (String)datas.get("value");
+        String date1 = (String)datas.get("value1");
+        String hang  =  (String)datas.get("input");
+        return hms.seleHang(date,date1,hang);
+
+
     }
     //就诊里面的查询方法
     @RequestMapping("see_a_doctor")

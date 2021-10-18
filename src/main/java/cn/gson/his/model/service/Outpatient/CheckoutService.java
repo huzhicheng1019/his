@@ -4,6 +4,7 @@ import cn.gson.his.model.mappers.Outpatient.ChangepartMapper;
 import cn.gson.his.model.mappers.Outpatient.CheckoutMapper;
 import cn.gson.his.model.pojos.Outpatient.ChangepartEntity;
 import cn.gson.his.model.pojos.Outpatient.CheckoutEntity;
+import cn.gson.his.model.pojos.Outpatient.SeleExamineCheckoutEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,5 +38,8 @@ public class CheckoutService {
     public List<ChangepartEntity> allChang(String checkoutId){
         return changepartMapper.allChangepart(checkoutId);
     }
-
+    //查询所有有结果的检查化验
+    public List<SeleExamineCheckoutEntity> seleExamineCheckout(String id){
+        return checkoutMapper.seleExamineCheckout(id);
+    }
 }

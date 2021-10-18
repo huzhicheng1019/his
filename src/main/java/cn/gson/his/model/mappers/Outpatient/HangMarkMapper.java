@@ -17,4 +17,7 @@ public interface HangMarkMapper{
     public int upHang(HangmarkEntity hang);
     //专门修改状态的方法
     public int upState(HangmarkEntity hang);
+
+    //挂号记录查询
+    public List<HangmarkEntity> seleHang(String hangDate,String hangDate1,String hang);
 }
