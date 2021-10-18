@@ -106,6 +106,10 @@ public class PrescriptionController{
         String id = (String)data.get("presto");
         return prescriptionService.allOperall(id);
     }
-
+    //查询这个患者所有的化验检查
+    @RequestMapping("sllSYEexamineChange")
+    public List<SyEntity>sllSYEexamineChange(String record_id){
+        return prescriptionService.sllSYEexamineChange(record_id);
+    }
 
 }

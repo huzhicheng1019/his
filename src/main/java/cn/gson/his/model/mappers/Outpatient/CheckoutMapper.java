@@ -16,4 +16,6 @@ public interface CheckoutMapper {
     public void upCheck(Integer checkoutState,Integer checkoutId);
     //查询所有有结果的检查检验
     public List<SeleExamineCheckoutEntity> seleExamineCheckout(String id);
+
+    public List<CheckoutEntity> seleCheck(String checkoutId);
 }

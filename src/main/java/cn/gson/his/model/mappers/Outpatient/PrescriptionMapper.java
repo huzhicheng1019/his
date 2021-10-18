@@ -27,5 +27,7 @@ public interface PrescriptionMapper {
     public List<SyEntity> allJC(String record_id);
     //查询需要缴费的手术
     public List<SyEntity> allOperall(String record_id);
+    //查询这个患者所有的化验检查
+    public List<SyEntity>sllSYEexamineChange(String record_id);
 
 }
