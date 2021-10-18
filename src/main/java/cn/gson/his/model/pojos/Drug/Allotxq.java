@@ -9,7 +9,7 @@ import java.util.Objects;
 @Entity
 public class Allotxq {
     private Integer allotxqId;
-    private Integer allotId;
+    private String allotId;
     private Integer productId;
     private String productName;
     private String productFl;
@@ -44,11 +44,11 @@ public class Allotxq {
 
     @Basic
     @Column(name = "ALLOT_ID", nullable = true, precision = 0)
-    public Integer getAllotId() {
+    public String getAllotId() {
         return allotId;
     }
 
-    public void setAllotId(Integer allotId) {
+    public void setAllotId(String allotId) {
         this.allotId = allotId;
     }
 

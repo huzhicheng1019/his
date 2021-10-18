@@ -6,14 +6,13 @@ import cn.gson.his.model.dao.Drug.CgjhxqDao;
 import cn.gson.his.model.mappers.Drug.CgMapper;
 import cn.gson.his.model.mappers.Drug.CgjhMapper;
 import cn.gson.his.model.pojos.Drug.*;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -33,9 +32,12 @@ public class CgjhService {
     @Autowired
     AuditInfoDao auditInfoDao;
 
-    public Map<String,Object> cgjhcx(String nr){
+    public Map<String,Object> cgjhcx(Integer pageNo, Integer size,String nr){
         Map<String,Object> map = new HashMap<>();
+        //分页查询
+        Page<Object> page= PageHelper.startPage(pageNo,size);
         map.put("cgjh",cgjhMapper.cgjhcx(nr));
+        map.put("total",page.getTotal());
         return map;
     }
 

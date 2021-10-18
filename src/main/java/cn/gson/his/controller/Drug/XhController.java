@@ -146,4 +146,11 @@ public class XhController {
         System.out.println("开始：");
         xhService.xhtjsh(destroy);
     }
+
+    @RequestMapping("xhtjckxqcx")
+    public Map<String,Object> xhckxqcx(String why,String nr){
+        System.out.println("开始：");
+        Map<String, Object> stringObjectMap = xhService.xhckxqcx(why,nr);
+        return stringObjectMap;
+    }
 }

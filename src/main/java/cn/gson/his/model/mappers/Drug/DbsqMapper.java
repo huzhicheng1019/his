@@ -13,9 +13,9 @@ import java.util.List;
 public interface DbsqMapper {
     public List<Allot> dbcx(String nr);
 
-    public List<Allotxq> dbxqcx(@Param("id") Integer id, @Param("nr") String nr);
+    public List<Allotxq> dbxqcx(@Param("id") String id, @Param("nr") String nr);
 
-    public List<Allot> dbxx(Integer id);
+    public List<Allot> dbxx(String id);
 
-    public List<StoEntity> stocx(@Param("id") Integer id);
+    public List<StoEntity> stocx(@Param("id") String id);
 }

@@ -65,7 +65,7 @@ public class DbsqService {
         return map;
     }
 
-    public Map<String,Object> dbxqselect(int pageNo, int size,Integer id, String nr){
+    public Map<String,Object> dbxqselect(int pageNo, int size,String id, String nr){
         System.out.println(id);
         System.out.println(nr);
         Map<String,Object> map = new HashMap<>();
@@ -76,11 +76,18 @@ public class DbsqService {
         return map;
     }
 
-    public Map<String,Object> dbckxqcx(Integer id, String nr,Integer ckid){
+    public Map<String,Object> dbckxqcx(Integer id, String nr,Integer ckid,Integer ckdj){
         System.out.println(id);
         System.out.println(nr);
         Map<String,Object> map = new HashMap<>();
-        map.put("rows",cangkMapper.dbckxqcx(id,nr,ckid));
+        List<LibraryxqEntity> libraryxqEntityList=new ArrayList<>();
+        List<LibraryxqEntity> dbckxqcx = cangkMapper.dbckxqcx(id, nr, ckid ,ckdj);
+        for (LibraryxqEntity libraryxqEntity : dbckxqcx) {
+            if(libraryxqEntity.getKcs()>0){
+                libraryxqEntityList.add(libraryxqEntity);
+            }
+        }
+        map.put("rows",libraryxqEntityList);
         return map;
     }
 
@@ -95,14 +102,14 @@ public class DbsqService {
         }
     }
 
-    public Map<String,Object> dbcxid(Integer id){
+    public Map<String,Object> dbcxid(String id){
         Map<String,Object> map = new HashMap<>();
         map.put("db",dbsqMapper.dbxx(id).get(0));
         map.put("dbxq",dbsqMapper.dbxqcx(id, ""));
         return map;
     }
 
-    public String scxgpd(Integer id){
+    public String scxgpd(String id){
         List<StoEntity> stocx = dbsqMapper.stocx(id);
         if(stocx.size()>0){
             return "该调拨申请单已入库,不可删除或更改";
@@ -111,7 +118,7 @@ public class DbsqService {
         }
     }
 
-    public String dbdel(Integer id){
+    public String dbdel(String id){
         List<StoEntity> stocx = dbsqMapper.stocx(id);
         if(stocx.size()>0){
             return "该调拨申请单已入库,不可删除或更改";
@@ -125,7 +132,7 @@ public class DbsqService {
         }
     }
 
-    public Map<String,Object> shdb(Integer id){
+    public Map<String,Object> shdb(String id){
         Map<String,Object> map = new HashMap<>();
         //调拨详情数据
         List<Allotxq> dbxqcx = dbsqMapper.dbxqcx(id, "");

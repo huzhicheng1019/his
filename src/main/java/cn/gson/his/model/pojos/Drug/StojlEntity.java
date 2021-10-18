@@ -182,7 +182,7 @@ public class StojlEntity {
     }
 
     @Basic
-    @Column(name = "Shdw")
+    @Column(name = "SHDW")
     public String getShdw() {
         return shdw;
     }
@@ -190,6 +190,7 @@ public class StojlEntity {
     public void setShdw(String shdw) {
         this.shdw = shdw;
     }
+
 
     @Override
     public boolean equals(Object o) {

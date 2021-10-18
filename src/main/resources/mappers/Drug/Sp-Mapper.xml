@@ -19,10 +19,13 @@
         select a.*,e.EMP_NAME e_name from AUDIT_INFO a inner join EMPLOYEE e on a.spr=e.EMP_ID
         <where>
             <if test="why!=null and why!=''">
-                and a.APPROVAL _WHY=#{why}
+                and a.APPROVAL_WHY=#{why}
             </if>
             <if test="nr!=null and nr!=''">
                and a.SOURCE_ID like concat(concat('%',#{nr}),'%')
+            </if>
+            <if test="qssj!=null and jssj!=null">
+                and a.APPROVAL_DATE BETWEEN #{qssj} and #{jssj}
             </if>
         </where>
         order by APPROVAL_DATE desc

@@ -31,6 +31,7 @@
         <result column="SJPRICE" property="sjprice"></result>
         <result column="GE" property="ge"></result>
         <result column="QSKCS" property="qskcs"></result>
+        <result column="DW" property="dw"></result>
         <association property="library" javaType="cn.gson.his.model.pojos.Drug.LibraryInfoEntity">
             <id column="LIBRARY_ID" property="libraryId"></id>
             <result column="lname" property="libraryName"></result>
@@ -53,6 +54,10 @@
         </where>
     </select>
 
+    <select id="ckkcbjcx" resultMap="ckxqMap">
+        select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
+    </select>
+
     <select id="ckhscx" resultMap="ckxqMap">
         select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
         where l.LIBRARY_ID=#{id} and l.kcs!=0
@@ -62,6 +67,40 @@
         select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
         where l.LIBRARY_ID=#{id} and SYSDATE>=l.GQDATE and l.kcs!=0
     </select>
+
+
+    <select id="xhhscx" resultMap="ckxqMap">
+        select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
+        <where>
+            l.kcs!=0
+            <if test="nr!=null and nr!=''">
+                and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="xhgqcx" resultMap="ckxqMap">
+        select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
+        <where>
+            SYSDATE>=l.GQDATE and l.kcs!=0
+            <if test="nr!=null and nr!=''">
+                and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="xhlqcx" resultMap="ckxqMap">
+        select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
+        <where>
+            <![CDATA[l.gqdate<=ADD_MONTHS(SYSDATE,1) and l.gqdate>SYSDATE and l.kcs!=0]]>
+            <if test="nr!=null and nr!=''">
+                and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+
+    </select>
+
+
 
     <select id="cklqcx" resultMap="ckxqMap">
         select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
@@ -81,6 +120,9 @@
             </if>
             <if test="ckid!=null and ckid!=0">
                 and l.LIBRARY_ID!=#{ckid}
+            </if>
+            <if test="ckdj==1">
+                and l.gqdate>SYSDATE
             </if>
             <if test="nr!=null and nr!=''">
                 and PRODUCT_NAME like concat(concat('%',#{nr}),'%')
@@ -104,12 +146,15 @@
         <result column="SL" property="sl"></result>
         <result column="PH" property="ph"></result>
         <result column="SCDATE" property="scdate"></result>
-        <result column="STO_ID" property="stoId"></result>
+        <result column="GQDATE" property="gqdate"></result>
         <result column="BZ" property="bz"></result>
         <result column="GE" property="ge"></result>
         <result column="KSZT" property="kszt"></result>
         <result column="GESL" property="gesl"></result>
         <result column="SHDW" property="shdw"></result>
+        <association property="sto" javaType="cn.gson.his.model.pojos.Drug.StoEntity">
+            <id column="sid" property="stoId"></id>
+        </association>
         <association property="gys" javaType="cn.gson.his.model.pojos.Drug.GysEntity">
             <id column="gys_id" property="gysId"></id>
             <result column="g_name" property="gysName"></result>
@@ -117,7 +162,7 @@
     </resultMap>
 
     <select id="stojlcx" resultMap="stojlMap">
-        select s.*,g.gys_name g_name from stojl s left join gys g on s.gys_id=g.gys_id where STO_ID=#{id} and PRODUCT_ID=#{proid} and PRODUCT_FL=#{fl} and PH=#{ph}
+        select s.*,g.gys_name g_name,s.sto_id sid from stojl s left join gys g on s.gys_id=g.gys_id left join sto st on s.sto_id=st.sto_id where s.STO_ID=#{id} and PRODUCT_ID=#{proid} and PRODUCT_FL=#{fl} and PH=#{ph}
     </select>
 
     <select id="chucx" resultType="cn.gson.his.model.pojos.Drug.ChuEntity">
@@ -150,6 +195,6 @@
 
     <select id="yfcfcx" resultMap="ckxqMap">
         select l.*,g.gys_name g_name,lin.library_name lname from LIBRARYXQ l LEFT JOIN LIBRARY_INFO lin on l.library_id=lin.library_id left join gys g on l.gys_id=g.gys_id
-        where l.LIBRARY_ID=#{id} and l.PRODUCT_ID=#{pid} and l.PRODUCT_FL=#{fl}
+        where l.LIBRARY_ID=#{id} and l.PRODUCT_ID=#{pid} and l.PRODUCT_FL=#{fl} and l.GQDATE>=SYSDATE
     </select>
 </mapper>

@@ -12,7 +12,7 @@ public interface CangkMapper {
 
     public List<LibraryxqEntity> ckxqcx(@Param("id") Integer id,@Param("nr") String nr);
 
-    public List<LibraryxqEntity> dbckxqcx(@Param("id") Integer id,@Param("nr") String nr,@Param("ckid") Integer ckid);
+    public List<LibraryxqEntity> dbckxqcx(@Param("id") Integer id,@Param("nr") String nr,@Param("ckid") Integer ckid,@Param("ckdj") Integer ckdj);
 
     public List<LibraryInfoEntity> ckcxid(Integer id);
 
@@ -35,5 +35,13 @@ public interface CangkMapper {
     public List<LibraryxqEntity> cklqcx(@Param("id") Integer id);
 
     public List<LibraryxqEntity> ckhscx(@Param("id") Integer id);
+
+    public List<LibraryxqEntity> ckkcbjcx();
+
+    public List<LibraryxqEntity> xhgqcx(String nr);
+
+    public List<LibraryxqEntity> xhlqcx(String nr);
+
+    public List<LibraryxqEntity> xhhscx(String nr);
 
 }

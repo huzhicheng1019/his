@@ -22,9 +22,21 @@
         <where>
             a.fyly_fl=0
             <if test="nr!=null and nr!=''">
-                and PILLS_ID like concat(concat('%',#{nr}),'%')
+                and PILLS_ID = #{nr} or FYLY_ID = #{nr}
             </if>
         </where>
+    </select>
+
+    <!--根据分类以及来源编号查询发药单-->
+    <select id="fycxlyid" resultMap="yfMap">
+        SELECT a.*,e.emp_name e_name,l.library_name lname from PILLS a LEFT JOIN EMPLOYEE e ON a.fyr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID
+       where a.fyly_fl=#{fl} and a.fyly_id=#{id}
+    </select>
+
+    <!--根据分类以及来源编号查询今天是否发过该科室的药-->
+    <select id="cqyzfycxid" resultMap="yfMap">
+        SELECT a.*,e.emp_name e_name,l.library_name lname from PILLS a LEFT JOIN EMPLOYEE e ON a.fyr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID
+        where a.fyly_fl=#{fl} and a.fyly_id=#{id} and to_date(to_char(SYSDATE,'yyyy-mm-dd'),'yyyy-mm-dd')=to_date(to_char(a.PILLS_DATE,'yyyy-mm-dd'),'yyyy-mm-dd')
     </select>
 
     <resultMap id="yfxqMap" type="cn.gson.his.model.pojos.Drug.Pillsxq">
@@ -168,7 +180,7 @@
         select  * from   PRESCRIPTION P inner join DOCTORRECORD D  on P.RECORD_ID = D.RECORD_NO
         inner join CARD C2 on P.CARD_NO = C2.CARD_ID
         inner join PATIENTDATA P2 on P.PATIENT_NO = P2.PATIENT_NO
-        inner join EMPLOYEE E on e.EMP_ID = p.DOCTOR_NAME where P.PRES_NO = #{id}
+        inner join EMPLOYEE E on e.EMP_ID = p.DOCTOR_NAME where P.RECORD_ID = #{id}
     </select>
 
 

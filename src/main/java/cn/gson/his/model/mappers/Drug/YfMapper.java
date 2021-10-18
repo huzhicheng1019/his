@@ -17,6 +17,11 @@ import java.util.List;
 public interface YfMapper {
     public List<PillsEntity> yfcx(String nr);
 
+    //根据分类（fl）与来源编号(id)查询
+    public PillsEntity fycxlyid(@Param("fl") String fl,@Param("id") String id);
+
+    public PillsEntity cqyzfycxid(@Param("fl") String fl,@Param("id") String id);
+
     public List<Pillsxq> yfxqcx(@Param("id") String id, @Param("nr") String nr);
 
     public List<PrescriptionsEntity> cfxqcx(@Param("id") Integer id);

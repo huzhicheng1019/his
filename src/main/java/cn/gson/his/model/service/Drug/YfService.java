@@ -6,6 +6,7 @@ import cn.gson.his.model.mappers.Drug.TyMapper;
 import cn.gson.his.model.mappers.Drug.YfMapper;
 import cn.gson.his.model.pojos.Drug.*;
 import cn.gson.his.model.pojos.InHospital.DoctorEnjoinEntity;
+import cn.gson.his.model.pojos.InHospital.DoctorEnjoinsEntity;
 import cn.gson.his.model.pojos.Outpatient.PrescriptionEntity;
 import cn.gson.his.model.pojos.Outpatient.PrescriptionsEntity;
 import cn.gson.his.model.pojos.Power.Department;
@@ -70,36 +71,41 @@ public class YfService {
 
     public Map<String,Object> yfckselect(){
         Map<String,Object> map = new HashMap<>();
-        //分页查询
         map.put("yfck",cangkMapper.yfckcx());
         return map;
     }
 
     public Map<String,Object> yfcfxq(Integer id,Integer pid,String fl){
         Map<String,Object> map = new HashMap<>();
-        //分页查询
+
         map.put("yfcfxq",cangkMapper.yfcfcx(id, pid, fl));
         return map;
     }
 
-    public Map<String,Object> cfxq(Integer id){
+    //根据就诊号查询处方单以及详单
+    public Map<String,Object> cfxq(Integer id,String fl){
         PrescriptionEntity cfidcx = yfMapper.cfidcx(id);
-        System.out.println(cfidcx);
         String pd="bcz";
+        PillsEntity fycxlyid = yfMapper.fycxlyid(fl, String.valueOf(cfidcx.getRecordId().getRecordNo()));
+        System.out.println(cfidcx);
         if(cfidcx==null){
             pd="bcz";
         }else {
-            if(cfidcx.getPriveType().equals("1")){
-                pd="ok";
-            }else if(cfidcx.getPriveType().equals("0")){
-                pd="no";
+            if(fycxlyid==null){
+                if(cfidcx.getPriveType().equals("1")){
+                    pd="ok";
+                }else if(cfidcx.getPriveType().equals("0")){
+                    pd="no";
+                }
+            }else {
+                pd="yfy";
             }
         }
 
         Map<String,Object> map = new HashMap<>();
         //分页查询
         map.put("cf",cfidcx);
-        map.put("cfxq",yfMapper.cfxqcx(id));
+        map.put("cfxq",yfMapper.cfxqcx(cfidcx.getPresNo()));
         map.put("pd",pd);
         return map;
     }
@@ -180,14 +186,20 @@ public class YfService {
         return map;
     }
 
-    public Map<String,Object> lsyzselect(Integer id){
+    public Map<String,Object> lsyzselect(Integer id,String fl){
         Map<String,Object> map = new HashMap<>();
         DoctorEnjoinEntity lsyzcx = yfMapper.lsyzcx(id);
+        String lyid=id.toString();
+        PillsEntity fycxlyid = yfMapper.fycxlyid(fl, lyid);
         String pd="bcz";
         if(lsyzcx==null){
             pd="bcz";
         }else {
-            pd="ok";
+            if(fycxlyid==null){
+                pd="ok";
+            }else {
+                pd = "yfy";
+            }
         }
         map.put("rows",yfMapper.lsyzcx(id));
         map.put("pd",pd);
@@ -201,9 +213,18 @@ public class YfService {
         return map;
     }
 
-    public Map<String,Object> yzcx(Integer id){
+    public Map<String,Object> yzcx(Integer id,String fl){
         Map<String,Object> map = new HashMap<>();
-        map.put("rows",yfMapper.yzcx(id));
+        String lyid=id.toString();
+        PillsEntity cqyzfycxid = yfMapper.cqyzfycxid(fl, lyid);
+        List<DoctorEnjoinsEntity> yzcx = new ArrayList<>();
+        String pd="no";
+        if(cqyzfycxid==null){
+            pd="ok";
+            yzcx = yfMapper.yzcx(id);
+        }
+        map.put("rows",yzcx);
+        map.put("pd",pd);
         return map;
     }
 

@@ -27,54 +27,49 @@ public class CangkController {
     @Autowired
     CangkService cangkService;
 
+    //仓库查询
     @RequestMapping("ckgl")
     public Map<String,Object> getck(Integer pageNo, Integer size,String nr){
-        System.out.println("nr:"+nr);
-        Map<String, Object> stringObjectMap = cangkService.ckselect(pageNo,size,nr);
-        System.out.println(stringObjectMap.get("total"));
-        return stringObjectMap;
+        return cangkService.ckselect(pageNo,size,nr);
     }
 
+    //仓库详情查询 pageNo起始页，size页大小，id为仓库编号，nr为模糊查询条件（药品名称或耗材名称）
     @RequestMapping("ckxq")
     public Map<String,Object> getckxq(Integer pageNo, Integer size,Integer id,String nr){
-        System.out.println(id);
-        System.out.println(nr);
-        Map<String, Object> stringObjectMap = cangkService.ckxqselect(pageNo,size,id,nr);
-        System.out.println(stringObjectMap.get("total"));
-        return stringObjectMap;
+        return cangkService.ckxqselect(pageNo,size,id,nr);
     }
 
+    //仓库信息查询，用于仓库信息修改界面
     @RequestMapping("ckxx")
     public Map<String,Object> getckxx(Integer id, String nr){
-        Map<String, Object> stringObjectMap = cangkService.ckxxselect(id,nr);
-        System.out.println(stringObjectMap.get("total"));
-        return stringObjectMap;
+        return cangkService.ckxxselect(id,nr);
     }
 
+    //药品查询
     @RequestMapping("ypcx")
     public Map<String,Object> getYp(String nr1){
-        System.out.println(nr1);
+        //药品实体类，从前台接收模糊查询条件赋值到drugName（药品名称）
         DrugEntity drugEntity= new DrugEntity();
         drugEntity.setDrugName(nr1);
-        Map<String, Object> stringObjectMap = cangkService.ypselect(drugEntity);
-        return stringObjectMap;
+        //查询药品表
+        return cangkService.ypselect(drugEntity);
     }
 
+    //耗材查询
     @RequestMapping("concx")
     public Map<String,Object> getcon(String nr2){
-        System.out.println(nr2);
+        //耗材实体类，从前台接收模糊查询条件赋值到conName（耗材名称）
         ConEntity conEntity = new ConEntity();
         conEntity.setConName(nr2);
-        Map<String, Object> stringObjectMap = cangkService.conselect(conEntity);
-        return stringObjectMap;
+        //查询耗材表
+        return cangkService.conselect(conEntity);
     }
-
+    // 删除判断(详情记录的删除)
     @RequestMapping("del-pd")
     public String delyp(@RequestBody String libraryxq){
-        System.out.println(libraryxq);
-        LibraryxqEntity libraryxqEntity = JSONObject.parseObject(libraryxq, LibraryxqEntity.class);
-        System.out.println(libraryxqEntity.getProductId());
         try {
+            //将字符串转为实体类，判断是否有入库与出库记录
+            LibraryxqEntity libraryxqEntity = JSONObject.parseObject(libraryxq, LibraryxqEntity.class);
             int stosize = cangkService.stojlcx(libraryxqEntity);
             int chusize = cangkService.chujlcx(libraryxqEntity);
             if(stosize>0 || chusize>0){
@@ -88,13 +83,11 @@ public class CangkController {
         }
     }
 
+    //新增或修改仓库
     @RequestMapping("add-ck")
     public String ckxz(@RequestBody Map<String,Object> map){
-        System.out.println("开始：");
         ObjectMapper mapper = new ObjectMapper();
-        System.out.println(1);
         LibraryInfoEntity library = mapper.convertValue(map.get("library"), LibraryInfoEntity.class);
-        System.out.println(2);
         List<LibraryxqEntity> xqsj=new ArrayList<>();
         List<LibraryxqEntity> delxq=new ArrayList<>();
         List<Object> list = (List<Object>)map.get("xqsj");
@@ -120,6 +113,7 @@ public class CangkController {
         }
     }
 
+    //仓库删除
     @RequestMapping("del-ck")
     public String delck(Integer id){
         System.out.println(id);
