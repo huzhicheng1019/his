@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Power.HomeworkMapper">
+
+    <resultMap id="hospital" type="cn.gson.his.model.pojos.Power.vo.echarts">
+        <id column="PRICE" property="value"/>
+        <result column="PRE_TEXT" property="name"/>
+    </resultMap>
+    <select id="allHospital" resultMap="hospital">
+        SELECT sum(PRES_PRICE) AS PRICE,PRE_TEXT FROM PREPAY_DETAILS WHERE TO_CHAR(PRES_DATE,'YYYY-MM')=TO_CHAR(SYSDATE,'YYYY-MM') GROUP BY PRE_TEXT
+    </select>
+</mapper>

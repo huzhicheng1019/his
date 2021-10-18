@@ -126,19 +126,7 @@ public class ScheduController {
         Integer shiId = Integer.parseInt(o.get("shiId").toString());
         Integer scheId = Integer.parseInt(o.get("scheId").toString());
         //System.out.println("员工"+emp+",班次id"+shiId+",日期id"+scheId);
-        boolean is=true;
-        List<ScheEmp> list=new ArrayList<>();
-        if(emp.isEmpty()){
-            is=false;
-            ScheEmp scheEmp1=add(-1,shiId,scheId);
-            list.add(scheEmp1);
-        }else{
-            for (int i=0;i<emp.size();i++){
-                ScheEmp scheEmp1=add(emp.get(i),shiId,scheId);
-                list.add(scheEmp1);
-            }
-        }
-        int p = service.addScheEmp(is,list);
+        int p = service.addScheEmp(emp,shiId,scheId);
             ElMessage elm = new ElMessage();
             if (p > 0) {
                 elm.setMessage("已排班");
@@ -150,20 +138,6 @@ public class ScheduController {
     @RequestMapping("/allORaddSchedu")
     public List<Schedu> allORaddSchedu(Integer date) throws ParseException {
         return service.allORaddSchedu(date);
-    }
-
-    public ScheEmp add(Integer empId,Integer shiId,Integer scheId){
-        Employee employee=new Employee();
-        employee.setEmpId(empId);
-        Shift shift=new Shift();
-        shift.setShiId(shiId);
-        Schedu schedu=new Schedu();
-        schedu.setScheId(scheId);
-        ScheEmp scheEmp1=new ScheEmp();
-        scheEmp1.setEmp(employee);
-        scheEmp1.setShift(shift);
-        scheEmp1.setScheduByScheId(schedu);
-        return scheEmp1;
     }
 
     @RequestMapping("/getdepts")

@@ -19,12 +19,11 @@ public class TitleController {
 
     /**
      * 根据部门id查询该部门的职称
-     * @param id
      * @return
      */
-    @RequestMapping("/allDeptIdTitle")
-    public List<Title> allDeptIdTitle(@RequestParam("id") Integer id){
-        return service.allDeptIdTitle(id);
+    @RequestMapping("/allTit")
+    public List<Title> allTit(){
+        return service.allTit();
     }
 
     @RequestMapping("/allTitByEmp")

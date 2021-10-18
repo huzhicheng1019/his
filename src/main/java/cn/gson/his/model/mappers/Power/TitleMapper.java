@@ -11,4 +11,6 @@ import java.util.List;
 public interface TitleMapper {
 
     List<Titvo> allTitByEmp(@Param("deptId") Integer deptId,@Param("deparId") Integer deparId);
+
+    List<Title> allTit();
 }

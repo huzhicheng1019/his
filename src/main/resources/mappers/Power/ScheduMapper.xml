@@ -216,4 +216,14 @@
         select * from department where depa_dept=#{deptId}
     </select>
 
+    <select id="allEmpById" resultType="_int">
+        SELECT EMP_ID FROM EMPLOYEE
+            <where>
+                EMP_ID in
+                    <foreach collection="funs" item="p" index="i" separator="," open="(" close=")">
+                        #{p}
+                    </foreach>
+            </where>
+    </select>
+
 </mapper>

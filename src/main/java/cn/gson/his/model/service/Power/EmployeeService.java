@@ -85,8 +85,8 @@ public class EmployeeService {
      * @param state
      * @return
      */
-    public int quitEmp(JSONArray choose,Integer state) {
-        int p=empMapper.quitEmp(state,choose);
+    public int quitEmp(JSONArray choose) {
+        int p=empMapper.quitEmp(choose);
         return p;
     }
 

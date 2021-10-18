@@ -39,4 +39,6 @@ public interface ScheduMapper {
     List<Dept> getdepts();
 
     List<Department> getdepar(Integer deptId);
+
+    List<Integer> allEmpById(List<Integer> funs);
 }
