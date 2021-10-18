@@ -30,6 +30,7 @@ public class OperationApplyMZController {
     //填写手术结果
     @RequestMapping("upApplyJG")
     public int upApplyJG(int opsLs,String indication,String regMark){
+        System.out.println(regMark);
         return operationApplyMZService.upApplyJG(opsLs,indication,regMark);
     };
 

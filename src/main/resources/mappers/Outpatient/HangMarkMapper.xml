@@ -142,4 +142,19 @@
         </where>
         order by H.HANG_NO desc
     </select>
+    <select id="seleHang" resultMap="hangMark">
+        select * from HANGMARK h inner join DEPARTMENT d on  h.HANG_ROOM = d.DEPA_ID
+                                 inner join EMPLOYEE e on h.DOCTOR_NAME = e.EMP_ID
+                                 inner join EMPLOYEE e1 on h.REGISTRANT_NAME = e1.EMP_ID
+                                 inner join  PATIENTDATA P on h.PATIENT_NO = P.PATIENT_NO
+                                 inner join  HANGTYPE H2 on h.HANGTYPE_NO = H2.HANGTYPE_NO
+        <where>
+            <if test="hangDate != null and hangDate != ''">
+                h.HANG_DATE between to_date(#{hangDate},'yyyy-MM-dd') and to_date(#{hangDate1},'yyyy-MM-dd')
+            </if>
+            <if test="hang != null and hang !='' ">
+                and (H2.HANGTYPE_NAME like '%${hang}%' or D.DEPA_NAME like '%${hang}%' or  E.EMP_NAME like '%${hang}%' or P.PATIENT_NAME like '%${hang}%')
+            </if>
+        </where>
+    </select>
 </mapper>

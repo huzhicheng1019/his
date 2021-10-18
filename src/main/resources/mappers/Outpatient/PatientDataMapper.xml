@@ -62,7 +62,7 @@
                  PATIENT_SEX = #{patientSex} and
             </if>
             <if test="patientIdentity !=''">
-                 PATIENT_IDENTITY = #{patientIdentity} or
+                 PATIENT_IDENTITY = #{patientIdentity}
             </if>
             <if test="patientAge != null"> -- 年龄
                  PATIENT_AGE = #{patientAge} or

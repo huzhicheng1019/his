@@ -49,7 +49,7 @@
     </update>
 <!--    //填写手术结果-->
     <update id="upApplyJG">
-        UPDATE  OPERATION_APPLYS SET OPS_IS = #{opsLs},OPS_INDICATION = #{indication} WHERE APP_ID = (SELECT APP_ID FROM OPERATION_APPLY WHERE REG_MARK = #{RegMark})
+        UPDATE  OPERATION_APPLYS SET OPS_IS = #{opsLs},OPS_INDICATION = #{indication} WHERE APP_ID = #{regMark}
     </update>
 
 </mapper>
