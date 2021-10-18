@@ -32,11 +32,19 @@
     </resultMap>
 <!--查询所有项目-->
 <select id="selectTest" resultMap="allTest">
-    select * FROM TESTS T LEFT JOIN TEST_TYPE  T1 on T.TYPE_ID = T1.TYPE_ID LEFT JOIN TEST_DETAILS T2 ON T.TEST_ID = T2.TEXT_ID
+    select * FROM TESTS T LEFT JOIN TEST_TYPE  T1 on T.TYPE_ID = T1.TYPE_ID
+    LEFT JOIN TEST_DETAILS T2 ON T.TEST_ID = T2.TEXT_ID
     <where>
         <if test="typeName !=''">
                 T1.TYPE_NAME = #{typeName}
         </if>
+        <if test="jycx !='' and jycx != null ">
+            and  (t.test_name like '%${jycx}%' or t1.type_name like '%${jycx}%' or t.test_id like '%${jycx}%'
+            or t2.Details_price like '%${jycx}%' or t2.Details_shuoming like '%${jycx}%')
+        </if>
     </where>
 </select>
+
+
+
 </mapper>
