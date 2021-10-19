@@ -13,7 +13,7 @@ public class TextsService {
     @Autowired
     TextsMappper textsMappper;
 
-    public List<TestsEntity> selectTest(String typeName){
-        return textsMappper.selectTest(typeName);
+    public List<TestsEntity> selectTest(String typeName,String jycx){
+        return textsMappper.selectTest(typeName,jycx);
     }
 }

@@ -78,7 +78,7 @@ public class HangMarkController {
     @RequestMapping(value = "HangCard")
     public List<CardEntity> allCard(@RequestBody String patientNo){
         //用病人编号查询有没有就诊卡
-        patientNo = patientNo.substring(0, patientNo.length()-1);
+            patientNo = patientNo.substring(0, patientNo.length()-1);
         CardEntity cardEntity = new CardEntity();
         cardEntity.setPati(new PatientdataEntity());
         cardEntity.getPati().setPatientNo(Integer.valueOf(patientNo));
@@ -160,10 +160,13 @@ public class HangMarkController {
     //单独查询挂号记录
     @RequestMapping("DHangMark")
     public List<HangmarkEntity> DHangMark(@RequestBody Map<String,Object> datas){
-        System.out.println("前端------------"+ datas.get("value"));
-        HangmarkEntity hangmarkEntity = new HangmarkEntity();
-        List<HangmarkEntity> hangMark = hms.seleHangMark(hangmarkEntity);
-        return hms.seleHangMark(hangmarkEntity);
+
+        String date  =  (String)datas.get("value");
+        String date1 = (String)datas.get("value1");
+        String hang  =  (String)datas.get("input");
+        return hms.seleHang(date,date1,hang);
+
+
     }
     //就诊里面的查询方法
     @RequestMapping("see_a_doctor")

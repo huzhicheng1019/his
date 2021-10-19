@@ -11,7 +11,6 @@ import java.util.Objects;
 public class Title {
     private Integer titId;//id
     private String titName;//职称
-    private Dept deptByTitDept;//部门
 
     @Id
     @GeneratedValue(generator = "SEQ")
@@ -46,16 +45,6 @@ public class Title {
     @Override
     public int hashCode() {
         return Objects.hash(titId, titName);
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "TIT_DEPT", referencedColumnName = "DEPT_ID")
-    public Dept getDeptByTitDept() {
-        return deptByTitDept;
-    }
-
-    public void setDeptByTitDept(Dept deptByTitDept) {
-        this.deptByTitDept = deptByTitDept;
     }
 
 }

@@ -13,7 +13,10 @@ public class CardrecordEntity {
     private Timestamp recordDate;
     private String recordName;
     private String recordWay;
-    private Integer collectPrice;
+    private String collectPrice;
+    private String recordCause;
+
+
 
     private CardEntity card;
 
@@ -90,14 +93,22 @@ public class CardrecordEntity {
 
     @Basic
     @Column(name = "COLLECT_PRICE")
-    public Integer getCollectPrice() {
+    public String getCollectPrice() {
         return collectPrice;
     }
 
-    public void setCollectPrice(Integer collectPrice) {
+    public void setCollectPrice(String collectPrice) {
         this.collectPrice = collectPrice;
     }
+    @Basic
+    @Column(name = "RECORD_CAUSE")
+    public String getRecordCause() {
+        return recordCause;
+    }
 
+    public void setRecordCause(String recordCause) {
+        this.recordCause = recordCause;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,6 +1,7 @@
 package cn.gson.his.model.mappers.InHospital;
 
 import cn.gson.his.model.pojos.Drug.DrugEntity;
+import cn.gson.his.model.pojos.InHospital.DoctorCheckEntity;
 import cn.gson.his.model.pojos.InHospital.DoctorExecuteEntity;
 import cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity;
 import org.apache.ibatis.annotations.Mapper;
@@ -15,11 +16,11 @@ public interface HospitalRegisterMapper {
     public int insertReg(HospitalRegisterEntity hospitalRegisterEntity);
 
     //查询所有住院登记表
-    public List<HospitalRegisterEntity> selReg(String text);
+    public List<HospitalRegisterEntity> selReg(@Param("depaId")String depaId,@Param("beginTime")String beginTime,@Param("endTime")String endTime,@Param("content")String content);
 
 
     //查询所有住院登记表 和 床位记录表
-     public List<HospitalRegisterEntity> selRegBeds(HospitalRegisterEntity hospitalRegisterEntity);
+     public List<HospitalRegisterEntity> selRegBeds(@Param("depaId")String depaId,@Param("beginTime")String beginTime,@Param("endTime")String endTime,@Param("content")String content);
 
 
     /**
@@ -46,4 +47,12 @@ public interface HospitalRegisterMapper {
     //根据身份证查病人是否已经住院
     public HospitalRegisterEntity selIdentity(String patientIdentity);
 
+    //查询所有出院申请
+    public List<HospitalRegisterEntity> leaSel(@Param("depaId")String depaId,@Param("beginTime")String beginTime,@Param("endTime")String endTime,@Param("content")String content);
+
+    //新增出院登记
+    public int insertCheck(DoctorCheckEntity doctorCheckEntity);
+
+    //根据住院号修改住院登记表状态
+    public int updateRegister(String regMark);
 }

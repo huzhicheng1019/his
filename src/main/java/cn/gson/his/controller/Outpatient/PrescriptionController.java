@@ -31,7 +31,7 @@ public class PrescriptionController{
     @RequestMapping("prescr")
     public int addPrescr(@RequestBody Map<String,Object> data){
 
-       try {
+//       try {
             //处方
             LinkedHashMap prescription = (LinkedHashMap)data.get("prescription");
             String json1 = JSONObject.toJSONString(prescription);
@@ -54,10 +54,10 @@ public class PrescriptionController{
             doctorr.setRecordNo(prescriptionEntity.getRecordId().getRecordNo());
             prescriptionService.addPres(prescriptionEntity,prescriptionsEntities,doctorr);
             return 1;
-        }catch (Exception e){
-            System.out.println(e.fillInStackTrace());
-            return 2;
-        }
+//        }catch (Exception e){
+//            System.out.println(e.fillInStackTrace());
+//            return 2;
+//        }
 
 
     }
@@ -94,6 +94,22 @@ public class PrescriptionController{
         String id = (String)data.get("presto");
         return prescriptionService.allSy(id);
     }
-
+    //查询所有要缴费的单
+    @RequestMapping("jy")
+    public List<SyEntity> allJc(@RequestBody Map<String,Object> data){
+        String id = (String)data.get("presto");
+        return prescriptionService.allJC(id);
+    }
+    //查询患者要缴费的手术
+    @RequestMapping("ss")
+    public List<SyEntity> allOperall(@RequestBody Map<String,Object> data){
+        String id = (String)data.get("presto");
+        return prescriptionService.allOperall(id);
+    }
+    //查询这个患者所有的化验检查
+    @RequestMapping("sllSYEexamineChange")
+    public List<SyEntity>sllSYEexamineChange(String record_id){
+        return prescriptionService.sllSYEexamineChange(record_id);
+    }
 
 }

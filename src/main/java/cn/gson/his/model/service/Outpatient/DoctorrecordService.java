@@ -67,4 +67,9 @@ public class DoctorrecordService {
     public void upDoctorrecord(DoctorrecordEntity doctorre){
         dm.upDoctorrecord(doctorre);
     }
+
+    //根据就诊号查询就诊记录里面的患者信息
+    public List<DoctorrecordEntity> allPatien(String recordNo){
+        return dm.allPatien(recordNo);
+    }
 }

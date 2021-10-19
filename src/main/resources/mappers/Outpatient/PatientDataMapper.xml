@@ -55,28 +55,26 @@
     <select id="selePatient" resultMap="Patient">
         select * from PATIENTDATA
         <where>
-
-            1=1
             <if test="patientInsu !=''">
-                or PATIENT_INSU = #{patientInsu}
+                PATIENT_INSU = #{patientInsu} or
             </if>
             <if test="patientSex !=''"> --性别
-                or PATIENT_SEX = #{patientSex}
+                 PATIENT_SEX = #{patientSex} and
             </if>
             <if test="patientIdentity !=''">
-                or PATIENT_IDENTITY = #{patientIdentity}
+                 PATIENT_IDENTITY = #{patientIdentity}
             </if>
             <if test="patientAge != null"> -- 年龄
-                 PATIENT_AGE = #{patientAge}
+                 PATIENT_AGE = #{patientAge} or
             </if>
             <if test="patientName !=''">
-                or PATIENT_NAME  like '%${patientName}%'
+                 PATIENT_NAME  like '%${patientName}%'or
             </if>
             <if test="patientPhone !=''">
-                or PATIENT_PHONE  like '%${patientPhone}%'
+                 PATIENT_PHONE  like '%${patientPhone}%'or
             </if>
             <if test="patientPirth !=''">
-                or PATIENT_PIRTH  like '%${patientPirth}%'
+                 PATIENT_PIRTH  like '%${patientPirth}%'
             </if>
         </where>
         order by PATIENT_NO desc

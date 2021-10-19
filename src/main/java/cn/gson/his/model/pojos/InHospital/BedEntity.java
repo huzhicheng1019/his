@@ -13,8 +13,7 @@ public class BedEntity {
     private Integer roomId; //所属科室编号
     private Integer bedIs; //床位状态
 
-
-
+    private String bedNames;//床位名称
 
     //病房对象
     private RoomEntity room;

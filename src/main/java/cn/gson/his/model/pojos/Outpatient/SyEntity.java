@@ -5,6 +5,15 @@ public class SyEntity {
     private String name;
     private int count;
     private int price;
+    private  int state;
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
 
     public SyEntity() {
 

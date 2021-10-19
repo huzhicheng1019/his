@@ -22,14 +22,13 @@ public class TitleService {
 
     /**
      * 根据部门id查询该部门的职称
-     * @param id
      * @return
      */
-    public List<Title> allDeptIdTitle(Integer id){
-        return dao.findAllByDeptByTitDept_DeptId(id);
+    public List<Title> allTit(){
+        return mapper.allTit();
     }
 
-    public List<Titvo> allTitByEmp(Integer deparId){
-        return mapper.allTitByEmp(deparId);
+    public List<Titvo> allTitByEmp(Integer deptId,Integer deparId){
+        return mapper.allTitByEmp(deptId,deparId);
     }
 }

@@ -38,11 +38,11 @@
         </select>
     <!--查询住院部的护士-->
     <select id="selNurse" resultMap="EmpMap">
-            select * from employee e left join dept d on e.emp_dept = d.dept_id
-            left join department de on e.emp_depar = de.depa_id
-            left join title t on e.emp_tit = t.tit_id
-
-            where e.emp_dept = 55  and e.emp_tit = 2 and e.emp_depar = #{depaId}
+               SELECT * FROM DEPARTMENT d right JOIN EMPLOYEE e on d.DEPA_ID=e.EMP_DEPAR
+                LEFT JOIN SCHE_EMP m on e.EMP_ID=m.EMP_ID
+                LEFT JOIN SCHEDU s on m.SCHE_ID=s.SCHE_ID
+                LEFT JOIN title t on e.emp_tit = t.tit_id
+                WHERE TO_DATE(s.SCHE_DATE,'yyyy/mm/dd')=TO_DATE(TO_CHAR(sysdate,'yyyy/mm/dd'),'yyyy/mm/dd') and e.emp_depar = #{depaId} AND T.TIT_ID = 2
 
         </select>
     <resultMap id="EmpAll" type="cn.gson.his.model.pojos.Power.Employee">
@@ -105,11 +105,12 @@
                 and (e.EMP_ID like '%${fuzzy}%' or e.EMP_NAME like '%${fuzzy}%' or e.EMP_PHONE like '%${fuzzy}%' or e.EMP_CARD like '%${fuzzy}%' or to_char(e.EMP_INDUCTION,'yyyy-mm-dd HH24:mi:ss:ff') like '%${fuzzy}%' or to_char(e.EMP_DEPARTURE,'yyyy-mm-dd HH24:mi:ss:ff') like '%${fuzzy}%' or d.DEPT_NAME like '%${fuzzy}%' or a.DEPA_NAME like '%${fuzzy}%' or t.TIT_NAME like '%${fuzzy}%' or u.USER_ACCOUNT like '%${fuzzy}%')
             </if>
         </where>
+        order by e.EMP_INDUCTION,e.EMP_DEPARTURE
     </select>
 
 
     <update id="quitEmp" parameterType="com.alibaba.fastjson.JSONArray">
-        update employee set EMP_STATE=#{state}
+        update employee set EMP_STATE=1,emp_departure=sysdate
         <where>
             EMP_ID in
             <foreach collection="choose" item="p" open="(" index="i" separator="," close=")">
@@ -119,7 +120,7 @@
     </update>
 
     <select id="allEmpRole" resultType="_int">
-        SELECT r.ROLE_ID FROM ROLE_INFO r INNER JOIN EMP_ROLE e on r.ROLE_ID=e.ROLE_ID where e.user_id=#{userId} and r.ROLE_PARENT is not null
+        SELECT r.ROLE_ID FROM ROLE_INFO r INNER JOIN EMP_ROLE e on r.ROLE_ID=e.ROLE_ID where e.user_id=#{userId}
     </select>
 
     <resultMap id="Role" type="cn.gson.his.model.pojos.Power.RoleInfo">

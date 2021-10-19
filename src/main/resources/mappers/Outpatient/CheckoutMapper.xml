@@ -10,10 +10,17 @@
     <result property="checkoutPrice" column="CHECKOUT_PRICE"></result>
     <result property="checkoutState" column="CHECKOUT_STATE"></result>
 </resultMap>
+    <resultMap id="ExamineCheckout" type="cn.gson.his.model.pojos.Outpatient.SeleExamineCheckoutEntity">
+        <id property="id" column="ID"></id>
+        <result property="result" column="RESULT"/>
+        <result property="show" column="SHOW"/>
+        <result property="name" column="NAME"/>
+        <result property="typtname" column="TYPTNAME"/>
+    </resultMap>
 <!--    新增化验-->
     <insert id="addCheck">
         insert into CHECKOUT values (seq.nextval,#{checkoutId},#{checkoutCribe},#{checkoutPrice},#{checkoutState})
-        <selectKey order="AFTER" keyColumn="checkoutNo" resultType="_int">
+        <selectKey order="AFTER" keyProperty="checkoutNo" resultType="_int">
             select seq.currval from dual
         </selectKey>
     </insert>
@@ -22,8 +29,22 @@
         select * from  CHECKOUT
         where CHECKOUT_ID = #{checkoutId}
     </select>
+
 <!--    修改化验单收费状态-->
     <update id="upCheck">
-        update  CHECKOUT set EXAMINE_STATE = #{checkoutState}  where CHECKOUT_ID = #{checkoutId} and  EXAMINE_STATE = 0
+        update  CHECKOUT set CHECKOUT_STATE = #{checkoutState}  where CHECKOUT_ID = #{checkoutId} and  CHECKOUT_STATE = 0
     </update>
+    <select id="seleExamineCheckout" resultMap="ExamineCheckout">
+        SELECT * FROM (SELECT C2.CHECKOUT_ID as ID,t.RESULT as RESULT,t.RESULT_SHOW as show,C.CHECKOUT_RESULT  as name,T2.TYPE_NAME as TYPTNAME FROM TEST_RESULT  T
+                       INNER JOIN CHANGEPART C ON T.CHANGEPART_NO = C.CHANGEPART_NO
+                       INNER JOIN CHECKOUT C2 ON C.CHECKOUT_NO = C2.CHECKOUT_NO
+                       INNER JOIN TESTS T1 ON C.CHANGETEST_NO = T1.TEST_ID
+                       LEFT JOIN TEST_TYPE T2 ON T1.TYPE_ID = T2.TYPE_ID
+                       union all
+                       SELECT E.CHECKOUT_ID as id, t.RESULT as RESULT,t.RESULT_SHOW as show,E.EXAMINE_METHOD as name,T2.TYPE_NAME as TYPTNAME FROM TEST_RESULT  T
+                       INNER JOIN EXAMINE E  ON T.CHANGEPART_NO = E.EXAMINE_NO
+                       INNER JOIN TESTS T1 ON E.CHECKLIST_NO = T1.TEST_ID
+                       LEFT JOIN TEST_TYPE T2 ON T1.TYPE_ID = T2.TYPE_ID
+                      )res WHERE  ID = #{ID}
+    </select>
 </mapper>

@@ -28,11 +28,17 @@ public interface ScheduMapper {
 
     List<Schedu> allScheEmp(Integer date);
 
-    List<Integer> allScheByempId(@Param("deparId") Integer deparId,@Param("scheId") Integer scheId,@Param("shiId") Integer shiId);
+    List<Integer> allScheByempId(@Param("deptId") Integer deptId,@Param("deparId") Integer deparId,@Param("scheId") Integer scheId,@Param("shiId") Integer shiId);
 
     int addScheEmp(List<ScheEmp> scheEmps);
 
     int delScheEmp(@Param("shiId") Integer shiId,@Param("scheId") Integer scheId);
 
     int addSchedu(List<Schedu> list);
+
+    List<Dept> getdepts();
+
+    List<Department> getdepar(Integer deptId);
+
+    List<Integer> allEmpById(List<Integer> funs);
 }

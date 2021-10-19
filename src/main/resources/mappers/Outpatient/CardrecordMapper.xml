@@ -10,6 +10,7 @@
         <result column="RECORD_NAME" property="recordName"/>
         <result column="RECORD_WAY" property="recordWay"/>
         <result column="COLLECT_PRICE" property="collectPrice"/>
+        <result column="RECORD_CAUSE" property="recordCause"/>
 <!--就诊卡充值记录里面的就诊卡信息多对一-->
         <association property="card" javaType="cn.gson.his.model.pojos.Outpatient.CardEntity">
             <id column="CARD_ID" property="cardId"/>
@@ -23,7 +24,7 @@
     </resultMap>
 <!--    充值记录新增-->
     <insert id="addCardecord">
-        insert into CARDRECORD values (seq.nextval,#{cardId},#{recordPrice},#{recordDate},#{recordName},#{recordWay},#{collectPrice})
+        insert into CARDRECORD values (seq.nextval,#{cardId},#{recordPrice},#{recordDate},#{recordName},#{recordWay},#{collectPrice},#{recordCause})
     </insert>
 <!--  充值记录模糊查询，充值时间查询  -->
     <select id="allCardRecord" resultMap="CardRecor">
@@ -32,8 +33,8 @@
             <if test="card.cardNo != ''">
                 c.CARD_NO like '%${card.cardNo}%'
             </if>
-            <if test="recordDate != null    ">
-                or RECORD_DATE = #{recordDate}
+            <if test="recordWay !=''">
+                R.RECORD_WAY = #{recordWay}
             </if>
         </where>
         order by RECORD_DATE  desc

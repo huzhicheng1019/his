@@ -8,11 +8,60 @@
         <result property="nowBed" column="now_bed"></result>
         <result property="regMark" column="reg_mark"></result>
         <result property="excDate" column="exc_date"></result>
+        <!--科室-->
+        <association property="depa" javaType="cn.gson.his.model.pojos.Power.Department">
+            <id property="depaId" column="depa_id"></id>
+            <result property="depaName" column="depa_name"></result>
+        </association>
+        <!--病床-->
+        <association property="bed" javaType="cn.gson.his.model.pojos.InHospital.BedEntity">
+            <id property="bedId" column="bed_id"></id>
+            <result property="bedName" column="bed_name"></result>
+            <result property="bedNames" column="bed_names"></result>
+            <result property="roomId" column="room_id"></result>
+            <result property="bedIs" column="bed_is"></result>
+        </association>
+        <!--住院登记信息-->
+        <association property="hospitalRegister" javaType="cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity">
+            <id property="regId" column="reg_id"></id>
+            <result property="regMark" column="reg_mark"></result>
+            <result property="regDate" column="reg_date"></result>
+            <result property="patientNo" column="patient_no"></result>
+            <result property="regName" column="reg_name"></result>
+            <result property="depaId" column="depa_id"></result>
+            <result property="doctorId" column="doctor_id"></result>
+            <result property="doctorName" column="doctor_name"></result>
+            <result property="regIs" column="reg_is"></result>
+            <result property="diagnoseResult" column="diagnose_result"></result>
+        </association>
     </resultMap>
 
     <!--新增床位调换记录-->
     <insert id="insertEx">
         insert into bed_exchange values (seq.nextval,#{formerBer},#{nowBed},#{regMark},#{excDate})
     </insert>
+
+    <!--查询床位调换记录-->
+    <select id="selBedExchange" resultMap="ExMap">
+        select b1.bed_id as bed_ids ,b1.bed_name as bed_names,d.*, b.*,ex.*,h.* from bed_exchange ex left join hospital_register h on ex.reg_mark = h.reg_mark
+        left join department d on h.depa_id = d.depa_id
+        inner join bed b on ex.former_ber = b.bed_id
+        inner join bed b1 on ex.now_bed = b1.bed_id
+
+        <where>
+            1=1
+            <if test="depaId != '' and depaId != null and depaId != 0 " >
+                and h.depa_id= #{depaId}
+            </if>
+            <if test="beginTime != '' and beginTime != null and endTime != '' and endTime != null">
+                and (to_char(ex.exc_date,'yyyy-mm-dd') between #{beginTime} and  #{endTime})
+            </if>
+            <if test="content != '' ">
+                and  (h.reg_mark like '%${content}%' or h.reg_name like '%${content}%'
+                or b1.bed_name like '%${content}%' or b.bed_name like '%${content}%' )
+            </if>
+             order by ex.exc_date desc
+        </where>
+    </select>
 
 </mapper>

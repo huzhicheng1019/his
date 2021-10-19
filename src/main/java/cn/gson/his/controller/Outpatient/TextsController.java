@@ -15,7 +15,7 @@ public class TextsController {
     @Autowired TextsService textsService;
     //查询所有检查检验
     @RequestMapping("txets")
-    public List<TestsEntity> selectTest(String typeName){
-        return textsService.selectTest(typeName);
+    public List<TestsEntity> selectTest(String typeName,String jycx){
+        return textsService.selectTest(typeName,jycx);
     }
 }

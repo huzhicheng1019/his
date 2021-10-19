@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @CrossOrigin
 @RequestMapping("/hzc")
 @RestController
@@ -23,4 +25,12 @@ public class BedExchangeController {
         return bedExchangeService.insertEx(bedExchangeEntity);
 
     }
+
+    //查询床位调换记录
+    @RequestMapping("/selBedExchange")
+    public List<BedExchangeEntity> selBedExchange(String bedExchangeEntity){
+        BedExchangeEntity bedExchangeEntity1 = JSONObject.parseObject(bedExchangeEntity, BedExchangeEntity.class);
+        return bedExchangeService.selBedExchange(bedExchangeEntity1);
+    }
+
 }

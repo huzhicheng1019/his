@@ -93,19 +93,39 @@ public class ScheduService {
         return mapper.allScheEmp();
     }*/
 
-    public List<Integer> allScheByempId(Integer deparId, Integer scheId, Integer shiId) {
-        return mapper.allScheByempId(deparId,scheId,shiId);
+    public List<Integer> allScheByempId(Integer deptId,Integer deparId, Integer scheId, Integer shiId) {
+        return mapper.allScheByempId(deptId,deparId,scheId,shiId);
     }
 
-    public int  addScheEmp(boolean is,List<ScheEmp> scheEmps) {
-        int p=mapper.delScheEmp(scheEmps.get(0).getShift().getShiId(),scheEmps.get(0).getScheduByScheId().getScheId());
+    public int  addScheEmp(List<Integer> emp,Integer shiId,Integer scheId) {
         int y=-1;
-        if(is){
-            y=mapper.addScheEmp(scheEmps);
+        int p=mapper.delScheEmp(shiId,scheId);
+        if(emp.isEmpty()==false){
+        List<Integer> funs=mapper.allEmpById(emp);
+            List<ScheEmp> list=new ArrayList<>();
+            for (int i=0;i<funs.size();i++){
+                ScheEmp scheEmp1=add(funs.get(i),shiId,scheId);
+                list.add(scheEmp1);
+            }
+            y=mapper.addScheEmp(list);
         }
         //System.out.println("删除有效行"+p);
         y=p>-1 ? 1:0;
         return y>0 ? 1:0;
+    }
+
+    public ScheEmp add(Integer empId,Integer shiId,Integer scheId){
+        Employee employee=new Employee();
+        employee.setEmpId(empId);
+        Shift shift=new Shift();
+        shift.setShiId(shiId);
+        Schedu schedu=new Schedu();
+        schedu.setScheId(scheId);
+        ScheEmp scheEmp1=new ScheEmp();
+        scheEmp1.setEmp(employee);
+        scheEmp1.setShift(shift);
+        scheEmp1.setScheduByScheId(schedu);
+        return scheEmp1;
     }
 
     public List<Schedu> allSchedu(Integer date){
@@ -202,4 +222,13 @@ public class ScheduService {
             w = 0;
         return weekDays[w];
     }
+
+    public List<Dept> getdepts() {
+        return mapper.getdepts();
+    }
+
+    public List<Department> getdepar(Integer deptId) {
+        return mapper.getdepar(deptId);
+    }
+
 }

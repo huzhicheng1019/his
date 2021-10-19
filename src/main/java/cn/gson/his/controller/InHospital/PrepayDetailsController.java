@@ -36,12 +36,6 @@ public class PrepayDetailsController {
     public int demo1(String prepayDetailsEntity){
         PrepayDetailsEntity prepayDetailsEntity1 = JSONObject.parseObject(prepayDetailsEntity, PrepayDetailsEntity.class);
 
-        //修改余额
-        PrepayEntity pre = new PrepayEntity();
-        pre.setPreBalance(prepayDetailsEntity1.getPresPrice());
-        pre.setPreId(prepayDetailsEntity1.getPreId());
-        prepayService.updatePre(pre);
-
         int i = prepayDetails.insertPreDet(prepayDetailsEntity1);
         if(i>0){
             return 1;

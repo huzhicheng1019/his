@@ -101,4 +101,17 @@ public class PrepayDetailsEntity {
     public int hashCode() {
         return Objects.hash(presId, presDate, presPrice, itemId, presType, preId);
     }
+
+    @Override
+    public String toString() {
+        return "PrepayDetailsEntity{" +
+                "presId=" + presId +
+                ", presDate=" + presDate +
+                ", presPrice=" + presPrice +
+                ", itemId=" + itemId +
+                ", presType=" + presType +
+                ", preId=" + preId +
+                ", preText='" + preText + '\'' +
+                '}';
+    }
 }

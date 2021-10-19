@@ -29,15 +29,22 @@
     <!--查询所有住院申请表-->
     <select id="selHospital" resultMap="theHosp">
         select * from the_hospital t left join department d on t.depa_id = d.depa_id
+        left join department d on t.depa_id = d.depa_id
         left join patientdata p on t.patient_no = p.patient_no
         <where>
-            <if test="content != '' ">
+            <if test="depaId != '' and depaId != null and depaId != 0 " >
+                and t.depa_id= #{depaId}
+            </if>
+            <if test="beginTime != '' and beginTime != null and endTime != '' and endTime != null">
+                and (to_char(t.hospital_date,'yyyy-mm-dd') between #{beginTime} and  #{endTime})
+            </if>
+            <if test="content != '' and content != null ">
                 and (t.hospital_no like '%${content}%' or p.patient_name like '%${content}%' or p.patient_sex  like '%${content}%'
                 or p.patient_age like '%${content}%' or p.patient_phone  like '%${content}%'
                 or p.patient_identity like '%${content}%' or p.patient_pirth  like '%${content}%'
                 )
             </if>
-            and t.hospital_state = 0
+            and t.hospital_state = 0  order by t.hospital_date desc
         </where>
 
 

@@ -11,7 +11,7 @@ public class TestsEntity {
     private String testName;
     private TestTypeEntity type;
     private KeshiEntity keshi;
-    private List<TestDetailsEntity> details;
+    private TestDetailsEntity details;
 
     @Override
     public String toString() {
@@ -76,12 +76,12 @@ public class TestsEntity {
         this.keshi = keshi;
     }
 
-    @OneToMany(mappedBy = "ttests")
-    public List<TestDetailsEntity> getDetails() {
+    @OneToOne()
+    public TestDetailsEntity getDetails() {
         return details;
     }
 
-    public void setDetails(List<TestDetailsEntity> details) {
+    public void setDetails(TestDetailsEntity details) {
         this.details = details;
     }
 }

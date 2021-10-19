@@ -1,5 +1,7 @@
 package cn.gson.his.model.pojos.Outpatient;
 
+import cn.gson.his.model.pojos.Checkout.TestsEntity;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -8,8 +10,40 @@ import java.util.Objects;
 public class ChangepartEntity {
     private int changepartNo;//详情编号
     private String changetestNo;//化验项目编号
-    private CheckoutEntity checkoutNo;//化验单外键
+    private Integer checkoutNo;//化验单外键
     private String checkoutResult;//化验结果
+    private int changetestStata;//化验结果是否结果
+
+    private CheckoutEntity checkoutEntity;//化验主表
+    //检验项目
+    private TestsEntity testsEntity;
+
+    @OneToOne
+    public TestsEntity getTestsEntity() {
+        return testsEntity;
+    }
+
+    public void setTestsEntity(TestsEntity testsEntity) {
+        this.testsEntity = testsEntity;
+    }
+
+    @OneToOne
+    public CheckoutEntity getCheckoutEntity() {
+        return checkoutEntity;
+    }
+
+    public void setCheckoutEntity(CheckoutEntity checkoutEntity) {
+        this.checkoutEntity = checkoutEntity;
+    }
+    @Id
+    @Column(name = "CHANGEPART_STATE")
+    public int getCheckoutStata() {
+        return changetestStata;
+    }
+
+    public void setCheckoutStata(int checkoutStata) {
+        this.changetestStata = checkoutStata;
+    }
 
     @Id
     @Column(name = "CHANGEPART_NO")
@@ -31,13 +65,12 @@ public class ChangepartEntity {
         this.changetestNo = changetestNo;
     }
 
-    @OneToOne
-    @Column(name = "CHECKOUT_NO",nullable = false)
-    public CheckoutEntity getCheckoutNo() {
+    @Column(name = "CHECKOUT_NO")
+    public Integer getCheckoutNo() {
         return checkoutNo;
     }
 
-    public void setCheckoutNo(CheckoutEntity checkoutNo) {
+    public void setCheckoutNo(Integer checkoutNo) {
         this.checkoutNo = checkoutNo;
     }
 

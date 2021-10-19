@@ -58,9 +58,9 @@ public class EmployeeController {
         List<Integer> screening=new ArrayList<>();
         if(s!=null && !("".equals(s)) && !("null".equals(s))){
             String[] d= s.split(",");
-            System.out.println("长度"+d.length);
+            //System.out.println("长度"+d.length);
             for(int i=0;i<d.length;i++){
-                System.out.println("遍历数组值"+d[i]);
+                //System.out.println("遍历数组值"+d[i]);
                 screening.add(Integer.parseInt(d[i]));
             }
         }
@@ -74,7 +74,7 @@ public class EmployeeController {
 
     @PostMapping("/addEmp")
     public ElMessage addEmp(@RequestBody Employee emp){
-        //System.out.println("科室"+emp.getDepartmentByEmpDepar());
+        System.out.println("科室"+emp.getDepartmentByEmpDepar());
         //生成当前时间
         if(emp.getEmpInduction()==null){
             emp.setEmpInduction(new Timestamp(new Date().getTime()));
@@ -97,7 +97,7 @@ public class EmployeeController {
 
     @PostMapping("/quitEmp")
     public ElMessage quitEmp(@RequestBody JSONArray choose) {
-        int p = empService.quitEmp(choose,1);
+        int p = empService.quitEmp(choose);
         ElMessage elm=new ElMessage();
         if(p>0){
             elm.setType("success");

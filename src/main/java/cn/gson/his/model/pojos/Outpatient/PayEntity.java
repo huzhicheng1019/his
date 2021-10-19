@@ -2,6 +2,7 @@ package cn.gson.his.model.pojos.Outpatient;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +16,19 @@ public class PayEntity {
     private String payType;
     private Long payPrice;
     private Long payTotal;
+
+
+
+    private List<PaypartEntity> paypartEntities;
+
+    @OneToMany
+    public List<PaypartEntity> getPaypartEntities() {
+        return paypartEntities;
+    }
+
+    public void setPaypartEntities(List<PaypartEntity> paypartEntities) {
+        this.paypartEntities = paypartEntities;
+    }
 
     @Id
     @Column(name = "PAY_NO")

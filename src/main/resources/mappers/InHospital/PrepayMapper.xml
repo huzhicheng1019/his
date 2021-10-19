@@ -83,12 +83,19 @@
     <update id="updatePre">
         update prepay set pre_balance = (pre_balance+#{preBalance}) where pre_id =  #{preId}
     </update>
+    <!--修改押金表余额-->
+    <update id="updatePre1">
+        update prepay set pre_balance = (pre_balance-#{preBalance}) where pre_id =  #{preId}
+    </update>
 
     <!--根据住院号修改余额-->
     <update id="updateMoney">
         update prepay set pre_balance = (pre_balance - #{preBalance}) where reg_mark = #{regMark}
     </update>
-
+    <!--修改余额为0-->
+    <update id="updatePre2">
+        update prepay set pre_balance = 0 where pre_id =  #{preId}
+    </update>
     <!--根据住院号查押金表-->
     <select id="selectPre" resultMap="PreMap">
         select * from prepay where reg_mark = #{regMark}

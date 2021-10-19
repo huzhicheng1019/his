@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,6 +25,14 @@ public class HospitalRegisterEntity {
     private String doctorName;
     private Integer regIs;
     private String diagnoseResult;
+
+
+    private Date beginTime;
+    private Date endTime;
+    private String content;
+
+
+
 
     //病人信息
     private PatientdataEntity patientData;
@@ -51,5 +60,11 @@ public class HospitalRegisterEntity {
 
     //出院申请
     private DoctorLeaveEntity doctorLeave;
+
+    //出院登记
+    private DoctorCheckEntity doctorCheck;
+
+    //病房
+    private RoomEntity roomEntity;
 
 }
