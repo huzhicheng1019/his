@@ -35,7 +35,7 @@ public class PrepayController {
 
     //查询所有押金表
     @RequestMapping("selPre")
-    public List<PrepayEntity> demo1(String content){
-        return prepayService.selPre(content);
+    public List<PrepayEntity> demo1(String content,String depaId){
+        return prepayService.selPre(content,depaId);
     }
 }

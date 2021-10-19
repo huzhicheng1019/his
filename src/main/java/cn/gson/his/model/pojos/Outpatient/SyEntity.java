@@ -1,7 +1,7 @@
 package cn.gson.his.model.pojos.Outpatient;
 
 public class SyEntity {
-    private int recordId;
+    private String recordId;
     private String name;
     private int count;
     private int price;
@@ -19,11 +19,11 @@ public class SyEntity {
 
     }
 
-    public int getRecordId() {
+    public String getRecordId() {
         return recordId;
     }
 
-    public void setRecordId(int recordId) {
+    public void setRecordId(String recordId) {
         this.recordId = recordId;
     }
 
@@ -51,7 +51,7 @@ public class SyEntity {
         this.price = price;
     }
 
-    public SyEntity(int recordId, String name, int count, int price) {
+    public SyEntity(String recordId, String name, int count, int price) {
         this.recordId = recordId;
         this.name = name;
         this.count = count;
