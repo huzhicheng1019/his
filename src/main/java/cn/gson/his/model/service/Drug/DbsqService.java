@@ -81,7 +81,7 @@ public class DbsqService {
         System.out.println(nr);
         Map<String,Object> map = new HashMap<>();
         List<LibraryxqEntity> libraryxqEntityList=new ArrayList<>();
-        List<LibraryxqEntity> dbckxqcx = cangkMapper.dbckxqcx(id, nr, ckid ,ckdj);
+        List<LibraryxqEntity> dbckxqcx = cangkMapper.dbckxqcx(id, nr, ckid,ckdj);
         for (LibraryxqEntity libraryxqEntity : dbckxqcx) {
             if(libraryxqEntity.getKcs()>0){
                 libraryxqEntityList.add(libraryxqEntity);
