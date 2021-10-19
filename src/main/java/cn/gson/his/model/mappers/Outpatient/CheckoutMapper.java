@@ -13,7 +13,7 @@ public interface CheckoutMapper {
     public void addCheck(CheckoutEntity checkoutEntity);
 
     //修改化验收费状态
-    public void upCheck(Integer checkoutState,Integer checkoutId);
+    public void upCheck(Integer checkoutState,String checkoutId);
     //查询所有有结果的检查检验
     public List<SeleExamineCheckoutEntity> seleExamineCheckout(String id);
 

@@ -42,7 +42,7 @@ public class CheckoutService {
 
     }
     //修改化验收费状态
-    public void upCheck(Integer checkoutState,Integer checkoutId){
+    public void upCheck(Integer checkoutState,String checkoutId){
                 checkoutMapper.upCheck(checkoutState,checkoutId);
 
     }

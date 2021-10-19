@@ -194,11 +194,12 @@ public class DbsqService {
 
         StoEntity stoEntity=new StoEntity(d,allot.getLibrary(),1,shr,String.valueOf(allot.getAllotId()));
         rkDao.save(stoEntity);
+        List<LibraryxqEntity> libraryxqEntities=new ArrayList<>();
         for (Allotxq allotxq : allotxqList) {
             StojlEntity stojlEntity = new StojlEntity(stoEntity,allotxq.getProductName(),allotxq.getProductId(),allotxq.getProductFl(),allotxq.getSl(),allotxq.getPh(),allotxq.getBz(),allotxq.getGe(),allotxq.getGys(),allotxq.getPrice(),allotxq.getScdate(),allotxq.getGqdate(),allotxq.getKszt(),allotxq.getGesl(),allotxq.getShdw());
             rkxqDao.save(stojlEntity);
-            LibraryxqEntity ckxqcxid = cangkMapper.ckxqcxid(allotxq.getLibraryto().getLibraryId(), allotxq.getProductId(), allotxq.getProductFl(), allotxq.getPh());
-            if(ckxqcxid!=null){
+            LibraryxqEntity ckxqcxid = cangkMapper.ckxqcxid(allot.getLibrary().getLibraryId(), allotxq.getProductId(), allotxq.getProductFl(), allotxq.getPh());
+            if(ckxqcxid==null){
                 long sjprice=0l;
                 if(stojlEntity.getProductFl().equals("0")){
                     DrugEntity ypcxid = ypMapper.ypcxid(stojlEntity.getProductId());
@@ -207,15 +208,33 @@ public class DbsqService {
                     ConEntity concxid = conMapper.concxid(stojlEntity.getProductId());
                     sjprice=concxid.getConPrice();
                 }
+
                 ckxqcxid=new LibraryxqEntity(stojlEntity.getProductId(),stojlEntity.getProductName(),stojlEntity.getProductFl(),stojlEntity.getSl(),stojlEntity.getPh(),stojlEntity.getScdate(),stojlEntity.getGqdate(),stoEntity.getLibrary(),stojlEntity.getPrice()
                         ,stojlEntity.getGe(),stojlEntity.getSl(),stojlEntity.getGys(),sjprice,stojlEntity.getKszt(),stojlEntity.getGesl(),stojlEntity.getShdw());
+
+                int f=0;
+                for (LibraryxqEntity libraryxqEntity : libraryxqEntities) {
+                    if(libraryxqEntity.getProductId().equals(ckxqcxid.getProductId()) && libraryxqEntity.getProductFl().equals(ckxqcxid.getProductFl()) && libraryxqEntity.getPh().equals(ckxqcxid.getPh())){
+                        f=1;
+                        libraryxqEntity.setKcs(ckxqcxid.getKcs()+libraryxqEntity.getKcs());
+                    }
+                }
+                if(f==0){
+                    libraryxqEntities.add(ckxqcxid);
+                }else {
+                    f=0;
+                }
                 System.out.println("新增仓库记录");
             }else{
                 ckxqcxid.setKcs(ckxqcxid.getKcs()+allotxq.getSl());
+                cankxqDao.save(ckxqcxid);
             }
-            cankxqDao.save(ckxqcxid);
+
         }
 
+        for (LibraryxqEntity libraryxqEntity : libraryxqEntities) {
+            cankxqDao.save(libraryxqEntity);
+        }
         allot.setZt(1);
         dbDao.save(allot);
         auditInfoDao.save(auditInfo);
