@@ -22,4 +22,7 @@ public interface RoomMapper {
 
         //根据科室id查病房
         public List<RoomEntity> selIdRoom(String depaId);
+
+        //根据病房id查病房
+        public RoomEntity all(String roomId);
 }

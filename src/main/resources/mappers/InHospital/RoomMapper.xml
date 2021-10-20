@@ -45,4 +45,9 @@
     <select id="selIdRoom" resultMap="RoomMap">
         select * from room where depa_id = #{depaId} order by room_id
     </select>
+
+    <!--根据病房id查病房-->
+    <select id="all" resultMap="RoomMap">
+        select * from room where room_id = #{roomId}
+    </select>
 </mapper>

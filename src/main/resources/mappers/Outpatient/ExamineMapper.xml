@@ -13,7 +13,7 @@
     </resultMap>
 <!--新增检查项目-->
     <insert id="addExamine">
-        insert into EXAMINE values (SEQ.nextval,#{record_id},#{checklistNo},#{examineDiagnose},#{examineMethod},#{examineLook},#{examineState})
+        insert into EXAMINE values (SEQ.nextval,#{record_id,jdbcType=VARCHAR},#{checklistNo,jdbcType=NUMERIC},#{examineDiagnose,jdbcType=VARCHAR},#{examineMethod,jdbcType=VARCHAR},#{examineLook,jdbcType=NUMERIC},#{examineState,jdbcType=VARCHAR})
     </insert>
 <!--    查询检查项目-->
     <select id="allExamine" resultMap="allExamine">

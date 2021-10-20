@@ -168,6 +168,7 @@
           select * from hospital_register h left join beds b on h.reg_mark = b.reg_mark
           left join department d on h.depa_id = d.depa_id
           left join bed be on b.bed_id = be.bed_id
+          left join room r on be.room_id = r.room_id
         <where>
             <if test="depaId != '' and depaId != null and depaId != 0 " >
                 and h.depa_id= #{depaId}
@@ -177,7 +178,7 @@
             </if>
             <if test="content != '' ">
                 and  (h.reg_mark like '%${content}%' or h.reg_name like '%${content}%' or h.doctor_name like '%${content}%'
-                or be.bed_name like '%${content}%' or b.nurse_name like '%${content}%'
+                or be.bed_name like '%${content}%' or b.nurse_name like '%${content}%' or r.room_name like '%${content}%'
                 )
             </if>
             and h.reg_is = 0 and b.beds_is = 0  order by  b.beds_start desc
