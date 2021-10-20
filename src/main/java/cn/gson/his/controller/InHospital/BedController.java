@@ -34,6 +34,8 @@ public class BedController {
     @RequestMapping("/insertBed")
     public int demo1(String beds){
         BedEntity bedEntity = JSONObject.parseObject(beds, BedEntity.class);
+        System.out.println("病床对象");
+        System.out.println(bedEntity);
         int i = bedService.insertBed(bedEntity);
         if(i>0){
             return 1;
