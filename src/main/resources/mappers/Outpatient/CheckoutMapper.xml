@@ -9,6 +9,9 @@
     <result property="checkoutCribe" column="CHECKOUT_CRIBE"></result>
     <result property="checkoutPrice" column="CHECKOUT_PRICE"></result>
     <result property="checkoutState" column="CHECKOUT_STATE"></result>
+    <result property="checkoutDate" column="CHECKOUT_DATE"/>
+    <result property="checkoutDoctor" column="CHECKOUT_DOCTOR"/>
+    <result property="checkoutDoctorNo" column="CHECKOUT_DOCTOR_NO"/>
 </resultMap>
     <resultMap id="ExamineCheckout" type="cn.gson.his.model.pojos.Outpatient.SeleExamineCheckoutEntity">
         <id property="id" column="ID"></id>
@@ -19,7 +22,7 @@
     </resultMap>
 <!--    新增化验-->
     <insert id="addCheck">
-        insert into CHECKOUT values (seq.nextval,#{checkoutId},#{checkoutCribe},#{checkoutPrice},#{checkoutState})
+        insert into CHECKOUT values (seq.nextval,#{checkoutId},#{checkoutCribe},#{checkoutPrice},#{checkoutState},SYSDATE,#{checkoutDoctor},#{checkoutDoctorNo})
         <selectKey order="AFTER" keyProperty="checkoutNo" resultType="_int">
             select seq.currval from dual
         </selectKey>

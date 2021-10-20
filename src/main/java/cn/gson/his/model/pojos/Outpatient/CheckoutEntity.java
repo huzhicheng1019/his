@@ -1,6 +1,7 @@
 package cn.gson.his.model.pojos.Outpatient;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,6 +13,10 @@ public class CheckoutEntity {
     private String checkoutCribe;//描述
     private Long checkoutPrice;//总价
     private Integer checkoutState;//收费状态
+    private Timestamp checkoutDate;//开申请时间
+    private String checkoutDoctor;//医生姓名
+    private int checkoutDoctorNo;//医生编号
+
 
     //化验详情
     private List<ChangepartEntity> changepartEntities;
@@ -74,7 +79,29 @@ public class CheckoutEntity {
     public void setCheckoutState(Integer checkoutState) {
         this.checkoutState = checkoutState;
     }
+    public Timestamp getCheckoutDate() {
+        return checkoutDate;
+    }
 
+    public void setCheckoutDate(Timestamp checkoutDate) {
+        this.checkoutDate = checkoutDate;
+    }
+
+    public String getCheckoutDoctor() {
+        return checkoutDoctor;
+    }
+
+    public void setCheckoutDoctor(String checkoutDoctor) {
+        this.checkoutDoctor = checkoutDoctor;
+    }
+
+    public int getCheckoutDoctorNo() {
+        return checkoutDoctorNo;
+    }
+
+    public void setCheckoutDoctorNo(int checkoutDoctorNo) {
+        this.checkoutDoctorNo = checkoutDoctorNo;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

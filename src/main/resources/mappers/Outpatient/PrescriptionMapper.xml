@@ -79,7 +79,13 @@
     <select id="allSy" resultMap="Sy">
         select * from(select P1.Record_id,P.CHINESE_NAME as name, p.C_COUNT as count,p.C_PRICE as price,p1.PRIVE_TYPE as stata
                         from PRESCRIPTIONS P inner join PRESCRIPTION P1 on p.PRES_ID = P1.PRES_NO)rec
-                        where rec.Record_id = #{record_id} and rec.stata = 0
+                        where rec.Record_id = #{record_id} and rec.stata = #{state}
+    </select>
+    <!--    查询处方和所有的要缴费的东西-->
+    <select id="SyPrescrip" resultMap="Sy">
+        select * from(select P1.Record_id,P.CHINESE_NAME as name, p.C_COUNT as count,p.C_PRICE as price,p1.PRIVE_TYPE as stata
+                      from PRESCRIPTIONS P inner join PRESCRIPTION P1 on p.PRES_ID = P1.PRES_NO)rec
+        where rec.Record_id = #{record_id}
     </select>
 <!--    //检查检验-->
     <select id="allJC" resultMap="Sy">

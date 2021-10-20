@@ -92,13 +92,20 @@ public class PrescriptionController{
     @RequestMapping("sy")
     public List<SyEntity> allSy(@RequestBody Map<String,Object> data){
         String id = (String)data.get("presto");
-        return prescriptionService.allSy(id);
+        String state = (String)data.get("state");
+        return prescriptionService.allSy(id,Integer.valueOf(state));
     }
     //查询所有要缴费的单
     @RequestMapping("jy")
     public List<SyEntity> allJc(@RequestBody Map<String,Object> data){
         String id = (String)data.get("presto");
         return prescriptionService.allJC(id);
+    }
+    //查询这个患者所有的化验检验
+    @RequestMapping("SyPrescrip")
+    public List<SyEntity> SyPrescrip(String recordid){
+        System.out.println(recordid);
+        return prescriptionService.SyPrescrip(recordid);
     }
     //查询患者要缴费的手术
     @RequestMapping("ss")

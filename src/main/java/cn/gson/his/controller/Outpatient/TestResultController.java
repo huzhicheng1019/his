@@ -27,6 +27,7 @@ public class TestResultController {
         TestResult testResult1 = JSONObject.parseObject(testResult,TestResult.class);
 
         examineService.upExamineID("2",Integer.valueOf(examineNo));
+
         changepart.upChangepartJG(Integer.valueOf(examineNo));
         return testResultService.addTestResult(testResult1);
     }

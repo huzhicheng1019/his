@@ -22,7 +22,9 @@ public interface PrescriptionMapper {
     public PrescriptionEntity allPres(PrescriptionEntity presc);
 
     //查询所有要缴费的东西
-    public List<SyEntity> allSy(String record_id);
+    public List<SyEntity> allSy(String record_id,int state);
+    //查询所有要缴费的东西
+    public List<SyEntity> SyPrescrip(String record_id);
     //查询检查检验需要缴费的东西
     public List<SyEntity> allJC(String record_id);
     //查询需要缴费的手术
