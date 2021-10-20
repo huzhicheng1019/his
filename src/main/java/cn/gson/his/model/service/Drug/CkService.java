@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -39,11 +36,11 @@ public class CkService {
     @Autowired
     CankxqDao cankxqDao;
 
-    public Map<String, Object> chucx(int pageNo, int size, String why, String nr){
+    public Map<String, Object> chucx(int pageNo, int size, String why, String nr, Date qssj, Date jssj){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("rows",ckMapper.chucx(why,nr));
+        map.put("rows",ckMapper.chuglcx(why,nr,qssj,jssj));
         map.put("total",page.getTotal());
         return map;
     }
@@ -68,7 +65,7 @@ public class CkService {
         List<OrderthxqEntity> thxq=new ArrayList<>();
         //退货详情
         List<OrderthxqEntity> cgthxqcx = cgthMapper.cgthxqcx(id,"");
-        //该退货单已出库的集合
+        //该退货单已出库的集合(根据来源编号查询)
         List<ChujlEntity> chujllyid = ckMapper.chujllyid(id);
         for (int i=0;i<cgthxqcx.size();i++) {
             cgthxqcx.get(i).setSl(cgthxqcx.get(i).getSl()*cgthxqcx.get(i).getGesl());

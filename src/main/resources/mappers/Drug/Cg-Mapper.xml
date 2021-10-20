@@ -24,6 +24,18 @@
             <if test="nr!=null and nr!=''">
                 and ORDER_ID like concat(concat('%',#{nr}),'%')
             </if>
+            <if test="cgqssj!=null and cgjssj!=null">
+                and ORDER_DATE BETWEEN #{cgqssj} and #{cgjssj}
+            </if>
+        </where>
+    </select>
+
+    <select id="rkcgcx" resultMap="cgMap">
+        select o.*,e.EMP_NAME e_name,g.GYS_NAME g_name from orders o left join EMPLOYEE e on o.cgr=e.EMP_ID LEFT JOIN GYS g on o.GYS_ID=g.GYS_ID
+        <where>
+            <if test="nr!=null and nr!=''">
+                and ORDER_ID like concat(concat('%',#{nr}),'%')
+            </if>
         </where>
     </select>
 

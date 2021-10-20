@@ -26,6 +26,12 @@
             <if test="nr!=null and nr!=''">
                 and PLAN_ID like concat(concat('%',#{nr}),'%')
             </if>
+            <if test="qssj!=null and jssj!=null">
+                and p.PLAN_DATE BETWEEN #{qssj} and #{jssj}
+            </if>
+            <if test="cgqssj!=null and cgjssj!=null">
+                and p.PLAN_CGDATE BETWEEN #{cgqssj} and #{cgjssj}
+            </if>
         </where>
     </select>
 
@@ -36,6 +42,7 @@
             <if test="nr!=null and nr!=''">
                 and PLAN_ID like concat(concat('%',#{nr}),'%')
             </if>
+            and to_date(to_char(SYSDATE,'yyyy-mm-dd'),'yyyy-mm-dd')=to_date(to_char(PLAN_CGDATE,'yyyy-mm-dd'),'yyyy-mm-dd')
         </where>
     </select>
 

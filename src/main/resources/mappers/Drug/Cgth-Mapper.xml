@@ -14,6 +14,18 @@
         </association>
     </resultMap>
 
+    <select id="cgthglcx" resultMap="cgthMap">
+        select o.*,e.EMP_NAME e_name from orderth o left join EMPLOYEE e on o.cgr=e.EMP_ID
+        <where>
+            <if test="nr!=null and nr!=''">
+                and ORDERTH_ID like concat(concat('%',#{nr}),'%')
+            </if>
+            <if test="qssj!=null and jssj!=null">
+                and o.ORDER_DATE BETWEEN #{qssj} and #{jssj}
+            </if>
+        </where>
+    </select>
+
     <select id="cgthcx" resultMap="cgthMap">
         select o.*,e.EMP_NAME e_name from orderth o left join EMPLOYEE e on o.cgr=e.EMP_ID
         <where>

@@ -23,8 +23,11 @@
             <if test="why!=null and why!=''">
                 and s.why=#{why}
             </if>
+            <if test="qssj!=null and jssj!=null">
+                and s.STO_DATE BETWEEN #{qssj} and #{jssj}
+            </if>
             <if test="nr!=null and nr!=''">
-               and l.library_name like concat(concat('%',#{nr}),'%') or s.ly_id like concat(concat('%',#{nr}),'%')
+               and (l.library_name like concat(concat('%',#{nr}),'%') or s.ly_id like concat(concat('%',#{nr}),'%'))
             </if>
         </where>
     </select>

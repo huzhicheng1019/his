@@ -45,11 +45,11 @@ public class RkService {
     @Autowired
     ConMapper conMapper;
 
-    public Map<String, Object> rkcx(int pageNo, int size,String why, String nr){
+    public Map<String, Object> rkcx(int pageNo, int size,String why, String nr, Date qssj, Date jssj){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("rows",rkMapper.rkcx(why,nr));
+        map.put("rows",rkMapper.rkcx(why,nr,qssj,jssj));
         map.put("total",page.getTotal());
         return map;
     }
@@ -78,7 +78,7 @@ public class RkService {
 
     public Map<String,Object> cgcx(String nr){
         Map<String,Object> map = new HashMap<>();
-        map.put("cg",cgMapper.cgcx(nr));
+        map.put("cg",cgMapper.rkcgcx(nr));
         return map;
     }
 
