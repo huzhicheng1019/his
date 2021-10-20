@@ -3,6 +3,7 @@ package cn.gson.his.model.mappers.InHospital;
 import cn.gson.his.model.pojos.InHospital.PrepayDetailsEntity;
 import cn.gson.his.model.pojos.InHospital.PrepayEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface PrepayMapper {
     public int insertPres(PrepayDetailsEntity prepayDetails);
 
     //查询所有押金表
-    public List<PrepayEntity> selPre(String content);
+    public List<PrepayEntity> selPre(@Param("content")String content, @Param("depaId") String depaId);
 
     //修改押金表余额
     public int updatePre(PrepayEntity prepay);

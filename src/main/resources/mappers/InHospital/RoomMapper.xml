@@ -28,6 +28,7 @@
                 and (r.room_name like '%${text}%' or r.room_site like '%${text}%' )
             </if>
         </where>
+        order by r.room_id
     </select>
 
     <!--新增病房-->
@@ -42,6 +43,6 @@
 
     <!--根据科室id查病房-->
     <select id="selIdRoom" resultMap="RoomMap">
-        select * from room where depa_id = #{depaId}
+        select * from room where depa_id = #{depaId} order by room_id
     </select>
 </mapper>

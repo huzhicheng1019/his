@@ -7,6 +7,11 @@
             <result property="regMark" column="reg_mark"></result>
             <result property="preBalance" column="pre_balance"></result>
             <result property="preArrearage" column="pre_arrearage"></result>
+            <!--科室-->
+            <association property="department" javaType="cn.gson.his.model.pojos.Power.Department">
+                <id property="depaId" column="depa_id"></id>
+                <result property="depaName" column="depa_name"></result>
+            </association>
             <!--住院登记表-->
             <association property="hospitalRegisterEntity" javaType="cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity" >
                 <id property="regId" column="reg_id"></id>
@@ -62,18 +67,22 @@
     <!--查询押金表-->
     <select id="selPre" resultMap="PreMap">
         select * from prepay p
---         left join prepay_details ps on p.pre_id = ps.pre_id
+       left join prepay_details ps on p.pre_id = ps.pre_id
         left join hospital_register h on p.reg_mark = h.reg_mark
+        left join department d on h.depa_id = d.depa_id
         left join patientdata pa on h.patient_no = pa.patient_no
 
         <where>
+            <if test="depaId != '' and depaId != null and depaId != 0 " >
+                and d.depa_id= #{depaId}
+            </if>
             <if test="content != ''">
                 and (p.reg_mark like '%${content}%' or pa.patient_name like '%${content}%'
                  or pa.patient_phone like '%${content}%' or pa.patient_identity like '%${content}%'
                  or p.pre_balance like '%${content}%')
             </if>
 
-            and h.reg_is = 0
+            and h.reg_is = 0  order by h.reg_date desc
 
         </where>
 

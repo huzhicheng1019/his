@@ -24,6 +24,7 @@
             <association property="titles" javaType="cn.gson.his.model.pojos.Power.Title">
                 <id property="titId" column="TIT_ID"/>
                 <result property="titName" column="TIT_NAME"/>
+                <result property="titleById" column="TIT_PARENT"/>
             </association>
             <collection property="schedus" ofType="cn.gson.his.model.pojos.Power.ScheEmp">
                 <id property="sempId" column="SEMP_ID"/>

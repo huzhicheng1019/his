@@ -38,7 +38,7 @@ public class PayController {
         //缴费时间
         payEntity.setPayDate(new Timestamp(new Date().getTime()));
         //就诊号
-        payEntity.setRecordNo(syList.get(0).getRecordId());
+        payEntity.setRecordNo(Integer.valueOf(syList.get(0).getRecordId()));
         //缴费人姓名
         payEntity.setPayName(name);
         //费别

@@ -11,6 +11,17 @@ import java.util.Objects;
 public class Title {
     private Integer titId;//id
     private String titName;//职称
+    private Integer titleById;
+
+    @Basic
+    @Column(name = "TIT_PARENT")
+    public Integer getTitleById() {
+        return titleById;
+    }
+
+    public void setTitleById(Integer titleById) {
+        this.titleById = titleById;
+    }
 
     @Id
     @GeneratedValue(generator = "SEQ")

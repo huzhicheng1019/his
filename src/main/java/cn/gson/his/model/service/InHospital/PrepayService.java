@@ -26,8 +26,8 @@ public class PrepayService {
     }
 
     //查询所有押金表
-    public List<PrepayEntity> selPre(String content){
-        return prepayMapper.selPre(content);
+    public List<PrepayEntity> selPre(String content,String depaId){
+        return prepayMapper.selPre(content,depaId);
     };
 
     //修改押金表余额

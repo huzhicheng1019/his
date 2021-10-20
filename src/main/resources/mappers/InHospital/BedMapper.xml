@@ -26,7 +26,7 @@
     <select id="selectBed" resultMap="BedMap">
         select * from bed b left join room r on b.room_id = r.room_id
 
-        where b.room_id = #{roomId}
+        where b.room_id = #{roomId}  order by b.bed_id desc
     </select>
 
     <!--新增床位-->
