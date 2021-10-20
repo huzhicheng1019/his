@@ -82,7 +82,6 @@ public class EmployeeService {
     /**
      * 批量离职、重置密码
      * @param choose
-     * @param state
      * @return
      */
     public int quitEmp(JSONArray choose) {

@@ -57,4 +57,9 @@
         update beds set bed_id = 0,nurse_id = null,nurse_name = null,beds_start=null,beds_end=null where reg_mark=#{regMark} and beds_is = 0
     </update>
 
+
+    <!--查询所有入住的病人-->
+    <select id="all" resultMap="bedsMap">
+        select * from beds where beds_is = 0 and bed_id != 0
+    </select>
 </mapper>

@@ -25,7 +25,7 @@ public class TitleService {
      * @return
      */
     public List<Title> allTit(){
-        return mapper.allTit();
+        return dao.findAllBy();
     }
 
     public List<Titvo> allTitByEmp(Integer deptId,Integer deparId){

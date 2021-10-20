@@ -4,6 +4,7 @@ import cn.gson.his.model.pojos.InHospital.BedsEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import javax.persistence.ManyToOne;
+import java.util.List;
 
 @Mapper
 public interface BedsMapper {
@@ -27,4 +28,8 @@ public interface BedsMapper {
     //转科后修改床位记录
     public int alterBeds(String regMark);
 
+
+
+    //查询所有入住的病人
+    public List<BedsEntity> all();
 }

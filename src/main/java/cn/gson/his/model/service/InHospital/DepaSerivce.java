@@ -3,16 +3,15 @@ package cn.gson.his.model.service.InHospital;
 import cn.gson.his.model.mappers.InHospital.*;
 import cn.gson.his.model.mappers.Outpatient.CaseHistoryMapper;
 import cn.gson.his.model.mappers.Outpatient.CaseHistoryPartiMapper;
-import cn.gson.his.model.pojos.InHospital.BedsEntity;
-import cn.gson.his.model.pojos.InHospital.DoctorEnjoinEntity;
-import cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity;
-import cn.gson.his.model.pojos.InHospital.TransferEntity;
+import cn.gson.his.model.pojos.InHospital.*;
 import cn.gson.his.model.pojos.Outpatient.CaseHistoryEntity;
 import cn.gson.his.model.pojos.Outpatient.CaseHistoryPartiEntity;
 import cn.gson.his.model.pojos.Outpatient.PatientdataEntity;
 import cn.gson.his.model.pojos.Power.Department;
 import cn.gson.his.model.pojos.Power.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +19,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@Component
 public class DepaSerivce {
 
     @Autowired
@@ -56,6 +56,18 @@ public class DepaSerivce {
     //医嘱表
     @Autowired
     DoctorEnjoinMapper doctorEnjoin;
+
+    //病房
+    @Autowired
+    RoomMapper room;
+
+    //押金详情表
+    @Autowired
+    PrepayDetailsMapper prepayDetails;
+
+    //押金表
+    @Autowired
+    PrepayMapper prepay;
 
     //查询当天值班的医生
     public List<Department> selDuty(Integer deparId){
@@ -189,5 +201,47 @@ public class DepaSerivce {
             return 1;
         }
         return 0;
+    }
+
+
+
+
+    //每天自动扣除床位费
+    @Scheduled(cron = "0 0,0 0,8 ? * ? ")
+    public void checkOff(){
+        try{
+
+
+
+            //先查有多少病人入住
+            List<BedsEntity> all = beds.all();
+            for (BedsEntity b: all) {
+                //根据住院号查押金表
+                PrepayEntity prepayEntity = prepay.selectPre(b.getRegMark());
+                //根据病床查病房
+                BedEntity bedEntity = bed.selIdBed(b.getBedId() + "");
+                //根据病房id查床位费
+                RoomEntity all1 = room.all(bedEntity.getRoomId() + "");
+
+                //创建一个押金详情对象
+                PrepayDetailsEntity prepays = new PrepayDetailsEntity();
+                prepays.setPresPrice(all1.getRoomCost());
+                prepays.setItemId(0);
+                prepays.setPresType(1);
+                prepays.setPreId(prepayEntity.getPreId());
+                prepays.setPreText("床位扣费");
+                //新增扣费记录
+                prepayDetails.insertPreDet(prepays);
+                //修改住院余额
+                //创建一个押金主表对象
+                PrepayEntity prepayEntity1 = new PrepayEntity();
+                prepayEntity1.setPreBalance(all1.getRoomCost());
+                prepayEntity1.setPreId(prepayEntity.getPreId());
+                prepay.updatePre1(prepayEntity1);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
