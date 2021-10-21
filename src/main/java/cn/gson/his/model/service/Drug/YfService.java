@@ -17,10 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -49,11 +46,11 @@ public class YfService {
     @Autowired
     TyMapper tyMapper;
 
-    public Map<String,Object> yfselect(int pageNo, int size, String nr){
+    public Map<String,Object> yfselect(int pageNo, int size, String nr, Date qssj, Date jssj){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("rows",yfMapper.yfcx(nr));
+        map.put("rows",yfMapper.yfglcx(nr,qssj,jssj));
         map.put("total",page.getTotal());
         return map;
     }
@@ -228,11 +225,11 @@ public class YfService {
         return map;
     }
 
-    public Map<String,Object> yflyselect(int pageNo, int size, Integer fl, String nr){
+    public Map<String,Object> yflyselect(int pageNo, int size, Integer fl, String nr,Date qssj, Date jssj){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("rows",yfMapper.yflycx(fl, nr));
+        map.put("rows",yfMapper.yflycx(fl,nr,qssj,jssj));
         map.put("total",page.getTotal());
         return map;
     }

@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -44,11 +41,11 @@ public class XhService {
     @Autowired
     AuditInfoDao auditInfoDao;
 
-    public Map<String,Object> xhselect(int pageNo, int size, String nr){
+    public Map<String,Object> xhselect(int pageNo, int size, String nr, Date qssj, Date jssj){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("rows",xhMapper.xhcx(nr));
+        map.put("rows",xhMapper.xhcx(nr,qssj,jssj));
         map.put("total",page.getTotal());
         return map;
     }

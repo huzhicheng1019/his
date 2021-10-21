@@ -38,7 +38,6 @@ public class CkController {
             if(qssj!=null && qssj!="" && jssj!=null && jssj!="") {
                 qsj = sdf.parse(qssj);
                 jsj = sdf.parse(jssj);
-
             }
         } catch (ParseException e) {
             e.printStackTrace();

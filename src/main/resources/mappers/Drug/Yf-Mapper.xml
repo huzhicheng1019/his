@@ -17,6 +17,19 @@
         </association>
     </resultMap>
 
+    <select id="yfglcx" resultMap="yfMap">
+        SELECT a.*,e.emp_name e_name,l.library_name lname from PILLS a LEFT JOIN EMPLOYEE e ON a.fyr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID
+        <where>
+            a.fyly_fl=0
+            <if test="nr!=null and nr!=''">
+                and PILLS_ID = #{nr} or FYLY_ID = #{nr}
+            </if>
+            <if test="qssj!=null and jssj!=null">
+                and PILLS_DATE BETWEEN #{qssj} and #{jssj}
+            </if>
+        </where>
+    </select>
+
     <select id="yfcx" resultMap="yfMap">
         SELECT a.*,e.emp_name e_name,l.library_name lname from PILLS a LEFT JOIN EMPLOYEE e ON a.fyr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID
         <where>
@@ -300,6 +313,9 @@
             a.fyly_fl=#{fl}
             <if test="nr!=null and nr!=''">
                 and PILLS_ID like concat(concat('%',#{nr}),'%')
+            </if>
+            <if test="qssj!=null and jssj!=null">
+                and PILLS_DATE BETWEEN #{qssj} and #{jssj}
             </if>
         </where>
     </select>

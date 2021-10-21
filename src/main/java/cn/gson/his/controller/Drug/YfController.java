@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +25,23 @@ public class YfController {
     YfService yfService;
 
     @RequestMapping("yfgl")
-    public Map<String,Object> getyf(Integer pageNo, Integer size, String nr){
+    public Map<String,Object> getyf(Integer pageNo, Integer size, String nr, String qssj, String jssj){
         System.out.println("nr:"+nr);
-        Map<String, Object> stringObjectMap = yfService.yfselect(pageNo,size,nr);
+        System.out.println("开始时间："+qssj);
+        System.out.println("结束时间："+jssj);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date qsj=null;
+        Date jsj=null;
+        try {
+            if(qssj!=null && qssj!="" && jssj!=null && jssj!="") {
+                qsj = sdf.parse(qssj);
+                jsj = sdf.parse(jssj);
+
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Map<String, Object> stringObjectMap = yfService.yfselect(pageNo,size,nr,qsj,jsj);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }
@@ -130,9 +147,23 @@ public class YfController {
     }
 
     @RequestMapping("zyyfgl")
-    public Map<String,Object> getztyf(Integer pageNo, Integer size,Integer fl, String nr){
+    public Map<String,Object> getztyf(Integer pageNo, Integer size,Integer fl, String nr, String qssj, String jssj){
         System.out.println("nr:"+nr);
-        Map<String, Object> stringObjectMap = yfService.yflyselect(pageNo,size, fl, nr);
+        System.out.println("开始时间："+qssj);
+        System.out.println("结束时间："+jssj);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date qsj=null;
+        Date jsj=null;
+        try {
+            if(qssj!=null && qssj!="" && jssj!=null && jssj!="") {
+                qsj = sdf.parse(qssj);
+                jsj = sdf.parse(jssj);
+
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Map<String, Object> stringObjectMap = yfService.yflyselect(pageNo,size, fl, nr, qsj, jsj);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }

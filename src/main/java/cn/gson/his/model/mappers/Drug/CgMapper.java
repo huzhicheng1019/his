@@ -20,7 +20,7 @@ public interface CgMapper {
 
     public List<OrdersEntity> cgcxid(String id);
 
-    public List<Employee> empcx();
+    public List<Employee> empcx(Integer id);
 
     public List<StoEntity> stocx(String id);
 

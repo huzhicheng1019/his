@@ -67,9 +67,9 @@ public class CgController {
 
 //    员工查询
     @RequestMapping("cgemp")
-    public Map<String,Object> getemp(){
+    public Map<String,Object> getemp(Integer id){
         System.out.println("开始：");
-        Map<String, Object> stringObjectMap = cgService.empcx();
+        Map<String, Object> stringObjectMap = cgService.empcx(id);
         return stringObjectMap;
     }
 

@@ -63,9 +63,9 @@ public class CgService {
         return map;
     }
 
-    public Map<String,Object> empcx(){
+    public Map<String,Object> empcx(Integer id){
         Map<String,Object> map = new HashMap<>();
-        map.put("emp",cgMapper.empcx());
+        map.put("emp",cgMapper.empcx(id));
         return map;
     }
 

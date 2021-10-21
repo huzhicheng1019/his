@@ -16,7 +16,7 @@ import java.util.Map;
 @CrossOrigin
 @RequestMapping("/llw")
 @RestController
-public class Ypgl {
+public class YpglController {
     @Autowired
     YpService ypService;
 
