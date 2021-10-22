@@ -48,10 +48,10 @@ public class DbsqController {
     }
 
     @RequestMapping("dbxq")
-    public Map<String,Object> getckxq(Integer pageNo, Integer size,String id,String nr){
+    public Map<String,Object> getckxq(String id,String nr){
         System.out.println(id);
         System.out.println(nr);
-        Map<String, Object> stringObjectMap = dbsqService.dbxqselect(pageNo,size,id,nr);
+        Map<String, Object> stringObjectMap = dbsqService.dbxqselect(id,nr);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }

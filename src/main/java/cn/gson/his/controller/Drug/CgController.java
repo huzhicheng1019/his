@@ -49,10 +49,10 @@ public class CgController {
 
 //    采购订单详情查询（采购订单详情界面）
     @RequestMapping("cgxq")
-    public Map<String,Object> getcgxq(Integer pageNo, Integer size,String id,String nr){
+    public Map<String,Object> getcgxq(String id,String nr){
         System.out.println(id);
         System.out.println(nr);
-        Map<String, Object> stringObjectMap = cgService.cgxqselect(pageNo,size,id,nr);
+        Map<String, Object> stringObjectMap = cgService.cgxqselect(id,nr);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }

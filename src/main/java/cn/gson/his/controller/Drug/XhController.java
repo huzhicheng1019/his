@@ -49,10 +49,10 @@ public class XhController {
     }
 
     @RequestMapping("xhxq")
-    public Map<String,Object> getxhxq(Integer pageNo, Integer size,String id,String nr){
+    public Map<String,Object> getxhxq(String id,String nr){
         System.out.println(id);
         System.out.println(nr);
-        Map<String, Object> stringObjectMap = xhService.xhxqselect(pageNo,size,id,nr);
+        Map<String, Object> stringObjectMap = xhService.xhxqselect(id,nr);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }

@@ -50,14 +50,11 @@ public class XhService {
         return map;
     }
 
-    public Map<String,Object> xhxqselect(int pageNo, int size,String id, String nr){
+    public Map<String,Object> xhxqselect(String id, String nr){
         System.out.println(id);
         System.out.println(nr);
         Map<String,Object> map = new HashMap<>();
-        //分页查询
-        Page<Object> page= PageHelper.startPage(pageNo,size);
         map.put("rows",xhMapper.xhxqcx(id, nr));
-        map.put("total",page.getTotal());
         return map;
     }
 

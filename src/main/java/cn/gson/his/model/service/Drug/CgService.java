@@ -45,14 +45,11 @@ public class CgService {
         return map;
     }
 
-    public Map<String,Object> cgxqselect(int pageNo, int size,String id, String nr){
+    public Map<String,Object> cgxqselect(String id, String nr){
         System.out.println(id);
         System.out.println(nr);
         Map<String,Object> map = new HashMap<>();
-        //分页查询
-        Page<Object> page= PageHelper.startPage(pageNo,size);
         map.put("rows",cgMapper.cgxqcx(id,nr));
-        map.put("total",page.getTotal());
         return map;
     }
 

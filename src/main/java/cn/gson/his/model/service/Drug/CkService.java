@@ -45,12 +45,9 @@ public class CkService {
         return map;
     }
 
-    public Map<String, Object> chuxqcx(int pageNo, int size,Integer id, String nr){
+    public Map<String, Object> chuxqcx(Integer id, String nr){
         Map<String,Object> map = new HashMap<>();
-        //分页查询
-        Page<Object> page= PageHelper.startPage(pageNo,size);
         map.put("rows",ckMapper.chujlcx(id,nr));
-        map.put("total",page.getTotal());
         return map;
     }
 
