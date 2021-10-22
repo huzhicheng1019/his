@@ -33,6 +33,7 @@
                 and p.PLAN_CGDATE BETWEEN #{cgqssj} and #{cgjssj}
             </if>
         </where>
+        order by PLAN_DATE desc
     </select>
 
     <select id="cgjhdd" resultMap="cgjhMap">

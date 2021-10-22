@@ -28,6 +28,7 @@
                 and ORDER_DATE BETWEEN #{cgqssj} and #{cgjssj}
             </if>
         </where>
+        order by ORDER_DATE desc
     </select>
 
     <select id="rkcgcx" resultMap="cgMap">

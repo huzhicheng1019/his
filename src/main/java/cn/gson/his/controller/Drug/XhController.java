@@ -27,23 +27,30 @@ public class XhController {
     XhService xhService;
 
     @RequestMapping("xhgl")
-    public Map<String,Object> getxh(Integer pageNo, Integer size, String nr, String qssj, String jssj){
+    public Map<String,Object> getxh(Integer pageNo, Integer size, String nr, String qssj, String jssj, String xhqssj, String xhjssj){
         System.out.println("nr:"+nr);
         System.out.println("开始时间："+qssj);
         System.out.println("结束时间："+jssj);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date qsj=null;
         Date jsj=null;
+        Date xhqsj=null;
+        Date xhjsj=null;
         try {
             if(qssj!=null && qssj!="" && jssj!=null && jssj!="") {
                 qsj = sdf.parse(qssj);
                 jsj = sdf.parse(jssj);
 
             }
+            if(xhqssj!=null && xhqssj!="" && xhjssj!=null && xhjssj!="") {
+                xhqsj = sdf.parse(xhqssj);
+                xhjsj = sdf.parse(xhjssj);
+
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Map<String, Object> stringObjectMap = xhService.xhselect(pageNo,size,nr,qsj,jsj);
+        Map<String, Object> stringObjectMap = xhService.xhselect(pageNo,size,nr,qsj,jsj,xhqsj,xhjsj);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }

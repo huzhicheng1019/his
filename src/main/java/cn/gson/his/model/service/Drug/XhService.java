@@ -41,11 +41,11 @@ public class XhService {
     @Autowired
     AuditInfoDao auditInfoDao;
 
-    public Map<String,Object> xhselect(int pageNo, int size, String nr, Date qssj, Date jssj){
+    public Map<String,Object> xhselect(int pageNo, int size, String nr, Date qssj, Date jssj, Date xhqssj, Date xhjssj){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("rows",xhMapper.xhcx(nr,qssj,jssj));
+        map.put("rows",xhMapper.xhcx(nr,qssj,jssj,xhqssj,xhjssj));
         map.put("total",page.getTotal());
         return map;
     }

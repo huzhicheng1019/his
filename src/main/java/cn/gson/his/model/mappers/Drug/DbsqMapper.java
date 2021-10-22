@@ -12,7 +12,7 @@ import java.util.List;
 
 @Mapper
 public interface DbsqMapper {
-    public List<Allot> dbcx(@Param("nr") String nr, @Param("qssj") Date qssj, @Param("jssj") Date jssj);
+    public List<Allot> dbcx(@Param("nr") String nr, @Param("qssj") Date qssj, @Param("jssj") Date jssj, @Param("dbqssj") Date dbqssj, @Param("dbjssj") Date dbjssj);
 
     public List<Allotxq> dbxqcx(@Param("id") String id, @Param("nr") String nr);
 

@@ -53,11 +53,11 @@ public class DbsqService {
     @Autowired
     AuditInfoDao auditInfoDao;
 
-    public Map<String,Object> dbselect(int pageNo, int size, String nr, Date qssj, Date jssj){
+    public Map<String,Object> dbselect(int pageNo, int size, String nr, Date qssj, Date jssj, Date dbqssj, Date dbjssj){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("rows",dbsqMapper.dbcx(nr,qssj,jssj));
+        map.put("rows",dbsqMapper.dbcx(nr,qssj,jssj,dbqssj,dbjssj));
         map.put("total",page.getTotal());
         return map;
     }

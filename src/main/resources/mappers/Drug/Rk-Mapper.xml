@@ -30,6 +30,7 @@
                and (l.library_name like concat(concat('%',#{nr}),'%') or s.ly_id like concat(concat('%',#{nr}),'%'))
             </if>
         </where>
+        order by STO_DATE desc
     </select>
 
     <resultMap id="stojlMap" type="cn.gson.his.model.pojos.Drug.StojlEntity">

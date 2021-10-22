@@ -42,6 +42,7 @@
                 and c.CHU_DATE BETWEEN #{qssj} and #{jssj}
             </if>
         </where>
+        order by CHU_DATE desc
     </select>
 
     <resultMap id="chujlMap" type="cn.gson.his.model.pojos.Drug.ChujlEntity">

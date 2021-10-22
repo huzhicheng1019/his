@@ -28,9 +28,13 @@
                 and ALLOT_ID like concat(concat('%',#{nr}),'%')
             </if>
             <if test="qssj!=null and jssj!=null">
-                and DESTROY_DATE BETWEEN #{qssj} and #{jssj}
+                and SQDATE BETWEEN #{qssj} and #{jssj}
+            </if>
+            <if test="dbqssj!=null and dbjssj!=null">
+                and ALLOT_DATE BETWEEN #{dbqssj} and #{dbjssj}
             </if>
         </where>
+        order by SQDATE desc
     </select>
 
     <resultMap id="dbxqMap" type="cn.gson.his.model.pojos.Drug.Allotxq">

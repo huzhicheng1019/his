@@ -24,6 +24,7 @@
                 and o.ORDER_DATE BETWEEN #{qssj} and #{jssj}
             </if>
         </where>
+        order by ORDER_DATE desc
     </select>
 
     <select id="cgthcx" resultMap="cgthMap">

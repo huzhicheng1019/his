@@ -28,6 +28,7 @@
                 and PILLS_DATE BETWEEN #{qssj} and #{jssj}
             </if>
         </where>
+        order by PILLS_DATE desc
     </select>
 
     <select id="yfcx" resultMap="yfMap">
@@ -224,6 +225,7 @@
                 and PILLS_ID like concat(concat('%',#{nr}),'%')
             </if>
         </where>
+        order by PILLS_DATE desc
     </select>
 
     <resultMap id="EnMap" type="cn.gson.his.model.pojos.InHospital.DoctorEnjoinEntity">

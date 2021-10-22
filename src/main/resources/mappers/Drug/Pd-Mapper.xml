@@ -32,6 +32,7 @@
                 and CHECK_DATE BETWEEN #{qssj} and #{jssj}
             </if>
         </where>
+        order by CHECK_DATE desc
     </select>
 
     <resultMap id="pdxqMap" type="cn.gson.his.model.pojos.Drug.Checkxq">
