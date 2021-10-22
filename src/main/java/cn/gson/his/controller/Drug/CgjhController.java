@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,8 +28,28 @@ public class CgjhController {
 
 //    查询采购计划
     @RequestMapping("cgjh")
-    public Map<String,Object> getcgjh(Integer pageNo, Integer size,String nr){
-        Map<String, Object> stringObjectMap = cgjhService.cgjhcx(pageNo,size,nr);
+    public Map<String,Object> getcgjh(Integer pageNo, Integer size,String nr, String qssj, String jssj,String cgqssj, String cgjssj){
+        System.out.println("开始时间："+qssj);
+        System.out.println("结束时间："+jssj);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date qsj=null;
+        Date jsj=null;
+        Date cgqsj=null;
+        Date cgjsj=null;
+        try {
+            if(qssj!=null && qssj!="" && jssj!=null && jssj!=""){
+                qsj = sdf.parse(qssj);
+                jsj = sdf.parse(jssj);
+
+            }
+            if(cgqssj!=null && cgqssj!="" && cgjssj!=null && cgjssj!=""){
+                cgqsj = sdf.parse(cgqssj);
+                cgjsj = sdf.parse(cgjssj);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Map<String, Object> stringObjectMap = cgjhService.cgjhcx(pageNo,size,nr,qsj,jsj,cgqsj,cgjsj);
         return stringObjectMap;
     }
 

@@ -124,4 +124,10 @@ public class CangkController {
             return "fail";
         }
     }
+
+    // 新增修改仓库判断
+    @RequestMapping("cangk-xzxgpd")
+    public String cangkxzxgpd(int id,String name){
+        return cangkService.xzxgpd(id,name);
+    }
 }

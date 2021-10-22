@@ -32,11 +32,11 @@ public class CgjhService {
     @Autowired
     AuditInfoDao auditInfoDao;
 
-    public Map<String,Object> cgjhcx(Integer pageNo, Integer size,String nr){
+    public Map<String,Object> cgjhcx(Integer pageNo, Integer size,String nr, Date qssj, Date jssj,Date cgqssj, Date cgjssj){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("cgjh",cgjhMapper.cgjhcx(nr));
+        map.put("cgjh",cgjhMapper.cgjhcx(nr,qssj,jssj,cgqssj,cgjssj));
         map.put("total",page.getTotal());
         return map;
     }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,11 +36,11 @@ public class CgService {
     @Autowired
     YpMapper ypMapper;
 
-    public Map<String,Object> cgcx(int pageNo, int size,String nr){
+    public Map<String,Object> cgcx(int pageNo, int size, String nr, Date cgqssj, Date cgjssj){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("cg",cgMapper.cgcx(nr));
+        map.put("cg",cgMapper.cgcx(nr,cgqssj,cgjssj));
         map.put("total",page.getTotal());
         return map;
     }
@@ -62,9 +63,9 @@ public class CgService {
         return map;
     }
 
-    public Map<String,Object> empcx(){
+    public Map<String,Object> empcx(Integer id){
         Map<String,Object> map = new HashMap<>();
-        map.put("emp",cgMapper.empcx());
+        map.put("emp",cgMapper.empcx(id));
         return map;
     }
 

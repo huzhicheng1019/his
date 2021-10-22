@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -26,9 +29,20 @@ public class CgController {
 
     //采购订单查询（采购订单界面）
     @RequestMapping("cggl")
-    public Map<String,Object> getcg(Integer pageNo, Integer size, String nr){
+    public Map<String,Object> getcg(Integer pageNo, Integer size, String nr,String cgqssj, String cgjssj){
         System.out.println("nr:"+nr);
-        Map<String, Object> stringObjectMap = cgService.cgcx(pageNo,size,nr);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date cgqsj=null;
+        Date cgjsj=null;
+        try {
+            if(cgqssj!=null && cgqssj!="" && cgjssj!=null && cgjssj!=""){
+                cgqsj = sdf.parse(cgqssj);
+                cgjsj = sdf.parse(cgjssj);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Map<String, Object> stringObjectMap = cgService.cgcx(pageNo,size,nr,cgqsj,cgjsj);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }
@@ -53,9 +67,9 @@ public class CgController {
 
 //    员工查询
     @RequestMapping("cgemp")
-    public Map<String,Object> getemp(){
+    public Map<String,Object> getemp(Integer id){
         System.out.println("开始：");
-        Map<String, Object> stringObjectMap = cgService.empcx();
+        Map<String, Object> stringObjectMap = cgService.empcx(id);
         return stringObjectMap;
     }
 

@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -56,11 +53,11 @@ public class DbsqService {
     @Autowired
     AuditInfoDao auditInfoDao;
 
-    public Map<String,Object> dbselect(int pageNo, int size, String nr){
+    public Map<String,Object> dbselect(int pageNo, int size, String nr, Date qssj, Date jssj){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("rows",dbsqMapper.dbcx(nr));
+        map.put("rows",dbsqMapper.dbcx(nr,qssj,jssj));
         map.put("total",page.getTotal());
         return map;
     }
@@ -81,7 +78,7 @@ public class DbsqService {
         System.out.println(nr);
         Map<String,Object> map = new HashMap<>();
         List<LibraryxqEntity> libraryxqEntityList=new ArrayList<>();
-        List<LibraryxqEntity> dbckxqcx = cangkMapper.dbckxqcx(id, nr, ckid ,ckdj);
+        List<LibraryxqEntity> dbckxqcx = cangkMapper.dbckxqcx(id, nr, ckid,ckdj);
         for (LibraryxqEntity libraryxqEntity : dbckxqcx) {
             if(libraryxqEntity.getKcs()>0){
                 libraryxqEntityList.add(libraryxqEntity);

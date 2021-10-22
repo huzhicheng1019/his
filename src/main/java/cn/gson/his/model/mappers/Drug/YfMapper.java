@@ -11,11 +11,14 @@ import cn.gson.his.model.pojos.Power.Department;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
 public interface YfMapper {
-    public List<PillsEntity> yfcx(String nr);
+    public List<PillsEntity> yfglcx(@Param("nr") String nr, @Param("qssj") Date qssj, @Param("jssj") Date jssj);
+
+    public List<PillsEntity> yfcx(@Param("nr") String nr);
 
     //根据分类（fl）与来源编号(id)查询
     public PillsEntity fycxlyid(@Param("fl") String fl,@Param("id") String id);
@@ -36,5 +39,5 @@ public interface YfMapper {
 
     public List<DoctorEnjoinsEntity> yzcx(Integer id);
 
-    public List<PillsEntity> yflycx(@Param("fl") Integer fl,@Param("nr") String nr);
+    public List<PillsEntity> yflycx(@Param("fl") Integer fl,@Param("nr") String nr, @Param("qssj") Date qssj, @Param("jssj") Date jssj);
 }

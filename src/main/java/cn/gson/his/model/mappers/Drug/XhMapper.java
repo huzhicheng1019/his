@@ -7,11 +7,12 @@ import cn.gson.his.model.pojos.Drug.Destroyxq;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
 public interface XhMapper {
-    public List<Destroy> xhcx(String nr);
+    public List<Destroy> xhcx(@Param("nr") String nr, @Param("qssj") Date qssj, @Param("jssj") Date jssj);
 
     public List<Destroyxq> xhxqcx(@Param("id") String id, @Param("nr") String nr);
 

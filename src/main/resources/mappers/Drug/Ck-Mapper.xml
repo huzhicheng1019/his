@@ -29,6 +29,21 @@
         </where>
     </select>
 
+    <select id="chuglcx" resultMap="chuMap">
+        select c.*,l.library_name lname,e.EMP_NAME e_name from chu c LEFT JOIN LIBRARY_INFO l on c.library_id=l.library_id LEFT JOIN EMPLOYEE e on c.shr=e.EMP_ID
+        <where>
+            <if test="why!=null and why!=''">
+                and c.why=#{why}
+            </if>
+            <if test="nr!=null and nr!=''">
+                and l.library_name like concat(concat('%',#{nr}),'%') or c.ly_id like concat(concat('%',#{nr}),'%')
+            </if>
+            <if test="qssj!=null and jssj!=null">
+                and c.CHU_DATE BETWEEN #{qssj} and #{jssj}
+            </if>
+        </where>
+    </select>
+
     <resultMap id="chujlMap" type="cn.gson.his.model.pojos.Drug.ChujlEntity">
         <id column="CHUJL_ID" property="chujlId"></id>
         <result column="PRODUCT_ID" property="productId"></result>

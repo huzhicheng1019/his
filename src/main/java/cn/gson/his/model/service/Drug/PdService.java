@@ -11,10 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -70,11 +67,11 @@ public class PdService {
         System.out.println("three");
     }
 
-    public Map<String,Object> pdselect(int pageNo, int size, String nr){
+    public Map<String,Object> pdselect(int pageNo, int size, String nr, Date qssj, Date jssj){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("rows",pdMapper.pdcx(nr));
+        map.put("rows",pdMapper.pdcx(nr,qssj,jssj));
         map.put("total",page.getTotal());
         return map;
     }

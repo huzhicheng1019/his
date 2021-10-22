@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,11 +27,11 @@ public class CgthService {
     @Autowired
     CgthxqDao cgthxqDao;
 
-    public Map<String,Object> cgthcx(int pageNo, int size, String nr){
+    public Map<String,Object> cgthcx(int pageNo, int size, String nr, Date qssj, Date jssj){
         Map<String,Object> map = new HashMap<>();
         //分页查询
         Page<Object> page= PageHelper.startPage(pageNo,size);
-        map.put("cg",cgthMapper.cgthcx(nr));
+        map.put("cg",cgthMapper.cgthglcx(nr,qssj,jssj));
         map.put("total",page.getTotal());
         return map;
     }

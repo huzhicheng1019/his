@@ -6,11 +6,12 @@ import cn.gson.his.model.pojos.Drug.ProductEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
 public interface CgjhMapper {
-    public List<PlanInfoEntity> cgjhcx(String nr);
+    public List<PlanInfoEntity> cgjhcx(@Param("nr") String nr,@Param("qssj") Date qssj,@Param("jssj") Date jssj,@Param("cgqssj") Date cgqssj,@Param("cgjssj") Date cgjssj);
 
     public List<ProductEntity> cgjhxqcx(@Param("id") String id, @Param("nr") String nr);
 

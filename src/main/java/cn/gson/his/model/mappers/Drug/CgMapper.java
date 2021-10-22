@@ -5,11 +5,14 @@ import cn.gson.his.model.pojos.Power.Employee;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
 public interface CgMapper {
-    public List<OrdersEntity> cgcx(String nr);
+    public List<OrdersEntity> cgcx(@Param("nr") String nr, @Param("cgqssj") Date cgqssj, @Param("cgjssj") Date cgjssj);
+
+    public List<OrdersEntity> rkcgcx(@Param("nr") String nr);
 
     public List<OrderxqEntity> cgxqcx(@Param("id") String id, @Param("nr") String nr);
 
@@ -17,7 +20,7 @@ public interface CgMapper {
 
     public List<OrdersEntity> cgcxid(String id);
 
-    public List<Employee> empcx();
+    public List<Employee> empcx(Integer id);
 
     public List<StoEntity> stocx(String id);
 

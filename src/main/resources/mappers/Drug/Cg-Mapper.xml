@@ -24,6 +24,18 @@
             <if test="nr!=null and nr!=''">
                 and ORDER_ID like concat(concat('%',#{nr}),'%')
             </if>
+            <if test="cgqssj!=null and cgjssj!=null">
+                and ORDER_DATE BETWEEN #{cgqssj} and #{cgjssj}
+            </if>
+        </where>
+    </select>
+
+    <select id="rkcgcx" resultMap="cgMap">
+        select o.*,e.EMP_NAME e_name,g.GYS_NAME g_name from orders o left join EMPLOYEE e on o.cgr=e.EMP_ID LEFT JOIN GYS g on o.GYS_ID=g.GYS_ID
+        <where>
+            <if test="nr!=null and nr!=''">
+                and ORDER_ID like concat(concat('%',#{nr}),'%')
+            </if>
         </where>
     </select>
 
@@ -70,8 +82,33 @@
         select o.*,e.EMP_NAME e_name,g.GYS_NAME g_name from orders o left join EMPLOYEE e on o.cgr=e.EMP_ID LEFT JOIN GYS g on o.GYS_ID=g.GYS_ID where ORDER_ID=#{id}
     </select>
 
-    <select id="empcx" resultType="cn.gson.his.model.pojos.Power.Employee">
-        select * from EMPLOYEE where EMP_STATE=0
+    <resultMap id="EmpMap" type="cn.gson.his.model.pojos.Power.Employee">
+        <id property="empId" column="emp_id"></id>
+        <result property="empName" column="emp_name"></result>
+        <result property="empPhone" column="emp_phone"></result>
+        <result property="empCard" column="emp_card"></result>
+        <result property="empInduction" column="emp_induction"></result>
+        <result property="empDeparture" column="emp_departure"></result>
+        <result property="empState" column="emp_state"></result>
+        <!--部门-->
+        <association property="deptByEmpDept" javaType="cn.gson.his.model.pojos.Power.Dept">
+            <id property="deptId" column="dept_id"></id>
+            <result property="deptName" column="dept_name"></result>
+        </association>
+        <!--科室-->
+        <association property="departmentByEmpDepar" javaType="cn.gson.his.model.pojos.Power.Department">
+            <id property="depaId" column="depa_id"></id>
+            <result property="depaName" column="depa_name"></result>
+        </association>
+        <!--职称-->
+        <association property="titles" javaType="cn.gson.his.model.pojos.Power.Title">
+            <id property="titId" column="tit_id"></id>
+            <result property="titName" column="tit_name"></result>
+        </association>
+    </resultMap>
+
+    <select id="empcx" resultMap="EmpMap">
+        SELECT * FROM EMPLOYEE e LEFT JOIN TITLE t on e.EMP_TIT=t.TIT_ID WHERE t.TIT_ID=#{id}
     </select>
 
     <select id="stocx" resultType="cn.gson.his.model.pojos.Drug.StoEntity">

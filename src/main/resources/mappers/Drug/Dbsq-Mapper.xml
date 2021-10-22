@@ -27,6 +27,9 @@
             <if test="nr!=null and nr!=''">
                 and ALLOT_ID like concat(concat('%',#{nr}),'%')
             </if>
+            <if test="qssj!=null and jssj!=null">
+                and DESTROY_DATE BETWEEN #{qssj} and #{jssj}
+            </if>
         </where>
     </select>
 

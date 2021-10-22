@@ -103,6 +103,7 @@ public class CangkService {
     }
 
     public void xzgxck(LibraryInfoEntity libraryInfo,List<LibraryxqEntity> libraryxqList,List<LibraryxqEntity> delxq){
+
         for (LibraryxqEntity libraryxqEntity : delxq) {
             cankxqDao.deleteById(libraryxqEntity.getLibraryxqId());
         }
@@ -126,6 +127,26 @@ public class CangkService {
             libraryxqEntity.setLibrary(librarysave);
             cankxqDao.save(libraryxqEntity);
         }
+    }
+
+    public String xzxgpd(int id,String name){
+        String pd="ok";
+        List<LibraryInfoEntity> cangkcx = cangkMapper.cangkcx("");
+        if(id!=-1){
+            for (LibraryInfoEntity libraryInfoEntity : cangkcx) {
+                if (libraryInfoEntity.getLibraryId()!=id && libraryInfoEntity.getLibraryName().equals(name)) {
+                    pd="no";
+                }
+            }
+        }else{
+            for (LibraryInfoEntity libraryInfoEntity : cangkcx) {
+                if (libraryInfoEntity.getLibraryName().equals(name)) {
+                    pd="no";
+                }
+            }
+        }
+
+        return pd;
     }
 
     public String delck(Integer id){
