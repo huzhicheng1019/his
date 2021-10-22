@@ -7,6 +7,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin
 @RequestMapping("/lrn")
 @RestController
@@ -15,11 +17,9 @@ public class Operation_roomController {
     Operation_roomService operation_roomService;
 
     //查询所有手术室 带分页
-    @PostMapping("/selroom")
-    public PageInfo demo(@RequestBody PageNo pageNo){
-          System.out.println(pageNo.getNo());
-          System.out.println(pageNo.getSize());
-          return operation_roomService.selectroom(pageNo.getNo(), pageNo.getSize(), pageNo.getName());
+    @RequestMapping("/selroom")
+    public List<OperationRoomEntity> demo(String name,String depaId){
+          return operation_roomService.selectroom(name,depaId);
     }
 
     //新增手术室
@@ -49,7 +49,11 @@ public class Operation_roomController {
 
     //根据Id编辑手术室
     @PostMapping("/updateroom")
-    public Integer updateroom(@RequestBody OperationRoomEntity roomEntity){
-        return operation_roomService.updateroom(roomEntity);
+    public int updateroom(@RequestBody OperationRoomEntity roomEntity){
+        int i = operation_roomService.updateroom(roomEntity);
+        if(i>0){
+           return 1;
+        }
+        return 0;
     }
 }

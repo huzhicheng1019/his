@@ -3,6 +3,7 @@ package cn.gson.his.model.mappers.Checkout;
 
 import cn.gson.his.model.pojos.Checkout.OperationRoomEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 @Repository
 public interface Operation_roomMapper {
     ////查询所有手术室 带分页
-    public List<OperationRoomEntity> selectroom(String name);
+    public List<OperationRoomEntity> selectroom(@Param("name")String name, @Param("depaId") String depaId);
 
     //新增手术室
     public int insertroom(OperationRoomEntity operationRoomEntity);

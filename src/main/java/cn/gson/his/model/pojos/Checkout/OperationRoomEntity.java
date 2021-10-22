@@ -1,101 +1,24 @@
 package cn.gson.his.model.pojos.Checkout;
 
+import cn.gson.his.model.pojos.Power.Department;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Data
 @Table(name = "OPERATION_ROOM", schema = "HIS", catalog = "")
 public class OperationRoomEntity {
     private Integer roomId;
     private String roomName;
     private String roomDress;
-    private String roomScale;
+    private Integer roomScale;
     private String roomPhone;
     private Integer roomState;
-    private List<OperationItemEntity> items;
+
+    //科室
+    private Department depa;
 
 
-
-    @Id
-    @Column(name = "ROOM_ID")
-    public Integer getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(Integer roomId) {
-        this.roomId = roomId;
-    }
-
-    @Basic
-    @Column(name = "ROOM_NAME")
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
-    @Basic
-    @Column(name = "ROOM_DRESS")
-    public String getRoomDress() {
-        return roomDress;
-    }
-
-    public void setRoomDress(String roomDress) {
-        this.roomDress = roomDress;
-    }
-
-    @Basic
-    @Column(name = "ROOM_SCALE")
-    public String getRoomScale() {
-        return roomScale;
-    }
-
-    public void setRoomScale(String roomScale) {
-        this.roomScale = roomScale;
-    }
-
-    @Basic
-    @Column(name = "ROOM_PHONE")
-    public String getRoomPhone() {
-        return roomPhone;
-    }
-
-    public void setRoomPhone(String roomPhone) {
-        this.roomPhone = roomPhone;
-    }
-
-    @Basic
-    @Column(name = "ROOM_STATE")
-    public Integer getRoomState() {
-        return roomState;
-    }
-
-    public void setRoomState(Integer roomState) {
-        this.roomState = roomState;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        OperationRoomEntity that = (OperationRoomEntity) o;
-        return roomId == that.roomId && Objects.equals(roomName, that.roomName) && Objects.equals(roomDress, that.roomDress) && Objects.equals(roomScale, that.roomScale) && Objects.equals(roomPhone, that.roomPhone) && Objects.equals(roomState, that.roomState);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(roomId, roomName, roomDress, roomScale, roomPhone, roomState);
-    }
-
-    @OneToMany(mappedBy = "room")
-    public List<OperationItemEntity> getItems() {
-        return items;
-    }
-
-    public void setItems(List<OperationItemEntity> items) {
-        this.items = items;
-    }
 }

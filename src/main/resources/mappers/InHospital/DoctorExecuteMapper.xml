@@ -53,6 +53,9 @@
             </if>
             <if test="text !='' and text != null " >
                 and (h.reg_name like '%${text}%' or h.doctor_name like '%${text}%'
+                or h.reg_mark like '%${text}%'  or ex.nurse_name like '%${text}%'
+                or ex.drug_name like '%${text}%' or ex.drug_ge like '%${text}%'
+                or ex.drug_count like '%${text}%' or ex.drug_price like '%${text}%'
                 )
             </if>
 

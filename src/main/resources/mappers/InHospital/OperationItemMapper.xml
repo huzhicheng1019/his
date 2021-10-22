@@ -8,17 +8,57 @@
         <result property="operationPrice" column="operation_price"></result>
         <result property="operationType" column="operation_type"></result>
         <result property="operationDress" column="operation_dress"></result>
+        <result property="roomId" column="room_id"></result>
         <result property="operationIndication" column="operation_indication"></result>
         <result property="operationTaboo" column="operation_taboo"></result>
         <result property="operationZt" column="operation_zt"></result>
+        <!--科室-->
+        <association property="depa" javaType="cn.gson.his.model.pojos.Power.Department">
+            <id property="depaId" column="depa_id"></id>
+            <result property="depaName" column="depa_name"></result>
+        </association>
     </resultMap>
 
 
-    <!--查询所有手术项目-->
+    <!--查询所有能用的手术项目-->
     <select id="selItem" resultMap="itemsMap">
         select * from operation_item where operation_zt = 0
     </select>
+    <!--查询所有手术项目-->
+    <select id="ItemAll" resultMap="itemsMap">
+        select * from operation_item o  left join department d on o.room_id = d.depa_id
 
+        <where>
+            <if test="depaId != '' and depaId != null and depaId != 0 " >
+                and d.depa_id= #{depaId}
+            </if>
+            <if test="content != '' ">
+                and  (o.operation_name like '%${content}%' or o.operation_price like '%${content}%' or
+                o.operation_type like '%${content}%' or o.operation_dress like '%${content}%' or
+                o.operation_indication like '%${content}%' or o.operation_taboo like '%${content}%'
+                )
+            </if>
+        </where>
+        order by o.operation_id
+    </select>
 
+    <!--新增手术项目-->
+    <insert id="insertItem">
+        insert into operation_item values (seq.nextval,#{operationName},#{operationPrice},#{operationType},
+        #{operationDress},#{roomId},#{operationIndication},#{operationTaboo},1)
+    </insert>
+
+    <!--修改手术项目-->
+    <update id="updateItem">
+        update operation_item set operation_name = #{operationName},operation_price = #{operationPrice},
+        operation_type = #{operationType},operation_dress = #{operationDress},room_id = #{roomId},
+        operation_indication = #{operationIndication},operation_taboo = #{operationTaboo}
+        where operation_id = #{operationId}
+    </update>
+
+    <!--根据手术项目id修改状态-->
+    <update id="updateItemId">
+        update operation_item set operation_zt = #{operationZt} where operation_id = #{operationId}
+    </update>
 
 </mapper>

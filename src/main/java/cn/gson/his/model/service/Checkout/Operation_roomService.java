@@ -18,15 +18,11 @@ public class Operation_roomService {
     @Autowired
     Operation_roomMapper Operation_roomMapper;
 
-//    @Autowired
-//    Operation_roomDao operation_roomDao;
 
     //查询所有手术室 带分页
-    public PageInfo selectroom(Integer no, Integer size,String name){
-        PageHelper.startPage(no, size);
-        List<OperationRoomEntity> list = Operation_roomMapper.selectroom(name);
-        PageInfo<OperationRoomEntity> info=new PageInfo<>(list);
-        return info;
+    public List<OperationRoomEntity> selectroom(String name,String depaId){
+
+        return Operation_roomMapper.selectroom(name,depaId);
     }
 
     //新增手术室

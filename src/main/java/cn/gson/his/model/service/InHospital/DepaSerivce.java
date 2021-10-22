@@ -211,8 +211,6 @@ public class DepaSerivce {
     public void checkOff(){
         try{
 
-
-
             //先查有多少病人入住
             List<BedsEntity> all = beds.all();
             for (BedsEntity b: all) {
