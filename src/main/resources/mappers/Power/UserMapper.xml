@@ -53,7 +53,6 @@
                           LEFT JOIN SHIFT h on s.SHI_ID=h.SHI_ID
                           LEFT JOIN SCHEDU c on s.SCHE_ID=c.SCHE_ID
         where  u.USER_ACCOUNT=#{userAccount}
-        and u.USER_PASS=#{userPass}
         and e.EMP_STATE=0
     </select>
 

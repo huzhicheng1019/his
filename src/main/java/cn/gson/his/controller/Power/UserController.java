@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequestMapping("lxj")
@@ -25,8 +27,8 @@ public class UserController {
      * @param session
      * @return
      */
-    @PostMapping("login")
-    public Object login(@RequestBody UserInfo user, HttpSession session){
+    @PostMapping("/login")
+    public Object login(@RequestBody UserInfo user, HttpSession session) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         UserInfo info = service.Login(user);
         if(info != null){
             return info;
@@ -36,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping("/resetUser")
-    public ElMessage resetUser(@RequestBody JSONArray choose) {
+    public ElMessage resetUser(@RequestBody JSONArray choose) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         int p = service.resetUser(choose,"123456");
         ElMessage elm=new ElMessage();
         if(p>0){
