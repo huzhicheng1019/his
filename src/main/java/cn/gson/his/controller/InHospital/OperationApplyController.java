@@ -50,4 +50,11 @@ public class OperationApplyController {
         return applyService.update(can1,appsId);
     }
 
+
+    //查询所有手术申请表
+    @RequestMapping("/allApp")
+    public List<OperationApplyEntity> allApp(){
+        return  applyService.allApp();
+    }
+
 }

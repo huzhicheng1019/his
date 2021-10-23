@@ -25,5 +25,7 @@ public interface OperationApplyMapper {
     public int updateCan(String appsId);
 
 
+    //查询所有手术申请表
+    public List<OperationApplyEntity> allApp();
 
 }

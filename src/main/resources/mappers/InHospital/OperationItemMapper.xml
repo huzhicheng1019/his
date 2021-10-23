@@ -22,7 +22,7 @@
 
     <!--查询所有能用的手术项目-->
     <select id="selItem" resultMap="itemsMap">
-        select * from operation_item where operation_zt = 0
+        select * from operation_item where operation_zt = 1
     </select>
     <!--查询所有手术项目-->
     <select id="ItemAll" resultMap="itemsMap">
