@@ -15,6 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,11 +71,13 @@ public class EmployeeService {
      * @param emp
      * @return
      */
-    public int addEmp(Employee emp){
+    public int addEmp(Employee emp) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         if(emp.getDepartmentByEmpDepar().getDepaId()==null){
             emp.setDepartmentByEmpDepar(null);
         }
         emp.getUseres().setEmployeeByUserEmp(emp);
+        String encryptedPwd = MD5.getEncryptedPwd(emp.getUseres().getUserPass());
+        emp.getUseres().setUserPass(encryptedPwd);
         Employee s = dao.save(emp);
         UserInfo u = userDao.save(emp.getUseres());
         return s==null || u==null ? 0:1;

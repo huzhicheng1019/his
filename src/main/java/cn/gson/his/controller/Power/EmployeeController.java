@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,7 +75,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/addEmp")
-    public ElMessage addEmp(@RequestBody Employee emp){
+    public ElMessage addEmp(@RequestBody Employee emp) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         System.out.println("科室"+emp.getDepartmentByEmpDepar());
         //生成当前时间
         if(emp.getEmpInduction()==null){
