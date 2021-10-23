@@ -23,7 +23,7 @@ public interface EmployeeMapper {
      * 分页查询所有
      * @return
      */
-    public List<Map<String,Object>> allEmp(@Param("start") Timestamp start,@Param("end") Timestamp end,@Param("state") Integer state,@Param("screening") List<Integer> screening,@Param("fuzzy") String fuzzy);
+    public List<Employee> allEmp(@Param("start") Timestamp start,@Param("end") Timestamp end,@Param("state") Integer state,@Param("screening") List<Integer> screening,@Param("fuzzy") String fuzzy);
 
     /**
      * 离职员工
@@ -54,4 +54,6 @@ public interface EmployeeMapper {
     List<ScreeningVo> allDepa();
 
     public List<RoleInfo> childrenRole(Integer roleId);
+
+    int xiumm(@Param("pass") String pass,@Param("userId") Integer userId);
 }

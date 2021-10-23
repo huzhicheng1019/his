@@ -30,7 +30,7 @@ public class DeptController {
      * @return
      */
     @GetMapping("/allDept")
-    public Map<String,Object> allDept(Integer pageNo,Integer size,@RequestParam("li")String li) throws ParseException {
+    public List<Dept> allDept(@RequestParam("li")String li) throws ParseException {
         JSONObject o= JSONObject.parseObject(li);//转换Object
         String zhi=o.get("date")+"";
         Timestamp start=null;
@@ -41,7 +41,7 @@ public class DeptController {
             end=new Timestamp(new Date(Date.parse(date[1])).getTime());
         }
         String name=o.get("idOrname")+"";
-        return ser.allDept(pageNo,size,name,start,end);
+        return ser.allDept(name,start,end);
     }
 
     /**

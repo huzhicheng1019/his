@@ -57,13 +57,9 @@ public class EmployeeService {
      * @param size
      * @return
      */
-    public Map<String, Object> allEmp(Integer pageNo, Integer size, Timestamp start,Timestamp end,Integer state,List<Integer> screening,String fuzzy){
-        Page<Object> p = PageHelper.startPage(pageNo,size);
-        List<Map<String,Object>> list = empMapper.allEmp(start,end,state,screening,fuzzy);
-        Map<String,Object> map = new HashMap<>();
-        map.put("rows",list);
-        map.put("total",p.getTotal());
-        return map;
+    public List<Employee> allEmp( Timestamp start,Timestamp end,Integer state,List<Integer> screening,String fuzzy){
+        List<Employee> list = empMapper.allEmp(start,end,state,screening,fuzzy);
+        return list;
     }
 
     /**
@@ -158,4 +154,14 @@ public class EmployeeService {
         return empMapper.allDepa();
     }
 
+    public ElMessage xiumm(String pass, Integer userId) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        ElMessage elm=new ElMessage();
+        String encryptedPwd = MD5.getEncryptedPwd(pass);
+        int p = empMapper.xiumm(encryptedPwd,userId);
+        if(p>0){
+            elm.setMessage("修改密码成功！");
+            elm.setType("success");
+        }
+        return elm;
+    }
 }

@@ -18,5 +18,5 @@ public interface DeptMapper {
      * @param endDate
      * @return
      */
-    List<Map<String,Object>> allDept(@Param("name")String name, @Param("startDate")Timestamp startDate,@Param("endDate")Timestamp endDate);
+    List<Dept> allDept(@Param("name")String name, @Param("startDate")Timestamp startDate,@Param("endDate")Timestamp endDate);
 }

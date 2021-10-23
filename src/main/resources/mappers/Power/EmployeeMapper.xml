@@ -129,7 +129,7 @@
         <result column="ROLE_CREATE" property="roleCreate"/>
     </resultMap>
     <select id="allRole" resultMap="Role">
-        select * from ROLE_INFO
+        select * from ROLE_INFO where ROLE_PARENT is null
     </select>
 
     <select id="childrenRole" resultMap="Role">
@@ -195,5 +195,9 @@
     <select id="allDepa" resultMap="depa">
         select * from department
     </select>
+
+    <update id="xiumm">
+        update USER_INFO set  USER_PASS=#{pass} where USER_ID=#{userId}
+    </update>
 
 </mapper>

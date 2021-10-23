@@ -66,8 +66,6 @@ public class RoleController {
      */
     @PostMapping("/addRole")
     public ElMessage addRole(@RequestBody RoleInfo roleInfo){
-        System.out.println("角色"+roleInfo);
-        System.out.println("父级角色"+roleInfo.getRoleinfoByRoleParent());
         //创建时间
         if(roleInfo.getRoleCreate()==null){
             roleInfo.setRoleCreate(new Timestamp(new Date().getTime()));

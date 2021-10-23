@@ -111,7 +111,7 @@
 
     <!--修改角色-->
     <update id="updateRole">
-        update role_info set role_name=#{roleName},role_parent=#{roleinfoByRoleParent.roleId} where role_id=#{roleId}
+        update role_info set role_name=#{roleName},role_parent=<if test="roleinfoByRoleParent==null">null</if><if test="roleinfoByRoleParent!=null">#{roleinfoByRoleParent.roleId}</if> where role_id=#{roleId}
     </update>
 
     <!--根据角色id删除部门、角色中间表-->

@@ -28,17 +28,11 @@ public class DeparService {
 
     /**
      * 分页查询所有
-     * @param pageNo
-     * @param size
      * @return
      */
-    public Map<String,Object> allDepar(Integer pageNo, Integer size,String name, Timestamp startDate, Timestamp endDate){
-        Page<Object> p = PageHelper.startPage(pageNo,size);
-        List<Map<String, Object>> list = mapper.pageDepar(name,startDate,endDate);
-        Map<String, Object> map = new HashMap<>();
-        map.put("rows",list);
-        map.put("total",p.getTotal());
-        return map;
+    public List<Department> allDepar(String name, Timestamp startDate, Timestamp endDate){
+        List<Department>list = mapper.pageDepar(name,startDate,endDate);
+        return list;
     }
 
     /**

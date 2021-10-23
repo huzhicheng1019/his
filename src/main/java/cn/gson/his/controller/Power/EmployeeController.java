@@ -4,9 +4,11 @@ package cn.gson.his.controller.Power;
 import cn.gson.his.model.pojos.Power.*;
 import cn.gson.his.model.pojos.Power.vo.ScreeningVo;
 import cn.gson.his.model.service.Power.EmployeeService;
+import cn.gson.his.model.service.Power.MD5;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -39,12 +41,10 @@ public class EmployeeController {
 
     /**
      * 分页查询所有
-     * @param pageNo
-     * @param size
      * @return
      */
     @RequestMapping("/allEmp")
-    public Map<String, Object> allEmp(Integer pageNo, Integer size, @RequestParam("li")String li){
+    public List<Employee> allEmp(@RequestParam("li")String li){
         System.out.println("筛选"+li);
         JSONObject o= JSONObject.parseObject(li);//转换Object
         String zhi=o.get("date")+"";
@@ -71,7 +71,7 @@ public class EmployeeController {
         }
         System.out.println("集合"+screening);
         String fuzzy=o.get("fuzzy")+"";
-        return empService.allEmp(pageNo,size,start,end,state,screening,fuzzy);
+        return empService.allEmp(start,end,state,screening,fuzzy);
     }
 
     @PostMapping("/addEmp")
@@ -159,6 +159,17 @@ public class EmployeeController {
     @RequestMapping("/allDepa")
     public List<ScreeningVo> allDepa(){
         return empService.allDepa();
+    }
+
+    @RequestMapping("/ispass")
+    public boolean ispass(@RequestParam("pass") String pass,@RequestParam("yuanpass") String yuanpass) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        return MD5.validPassword(yuanpass, pass);
+    }
+
+    @RequestMapping("/xiumm")
+    public ElMessage xiumm(@RequestParam("pass") String pass, @RequestParam("userId")Integer userId) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        System.out.println("打赏");
+        return empService.xiumm(pass,userId);
     }
 
 }

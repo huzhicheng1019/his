@@ -27,7 +27,7 @@ public class DeparController {
      * @return
      */
     @RequestMapping("/allDepar")
-    public Map<String, Object> allDept(Integer pageNo, Integer size,@RequestParam("li")String li){
+    public List<Department> allDept(@RequestParam("li")String li){
         System.out.println("值"+li);
         JSONObject o= JSONObject.parseObject(li);//转换Object
         String zhi=o.get("date")+"";
@@ -39,7 +39,7 @@ public class DeparController {
             end=new Timestamp(new Date(Date.parse(date[1])).getTime());
         }
         String name=o.get("idOrnameOradd")+"";
-        return service.allDepar(pageNo,size,name,start,end);
+        return service.allDepar(name,start,end);
     }
 
     /**

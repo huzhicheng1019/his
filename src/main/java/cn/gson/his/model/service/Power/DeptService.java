@@ -3,6 +3,7 @@ package cn.gson.his.model.service.Power;
 import cn.gson.his.model.dao.Power.DeptDao;
 import cn.gson.his.model.mappers.Power.DeptMapper;
 import cn.gson.his.model.pojos.Power.Dept;
+import cn.gson.his.model.pojos.Power.Employee;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,30 +26,10 @@ public class DeptService {
     @Autowired
     DeptMapper mapper;
 
-    /**
-     * 分页查询所有
-     * @param pageNo
-     * @param size
-     * @return
-     */
-    /*public Map<String,Object> allDept(Integer pageNo, Integer size){
-        Map<String,Object> map = new HashMap<>();
 
-        Page<Dept> page=dao.findAllBy(PageRequest.of(pageNo-1,size));
-
-        map.put("rows",page.iterator());
-        //System.out.println(page.getSize());
-        map.put("total",page.getTotalElements());
-        return map;
-    }*/
-
-    public Map<String, Object> allDept(Integer pageNo, Integer size, String name, Timestamp startDate,Timestamp endDate){
-        Page<Object> p = PageHelper.startPage(pageNo,size);
-        List<Map<String, Object>> list = mapper.allDept(name,startDate,endDate);
-        Map<String, Object> map = new HashMap<>();
-        map.put("rows",list);
-        map.put("total",p.getTotal());
-        return map;
+    public List<Dept> allDept(String name, Timestamp startDate, Timestamp endDate){
+        List<Dept> list = mapper.allDept(name,startDate,endDate);
+        return list;
     }
 
     /**
