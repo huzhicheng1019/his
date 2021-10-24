@@ -55,7 +55,7 @@ public class PayService {
 
             }else{
 //                    修改检查
-                examineService.upExamine("1",pay.getRecordNo());
+                examineService.upExamine("1",""+pay.getRecordNo());
 //                    修改检验
                 checkoutService.upCheck(1,""+pay.getRecordNo());
             }

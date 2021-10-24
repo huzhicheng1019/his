@@ -156,5 +156,6 @@
                 and (H2.HANGTYPE_NAME like '%${hang}%' or D.DEPA_NAME like '%${hang}%' or  E.EMP_NAME like '%${hang}%' or P.PATIENT_NAME like '%${hang}%')
             </if>
         </where>
+        order by H.HANG_NO desc
     </select>
 </mapper>

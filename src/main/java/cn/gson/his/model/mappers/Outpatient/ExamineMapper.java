@@ -17,7 +17,7 @@ public interface ExamineMapper {
         public List<ExamineEntity> allExamineJF(String record_id,int state);
 
         //修改检查状态
-        public int upExamine(String examineState,Integer record_id);
+        public int upExamine(String examineState,String record_id);
         //根据编号修改检查状态
         public int upExamineID(String examineState,Integer examineNo);
 }

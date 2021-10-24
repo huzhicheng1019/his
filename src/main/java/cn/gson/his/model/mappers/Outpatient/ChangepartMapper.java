@@ -20,7 +20,7 @@ public interface ChangepartMapper {
     //查询缴完费的缴费化验
     public List<ChangepartEntity> seleCheckJF(String checkoutId);
     //修改是否填写结果
-    public int upChangepartJG(int changepartNo);
+    public int upChangepartJG(int state,int changepartNo);
     //查询这个患者有多少化验写完结果了
     public List<ChangepartEntity> seleCheckJG(String checkoutId);
 

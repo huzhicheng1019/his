@@ -93,7 +93,7 @@
                 and d.ATTSTATE = #{attState}
             </if>
         </where>
-        order  by D.RECORD_NO
+        order  by D.RECORD_NO desc
     </select>
 <!--  查询就诊记录-->
     <select id="allDoctorrecord" resultMap="Doctorrecord">
@@ -102,18 +102,11 @@
         inner join DEPARTMENT D2 on D2.DEPA_ID = d.RECORD_INDOOR
         inner join CASE_HISTORY_PARTI C1 on C1.PARTI_NO = d.CASE_HISSSTORY
         <where>
-            1=1
-                <if test="recordName !=null">
-                    D.RECORD_NAME = #{recordName}
+                <if test="cxtj !=null">
+                    D.RECORD_NAME like '%${cxtj}%' or D.RECORD_IDENTITY  like '%${cxtj}%' or  D.RECORD_NO  like '%${cxtj}%'
                 </if>
-                <if test="recordIdentity !=null">
-                    and D.RECORD_IDENTITY = #{recordIdentity}
-                </if>
-            <if test="recordNo != 0">
-                and D.RECORD_NO = #{recordNo}
-            </if>
         </where>
-            order  by D.RECORD_NO
+            order  by D.RECORD_NO desc
     </select>
 <!--    根据就诊号查询就诊记录里面的患者-->
     <select id="allPatien" resultMap="Doctorrecord">

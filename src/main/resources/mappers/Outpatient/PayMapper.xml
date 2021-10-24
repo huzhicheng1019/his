@@ -44,5 +44,6 @@
                 and  P.RECORD_NO = #{recordNo}
             </if>
         </where>
+        order by P.PAY_DATE desc
     </select>
 </mapper>

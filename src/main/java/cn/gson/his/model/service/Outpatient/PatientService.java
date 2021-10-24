@@ -24,6 +24,10 @@ public class PatientService {
             //返回患者资料集合
             return pati;
     }
+    //查询患者资料
+    public List<PatientdataEntity> selePatient1(String cxtj){
+       return pm.selePatient1(cxtj);
+    }
     //新增患者资料
     @Transactional
     public int AddPtient(PatientdataEntity patient){

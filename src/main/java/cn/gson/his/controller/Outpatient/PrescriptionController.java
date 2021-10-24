@@ -92,8 +92,7 @@ public class PrescriptionController{
     @RequestMapping("sy")
     public List<SyEntity> allSy(@RequestBody Map<String,Object> data){
         String id = (String)data.get("presto");
-        String state = (String)data.get("state");
-        return prescriptionService.allSy(id,Integer.valueOf(state));
+        return prescriptionService.allSy(id,0);
     }
     //查询所有要缴费的单
     @RequestMapping("jy")

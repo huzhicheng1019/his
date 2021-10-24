@@ -2,6 +2,7 @@ package cn.gson.his.model.mappers.Outpatient;
 
 import cn.gson.his.model.pojos.Outpatient.CardEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,5 +24,8 @@ public interface CardMapper {
     public int upCard(CardEntity card);
     //修改的卡号,补办
     public int upCardID(String cardNo,String cardPswd);
+
+    //修改密码
+    public int upCardPswd(@Param("NewcardPswd")int NewcardPswd,@Param("cardNo") String cardNo,@Param("cardPswd")int cardPswd);
 
 }

@@ -28,8 +28,8 @@ public class ChangepartService {
         return  changepartMapper.seleCheckJF(checkoutId);
     }
     //修改是否填写结果
-    public int upChangepartJG(int changepartNo){
-       return changepartMapper.upChangepartJG(changepartNo);
+    public int upChangepartJG(int state,int changepartNo){
+       return changepartMapper.upChangepartJG(state,changepartNo);
     }
     //查询化验结果是否填写
     public List<ChangepartEntity> allChangepartJG(String checkoutId){

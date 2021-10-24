@@ -142,5 +142,9 @@ public class CardController<SJSONObject> {
         return "OK";
     }
 
-
+    //修改密码
+    @RequestMapping("upCardPswd")
+    public int upCardPswd(int NewcardPswd,String cardNo,int cardPswd){
+        return cs.upCardPswd(NewcardPswd,cardNo,cardPswd);
+    };
 }

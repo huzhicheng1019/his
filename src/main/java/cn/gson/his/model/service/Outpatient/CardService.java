@@ -75,4 +75,9 @@ public class CardService {
     public void upCardID(String cardID,String cardPswd){
         cm.upCardID(cardID,cardPswd);
     }
+
+    //修改密码
+    public int upCardPswd(int NewcardPswd,String cardNo,int cardPswd){
+        return cm.upCardPswd(NewcardPswd,cardNo,cardPswd);
+    };
 }

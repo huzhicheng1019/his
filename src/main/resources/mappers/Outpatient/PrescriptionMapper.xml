@@ -55,6 +55,9 @@
         <result column="COUNT" property="count"></result>
         <result column="PRICE" property="price"></result>
         <result column="STATE" property="state"/>
+        <result column="DOCTOR" property="doctor"/>
+        <result column="dateXM" property="dateXM"/>
+        <result column="id" property="id"/>
     </resultMap>
 <!--    查询处方-->
     <select id="allPres" resultMap="pres">
@@ -79,7 +82,7 @@
     <select id="allSy" resultMap="Sy">
         select * from(select P1.Record_id,P.CHINESE_NAME as name, p.C_COUNT as count,p.C_PRICE as price,p1.PRIVE_TYPE as stata
                         from PRESCRIPTIONS P inner join PRESCRIPTION P1 on p.PRES_ID = P1.PRES_NO)rec
-                        where rec.Record_id = #{record_id} and rec.stata = #{state}
+                        where rec.Record_id = #{record_id} and rec.stata = 0
     </select>
     <!--    查询处方和所有的要缴费的东西-->
     <select id="SyPrescrip" resultMap="Sy">
@@ -111,9 +114,13 @@
 </insert>
 <!--    查询所有检验化验项目-->
     <select id="sllSYEexamineChange" resultMap="Sy">
-        select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c.CHECKOUT_PRICE as price ,C.CHECKOUT_STATE as state  from CHECKOUT C                                                                                                                             inner join changePart C1  on C.Checkout_no = C.Checkout_no
+        select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c.CHECKOUT_PRICE as price ,C.CHECKOUT_STATE as state,C.CHECKOUT_DATE as checDate,C.CHECKOUT_DOCTOR as doctor , C.CHECKOUT_DOCTOR_NO as id
+                      from CHECKOUT C
+                               inner join changePart C1  on C.Checkout_no = C.Checkout_no
                       union all
-                      select CHECKOUT_ID as RECORD_ID , EXAMINE_METHOD as name,EXAMINE_LOOK as price ,EXAMINE_STATE as state from examine)rec
+                      select CHECKOUT_ID as RECORD_ID , EXAMINE_METHOD as name,EXAMINE_LOOK as price ,EXAMINE_STATE as state ,EXAMINE_DATE as checDate,
+                             EXAMINE_DOCTOR as doctor, EXAMINE_DOCTOR_NO as id
+                      from examine)rec
                       WHERE rec.RECORD_ID= #{record_id}
     </select>
 

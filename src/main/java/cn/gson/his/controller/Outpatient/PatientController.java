@@ -29,6 +29,11 @@ public class PatientController {
         return  ps.allPatientByPage(bankCardData);
 
     }
+    //查询患者资料
+    @RequestMapping("allpati1")
+    public List<PatientdataEntity> selePatient1(String cxtj){
+        return ps.selePatient1(cxtj);
+    }
     //新增患者资料
     @RequestMapping("AddPati")
     public String Addpati(String pati){
