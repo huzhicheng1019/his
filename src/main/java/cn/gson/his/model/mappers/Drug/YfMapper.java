@@ -20,6 +20,8 @@ public interface YfMapper {
 
     public List<PillsEntity> yfcx(@Param("nr") String nr);
 
+    public PillsEntity yfcxid(@Param("id") String id);
+
     //根据分类（fl）与来源编号(id)查询
     public PillsEntity fycxlyid(@Param("fl") String fl,@Param("id") String id);
 

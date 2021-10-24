@@ -40,6 +40,7 @@ public class CgthService {
         System.out.println(id);
         System.out.println(nr);
         Map<String, Object> map = new HashMap<>();
+        map.put("cgth",cgthMapper.cgthid(id).get(0));
         map.put("rows", cgthMapper.cgthxqcx(id, nr));
         return map;
     }

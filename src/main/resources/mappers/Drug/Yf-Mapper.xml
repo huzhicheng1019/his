@@ -41,6 +41,11 @@
         </where>
     </select>
 
+    <select id="yfcxid" resultMap="yfMap">
+        SELECT a.*,e.emp_name e_name,l.library_name lname from PILLS a LEFT JOIN EMPLOYEE e ON a.fyr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID
+        where a.PILLS_ID=#{id}
+    </select>
+
     <!--根据分类以及来源编号查询发药单-->
     <select id="fycxlyid" resultMap="yfMap">
         SELECT a.*,e.emp_name e_name,l.library_name lname from PILLS a LEFT JOIN EMPLOYEE e ON a.fyr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID

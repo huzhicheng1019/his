@@ -59,6 +59,7 @@ public class YfService {
         System.out.println(id);
         System.out.println(nr);
         Map<String,Object> map = new HashMap<>();
+        map.put("fy",yfMapper.yfcxid(id));
         map.put("rows",yfMapper.yfxqcx(id, nr));
         return map;
     }

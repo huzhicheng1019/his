@@ -49,6 +49,7 @@ public class CgService {
         System.out.println(id);
         System.out.println(nr);
         Map<String,Object> map = new HashMap<>();
+        map.put("cg",cgMapper.cgcxid(id).get(0));
         map.put("rows",cgMapper.cgxqcx(id,nr));
         return map;
     }
