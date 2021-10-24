@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.Checkout.OperationRecordMapper">
+    <resultMap id="recMap" type="cn.gson.his.model.pojos.Checkout.OperationRecordEntity">
+        <id property="recordId" column="record_id"></id>
+        <result property="roomId" column="room_id"></result>
+        <result property="recordTime" column="record_time"></result>
+        <result property="recordEnd" column="record_end"></result>
+        <result property="operationId" column="operation_id"></result>
+        <result property="operationName" column="operation_name"></result>
+        <result property="regMark" column="reg_mark"></result>
+        <result property="regName" column="reg_name"></result>
+        <result property="doctorId" column="doctor_id"></result>
+        <result property="doctorName" column="doctor_name"></result>
+        <result property="nurseId" column="nurse_id"></result>
+        <result property="nurseName" column="nurse_name"></result>
+        <result property="recordMoney" column="record_money"></result>
+        <result property="recordSurgicl" column="record_surgicl"></result>
+    </resultMap>
+
+    <!--新增手术（结果）记录表-->
+    <insert id="insertRecord">
+        insert into operation_record values (seq.nextval,#{roomId},null,null,#{operationId},#{operationName},#{regMark},
+        #{regName},#{doctorId},#{doctorName} ,#{nurseId},#{nurseName} ,#{recordMoney},null )
+    </insert>
+
+    <!--修改手术（结果）记录表-->
+    <update id="updateRecord">
+        update operation_record set record_time = #{recordTime},record_end = #{recordEnd}, record_surgicl =#{recordSurgicl}
+        where operation_id = #{operationId}
+    </update>
+
+    <!--根据申请详情编号查记录-->
+    <select id="selectRecord" resultMap="recMap">
+        select * from operation_record where operation_id = #{operationId}
+    </select>
+</mapper>

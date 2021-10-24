@@ -47,6 +47,10 @@
         UPDATE Operation_room SET ROOM_STATE = 1 WHERE Room_id =#{id}
     </update>
 
+    <update id="updatezt1">
+        UPDATE Operation_room SET ROOM_STATE = 2 WHERE Room_id =#{id}
+    </update>
+
     <!--根据id编辑手术室-->
     <update id="updateroom">
         update Operation_room set ROOM_NAME = #{roomName},ROOM_DRESS=#{roomDress},ROOM_SCALE=#{roomScale} where Room_id =#{roomId}

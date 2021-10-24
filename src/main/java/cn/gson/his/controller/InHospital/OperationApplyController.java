@@ -53,8 +53,9 @@ public class OperationApplyController {
 
     //查询所有手术申请表
     @RequestMapping("/allApp")
-    public List<OperationApplyEntity> allApp(){
-        return  applyService.allApp();
+    public List<OperationApplyEntity> allApp(String operationApplyEntity){
+        OperationApplyEntity operationApplyEntity1 = JSONObject.parseObject(operationApplyEntity, OperationApplyEntity.class);
+        return  applyService.allApp(operationApplyEntity1);
     }
 
 }

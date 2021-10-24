@@ -4,6 +4,7 @@ import cn.gson.his.model.pojos.InHospital.CancelOperationEntity;
 import cn.gson.his.model.pojos.InHospital.OperationApplyEntity;
 import cn.gson.his.model.pojos.InHospital.OperationApplysEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,9 +24,10 @@ public interface OperationApplyMapper {
     public int insertCan(CancelOperationEntity can);
     //修改手术申请详表状态
     public int updateCan(String appsId);
-
+    //修改手术申请详表状态
+    public int updateCan1(@Param("opsIs") String opsIs,@Param("appsId") String appsId);
 
     //查询所有手术申请表
-    public List<OperationApplyEntity> allApp();
+    public List<OperationApplyEntity> allApp(@Param("depaId")String depaId,@Param("beginTime")String beginTime,@Param("endTime")String endTime,@Param("content")String content);
 
 }

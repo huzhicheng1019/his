@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,6 +28,12 @@ public class OperationApplyEntity {
     //科室
     private Department depa;
 
+
+
+    private Integer depaId;
+    private Date beginTime;
+    private Date endTime;
+    private String content;
 
 
 

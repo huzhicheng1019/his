@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.his.model.mappers.InHospital.EmpMapper">
+    <resultMap id="empMap" type="cn.gson.his.model.pojos.Power.Employee">
+    <id property="empId" column="emp_id"></id>
+    <result property="empName" column="emp_name"></result>
+    <result property="empPhone" column="emp_phone"></result>
+    <result property="empCard" column="emp_card"></result>
+    <result property="empInduction" column="emp_induction"></result>
+    <result property="empDeparture" column="emp_departure"></result>
+    <result property="empState" column="emp_state"></result>
+    </resultMap>
+    <!--根据员工id查员工-->
+    <select id="findEmp" resultMap="empMap">
+        select  * from  employee where emp_id=#{empId}
+    </select>
+</mapper>

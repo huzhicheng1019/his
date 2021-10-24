@@ -70,7 +70,10 @@
     <update id="updateCan">
        update operation_applys set ops_is = 2 where apps_id=#{appsId}
     </update>
-
+    <!--修改手术详表状态-->
+    <update id="updateCan1">
+       update operation_applys set ops_is = #{opsIs} where apps_id=#{appsId}
+    </update>
 
     <!--新增手术申请表-->
     <insert id="insertApp">
@@ -111,7 +114,21 @@
         left join hospital_register h on app.reg_mark = h.reg_mark
          left join department d on h.depa_id = d.depa_id
 
-        where apps.ops_is = 0
+        <where>
+            <if test="depaId != '' and depaId != null and depaId != 0 " >
+                and d.depa_id= #{depaId}
+            </if>
+            <if test="beginTime != '' and beginTime != null and endTime != '' and endTime != null">
+                and (to_char(app.app_date,'yyyy-mm-dd') between #{beginTime} and  #{endTime})
+            </if>
+            <if test="content != '' ">
+                and  (app.reg_mark like '%${content}%' or h.reg_name like '%${content}%' or apps.ops_name like '%${content}%'
+                or e.emp_name like '%${content}%' or app.app_text like '%${content}%'
+               )
+            </if>
+
+        </where>
+        order by apps.ops_is
     </select>
 
 

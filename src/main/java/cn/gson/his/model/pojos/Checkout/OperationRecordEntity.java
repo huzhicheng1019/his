@@ -11,12 +11,12 @@ public class OperationRecordEntity {
     private Integer roomId;
     private Timestamp recordTime;
     private Timestamp recordEnd;
-    private Long operationId;
+    private Integer operationId;
     private String operationName;
     private String regMark;
     private String regName;
     private Integer doctorId;
-    private String doctorMame;
+    private String doctorName;
     private Integer nurseId;
     private String nurseName;
     private Long recordMoney;
@@ -64,11 +64,11 @@ public class OperationRecordEntity {
 
     @Basic
     @Column(name = "OPERATION_ID")
-    public Long getOperationId() {
+    public Integer getOperationId() {
         return operationId;
     }
 
-    public void setOperationId(Long operationId) {
+    public void setOperationId(Integer operationId) {
         this.operationId = operationId;
     }
 
@@ -113,13 +113,13 @@ public class OperationRecordEntity {
     }
 
     @Basic
-    @Column(name = "DOCTOR_MAME")
+    @Column(name = "DOCTOR_NAME")
     public String getDoctorMame() {
-        return doctorMame;
+        return doctorName;
     }
 
     public void setDoctorMame(String doctorMame) {
-        this.doctorMame = doctorMame;
+        this.doctorName = doctorMame;
     }
 
     @Basic
@@ -176,7 +176,7 @@ public class OperationRecordEntity {
                 Objects.equals(regMark, that.regMark) &&
                 Objects.equals(regName, that.regName) &&
                 Objects.equals(doctorId, that.doctorId) &&
-                Objects.equals(doctorMame, that.doctorMame) &&
+                Objects.equals(doctorName, that.doctorName) &&
                 Objects.equals(nurseId, that.nurseId) &&
                 Objects.equals(nurseName, that.nurseName) &&
                 Objects.equals(recordMoney, that.recordMoney) &&
@@ -185,6 +185,26 @@ public class OperationRecordEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(recordId, roomId, recordTime, recordEnd, operationId, operationName, regMark, regName, doctorId, doctorMame, nurseId, nurseName, recordMoney, recordSurgicl);
+        return Objects.hash(recordId, roomId, recordTime, recordEnd, operationId, operationName, regMark, regName, doctorId, doctorName, nurseId, nurseName, recordMoney, recordSurgicl);
+    }
+
+    @Override
+    public String toString() {
+        return "OperationRecordEntity{" +
+                "recordId=" + recordId +
+                ", roomId=" + roomId +
+                ", recordTime=" + recordTime +
+                ", recordEnd=" + recordEnd +
+                ", operationId=" + operationId +
+                ", operationName='" + operationName + '\'' +
+                ", regMark='" + regMark + '\'' +
+                ", regName='" + regName + '\'' +
+                ", doctorId=" + doctorId +
+                ", doctorName='" + doctorName + '\'' +
+                ", nurseId=" + nurseId +
+                ", nurseName='" + nurseName + '\'' +
+                ", recordMoney=" + recordMoney +
+                ", recordSurgicl='" + recordSurgicl + '\'' +
+                '}';
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Service
@@ -48,8 +49,20 @@ public class OperationApplyService {
 
 
     //查询所有手术申请表
-    public List<OperationApplyEntity> allApp(){
-        return  applyMapper.allApp();
+    public List<OperationApplyEntity> allApp(OperationApplyEntity operationApplyEntity){
+        String beginTime = null;
+        String endTime = null;
+        String depaId = "";
+        if (operationApplyEntity.getBeginTime() != null && operationApplyEntity.getEndTime() != null ) {
+            SimpleDateFormat sf = new SimpleDateFormat("yyy-MM-dd");
+            beginTime = sf.format(operationApplyEntity.getBeginTime());
+            endTime = sf.format(operationApplyEntity.getEndTime());
+        }
+
+        if(operationApplyEntity.getDepaId() != null){
+            depaId = operationApplyEntity.getDepaId()+"";
+        }
+        return  applyMapper.allApp(depaId,beginTime,endTime,operationApplyEntity.getContent());
     }
 
 

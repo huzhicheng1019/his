@@ -49,6 +49,6 @@
         LEFT JOIN title t on e.emp_tit = t.tit_id
         WHERE TO_DATE(s.SCHE_DATE,'yyyy/mm/dd')=TO_DATE(TO_CHAR(sysdate,'yyyy/mm/dd'),'yyyy/mm/dd') and d.DEPA_ID=#{deparId} AND T.TIT_ID = 9
     </select>
-    
+
 
 </mapper>

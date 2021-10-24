@@ -22,6 +22,8 @@ public interface Operation_roomMapper {
 
     //根据id启用手术室
     public Integer updatezt(Integer id);
+    //根据id启用手术室
+    public Integer updatezt1(Integer id);
 
     //根据Id编辑手术室
     public Integer updateroom(OperationRoomEntity operationRoomEntity);
