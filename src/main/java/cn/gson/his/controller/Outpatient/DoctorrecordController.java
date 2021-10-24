@@ -54,28 +54,10 @@ public class DoctorrecordController {
     //查询就诊记录
     @RequestMapping("allDoct")
     public List<DoctorrecordEntity> allDoct(@RequestBody Map<String,Object> date) {
-        //获取前端下拉框的值判断用户怎么查
-        System.out.println(date);
-        String select = (String)date.get("select");
-        //new 就诊记录的对象
-        DoctorrecordEntity doctorrecordEntity = new DoctorrecordEntity();
 
-        if(select == ""){
-            return ds.allDoctorrecord(doctorrecordEntity);
-        }else if(select.equals("患者姓名")){
-            doctorrecordEntity.setRecordName((String) date.get("input"));
-        }else if (select.equals("就诊号")){
             String i =  (String) date.get("input");
-            if(i.equals("")){
-                return ds.allDoctorrecord(doctorrecordEntity);
-            }else{
-                doctorrecordEntity.setRecordNo(Integer.parseInt(i));
-            }
 
-        }else{
-            doctorrecordEntity.setRecordIdentity((String)date.get("input"));
-        }
-        return ds.allDoctorrecord(doctorrecordEntity);
+        return ds.allDoctorrecord(i);
     }
     //新增就诊记录和病历
     @RequestMapping("addDoctorrecord")

@@ -29,8 +29,8 @@ public class DoctorrecordService {
     private HangMarkService hms;
 
     //查询就诊记录
-    public List<DoctorrecordEntity>allDoctorrecord(DoctorrecordEntity doctorre){
-        return  dm.allDoctorrecord(doctorre);
+    public List<DoctorrecordEntity>allDoctorrecord(String cxtj){
+        return  dm.allDoctorrecord(cxtj);
     }
     //新增
     @Transactional

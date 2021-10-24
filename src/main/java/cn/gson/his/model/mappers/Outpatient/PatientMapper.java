@@ -17,7 +17,8 @@ public interface PatientMapper{
 
     //查询患者资料
     public List<PatientdataEntity> selePatient(PatientdataEntity patient);
-
+    //查询患者资料
+    public List<PatientdataEntity> selePatient1(String cxtj);
     //新增患者资料
     public int AddPatient(PatientdataEntity patient);
 

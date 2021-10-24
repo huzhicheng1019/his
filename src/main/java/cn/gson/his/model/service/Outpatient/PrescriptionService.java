@@ -56,9 +56,12 @@ public class PrescriptionService {
         return  pm.allPres(presc);
     }
     //查询所有要缴费的药品
-     public List<SyEntity> allSy(String id){
-            return pm.allSy(id);
+     public List<SyEntity> allSy(String id,int state){
+            return pm.allSy(id,state);
      }
+    public List<SyEntity> SyPrescrip(String record_id){
+        return pm.SyPrescrip(record_id);
+    }
      //查询所有要缴费的检查检验
      public List<SyEntity> allJC(String id){
          return pm.allJC(id);

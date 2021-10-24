@@ -34,6 +34,7 @@
 <select id="selectTest" resultMap="allTest">
     select * FROM TESTS T LEFT JOIN TEST_TYPE  T1 on T.TYPE_ID = T1.TYPE_ID
     LEFT JOIN TEST_DETAILS T2 ON T.TEST_ID = T2.TEXT_ID
+    left join department on   T.DEPT_ID=department.DEPA_ID
     <where>
         <if test="typeName !=''">
                 T1.TYPE_NAME = #{typeName}
@@ -45,6 +46,59 @@
     </where>
 </select>
 
-
-
+<!--    新增检验检查-->
+<insert id="addTest">
+    insert into tests values(seq.nextval,#{testName,jdbcType=VARCHAR},#{type.typeId,jdbcType=NUMERIC},#{keshi.depaId,jdbcType=NUMERIC})
+    <selectKey order="AFTER" keyProperty="testId" resultType="_int">
+        select seq.currval from dual
+    </selectKey>
+</insert>
+<!-- 停用检查检验-->
+<update id="upTestsDetails">
+    update TEST_DETAILS set DETAILS_VALUES = #{state} where  TEXT_ID = #{test}
+</update>
+<!--    修改检查检验-->
+    <update id="upTest">
+        update  tests
+        <set>
+            <if test="testName !=null">
+                TEST_NAME = #{testName},
+            </if>
+            <if test="type.typeId !=null">
+                TYPE_ID = #{type.typeId},
+            </if>
+            <if test="keshi.depaId !=null">
+                DEPT_ID  = #{keshi.depaId}
+            </if>
+        </set>
+        where TEST_ID = #{testId}
+    </update>
+<!-- 修改详情-->
+    <update id="upDetails">
+        update TEST_DETAILS
+        <set>
+            <if test="detailsSymbol !=null">
+                DETAILS_SYMBOL = #{detailsSymbol},
+            </if>
+            <if test="detailsName !=null">
+                DETAILS_NAME = #{detailsName},
+            </if>
+            <if test="detailsCompany !=null">
+                DETAILS_COMPANY =  #{detailsCompany},
+            </if>
+            <if test="detailsPrice !=null">
+                DETAILS_PRICE = #{detailsPrice},
+            </if>
+            <if test="detailsShuoming !=null">
+                DETAILS_SHUOMING = #{detailsShuoming}
+            </if>
+        </set>
+        where DETAILS_ID = #{detailsId}
+    </update>
+<!--    新增详情-->
+    <insert id="insertdetails">
+        insert into test_details values(seq.nextval,#{detailsSymbol,jdbcType=VARCHAR},#{detailsName,jdbcType=VARCHAR},
+                                        #{detailsCompany,jdbcType=VARCHAR},0,#{detailsPrice,jdbcType=NUMERIC},
+                                        #{detailsShuoming,jdbcType=VARCHAR},#{testsId,jdbcType=NUMERIC})
+    </insert>
 </mapper>

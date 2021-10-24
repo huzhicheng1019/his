@@ -79,6 +79,17 @@
         </where>
         order by PATIENT_NO desc
     </select>
+    <select id="selePatient1" resultMap="Patient">
+        select * from PATIENTDATA
+        <where>
+            <if test="cxtj !=''">
+                PATIENT_INSU like '%${cxtj}%' or PATIENT_SEX  like '%${cxtj}%' or PATIENT_IDENTITY  like '%${cxtj}%'or
+                PATIENT_AGE  like '%${cxtj}%' or PATIENT_NAME  like '%${cxtj}%'or PATIENT_PHONE  like '%${cxtj}%'or
+                PATIENT_PIRTH  like '%${cxtj}%'
+            </if>
+        </where>
+        order by PATIENT_NO desc
+    </select>
 
     <!--根据id删除病人信息表-->
     <delete id="delPatient">

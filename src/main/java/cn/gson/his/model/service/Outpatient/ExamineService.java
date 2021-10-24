@@ -30,7 +30,7 @@ public class ExamineService {
     }
 
     //修改检查状态
-    public int upExamine(String examineState,Integer examineNo){
+    public int upExamine(String examineState,String examineNo){
             return examineMapper.upExamine(examineState,examineNo);
     }
     //根据编号修改检查状态

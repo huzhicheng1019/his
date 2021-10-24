@@ -3,6 +3,7 @@ package cn.gson.his.model.pojos.Outpatient;
 import cn.gson.his.model.pojos.Checkout.TestsEntity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +16,9 @@ public class ExamineEntity {
     private String examineMethod;//检查方法
     private String examineLook;//检查费用
     private String examineState;//收费状态
+    private Timestamp examineDate;//开申请时间
+    private String examineDoctor;//医生姓名
+    private int examineDoctorNo;//医生编号
 
     //检验项目
     private TestsEntity testsEntity;
@@ -94,6 +98,30 @@ public class ExamineEntity {
 
     public void setExamineState(String examineState) {
         this.examineState = examineState;
+    }
+
+    public Timestamp getExamineDate() {
+        return examineDate;
+    }
+
+    public void setExamineDate(Timestamp examineDate) {
+        this.examineDate = examineDate;
+    }
+
+    public String getExamineDoctor() {
+        return examineDoctor;
+    }
+
+    public void setExamineDoctor(String examineDoctor) {
+        this.examineDoctor = examineDoctor;
+    }
+
+    public int getExamineDoctorNo() {
+        return examineDoctorNo;
+    }
+
+    public void setExamineDoctorNo(int examineDoctorNo) {
+        this.examineDoctorNo = examineDoctorNo;
     }
 
     @Override

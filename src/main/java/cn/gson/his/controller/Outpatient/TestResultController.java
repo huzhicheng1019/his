@@ -21,13 +21,25 @@ public class TestResultController {
 
     @Autowired ChangepartService changepart;
 
+    //新增住院的结果
+    @RequestMapping("addZYtestResult")
+    public int addZYtestResult(String testResult,String examineNo,String record_id,int price){
+        TestResult testResult1 = JSONObject.parseObject(testResult,TestResult.class);
+
+        examineService.upExamineID("4",Integer.valueOf(examineNo));
+
+        changepart.upChangepartJG(4,Integer.valueOf(examineNo));
+
+       return testResultService.addZYtestResult(testResult1,examineNo,record_id,price);
+    }
     @RequestMapping("addtestResult")
     public int addTestResult(String testResult,String examineNo){
         System.out.println(testResult);
-        TestResult testResult1 = JSONObject.parseObject(testResult,TestResult.class);
 
+        TestResult testResult1 = JSONObject.parseObject(testResult,TestResult.class);
         examineService.upExamineID("2",Integer.valueOf(examineNo));
-        changepart.upChangepartJG(Integer.valueOf(examineNo));
+
+        changepart.upChangepartJG(1,Integer.valueOf(examineNo));
         return testResultService.addTestResult(testResult1);
     }
 }

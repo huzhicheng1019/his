@@ -1,11 +1,43 @@
 package cn.gson.his.model.pojos.Outpatient;
 
+import oracle.sql.DATE;
+
+import java.util.Date;
+
 public class SyEntity {
     private String recordId;
     private String name;
     private int count;
     private int price;
     private  int state;
+    private Date dateXM;
+    private String doctor;
+    private  int id;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getDateXM() {
+        return dateXM;
+    }
+
+    public void setDateXM(Date dateXM) {
+        this.dateXM = dateXM;
+    }
+
+    public String getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(String doctor) {
+        this.doctor = doctor;
+    }
 
     public int getState() {
         return state;

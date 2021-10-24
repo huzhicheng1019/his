@@ -9,6 +9,7 @@ import java.util.Objects;
 public class TestTypeEntity {
     private long typeId;
     private String typeName;
+
     private List<TestsEntity> tests;
 
     @Id

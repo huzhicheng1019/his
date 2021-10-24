@@ -13,6 +13,7 @@ public class TestDetailsEntity {
     private String detailsValues;
     private Long detailsPrice;
     private String detailsShuoming;
+    private  int testsId;
     private TestsEntity ttests;
 
     @Transient
@@ -108,6 +109,15 @@ public class TestDetailsEntity {
     public void setDetailsShuoming(String detailsShuoming) {
         this.detailsShuoming = detailsShuoming;
     }
+    @Basic
+    @Column(name = "TEXT_ID")
+    public int getTestsId() {
+        return testsId;
+    }
+
+    public void setTestsId(int testsId) {
+        this.testsId = testsId;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -123,7 +133,6 @@ public class TestDetailsEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "TEST_ID", referencedColumnName = "TEST_ID")
     public TestsEntity getTtests() {
         return ttests;
     }

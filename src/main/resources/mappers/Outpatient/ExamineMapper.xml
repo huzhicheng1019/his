@@ -10,10 +10,13 @@
         <result column="examineMethod" property="EXAMINE_METHOD"/>
         <result column="examineLook" property="EXAMINE_LOOK"/>
         <result column="examineState" property="EXAMINE_STATE"/>
+        <result column="examineDate" property="EXAMINE_DATE"/>
+        <result column="examineDoctor" property="EXAMINE_DOCTOR"/>
+        <result column="examineDoctorNo" property="EXAMINE_DOCTOR_NO"/>
     </resultMap>
 <!--新增检查项目-->
     <insert id="addExamine">
-        insert into EXAMINE values (SEQ.nextval,#{record_id,jdbcType=VARCHAR},#{checklistNo,jdbcType=NUMERIC},#{examineDiagnose,jdbcType=VARCHAR},#{examineMethod,jdbcType=VARCHAR},#{examineLook,jdbcType=NUMERIC},#{examineState,jdbcType=VARCHAR})
+        insert into EXAMINE values (SEQ.nextval,#{record_id,jdbcType=VARCHAR},#{checklistNo,jdbcType=NUMERIC},#{examineDiagnose,jdbcType=VARCHAR},#{examineMethod,jdbcType=VARCHAR},#{examineLook,jdbcType=NUMERIC},#{examineState,jdbcType=VARCHAR},SYSDATE,#{examineDoctor,jdbcType=VARCHAR},#{examineDoctorNo,jdbcType=NUMERIC})
     </insert>
 <!--    查询检查项目-->
     <select id="allExamine" resultMap="allExamine">
@@ -32,6 +35,9 @@
         <result property="examineMethod" column="EXAMINE_METHOD"/>
         <result property="examineLook" column="EXAMINE_LOOK"/>
         <result property="examineState" column="EXAMINE_STATE"/>
+        <result column="examineDate" property="EXAMINE_DATE"/>
+        <result column="examineDoctor" property="EXAMINE_DOCTOR"/>
+        <result column="examineDoctorNo" property="EXAMINE_DOCTOR_NO"/>
         <association property="testsEntity" javaType="cn.gson.his.model.pojos.Checkout.TestsEntity">
             <id property="testId" column="Test_id"></id>
             <result property="testName" column="Test_name"></result>

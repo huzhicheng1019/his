@@ -64,7 +64,7 @@
     </update>
 <!--    修改化验是否填写结果-->
     <update id="upChangepartJG">
-        update CHANGEPART SET CHANGEPART_STATE = 1 WHERE CHANGEPART_NO = #{changepartNo}
+        update CHANGEPART SET CHANGEPART_STATE = #{state} WHERE CHANGEPART_NO = #{changepartNo}
     </update>
 <!--    查询填写结果的检查检验-->
     <select id="seleCheckJG" resultMap="allChangepartJF">

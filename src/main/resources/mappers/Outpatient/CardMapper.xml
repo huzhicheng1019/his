@@ -37,6 +37,10 @@
         </set>
         where  CARD_PSWD = #{cardPswd}
     </update>
+<!--    修改密码 -->
+    <update id="upCardPswd">
+        update CARD set  CARD_PSWD = #{NewcardPswd} where  CARD_NO = #{cardNo} and CARD_PSWD =#{cardPswd}
+    </update>
 <!--修改就诊卡-->
     <update id="upCard">
         update CARD
