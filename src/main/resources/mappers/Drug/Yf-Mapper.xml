@@ -28,6 +28,7 @@
                 and PILLS_DATE BETWEEN #{qssj} and #{jssj}
             </if>
         </where>
+        order by PILLS_DATE desc
     </select>
 
     <select id="yfcx" resultMap="yfMap">
@@ -38,6 +39,11 @@
                 and PILLS_ID = #{nr} or FYLY_ID = #{nr}
             </if>
         </where>
+    </select>
+
+    <select id="yfcxid" resultMap="yfMap">
+        SELECT a.*,e.emp_name e_name,l.library_name lname from PILLS a LEFT JOIN EMPLOYEE e ON a.fyr = e.EMP_ID LEFT JOIN LIBRARY_INFO l on a.LIBRARY_ID=l.LIBRARY_ID
+        where a.PILLS_ID=#{id}
     </select>
 
     <!--根据分类以及来源编号查询发药单-->
@@ -224,6 +230,7 @@
                 and PILLS_ID like concat(concat('%',#{nr}),'%')
             </if>
         </where>
+        order by PILLS_DATE desc
     </select>
 
     <resultMap id="EnMap" type="cn.gson.his.model.pojos.InHospital.DoctorEnjoinEntity">

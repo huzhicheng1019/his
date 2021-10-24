@@ -26,9 +26,13 @@
                 and DESTROY_ID like concat(concat('%',#{nr}),'%')
             </if>
             <if test="qssj!=null and jssj!=null">
-                and DESTROY_DATE BETWEEN #{qssj} and #{jssj}
+                and SQDATE BETWEEN #{qssj} and #{jssj}
+            </if>
+            <if test="xhqssj!=null and xhjssj!=null">
+                and DESTROY_DATE BETWEEN #{xhqssj} and #{xhjssj}
             </if>
         </where>
+        order by SQDATE desc
     </select>
 
     <select id="xhcxid" resultMap="xhMap">

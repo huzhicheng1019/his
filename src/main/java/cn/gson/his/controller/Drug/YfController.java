@@ -47,10 +47,10 @@ public class YfController {
     }
 
     @RequestMapping("yfxq")
-    public Map<String,Object> getyfxq(Integer pageNo, Integer size,String id,String nr){
+    public Map<String,Object> getyfxq(String id,String nr){
         System.out.println(id);
         System.out.println(nr);
-        Map<String, Object> stringObjectMap = yfService.yfxqselect(pageNo,size,id,nr);
+        Map<String, Object> stringObjectMap = yfService.yfxqselect(id,nr);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }

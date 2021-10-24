@@ -36,14 +36,12 @@ public class CgthService {
         return map;
     }
 
-    public Map<String,Object> cgthxqselect(int pageNo, int size,String id, String nr) {
+    public Map<String,Object> cgthxqselect(String id, String nr) {
         System.out.println(id);
         System.out.println(nr);
         Map<String, Object> map = new HashMap<>();
-        //分页查询
-        Page<Object> page = PageHelper.startPage(pageNo, size);
+        map.put("cgth",cgthMapper.cgthid(id).get(0));
         map.put("rows", cgthMapper.cgthxqcx(id, nr));
-        map.put("total", page.getTotal());
         return map;
     }
 

@@ -58,6 +58,18 @@ public class KcbjService {
             ProductEntity productEntity = new ProductEntity(entity.getConId(), entity.getConName(), "1",entity.getDrugPfprice(), entity.getZdkcs(), entity.getConGe(), entity.getGys(), entity.getKszt(), entity.getGesl() , entity.getShdw(), entity.getDw());
             productEntityList.add(productEntity);
         }
+
+        for (int i=1;i<productEntityList.size();i++){
+            for (int j=0;j<productEntityList.size()-1-i;j++){
+               if(productEntityList.get(j).getSl()>productEntityList.get(j+1).getSl()){
+                    ProductEntity temp;
+                    temp=productEntityList.get(j);
+                    productEntityList.set(j,productEntityList.get(j+1));
+                    productEntityList.set(j+1,temp);
+               }
+            }
+
+        }
         map.put("kcbjcx",productEntityList);
         return map;
     }

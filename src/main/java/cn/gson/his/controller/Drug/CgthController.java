@@ -49,10 +49,10 @@ public class CgthController {
     }
 
     @RequestMapping("cgthxq")
-    public Map<String,Object> getcgxq(Integer pageNo, Integer size,String id,String nr){
+    public Map<String,Object> getcgxq(String id,String nr){
         System.out.println(id);
         System.out.println(nr);
-        Map<String, Object> stringObjectMap = cgthService.cgthxqselect(pageNo,size,id,nr);
+        Map<String, Object> stringObjectMap = cgthService.cgthxqselect(id,nr);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }

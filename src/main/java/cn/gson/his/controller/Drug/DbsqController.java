@@ -26,32 +26,38 @@ public class DbsqController {
     DbsqService dbsqService;
 
     @RequestMapping("dbgl")
-    public Map<String,Object> getck(Integer pageNo, Integer size, String nr, String qssj, String jssj){
+    public Map<String,Object> getck(Integer pageNo, Integer size, String nr, String qssj, String jssj, String dbqssj, String dbjssj){
         System.out.println("nr:"+nr);
         System.out.println("开始时间："+qssj);
         System.out.println("结束时间："+jssj);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date qsj=null;
         Date jsj=null;
+        Date dbqsj=null;
+        Date dbjsj=null;
         try {
             if(qssj!=null && qssj!="" && jssj!=null && jssj!="") {
                 qsj = sdf.parse(qssj);
                 jsj = sdf.parse(jssj);
 
             }
+            if(dbqssj!=null && dbqssj!="" && dbjssj!=null && dbjssj!=""){
+                dbqsj = sdf.parse(dbqssj);
+                dbjsj = sdf.parse(dbjssj);
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Map<String, Object> stringObjectMap = dbsqService.dbselect(pageNo,size,nr,qsj,jsj);
+        Map<String, Object> stringObjectMap = dbsqService.dbselect(pageNo,size,nr,qsj,jsj,dbqsj,dbjsj);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }
 
     @RequestMapping("dbxq")
-    public Map<String,Object> getckxq(Integer pageNo, Integer size,String id,String nr){
+    public Map<String,Object> getckxq(String id,String nr){
         System.out.println(id);
         System.out.println(nr);
-        Map<String, Object> stringObjectMap = dbsqService.dbxqselect(pageNo,size,id,nr);
+        Map<String, Object> stringObjectMap = dbsqService.dbxqselect(id,nr);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }

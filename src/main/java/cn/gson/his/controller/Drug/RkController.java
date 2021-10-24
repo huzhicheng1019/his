@@ -48,10 +48,9 @@ public class RkController {
     }
 
     @RequestMapping("rkxq")
-    public Map<String,Object> getrkxq(Integer pageNo, Integer size,Integer id, String nr){
+    public Map<String,Object> getrkxq(Integer id, String nr){
         System.out.println("nr:"+nr);
-        Map<String, Object> stringObjectMap = rkService.rkxqcx(pageNo,size,id,nr);
-        System.out.println(stringObjectMap.get("total"));
+        Map<String, Object> stringObjectMap = rkService.rkxqcx(id,nr);
         return stringObjectMap;
     }
 

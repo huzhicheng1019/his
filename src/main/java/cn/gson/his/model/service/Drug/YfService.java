@@ -55,14 +55,12 @@ public class YfService {
         return map;
     }
 
-    public Map<String,Object> yfxqselect(int pageNo, int size,String id, String nr){
+    public Map<String,Object> yfxqselect(String id, String nr){
         System.out.println(id);
         System.out.println(nr);
         Map<String,Object> map = new HashMap<>();
-        //分页查询
-        Page<Object> page= PageHelper.startPage(pageNo,size);
+        map.put("fy",yfMapper.yfcxid(id));
         map.put("rows",yfMapper.yfxqcx(id, nr));
-        map.put("total",page.getTotal());
         return map;
     }
 

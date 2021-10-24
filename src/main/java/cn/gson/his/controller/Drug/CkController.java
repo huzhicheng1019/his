@@ -48,9 +48,9 @@ public class CkController {
     }
 
     @RequestMapping("chukxq")
-    public Map<String,Object> getchuxq(Integer pageNo, Integer size,Integer id, String nr){
+    public Map<String,Object> getchuxq(Integer id, String nr){
         System.out.println("nr:"+nr);
-        Map<String, Object> stringObjectMap = ckService.chuxqcx(pageNo,size,id,nr);
+        Map<String, Object> stringObjectMap = ckService.chuxqcx(id,nr);
         System.out.println(stringObjectMap.get("total"));
         return stringObjectMap;
     }

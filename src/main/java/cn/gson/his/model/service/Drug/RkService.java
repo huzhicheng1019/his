@@ -54,12 +54,9 @@ public class RkService {
         return map;
     }
 
-    public Map<String, Object> rkxqcx(int pageNo, int size,Integer id, String nr){
+    public Map<String, Object> rkxqcx(Integer id, String nr){
         Map<String,Object> map = new HashMap<>();
-        //分页查询
-        Page<Object> page= PageHelper.startPage(pageNo,size);
         map.put("rows",rkMapper.stojlcx(id,nr));
-        map.put("total",page.getTotal());
         return map;
     }
 
