@@ -49,4 +49,9 @@ public class Operation_roomService {
     public Integer updateroom(OperationRoomEntity operationRoomEntity){
         return Operation_roomMapper.updateroom(operationRoomEntity);
     }
+
+    //查询所有手术室
+    public List<OperationRoomEntity> queryRoom(){
+        return Operation_roomMapper.queryRoom();
+    }
 }

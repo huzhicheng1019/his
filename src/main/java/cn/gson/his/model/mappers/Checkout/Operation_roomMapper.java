@@ -25,4 +25,7 @@ public interface Operation_roomMapper {
 
     //根据Id编辑手术室
     public Integer updateroom(OperationRoomEntity operationRoomEntity);
+
+    //查询所有手术室
+    public List<OperationRoomEntity> queryRoom();
 }

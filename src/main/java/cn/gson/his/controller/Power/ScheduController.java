@@ -123,10 +123,11 @@ public class ScheduController {
     public ElMessage addScheEmp(@RequestParam("scheEmp") String scheEmp){
         JSONObject o = JSONObject.parseObject(scheEmp);
         List<Integer> emp = JSONArray.parseArray(o.get("emp").toString(), Integer.TYPE);
+        Integer deparId = Integer.parseInt(o.get("deparId").toString());
         Integer shiId = Integer.parseInt(o.get("shiId").toString());
         Integer scheId = Integer.parseInt(o.get("scheId").toString());
         //System.out.println("员工"+emp+",班次id"+shiId+",日期id"+scheId);
-        int p = service.addScheEmp(emp,shiId,scheId);
+        int p = service.addScheEmp(emp,deparId,shiId,scheId);
             ElMessage elm = new ElMessage();
             if (p > 0) {
                 elm.setMessage("已排班");

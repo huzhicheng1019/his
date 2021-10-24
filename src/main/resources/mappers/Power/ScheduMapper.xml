@@ -59,54 +59,9 @@
         <result property="startTime" column="START_TIME"/>
         <result property="stopTime" column="STOP_TIME"/>
     </resultMap>
-    <!--<select id="allShift" resultMap="Shift">
-        SELECT * FROM SHIFT
-    </select>
-
-
-    &lt;!&ndash;批量新增排班&ndash;&gt;
-    <insert id="addSchedu" parameterType="java.util.List">
-        insert into schedu(SCHE_ID, EMP_ID, SCHE_DATE,START_TIME,STOP_TIME)
-        select seq.nextval, EMP_ID, SCHE_DATE,START_TIME,STOP_TIME from
-        <foreach collection="list" item="p" index="i" separator=" " open="(" close=")">
-            <if test="i != list.size()-1">
-                select #{p.emp.empId} as EMP_ID , #{p.scheDate} as SCHE_DATE,#{p.startTime} as START_TIME,#{p.stopTime} as STOP_TIME from dual
-                union
-            </if>
-            <if test="i == list.size()-1">
-                select #{p.emp.empId} as EMP_ID , #{p.scheDate} as SCHE_DATE,#{p.startTime} as START_TIME,#{p.stopTime} as STOP_TIME from dual
-            </if>
-        </foreach>
-    </insert>
-
-    <resultMap id="Schedu" type="cn.gson.his.model.pojos.Power.Schedu">
-        <id column="SCHE_ID" property="scheId"/>
-        <result column="SCHE_DATE" property="scheDate"/>
-        <result column="START_TIME" property="startTime"/>
-        <result column="STOP_TIME" property="stopTime"/>
-        <association property="emp" javaType="cn.gson.his.model.pojos.Power.Employee">
-            <id column="EMP_ID" property="empId"/>
-            <result column="EMP_NAME" property="empName"/>
-            <association property="deptByEmpDept" javaType="cn.gson.his.model.pojos.Power.Dept">
-                <id column="DEPT_ID" property="deptId"/>
-                <result column="DEPT_NAME" property="deptName"/>
-            </association>
-            <association property="departmentByEmpDepar" javaType="cn.gson.his.model.pojos.Power.Department">
-                <id column="DEPA_ID" property="depaId"/>
-                <result column="DEPA_NAME" property="depaName"/>
-            </association>
-            <association property="titles" javaType="cn.gson.his.model.pojos.Power.Title">
-                <id column="TIT_ID" property="titId"/>
-                <result column="TIT_NAME" property="titName"/>
-            </association>
-        </association>
-    </resultMap>
-    <select id="allSche" resultMap="Schedu">
-        select * from schedu s left join employee e on s.emp_id=e.emp_id left join dept p on e.emp_dept=dept_id left join department d on e.emp_depar=d.depa_id left join title t on e.emp_tit=t.tit_id where p.dept_name=#{dept}
-    </select>-->
 
     <select id="allShiftById" resultMap="Shift">
-        select * from shift where shi_type=#{typeId} order by START_TIME
+        select * from shift where shi_type=#{typeId} order by START_TIME desc
     </select>
 
     <!--查询本周星期-->
@@ -156,9 +111,9 @@
         LEFT JOIN DEPT d on e.EMP_DEPT=d.DEPT_ID
         LEFT JOIN DEPARTMENT p on e.EMP_DEPAR=p.DEPA_ID
         LEFT JOIN TITLE t on e.EMP_TIT=t.TIT_ID
-        WHERE TO_DATE(s.SCHE_DATE, 'yyyy/mm/dd') >= TRUNC(NEXT_DAY(SYSDATE-8,1)+(1+#{date}))
-        AND TO_DATE(s.SCHE_DATE, 'yyyy/mm/dd') &lt; TRUNC(NEXT_DAY(SYSDATE-8,1)+(7+#{date}))+1
-        ORDER BY TO_DATE(s.SCHE_DATE, 'yyyy/mm/dd')
+        WHERE TO_DATE(s.SCHE_DATE, 'yyyy-mm-dd') >= TRUNC(NEXT_DAY(SYSDATE-8,1)+(1+#{date}))
+        AND TO_DATE(s.SCHE_DATE, 'yyyy-mm-dd') &lt; TRUNC(NEXT_DAY(SYSDATE-8,1)+(7+#{date}))+1
+        ORDER BY TO_DATE(s.SCHE_DATE, 'yyyy-mm-dd')
     </select>
 
 
@@ -181,7 +136,7 @@
     </insert>
 
     <delete id="delScheEmp">
-        DELETE FROM SCHE_EMP WHERE SHI_ID=#{shiId} and SCHE_ID=#{scheId}
+        DELETE FROM SCHE_EMP s WHERE  s.EMP_ID in(SELECT e.EMP_ID FROM EMPLOYEE e WHERE e.EMP_DEPAR=#{deparId}) and s.SHI_ID=#{shiId} and s.SCHE_ID=#{scheId}
     </delete>
 
     <insert id="addSchedu" parameterType="java.util.List">

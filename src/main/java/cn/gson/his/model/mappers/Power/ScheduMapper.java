@@ -32,7 +32,7 @@ public interface ScheduMapper {
 
     int addScheEmp(List<ScheEmp> scheEmps);
 
-    int delScheEmp(@Param("shiId") Integer shiId,@Param("scheId") Integer scheId);
+    int delScheEmp(@Param("deparId") Integer deparId,@Param("shiId") Integer shiId,@Param("scheId") Integer scheId);
 
     int addSchedu(List<Schedu> list);
 

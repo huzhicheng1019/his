@@ -1,5 +1,6 @@
 package cn.gson.his.model.pojos.InHospital;
 
+import cn.gson.his.model.pojos.Power.Department;
 import cn.gson.his.model.pojos.Power.Employee;
 import lombok.Data;
 
@@ -22,6 +23,9 @@ public class OperationApplyEntity {
     private Employee emp;
 
     private HospitalRegisterEntity hospitalRegisterEntity;
+
+    //科室
+    private Department depa;
 
 
 

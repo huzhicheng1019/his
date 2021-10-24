@@ -97,9 +97,9 @@ public class ScheduService {
         return mapper.allScheByempId(deptId,deparId,scheId,shiId);
     }
 
-    public int  addScheEmp(List<Integer> emp,Integer shiId,Integer scheId) {
+    public int  addScheEmp(List<Integer> emp,Integer deparId,Integer shiId,Integer scheId) {
         int y=-1;
-        int p=mapper.delScheEmp(shiId,scheId);
+        int p=mapper.delScheEmp(deparId,shiId,scheId);
         if(emp.isEmpty()==false){
         List<Integer> funs=mapper.allEmpById(emp);
             List<ScheEmp> list=new ArrayList<>();
@@ -156,6 +156,11 @@ public class ScheduService {
      * @throws ParseException
      */
     public List<Schedu> getLastTimeInterval(Integer value) throws ParseException {
+        Calendar cal=Calendar.getInstance();
+        int week=cal.get(Calendar.DAY_OF_WEEK)-1;
+        if(week==0){
+            value=value-7;
+        }
         Calendar calendar1 = Calendar.getInstance();
         Calendar calendar2 = Calendar.getInstance();
         int dayOfWeek = calendar1.get(Calendar.DAY_OF_WEEK) - 1;

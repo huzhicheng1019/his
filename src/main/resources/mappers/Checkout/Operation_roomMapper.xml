@@ -51,4 +51,9 @@
     <update id="updateroom">
         update Operation_room set ROOM_NAME = #{roomName},ROOM_DRESS=#{roomDress},ROOM_SCALE=#{roomScale} where Room_id =#{roomId}
     </update>
+
+    <!--查询所有手术室-->
+    <select id="queryRoom" resultMap="roomMap">
+        select * from Operation_room  where Room_state = 1
+    </select>
 </mapper>

@@ -56,4 +56,11 @@ public class Operation_roomController {
         }
         return 0;
     }
+
+    //查询所有手术室
+    @RequestMapping("/queryRoom")
+    public List<OperationRoomEntity> queryRoom(){
+        return operation_roomService.queryRoom();
+    }
+
 }

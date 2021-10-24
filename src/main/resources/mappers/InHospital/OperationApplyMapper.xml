@@ -18,6 +18,11 @@
             <result property="empDeparture" column="emp_departure"></result>
             <result property="empState" column="emp_state"></result>
         </association>
+        <!--科室-->
+        <association property="depa" javaType="cn.gson.his.model.pojos.Power.Department">
+            <id property="depaId" column="depa_id"></id>
+            <result property="depaName" column="depa_name"></result>
+        </association>
 
         <association property="hospitalRegisterEntity" javaType="cn.gson.his.model.pojos.InHospital.HospitalRegisterEntity">
             <id property="regId" column="reg_id"></id>
@@ -104,6 +109,7 @@
         left join OPERATION_ITEM i on apps.ops_id = i.operation_id
         LEFT JOIN EMPLOYEE e on e.emp_id = app.doctor_id
         left join hospital_register h on app.reg_mark = h.reg_mark
+         left join department d on h.depa_id = d.depa_id
 
         where apps.ops_is = 0
     </select>
