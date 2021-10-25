@@ -17,7 +17,7 @@
     </resultMap>
 <!--    新增检验详情-->
     <insert id="addChangepart">
-        insert  into CHANGEPART values (seq.nextval,#{changetestNo},#{checkoutNo},#{checkoutResult},#{checkoutStata})
+        insert  into CHANGEPART values (seq.nextval,#{changetestNo},#{checkoutNo},#{checkoutResult},#{checkoutStata},#{changetestPrice})
     </insert>
 <!--    查询-->
     <select id="seleChangepart" resultMap="allChangepart">
@@ -35,6 +35,7 @@
                 <result property="checkoutCribe" column="CHECKOUT_CRIBE"></result>
                 <result property="checkoutPrice" column="CHECKOUT_PRICE"></result>
                 <result property="checkoutState" column="CHECKOUT_STATE"></result>
+                <result property="changetestPrice" column="CHANGEPART_PRICE"></result>
             </association>
             <association property="testsEntity" javaType="cn.gson.his.model.pojos.Checkout.TestsEntity">
                 <id property="testId" column="Test_id"></id>
@@ -56,7 +57,7 @@
         SELECT * FROM CHECKOUT C
             INNER JOIN CHANGEPART C1  ON C.CHECKOUT_NO = C1.CHECKOUT_NO
             INNER JOIN TESTS T ON C1.CHANGETEST_NO = T.TEST_ID
-            LEFT JOIN TEST_DETAILS T2 ON T.TEST_ID = T2.TEXT_ID where C.CHECKOUT_ID = #{checkoutId} and C.CHECKOUT_STATE = 1 AND C1.CHANGEPART_STATE = 0
+            LEFT JOIN TEST_DETAILS T2 ON T.TEST_ID = T2.TEXT_ID where C.CHECKOUT_ID = #{checkoutId} and C.CHECKOUT_STATE = 1 AND C1.CHANGEPART_STATE = 0 or C.CHECKOUT_STATE = 2
     </select>
 <!--    修改化验结果 -->
     <update id="upChangepart">

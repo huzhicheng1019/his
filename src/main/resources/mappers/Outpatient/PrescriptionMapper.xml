@@ -92,7 +92,7 @@
     </select>
 <!--    //检查检验-->
     <select id="allJC" resultMap="Sy">
-        select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c.CHECKOUT_PRICE as price ,C.CHECKOUT_STATE as state  from CHECKOUT C
+        select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c1.CHANGEPART_PRICE as price ,C.CHECKOUT_STATE as state  from CHECKOUT C
                       inner join changePart C1  on C.Checkout_no = C.Checkout_no
                       union all
                       select CHECKOUT_ID as RECORD_ID , EXAMINE_METHOD as name,EXAMINE_LOOK as price ,EXAMINE_STATE as state from examine)rec
@@ -114,7 +114,7 @@
 </insert>
 <!--    查询所有检验化验项目-->
     <select id="sllSYEexamineChange" resultMap="Sy">
-        select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c.CHECKOUT_PRICE as price ,C.CHECKOUT_STATE as state,C.CHECKOUT_DATE as checDate,C.CHECKOUT_DOCTOR as doctor , C.CHECKOUT_DOCTOR_NO as id
+        select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c1.CHANGEPART_PRICE as price ,C.CHECKOUT_STATE as state,C.CHECKOUT_DATE as checDate,C.CHECKOUT_DOCTOR as doctor , C.CHECKOUT_DOCTOR_NO as id
                       from CHECKOUT C
                                inner join changePart C1  on C.Checkout_no = C.Checkout_no
                       union all

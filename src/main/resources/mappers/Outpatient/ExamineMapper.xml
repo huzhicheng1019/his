@@ -54,7 +54,7 @@
         </association>
     </resultMap>
     <select id="allExamineJF" resultMap="allExamineJF">
-        select  * from EXAMINE E INNER JOIN TESTS T ON E.CHECKLIST_NO = T.TEST_ID LEFT JOIN TEST_DETAILS T2 ON T.TEST_ID = T2.TEXT_ID WHERE  E.CHECKOUT_ID = #{record_id} and E.EXAMINE_STATE = #{state}
+        select  * from EXAMINE E INNER JOIN TESTS T ON E.CHECKLIST_NO = T.TEST_ID LEFT JOIN TEST_DETAILS T2 ON T.TEST_ID = T2.TEXT_ID WHERE  E.CHECKOUT_ID = #{record_id} and E.EXAMINE_STATE = #{state} OR  E.EXAMINE_STATE = 2
     </select>
 <!--    修改检查项目收费状态-->
     <update id="upExamine">
