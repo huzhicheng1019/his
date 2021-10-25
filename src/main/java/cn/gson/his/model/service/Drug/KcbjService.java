@@ -26,6 +26,7 @@ public class KcbjService {
     @Autowired
     ConMapper conMapper;
 
+    //库存报警查询
     public Map<String,Object> kcbjcx(){
         Map<String,Object> map = new HashMap<>();
         List<ProductEntity> productEntityList=new ArrayList<>();
@@ -60,7 +61,7 @@ public class KcbjService {
         }
 
         for (int i=1;i<productEntityList.size();i++){
-            for (int j=0;j<productEntityList.size()-1-i;j++){
+            for (int j=0;j<productEntityList.size()-i;j++){
                if(productEntityList.get(j).getSl()>productEntityList.get(j+1).getSl()){
                     ProductEntity temp;
                     temp=productEntityList.get(j);
@@ -69,6 +70,9 @@ public class KcbjService {
                }
             }
 
+        }
+        for (ProductEntity productEntity : productEntityList) {
+            System.out.println(productEntity);
         }
         map.put("kcbjcx",productEntityList);
         return map;
