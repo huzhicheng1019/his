@@ -31,5 +31,7 @@ public interface PrescriptionMapper {
     public List<SyEntity> allOperall(String record_id);
     //查询这个患者所有的化验检查
     public List<SyEntity>sllSYEexamineChange(String record_id);
+    //查询住院患者的所有检查化验
+    public List<SyEntity>sllSYZYEexamineChange(String recordId);
 
 }

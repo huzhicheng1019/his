@@ -58,7 +58,6 @@
         <result column="DOCTOR" property="doctor"/>
         <result column="dateXM" property="dateXM"/>
         <result column="id" property="id"/>
-        <result column="Xstate" property="Xstate"/>
     </resultMap>
 <!--    查询处方-->
     <select id="allPres" resultMap="pres">
@@ -115,13 +114,21 @@
 </insert>
 <!--    查询所有检验化验项目-->
     <select id="sllSYEexamineChange" resultMap="Sy">
-        select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c1.CHANGEPART_PRICE as price ,C.CHECKOUT_STATE as state,C.CHECKOUT_DATE as checDate,C.CHECKOUT_DOCTOR as doctor , C.CHECKOUT_DOCTOR_NO as id,C1.CHANGEPART_NO as NO, C1.CHANGEPART_STATE as Xstate
-                      from CHECKOUT C  inner join changePart C1  on C.Checkout_no = C1.Checkout_no
+        select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c1.CHANGEPART_PRICE as price ,C.CHECKOUT_STATE as state,C.CHECKOUT_DATE as checDate,C.CHECKOUT_DOCTOR as doctor , C.CHECKOUT_DOCTOR_NO as id,C1.CHANGEPART_NO as NO
                       union all
                       select CHECKOUT_ID as RECORD_ID , EXAMINE_METHOD as name,EXAMINE_LOOK as price ,EXAMINE_STATE as state ,EXAMINE_DATE as checDate,
-                          EXAMINE_DOCTOR as doctor, EXAMINE_DOCTOR_NO as id, EXAMINE_NO as no, null
+                          EXAMINE_DOCTOR as doctor, EXAMINE_DOCTOR_NO as id, EXAMINE_NO as no
                       from examine)rec
         WHERE rec.RECORD_ID= #{record_id}
     </select>
-
+<!--住院里面的查询检查化验-->
+    <select id="sllSYZYEexamineChange" resultMap="sy">
+        select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c1.CHANGEPART_PRICE as price ,C1.CHANGEPART_STATE as state,C.CHECKOUT_DATE as checDate,C.CHECKOUT_DOCTOR as doctor , C.CHECKOUT_DOCTOR_NO as id,C1.CHANGEPART_NO as NO
+                      from CHECKOUT C  inner join changePart C1  on C.Checkout_no = C1.Checkout_no
+                      union all
+                      select CHECKOUT_ID as RECORD_ID , EXAMINE_METHOD as name,EXAMINE_LOOK as price ,EXAMINE_STATE as state ,EXAMINE_DATE as checDate,
+                          EXAMINE_DOCTOR as doctor, EXAMINE_DOCTOR_NO as id, EXAMINE_NO as no
+                      from examine)rec
+        WHERE rec.RECORD_ID= #{record_id}
+    </select>
 </mapper>

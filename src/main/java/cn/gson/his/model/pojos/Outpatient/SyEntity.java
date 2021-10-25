@@ -14,15 +14,7 @@ public class SyEntity {
     private String doctor;
     private  int id;
     private int no;
-    private  int Xstate;
 
-    public int getXstate() {
-        return Xstate;
-    }
-
-    public void setXstate(int xstate) {
-        Xstate = xstate;
-    }
 
     public int getNo() {
         return no;
