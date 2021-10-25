@@ -13,6 +13,7 @@ public class ChangepartEntity {
     private Integer checkoutNo;//化验单外键
     private String checkoutResult;//化验结果
     private int changetestStata;//化验结果是否结果
+    private int changetestPrice;//详情价格
 
     private CheckoutEntity checkoutEntity;//化验主表
     //检验项目
@@ -82,6 +83,22 @@ public class ChangepartEntity {
 
     public void setCheckoutResult(String checkoutResult) {
         this.checkoutResult = checkoutResult;
+    }
+
+    public int getChangetestStata() {
+        return changetestStata;
+    }
+
+    public void setChangetestStata(int changetestStata) {
+        this.changetestStata = changetestStata;
+    }
+
+    public int getChangetestPrice() {
+        return changetestPrice;
+    }
+
+    public void setChangetestPrice(int changetestPrice) {
+        this.changetestPrice = changetestPrice;
     }
 
     @Override
