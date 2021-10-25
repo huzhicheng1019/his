@@ -195,4 +195,23 @@ public class ProductEntity {
         this.shdw = shdw;
         this.dw = dw;
     }
+
+    @Override
+    public String toString() {
+        return "ProductEntity{" +
+                "planxqId=" + planxqId +
+                ", productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", productFl='" + productFl + '\'' +
+                ", planId='" + planId + '\'' +
+                ", price=" + price +
+                ", sl=" + sl +
+                ", ge='" + ge + '\'' +
+                ", gys=" + gys +
+                ", kszt='" + kszt + '\'' +
+                ", gesl=" + gesl +
+                ", shdw='" + shdw + '\'' +
+                ", dw='" + dw + '\'' +
+                '}';
+    }
 }

@@ -37,6 +37,7 @@ public class CangkService {
     @Autowired
     CankxqDao cankxqDao;
 
+//    仓库查询
     public Map<String,Object> ckselect(int pageNo, int size, String nr){
         Map<String,Object> map = new HashMap<>();
         //分页查询
@@ -46,6 +47,7 @@ public class CangkService {
         return map;
     }
 
+//    仓库详情查询
     public Map<String,Object> ckxqselect(int pageNo, int size,Integer id, String nr){
         System.out.println(id);
         System.out.println(nr);
@@ -56,7 +58,7 @@ public class CangkService {
         map.put("total",page.getTotal());
         return map;
     }
-
+//仓库信息查询（修改）
     public Map<String,Object> ckxxselect(Integer id, String nr){
         Map<String,Object> map = new HashMap<>();
         List<LibraryxqEntity> ckxqcx = cangkMapper.ckxqcx(id, nr);
@@ -68,19 +70,19 @@ public class CangkService {
         map.put("ckxq",ckxqcx);
         return map;
     }
-
+    //药品查询
     public Map<String,Object> ypselect(DrugEntity drugEntity){
         Map<String,Object> map = new HashMap<>();
         map.put("rows",ypMapper.selectyp(drugEntity));
         return map;
     }
-
+    //耗材查询
     public Map<String,Object> conselect(ConEntity conEntity){
         Map<String,Object> map = new HashMap<>();
         map.put("rows",conMapper.concx(conEntity));
         return map;
     }
-
+    //判断是否有入库记录
     public int stojlcx(LibraryxqEntity libraryxqEntity){
         System.out.println(libraryxqEntity.getLibrary().getLibraryId());
         List<StoEntity> stocx = cangkMapper.stocx(libraryxqEntity.getLibrary().getLibraryId());
@@ -91,7 +93,7 @@ public class CangkService {
         }
         return size;
     }
-
+    //判断是否有出库记录
     public int chujlcx(LibraryxqEntity libraryxqEntity){
         List<ChuEntity> chucx = cangkMapper.chucx(libraryxqEntity.getLibrary().getLibraryId());
         int size=0;
@@ -101,7 +103,7 @@ public class CangkService {
         }
         return size;
     }
-
+    //新增/修改仓库
     public void xzgxck(LibraryInfoEntity libraryInfo,List<LibraryxqEntity> libraryxqList,List<LibraryxqEntity> delxq){
 
         for (LibraryxqEntity libraryxqEntity : delxq) {
@@ -129,6 +131,7 @@ public class CangkService {
         }
     }
 
+//    新增/修改判断
     public String xzxgpd(int id,String name){
         String pd="ok";
         List<LibraryInfoEntity> cangkcx = cangkMapper.cangkcx("");
@@ -149,6 +152,7 @@ public class CangkService {
         return pd;
     }
 
+//    删除仓库
     public String delck(Integer id){
         List<StoEntity> stocx = cangkMapper.stocx(id);
         List<ChuEntity> chucx = cangkMapper.chucx(id);
