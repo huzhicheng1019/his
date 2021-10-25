@@ -43,7 +43,6 @@
             <if test="nr!=null and nr!=''">
                 and PLAN_ID like concat(concat('%',#{nr}),'%')
             </if>
-            and to_date(to_char(SYSDATE,'yyyy-mm-dd'),'yyyy-mm-dd')=to_date(to_char(PLAN_CGDATE,'yyyy-mm-dd'),'yyyy-mm-dd')
         </where>
     </select>
 
