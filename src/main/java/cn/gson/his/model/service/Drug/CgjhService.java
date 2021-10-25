@@ -107,25 +107,6 @@ public class CgjhService {
     public Map<String,Object> cgjhddxq(String id, Integer gid){
         Map<String,Object> map = new HashMap<>();
         List<ProductEntity> cgjhddxq = cgjhMapper.cgjhddxq(id, gid);
-        List<OrdersEntity> xzcgddcx = cgMapper.xzcgddcx(id, gid);
-
-        for (OrdersEntity ordersEntity : xzcgddcx) {
-            List<OrderxqEntity> cgxqcx = cgMapper.cgxqcx(ordersEntity.getOrderId(), "");
-            for (ProductEntity productEntity : cgjhddxq) {
-                for (OrderxqEntity orderxqEntity : cgxqcx) {
-                    if(productEntity.getProductId().equals(orderxqEntity.getProductId()) && productEntity.getProductFl().equals(orderxqEntity.getProductFl())){
-                        productEntity.setSl(productEntity.getSl()- orderxqEntity.getSl());
-                    }
-                }
-            }
-        }
-
-        for(int i=0;i<cgjhddxq.size();i++){
-            if(cgjhddxq.get(i).getSl()<=0){
-                cgjhddxq.remove(i);
-                i--;
-            }
-        }
         map.put("cgjhxq",cgjhddxq);
         return map;
     }
