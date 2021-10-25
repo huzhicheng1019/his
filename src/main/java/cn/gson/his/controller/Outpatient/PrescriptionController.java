@@ -117,5 +117,10 @@ public class PrescriptionController{
     public List<SyEntity>sllSYEexamineChange(String record_id){
         return prescriptionService.sllSYEexamineChange(record_id);
     }
+    @RequestMapping("sllSYZYEexamineChange")
+    //查询住院患者的所有检查化验
+    public List<SyEntity>sllSYZYEexamineChange(String recordId){
+       return prescriptionService.sllSYZYEexamineChange(recordId);
+    }
 
 }

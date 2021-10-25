@@ -78,4 +78,8 @@ public class PrescriptionService {
     public List<SyEntity>sllSYEexamineChange(String record_id){
         return pm.sllSYEexamineChange(record_id);
     }
+    //查询住院患者的所有检查化验
+    public List<SyEntity>sllSYZYEexamineChange(String recordId){
+        return pm.sllSYZYEexamineChange(recordId);
+    }
 }
