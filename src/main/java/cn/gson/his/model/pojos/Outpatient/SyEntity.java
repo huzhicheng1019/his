@@ -13,7 +13,15 @@ public class SyEntity {
     private Date dateXM;
     private String doctor;
     private  int id;
+    private int no;
 
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
+    }
 
     public int getId() {
         return id;
