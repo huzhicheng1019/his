@@ -71,9 +71,6 @@ public class KcbjService {
             }
 
         }
-        for (ProductEntity productEntity : productEntityList) {
-            System.out.println(productEntity);
-        }
         map.put("kcbjcx",productEntityList);
         return map;
     }
