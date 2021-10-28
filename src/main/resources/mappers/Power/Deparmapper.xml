@@ -12,7 +12,14 @@
     <select id="allDepar" resultMap="Depar">
         select * from DEPARTMENT
     </select>
-
+<!--    查询门诊的科室-->
+    <select id="allDepar1" resultMap="Depar">
+        select * from DEPARTMENT where DEPA_DEPT = 54
+    </select>
+    <!--    查询住院的科室-->
+    <select id="allDepar2" resultMap="Depar">
+        select * from DEPARTMENT where DEPA_DEPT = 55
+    </select>
     <!--映射科室-->
     <resultMap id="DeparMap" type="cn.gson.his.model.pojos.Power.Department">
         <id property="depaId" column="DEPA_ID"></id>

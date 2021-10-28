@@ -207,7 +207,7 @@ public class DepaSerivce {
 
 
     //每天自动扣除床位费
-    @Scheduled(cron = "0 0,0 0,8 ? * ? ")
+    @Scheduled(cron = "0 0,15 0,8 ? * ? ")
     public void checkOff(){
         try{
 

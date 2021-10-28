@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class TestResultService{
     @Autowired
@@ -45,9 +47,12 @@ public class TestResultService{
         prepayDetailsEntity.setItemId(0);
         prepayDetailsEntity.setPresType(1);
         prepayDetailsEntity.setPreId(prepayEntity.getPreId());
-        prepayDetailsEntity.setPreText("项目");
+        prepayDetailsEntity.setPreText("检查化验扣费");
         prepayDetailsMapper.insertPreDet(prepayDetailsEntity);
         return resultMapper.addTestResult(testResult);
     };
-
+    //查询结果
+    public List<TestResult> allTestResult(int pesult){
+        return  resultMapper.allTestResult(pesult);
+    }
 }

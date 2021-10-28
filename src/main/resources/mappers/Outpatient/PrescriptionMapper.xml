@@ -56,7 +56,7 @@
         <result column="PRICE" property="price"></result>
         <result column="STATE" property="state"/>
         <result column="DOCTOR" property="doctor"/>
-        <result column="dateXM" property="dateXM"/>
+        <result column="checDate" property="checDate"/>
         <result column="id" property="id"/>
     </resultMap>
 <!--    查询处方-->
@@ -93,7 +93,7 @@
 <!--    //检查检验-->
     <select id="allJC" resultMap="Sy">
         select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c1.CHANGEPART_PRICE as price ,C.CHECKOUT_STATE as state  from CHECKOUT C
-                      inner join changePart C1  on C.Checkout_no = C.Checkout_no
+                      inner join changePart C1  on C.Checkout_no = C1.Checkout_no
                       union all
                       select CHECKOUT_ID as RECORD_ID , EXAMINE_METHOD as name,EXAMINE_LOOK as price ,EXAMINE_STATE as state from examine)rec
 
@@ -115,15 +115,6 @@
 <!--    查询所有检验化验项目-->
     <select id="sllSYEexamineChange" resultMap="Sy">
         select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c1.CHANGEPART_PRICE as price ,C.CHECKOUT_STATE as state,C.CHECKOUT_DATE as checDate,C.CHECKOUT_DOCTOR as doctor , C.CHECKOUT_DOCTOR_NO as id,C1.CHANGEPART_NO as NO
-                      union all
-                      select CHECKOUT_ID as RECORD_ID , EXAMINE_METHOD as name,EXAMINE_LOOK as price ,EXAMINE_STATE as state ,EXAMINE_DATE as checDate,
-                          EXAMINE_DOCTOR as doctor, EXAMINE_DOCTOR_NO as id, EXAMINE_NO as no
-                      from examine)rec
-        WHERE rec.RECORD_ID= #{record_id}
-    </select>
-<!--住院里面的查询检查化验-->
-    <select id="sllSYZYEexamineChange" resultMap="sy">
-        select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c1.CHANGEPART_PRICE as price ,C1.CHANGEPART_STATE as state,C.CHECKOUT_DATE as checDate,C.CHECKOUT_DOCTOR as doctor , C.CHECKOUT_DOCTOR_NO as id,C1.CHANGEPART_NO as NO
                       from CHECKOUT C  inner join changePart C1  on C.Checkout_no = C1.Checkout_no
                       union all
                       select CHECKOUT_ID as RECORD_ID , EXAMINE_METHOD as name,EXAMINE_LOOK as price ,EXAMINE_STATE as state ,EXAMINE_DATE as checDate,
@@ -131,4 +122,24 @@
                       from examine)rec
         WHERE rec.RECORD_ID= #{record_id}
     </select>
+<!--住院里面的查询检查化验-->
+    <select id="sllSYZYEexamineChange" resultMap="Sy">
+        select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c1.CHANGEPART_PRICE as price ,C1.CHANGEPART_STATE as state,C.CHECKOUT_DATE as checDate,C.CHECKOUT_DOCTOR as doctor , C.CHECKOUT_DOCTOR_NO as id,C1.CHANGEPART_NO as NO
+                      from CHECKOUT C  inner join changePart C1  on C.Checkout_no = C1.Checkout_no
+                      union all
+                      select CHECKOUT_ID as RECORD_ID , EXAMINE_METHOD as name,EXAMINE_LOOK as price ,EXAMINE_STATE as state ,EXAMINE_DATE as checDate,
+                          EXAMINE_DOCTOR as doctor, EXAMINE_DOCTOR_NO as id, EXAMINE_NO as no
+						from examine)rec
+        WHERE rec.RECORD_ID= #{recordId}  order by state
+    </select>
+<select id="sllSYZYEexamineChangeJG" resultMap="Sy">
+        select * from(select C.CHECKOUT_ID as RECORD_ID,C1.CHECKOUT_RESULT as name,c1.CHANGEPART_PRICE as price ,C1.CHANGEPART_STATE as state,C.CHECKOUT_DATE as checDate,C.CHECKOUT_DOCTOR as doctor , C.CHECKOUT_DOCTOR_NO as id,C1.CHANGEPART_NO as NO
+                      from CHECKOUT C  inner join changePart C1  on C.Checkout_no = C1.Checkout_no
+                      union all
+                      select CHECKOUT_ID as RECORD_ID , EXAMINE_METHOD as name,EXAMINE_LOOK as price ,EXAMINE_STATE as state ,EXAMINE_DATE as checDate,
+                          EXAMINE_DOCTOR as doctor, EXAMINE_DOCTOR_NO as id, EXAMINE_NO as no
+						from examine)rec
+        WHERE rec.RECORD_ID= #{recordId}  and rec.state = 4  order by state
+</select>
+
 </mapper>

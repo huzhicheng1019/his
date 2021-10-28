@@ -131,5 +131,14 @@
         order by apps.ops_is
     </select>
 
+    <!--根据住院号查询病人已完成手术的申请表-->
+    <select id="selAppResult" resultMap="appMap">
+        SELECT * from OPERATION_APPLY app left join OPERATION_APPLYS apps on app.app_id = apps.app_id
+        left join OPERATION_ITEM i on apps.ops_id = i.operation_id
+        LEFT JOIN EMPLOYEE e on e.emp_id = app.doctor_id
+        left join hospital_register h on app.reg_mark = h.reg_mark
+        left join department d on h.depa_id = d.depa_id
 
+        where app.reg_mark=#{regMark} and apps.ops_is = 3
+    </select>
 </mapper>

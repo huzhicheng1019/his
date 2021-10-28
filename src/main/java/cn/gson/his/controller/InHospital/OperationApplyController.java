@@ -58,4 +58,10 @@ public class OperationApplyController {
         return  applyService.allApp(operationApplyEntity1);
     }
 
+    //根据住院号查询病人已完成手术的申请表
+    @RequestMapping("/selAppResult")
+    public List<OperationApplyEntity> selAppResult(String regMark){
+        return applyService.selAppResult(regMark);
+    }
+
 }

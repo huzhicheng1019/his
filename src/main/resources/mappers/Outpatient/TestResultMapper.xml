@@ -3,11 +3,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.gson.his.model.mappers.Outpatient.TestResultMapper">
 
+    <resultMap id="allResult" type="cn.gson.his.model.pojos.Outpatient.TestResult">
+            <id column="RESULT_ID" property="resultId"/>
+            <result column="CHANGEPART_NO" property="changepartNo"/>
+            <result column="RESULT" property="result"/>
+            <result column="RESULT_SHOW" property="resultShow"/>
+    </resultMap>
 
 
 
     <insert id="addTestResult">
         insert into TEST_RESULT values(seq.nextval,#{changepartNo},#{result},#{resultShow})
     </insert>
+<!--    查询结果-->
+    <select id="allTestResult" resultMap="allResult">
+            select  * from  TEST_RESULT where CHANGEPART_NO = #{pesult}
+    </select>
 
 </mapper>

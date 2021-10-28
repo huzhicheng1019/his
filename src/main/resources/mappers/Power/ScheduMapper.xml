@@ -61,7 +61,7 @@
     </resultMap>
 
     <select id="allShiftById" resultMap="Shift">
-        select * from shift where shi_type=#{typeId} order by START_TIME desc
+        select * from shift where shi_type=#{typeId}
     </select>
 
     <!--查询本周星期-->

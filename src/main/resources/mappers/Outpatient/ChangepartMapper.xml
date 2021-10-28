@@ -29,13 +29,13 @@
             <result property="changetestNo" column="CHANGETEST_NO"/>
             <result property="checkoutResult" column="CHECKOUT_RESULT"/>
             <result property="changetestStata" column="CHANGEPART_STATE"/>
+            <result property="changetestPrice" column="CHANGEPART_PRICE"></result>
             <association property="checkoutEntity" javaType="cn.gson.his.model.pojos.Outpatient.CheckoutEntity">
                 <id property="checkoutNo" column="CHECKOUT_NO"></id>
                 <result property="checkoutId" column="CHECKOUT_ID"></result>
                 <result property="checkoutCribe" column="CHECKOUT_CRIBE"></result>
                 <result property="checkoutPrice" column="CHECKOUT_PRICE"></result>
                 <result property="checkoutState" column="CHECKOUT_STATE"></result>
-                <result property="changetestPrice" column="CHANGEPART_PRICE"></result>
             </association>
             <association property="testsEntity" javaType="cn.gson.his.model.pojos.Checkout.TestsEntity">
                 <id property="testId" column="Test_id"></id>
@@ -57,7 +57,7 @@
         SELECT * FROM CHECKOUT C
             INNER JOIN CHANGEPART C1  ON C.CHECKOUT_NO = C1.CHECKOUT_NO
             INNER JOIN TESTS T ON C1.CHANGETEST_NO = T.TEST_ID
-            LEFT JOIN TEST_DETAILS T2 ON T.TEST_ID = T2.TEXT_ID where C.CHECKOUT_ID = #{checkoutId} and C.CHECKOUT_STATE = 1 AND C1.CHANGEPART_STATE = 0 or C.CHECKOUT_STATE = 2
+            LEFT JOIN TEST_DETAILS T2 ON T.TEST_ID = T2.TEXT_ID where C.CHECKOUT_ID = #{checkoutId} and (C.CHECKOUT_STATE = 1 or C.CHECKOUT_STATE = 2) AND (C1.CHANGEPART_STATE = 0 or C.CHECKOUT_STATE = 2)
     </select>
 <!--    修改化验结果 -->
     <update id="upChangepart">
@@ -72,6 +72,6 @@
         SELECT * FROM CHECKOUT C
                 INNER JOIN CHANGEPART C1  ON C.CHECKOUT_NO = C1.CHECKOUT_NO
                 INNER JOIN TESTS T ON C1.CHANGETEST_NO = T.TEST_ID
-                LEFT JOIN TEST_DETAILS T2 ON T.TEST_ID = T2.TEXT_ID where C.CHECKOUT_ID = #{checkoutId} and C.CHECKOUT_STATE = 1 AND C1.CHANGEPART_STATE = 1
+                LEFT JOIN TEST_DETAILS T2 ON T.TEST_ID = T2.TEXT_ID where C.CHECKOUT_ID = #{checkoutId} and C.CHECKOUT_STATE = 1
     </select>
 </mapper>

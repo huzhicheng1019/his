@@ -21,6 +21,17 @@ public class Department {
     private List<ScheEmp> scheEmps; // 排班人员
     private Schedu schedu;//排班日期
     private Title titles;//职称
+//    private Shift shift;
+//
+//    @ManyToOne
+//    @Transient
+//    public Shift getShift() {
+//        return shift;
+//    }
+//
+//    public void setShift(Shift shift) {
+//        this.shift = shift;
+//    }
 
     @ManyToOne
     @Transient

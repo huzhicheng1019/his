@@ -83,7 +83,7 @@
             <if test="start!=null and end!=null">
                 and (e.EMP_INDUCTION between #{start} and #{end} or e.EMP_DEPARTURE between #{start} and #{end})
             </if>
-            <if test="state!=null and state!=''">
+            <if test="state!=null">
                 and (e.EMP_STATE=#{state})
             </if>
             <if test="screening!=null and screening!=''">
@@ -105,7 +105,7 @@
                 and (e.EMP_ID like '%${fuzzy}%' or e.EMP_NAME like '%${fuzzy}%' or e.EMP_PHONE like '%${fuzzy}%' or e.EMP_CARD like '%${fuzzy}%' or to_char(e.EMP_INDUCTION,'yyyy-mm-dd HH24:mi:ss:ff') like '%${fuzzy}%' or to_char(e.EMP_DEPARTURE,'yyyy-mm-dd HH24:mi:ss:ff') like '%${fuzzy}%' or d.DEPT_NAME like '%${fuzzy}%' or a.DEPA_NAME like '%${fuzzy}%' or t.TIT_NAME like '%${fuzzy}%' or u.USER_ACCOUNT like '%${fuzzy}%')
             </if>
         </where>
-        order by e.EMP_INDUCTION,e.EMP_DEPARTURE
+        order by e.EMP_STATE,e.EMP_INDUCTION DESC
     </select>
 
 

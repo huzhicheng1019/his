@@ -55,7 +55,14 @@ public class DeparService {
     public List<Department> allDeparmy(){
         return deparMapper.allDepar();
     }
-
+    //查询所有门诊的科室
+    public List<Department> allDepar1(){
+        return deparMapper.allDepar1();
+    }
+    //查询所有住院的科室
+    public List<Department> allDepar2(){
+        return deparMapper.allDepar2();
+    }
     /**
      * 根据部门id查询该部门的科室
      * @param id

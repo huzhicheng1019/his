@@ -30,4 +30,7 @@ public interface OperationApplyMapper {
     //查询所有手术申请表
     public List<OperationApplyEntity> allApp(@Param("depaId")String depaId,@Param("beginTime")String beginTime,@Param("endTime")String endTime,@Param("content")String content);
 
+    //根据住院号查询病人已完成手术的申请表
+    public List<OperationApplyEntity> selAppResult(String regMark);
+
 }

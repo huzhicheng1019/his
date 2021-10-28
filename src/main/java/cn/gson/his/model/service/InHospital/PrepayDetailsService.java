@@ -31,7 +31,7 @@ public class PrepayDetailsService {
         PrepayEntity pre = new PrepayEntity();
         pre.setPreBalance(prepayDetailsEntity.getPresPrice());
         pre.setPreId(prepayDetailsEntity.getPreId());
-        prepayMapper.updatePre1(pre);
+        prepayMapper.updatePre(pre);
 
 
         return prepayDetails.insertPreDet(prepayDetailsEntity);

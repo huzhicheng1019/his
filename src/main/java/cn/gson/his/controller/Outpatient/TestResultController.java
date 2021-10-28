@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("wjc")
 public class TestResultController {
@@ -37,9 +39,15 @@ public class TestResultController {
         System.out.println(testResult);
 
         TestResult testResult1 = JSONObject.parseObject(testResult,TestResult.class);
-        examineService.upExamineID("2",Integer.valueOf(examineNo));
+        examineService.upExamineID("5",Integer.valueOf(examineNo));
 
-        changepart.upChangepartJG(1,Integer.valueOf(examineNo));
+        changepart.upChangepartJG(5,Integer.valueOf(examineNo));
         return testResultService.addTestResult(testResult1);
+    }
+
+    //查询结果
+    @RequestMapping("allTestResult")
+    public List<TestResult> allTestResult(int pesult){
+        return  testResultService.allTestResult(pesult);
     }
 }

@@ -65,5 +65,9 @@ public class OperationApplyService {
         return  applyMapper.allApp(depaId,beginTime,endTime,operationApplyEntity.getContent());
     }
 
+    //根据住院号查询病人已完成手术的申请表
+    public List<OperationApplyEntity> selAppResult(String regMark){
+        return applyMapper.selAppResult(regMark);
+    }
 
 }

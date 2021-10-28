@@ -41,6 +41,9 @@ public class EmployeeService {
     @Autowired
     RoleMapper roleMapper;
 
+    @Autowired
+    UserService service;
+
     //查询住院部的医生
     public List<Employee> selDoctor(Integer depaId){
         return empMapper.selDoctor(depaId);
@@ -53,11 +56,10 @@ public class EmployeeService {
 
     /**
      * 分页查询所有
-     * @param pageNo
-     * @param size
      * @return
      */
     public List<Employee> allEmp( Timestamp start,Timestamp end,Integer state,List<Integer> screening,String fuzzy){
+        System.out.println("是否在职"+state);
         List<Employee> list = empMapper.allEmp(start,end,state,screening,fuzzy);
         return list;
     }
@@ -71,9 +73,12 @@ public class EmployeeService {
         if(emp.getDepartmentByEmpDepar().getDepaId()==null){
             emp.setDepartmentByEmpDepar(null);
         }
+        System.out.println("员工id"+emp.getEmpId());
+        if(emp.getEmpId()==null){
+            String encryptedPwd = MD5.getEncryptedPwd("123456");
+            emp.getUseres().setUserPass(encryptedPwd);
+        }
         emp.getUseres().setEmployeeByUserEmp(emp);
-        String encryptedPwd = MD5.getEncryptedPwd(emp.getUseres().getUserPass());
-        emp.getUseres().setUserPass(encryptedPwd);
         Employee s = dao.save(emp);
         UserInfo u = userDao.save(emp.getUseres());
         return s==null || u==null ? 0:1;

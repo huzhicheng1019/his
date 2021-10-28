@@ -87,7 +87,7 @@ public class HangMarkController {
     //科室返回前端
     @RequestMapping("Depar")
     public List<Department> allDepa(){
-        return ds.allDeparmy();
+        return ds.allDepar1();
     }
     //把挂号类型返回前端
     @RequestMapping("HangType")

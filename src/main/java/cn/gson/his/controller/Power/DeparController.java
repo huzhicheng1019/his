@@ -51,6 +51,11 @@ public class DeparController {
         return service.allDeparmy();
     }
 
+    @RequestMapping("/allDeparmy2")
+    public List<Department> allDeparmy2(){
+        return service.allDepar2();
+    }
+
     /**
      * 新增、修改部门
      * @param department

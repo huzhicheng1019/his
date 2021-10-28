@@ -18,6 +18,10 @@ public interface DeparMapper {
      * @return
      */
     public List<Department> allDepar();
+    //查询所有门诊的科室
+    public List<Department> allDepar1();
+    //查询所有住院的科室
+    public List<Department> allDepar2();
 
     public List<Department> pageDepar(@Param("name") String name, @Param("startDate") Timestamp startDate, @Param("endDate")Timestamp endDate);
 }

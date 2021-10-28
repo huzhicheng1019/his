@@ -10,7 +10,7 @@ public class SyEntity {
     private int count;
     private int price;
     private  int state;
-    private Date dateXM;
+    private Date checDate;
     private String doctor;
     private  int id;
     private int no;
@@ -32,12 +32,12 @@ public class SyEntity {
         this.id = id;
     }
 
-    public Date getDateXM() {
-        return dateXM;
+    public Date getChecDate() {
+        return checDate;
     }
 
-    public void setDateXM(Date dateXM) {
-        this.dateXM = dateXM;
+    public void setChecDate(Date checDate) {
+        this.checDate = checDate;
     }
 
     public String getDoctor() {

@@ -34,4 +34,6 @@ public interface PrescriptionMapper {
     //查询住院患者的所有检查化验
     public List<SyEntity>sllSYZYEexamineChange(String recordId);
 
+    //查询住院患者的所有有结果的检查化验
+    public List<SyEntity>sllSYZYEexamineChangeJG(String recordId);
 }
